@@ -18,4 +18,4 @@ Set up basic functionality (page structure, routing)
 ## Phase 3: MVP
 Set up the basic functionality required to deliver a Minimum Viable Product
 ## Phase 4: Extra
-Go through the post-mvp ideas in order until class ends![image](https://user-images.githubusercontent.com/90867915/191100552-a0bd1d80-7594-4c07-a547-d9ee1c1f03d0.png)
+Go through the post-mvp ideas in order until class ends
