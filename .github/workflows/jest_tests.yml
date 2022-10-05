@@ -22,7 +22,3 @@ jobs:
     - run: npm ci
     - run: npm run build
     - run: npm test
-    - name: Jest GitHub Action
-      uses: willcaul/jest-github-action@v2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
