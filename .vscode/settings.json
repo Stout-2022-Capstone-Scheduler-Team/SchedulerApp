@@ -1,0 +1,10 @@
+{
+    "git.ignoreLimitWarning": true,
+    "files.exclude": {
+        "**/.github": true,
+        "**/.vscode": true,
+        "**/.next": true,
+        "**/.swc": true,
+        "**/node_modules": true
+    }
+}
