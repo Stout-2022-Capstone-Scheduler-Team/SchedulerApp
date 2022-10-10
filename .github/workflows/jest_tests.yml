@@ -21,10 +21,12 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build
-    - run: npm run test:ci
+    # - run: npm run test:ci
     - name: Jest GitHub Action
       uses: willcaul/jest-github-action@v2
       with:
         test-command: npm run test:ci
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # env:
+      #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: ESlint GitHub Action
+      uses: eslint/github-action@v0
