@@ -6,13 +6,13 @@ import assert from "assert"
 export class Time {
   hours: number;
   constructor(hours: number) {
-    this.hours = hours;
+  this.hours = hours;
   }
   /**
    * Time.FromString("05:15") -> 5.25
   * */
   static FromString(s: string): Time {
-    return new Time(0);
+  return new Time(0);
   }
 }
 
@@ -40,18 +40,18 @@ export class Shift {
   owner: string = '';
 
   constructor(name: string, start: Time, end: Time, day: DayOftheWeek) {
-    this.name = name;
-    this.start = start;
-    this.end = end;
-    this.day = day;
+  this.name = name;
+  this.start = start;
+  this.end = end;
+  this.day = day;
   }
 
   overlaps(other: Shift): boolean {
-    if (this.day == other.day) {
-      return this.start <= other.end && other.start <= this.end;
-    } else {
-      return false;
-    }
+  if (this.day == other.day) {
+    return this.start <= other.end && other.start <= this.end;
+  } else {
+    return false;
+  }
   }
 }
 
@@ -59,14 +59,104 @@ export class Employee {
   name: string;
   min_hours: number;
   max_hours: number;
-  current_hours: number = 0;
-  available: Shift[] = [];
-  busy: Shift[] = [];
+  current_hours: number;
+  available: Shift[];
+  busy: Shift[]
   constructor(name: string, min_hours: number, max_hours: number) {
     assert(min_hours <= max_hours);
     this.name = name;
     this.min_hours = min_hours;
     this.max_hours = max_hours;
+    this.current_hours = 0;
+    this.busy = [];
+    this.available = [];
+  }
+
+  notBusy(inputShift: Shift): boolean{
+    for(let y=0;y<this.busy.length;y++){
+      if(inputShift.overlaps(this.busy[y])){
+        return false;
+      }
+    }
+    return true;
+  }
+}
+
+// let a = { name: "", min_hours: 0, max_hours: 0, current_hours: 0 };
+export class SchedulerService {
+  schedule: Shift[];
+  staff: Employee[];
+  isValid: boolean;
+  constructor(schedule: Shift[],staff: Employee[]){
+    this.schedule = schedule;
+    this.staff = staff;
+    this.isValid = this.createValidSchedule();
+  }
+
+  reset() {
+    for(let i=0;i<this.staff.length;i++){
+      this.staff[i].busy = [];
+      this.staff[i].current_hours = 0;
+    }
+    for(let i=0;i<this.schedule.length;i++){
+      this.schedule[i].name = "";
+    }
+  }
+
+  createValidSchedule(): boolean{
+    let fail = 0;
+    let valid = true;
+    do{
+      //If it fails 1000 times in a row, stop trying
+      if(fail++ >= 1000){
+        return false;
+      }
+      valid = this.generate();
+      if(!valid){
+        this.reset();
+      }
+    } while(!valid);
+    return true;
+  }
+
+  generate(): boolean {
+    for(let s=0;s<this.schedule.length;s++){
+      if(s > 0){
+        //If it failed to assign a shift, it will return false
+        if(this.schedule[s-1].name = ""){
+          return false;
+        }
+        //It will find the Employee that was most recently assigned a shift and push it to the end
+        for(let e=0;e<this.staff.length;e++){
+          if(this.schedule[s-1].name == this.staff[e].name){
+            this.staff.push(this.staff[e]);
+            delete this.staff[e];
+            break;
+          }
+        }
+      }
+      foundEmployee: for(let e=0;e<this.staff.length;e++){
+        for(let a=0;a<this.staff[e].available.length;a++){
+          //If the employee is available and isn't busy, then they gain the shift
+          if(this.schedule[s].contains(this.staff[e].available[a]) && this.staff[e].current_hours + getDuration(this.schedule[s]) <= this.staff[e].max_hours && this.staff[e].notBusy(this.schedule[s])){
+            this.schedule[s].name = this.staff[e].name; //Assign shift
+            this.staff[e].current_hours += getDuration(this.schedule[s]); //Increase Hours
+            this.staff[e].busy.push(this.schedule[s]); //Add the shift to their busy
+            break foundEmployee; //return to the 1st for loop & get a new shift
+          }
+        }
+      }
+    }
+    for(let i=0;i<this.staff.length;i++){
+      if(this.staff[i].current_hours < this.staff[i].min_hours){
+        return false;
+      }
+    }
+    return true;
+  }
+
+  getSchedule(): Shift[]{
+    return this.schedule;
   }
 }
 
