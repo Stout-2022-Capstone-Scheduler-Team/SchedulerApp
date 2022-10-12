@@ -20,11 +20,17 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run build
-    - run: npm run test:ci
     - name: Jest GitHub Action
       uses: willcaul/jest-github-action@v2
       with:
         test-command: npm run test:ci
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: ESlint Github Action
+      uses: sibiraj-s/action-eslint@v2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }} # Optional
+        eslint-args: '--ignore-path=.gitignore --quiet'
+        extensions: 'js,jsx,ts,tsx'
+        annotations: true
+    - run: npm run build

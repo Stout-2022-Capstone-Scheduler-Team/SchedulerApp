@@ -5,6 +5,8 @@
         "**/.vscode": true,
         "**/.next": true,
         "**/.swc": true,
-        "**/node_modules": true
+        "**/node_modules": true,
+        "**/package-lock.json": true,
+        "**/coverage": true
     }
 }
