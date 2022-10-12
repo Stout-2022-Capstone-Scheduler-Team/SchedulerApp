@@ -86,17 +86,26 @@ export class Employee {
     }
     return true
   }
+
+  gainHours(input: number): boolean {
+    if(this.current_hours + input <= this.max_hours){
+      this.current_hours += input
+      return true
+    }
+    return false;
+  }
 }
 
-// let a = { name: "", min_hours: 0, max_hours: 0, current_hours: 0 };
 export class SchedulerService {
   schedule: Shift[]
+  empty: Shift[]
   staff: Employee[]
   isValid: boolean
   constructor(schedule: Shift[], staff: Employee[]) {
     this.schedule = schedule
     this.staff = staff
     this.isValid = this.createValidSchedule()
+    this.empty = [];
   }
 
   reset() {
@@ -137,14 +146,8 @@ export class SchedulerService {
       foundEmployee: for (let e = 0; e < this.staff.length; e++) {
         for (let a = 0; a < this.staff[e].available.length; a++) {
           //If the employee is available and isn't busy, then they gain the shift
-          if (
-            this.schedule[s].contains(this.staff[e].available[a]) &&
-            this.staff[e].current_hours + getDuration(this.schedule[s]) <=
-              this.staff[e].max_hours &&
-            this.staff[e].notBusy(this.schedule[s])
-          ) {
+          if (this.schedule[s].contains(this.staff[e].available[a]) && this.staff[e].gainHours(getDuration(this.schedule[s])) && this.staff[e].notBusy(this.schedule[s])) {
             this.schedule[s].name = this.staff[e].name //Assign shift
-            this.staff[e].current_hours += getDuration(this.schedule[s]) //Increase Hours
             this.staff[e].busy.push(this.schedule[s]) //Add the shift to their busy
             break foundEmployee //return to the 1st for loop & get a new shift
           }
@@ -160,6 +163,9 @@ export class SchedulerService {
   }
 
   getSchedule(): Shift[] {
-    return this.schedule
+    if(this.isValid){
+      return this.schedule
+    }
+    return this.empty
   }
 }
