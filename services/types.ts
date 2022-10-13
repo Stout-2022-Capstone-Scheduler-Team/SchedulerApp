@@ -5,22 +5,22 @@ import assert from 'assert'
  */
 export class Time {
   hours: number
-  constructor (hours: number) {
+  constructor(hours: number) {
     this.hours = hours
   }
 
   /**
    * Time.FromString("05:15") -> 5.25
    * */
-  static FromString (s: string): Time {
+  static FromString(s: string): Time {
     const hours = Number(s.substring(0, 2))
     assert(s.charAt(2) === ':')
     const minutes = Number(s.substring(3, 5))
     return new Time(hours + minutes / 60)
   }
 
-  hoursTo (other: Time): number {
-    return other.hours - this.hours
+  hoursBetween(other: Time): number {
+    return Math.abs(other.hours - this.hours)
   }
 }
 
@@ -47,29 +47,29 @@ export class Shift {
   day: DayOftheWeek
   owner: string = ''
 
-  constructor (name: string, start: Time, end: Time, day: DayOftheWeek) {
+  constructor(name: string, start: Time, end: Time, day: DayOftheWeek) {
     this.name = name
     this.start = start
     this.end = end
     this.day = day
   }
 
-  overlaps (other: Shift): boolean {
+  overlaps(other: Shift): boolean {
     if (this.day === other.day) {
-      return this.start <= other.end && other.start <= this.end
+      return this.start.hours <= other.end.hours && other.start.hours <= this.end.hours
     }
     return false
   }
 
-  contains (other: Shift): boolean {
+  contains(other: Shift): boolean {
     if (this.day === other.day) {
-      return this.start <= other.start && other.end <= this.end
+      return this.start.hours <= other.start.hours && other.end.hours <= this.end.hours
     }
     return false
   }
 
-  get duration (): number {
-    return this.start.hoursTo(this.end)
+  get duration(): number {
+    return this.start.hoursBetween(this.end)
   }
 }
 
@@ -80,7 +80,7 @@ export class Employee {
   current_hours: number = 0
   available: Shift[] = []
   busy: Shift[] = []
-  constructor (name: string, minHours: number, maxHours: number) {
+  constructor(name: string, minHours: number, maxHours: number) {
     assert(minHours <= maxHours)
     this.name = name
     this.min_hours = minHours
@@ -90,7 +90,7 @@ export class Employee {
     this.available = []
   }
 
-  notBusy (inputShift: Shift): boolean {
+  notBusy(inputShift: Shift): boolean {
     for (let y = 0; y < this.busy.length; y++) {
       if (inputShift.overlaps(this.busy[y])) {
         return false
@@ -99,7 +99,7 @@ export class Employee {
     return true
   }
 
-  gainHours (input: number): boolean {
+  gainHours(input: number): boolean {
     if (this.current_hours + input <= this.max_hours) {
       this.current_hours += input
       return true
@@ -113,14 +113,14 @@ export class SchedulerService {
   empty: Shift[]
   staff: Employee[]
   isValid: boolean
-  constructor (schedule: Shift[], staff: Employee[]) {
+  constructor(schedule: Shift[], staff: Employee[]) {
     this.schedule = schedule
     this.staff = staff
     this.isValid = this.createValidSchedule()
     this.empty = []
   }
 
-  reset (): void {
+  reset(): void {
     for (let i = 0; i < this.staff.length; i++) {
       this.staff[i].busy = []
       this.staff[i].current_hours = 0
@@ -130,7 +130,7 @@ export class SchedulerService {
     }
   }
 
-  createValidSchedule (): boolean {
+  createValidSchedule(): boolean {
     for (let i = 0; i < 1000; i++) {
       if (this.generate()) {
         return true
@@ -139,7 +139,7 @@ export class SchedulerService {
     return false
   }
 
-  generate (): boolean {
+  generate(): boolean {
     for (let s = 0; s < this.schedule.length; s++) {
       if (s > 0) {
         // If it failed to assign a shift, it will return false
@@ -165,7 +165,7 @@ export class SchedulerService {
     return true
   }
 
-  something (s: number): void {
+  something(s: number): void {
     for (let e = 0; e < this.staff.length; e++) {
       for (let a = 0; a < this.staff[e].available.length; a++) {
         // If the employee is available and isn't busy, then they gain the shift
@@ -178,7 +178,7 @@ export class SchedulerService {
     }
   }
 
-  getSchedule (): Shift[] {
+  getSchedule(): Shift[] {
     if (this.isValid) {
       return this.schedule
     }
@@ -188,7 +188,7 @@ export class SchedulerService {
 
 interface MatrixCount { employee: number[], shift: number[] }
 
-function matrixCounts (matrix: boolean[][]): MatrixCount {
+function matrixCounts(matrix: boolean[][]): MatrixCount {
   const ret: MatrixCount = {
     shift: [],
     employee: []
@@ -214,7 +214,7 @@ function matrixCounts (matrix: boolean[][]): MatrixCount {
   return ret
 }
 
-function arrMin (arr: number[]): [number, number] {
+function arrMin(arr: number[]): [number, number] {
   let min = Infinity
   let idx = -1
   for (let i = 0; i < arr.length; i++) {
@@ -230,7 +230,7 @@ export class WaveformCollapseAlgorithm {
   schedule: Shift[]
   staff: Employee[]
   empty: Shift[]
-  constructor (schedule: Shift[], staff: Employee[]) {
+  constructor(schedule: Shift[], staff: Employee[]) {
     this.schedule = schedule
     this.staff = staff
     this.empty = []
@@ -244,7 +244,7 @@ export class WaveformCollapseAlgorithm {
    * assign shifts.
    *
    * */
-  generateSchedule (): boolean {
+  generateSchedule(): boolean {
     // Generate matrix & clear owners
     const matrix: boolean[][] = []
     this.schedule.forEach(shift => {
@@ -284,7 +284,7 @@ export class WaveformCollapseAlgorithm {
     }
   }
 
-  assignShift (idxShift: number, matrix: boolean[][]): boolean {
+  assignShift(idxShift: number, matrix: boolean[][]): boolean {
     // Find employee that can take the shift
     for (let i = 0; i < matrix[0].length; i++) {
       if (matrix[idxShift][i]) {
@@ -305,7 +305,7 @@ export class WaveformCollapseAlgorithm {
     return false
   }
 
-  assignEmployee (idxEmployee: number, matrix: boolean[][]): boolean {
+  assignEmployee(idxEmployee: number, matrix: boolean[][]): boolean {
     // Find shift that the employee can take
     for (let i = 0; i < matrix.length; i++) {
       if (matrix[i][idxEmployee]) {
