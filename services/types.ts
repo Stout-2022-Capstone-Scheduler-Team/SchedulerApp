@@ -5,21 +5,21 @@ import assert from 'assert'
  */
 export class Time {
   hours: number
-  constructor(hours: number) {
+  constructor (hours: number) {
     this.hours = hours
   }
 
   /**
    * Time.FromString("05:15") -> 5.25
    * */
-  static FromString(s: string): Time {
+  static FromString (s: string): Time {
     const hours = Number(s.substring(0, 2))
     assert(s.charAt(2) === ':')
     const minutes = Number(s.substring(3, 5))
     return new Time(hours + minutes / 60)
   }
 
-  hoursBetween(other: Time): number {
+  hoursBetween (other: Time): number {
     return Math.abs(other.hours - this.hours)
   }
 }
@@ -37,7 +37,7 @@ export enum DayOftheWeek {
   Sunday = 'Sunday',
 }
 
-export function compareDaytimes(
+export function compareDaytimes (
   aDay: DayOftheWeek,
   aTime: Time,
   bDay: DayOftheWeek,
@@ -59,14 +59,14 @@ export class Shift {
   day: DayOftheWeek
   owner: string = ''
 
-  constructor(name: string, start: Time, end: Time, day: DayOftheWeek) {
+  constructor (name: string, start: Time, end: Time, day: DayOftheWeek) {
     this.name = name
     this.start = start
     this.end = end
     this.day = day
   }
 
-  overlaps(other: Shift): boolean {
+  overlaps (other: Shift): boolean {
     if (this.day === other.day) {
       return (
         this.start.hours <= other.end.hours &&
@@ -76,7 +76,7 @@ export class Shift {
     return false
   }
 
-  contains(other: Shift): boolean {
+  contains (other: Shift): boolean {
     if (this.day === other.day) {
       return (
         this.start.hours <= other.start.hours &&
@@ -86,7 +86,7 @@ export class Shift {
     return false
   }
 
-  get duration(): number {
+  get duration (): number {
     return this.start.hoursBetween(this.end)
   }
 }
@@ -98,7 +98,7 @@ export class Employee {
   current_hours: number = 0
   available: Shift[] = []
   busy: Shift[] = []
-  constructor(name: string, minHours: number, maxHours: number) {
+  constructor (name: string, minHours: number, maxHours: number) {
     assert(minHours <= maxHours)
     this.name = name
     this.min_hours = minHours
@@ -108,7 +108,7 @@ export class Employee {
     this.available = []
   }
 
-  notBusy(inputShift: Shift): boolean {
+  notBusy (inputShift: Shift): boolean {
     for (let y = 0; y < this.busy.length; y++) {
       if (inputShift.overlaps(this.busy[y])) {
         return false
@@ -117,14 +117,14 @@ export class Employee {
     return true
   }
 
-  isAvailable(inputShift: Shift): boolean {
+  isAvailable (inputShift: Shift): boolean {
     return (
       this.canTakeHours(inputShift.duration) &&
       this.available.some((a) => a.contains(inputShift))
     )
   }
 
-  gainHours(input: number): boolean {
+  gainHours (input: number): boolean {
     if (this.current_hours + input <= this.max_hours) {
       this.current_hours += input
       return true
@@ -132,7 +132,7 @@ export class Employee {
     return false
   }
 
-  canTakeHours(input: number): boolean {
+  canTakeHours (input: number): boolean {
     return this.current_hours + input <= this.max_hours
   }
 
@@ -140,7 +140,7 @@ export class Employee {
    * Score on how good a shift is to take. Better scores are lower
    *
    * */
-  score(shift: Shift): number {
+  score (shift: Shift): number {
     return this.current_hours + shift.duration
   }
 }
