@@ -14,13 +14,13 @@ export function shift(
   day: DayOftheWeek,
   owner?: string
 ): Shift {
-  let s = new Shift('', Time.FromString(from), Time.FromString(to), day)
+  const s = new Shift('', Time.FromString(from), Time.FromString(to), day)
   if (owner !== undefined) {
     s.owner = owner
   }
   return s
 }
-export function all_day(day: DayOftheWeek): Shift {
+export function allDay(day: DayOftheWeek): Shift {
   return new Shift('', Time.FromString('00:00'), Time.FromString('24:00'), day)
 }
 
@@ -30,7 +30,7 @@ export function person(
   maxHours: number,
   available: Shift[]
 ): Employee {
-  let ret = new Employee(name, minHours, maxHours)
+  const ret = new Employee(name, minHours, maxHours)
   ret.available = available
   return ret
 }
