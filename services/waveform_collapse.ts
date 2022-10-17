@@ -91,22 +91,11 @@ export class WaveformCollapseAlgorithm {
       }
       // Since we are selecting the shift or employee with the least possible assignments, it should
       // reduce the likelihood we run into a conflict
-      if (minShift < minEmployee) {
-        if (!this.assignShift(idxShift, matrix)) {
-          /* istanbul ignore next */
-          throw new Error(
-            'This should be impossible since then the idxShift should have been -1'
-          )
-          // return false
-        }
-      } else {
-        if (!this.assignEmployee(idxEmployee, matrix)) {
-          /* istanbul ignore next */
-          throw new Error(
-            'This should be impossible since then the idxShift should have been -1'
-          )
-          // return false
-        }
+      if (!this.assignShift(idxShift, matrix)) {
+        /* istanbul ignore next */
+        throw new Error(
+          'This should be impossible since then the idxShift should have been -1'
+        )
       }
     }
     return true
