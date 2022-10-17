@@ -31,7 +31,7 @@ function matrixCounts(matrix: boolean[][]): MatrixCount {
   return ret
 }
 
-function arrMin(arr: number[]): [number, number] {
+function arrMin(arr: number[]): number {
   let min = Infinity
   let idx = -1
   for (let i = 0; i < arr.length; i++) {
@@ -40,7 +40,7 @@ function arrMin(arr: number[]): [number, number] {
       idx = i
     }
   }
-  return [idx, min]
+  return idx
 }
 
 export class WaveformCollapseAlgorithm {
@@ -77,18 +77,18 @@ export class WaveformCollapseAlgorithm {
     for (let i = 0; i < this.schedule.length; i++) {
       const counts = matrixCounts(matrix)
       // We could choose to always select by shift
-      const [idxShift, minShift] = arrMin(counts.shift)
+      const idxShift = arrMin(counts.shift)
       if (idxShift === -1) {
         // No shift can be assigned to an employee, but not every shift has an owner yet
         return false
       }
-      const [idxEmployee, minEmployee] = arrMin(counts.employee)
-      if (idxEmployee === -1) {
-        /* istanbul ignore next */
-        throw new Error(
-          'This should be impossible since then the idxShift should have been -1'
-        )
-      }
+      // const [idxEmployee, minEmployee] = arrMin(counts.employee)
+      // if (idxEmployee === -1) {
+      //   /* istanbul ignore next */
+      //   throw new Error(
+      //     'This should be impossible since then the idxShift should have been -1'
+      //   )
+      // }
       // Since we are selecting the shift or employee with the least possible assignments, it should
       // reduce the likelihood we run into a conflict
       if (!this.assignShift(idxShift, matrix)) {
