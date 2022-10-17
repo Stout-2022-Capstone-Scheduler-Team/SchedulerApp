@@ -50,6 +50,8 @@ const Home: NextPage = () => {
               Instantly deploy your Next.js site to a public URL with Vercel.
             </p>
           </a>
+
+          </script>
         </div>
       </main>
 
