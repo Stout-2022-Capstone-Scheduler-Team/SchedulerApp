@@ -55,14 +55,14 @@ test('Impossible Schedule', () => {
   const process = new WaveformCollapseAlgorithm(
     [
       shift('09:00', '10:00', Monday),
-      shift('11:00', '12:00', Monday),
       shift('09:00', '12:00', Monday),
       shift('09:00', '10:00', Monday),
+      shift('11:00', '12:00', Monday),
     ],
     [person('alice', 2, 2, [all_day(Monday)])]
   )
   expect(process.generate()).toBe(false)
-  let s = process.getSchedule()
+  let s = process.getSortedSchedule()
   expect(s[0].owner).toBe('alice')
   expect(s[1].owner).toBe('alice')
   expect(s[2].owner).toBe('')

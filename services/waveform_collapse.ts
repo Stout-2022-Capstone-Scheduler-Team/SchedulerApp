@@ -62,7 +62,6 @@ export class WaveformCollapseAlgorithm {
     // Clear current hours and busy
     this.staff.forEach((employee) => {
       employee.current_hours = 0
-      employee.busy = []
     })
     // Generate matrix & clear owners
     const matrix: boolean[][] = []
@@ -85,6 +84,7 @@ export class WaveformCollapseAlgorithm {
       }
       const [idxEmployee, minEmployee] = arrMin(counts.employee)
       if (idxEmployee === -1) {
+        /* istanbul ignore next */
         throw new Error(
           'This should be impossible since then the idxShift should have been -1'
         )
@@ -93,6 +93,7 @@ export class WaveformCollapseAlgorithm {
       // reduce the likelihood we run into a conflict
       if (minShift < minEmployee) {
         if (!this.assignShift(idxShift, matrix)) {
+          /* istanbul ignore next */
           throw new Error(
             'This should be impossible since then the idxShift should have been -1'
           )
@@ -100,6 +101,7 @@ export class WaveformCollapseAlgorithm {
         }
       } else {
         if (!this.assignEmployee(idxEmployee, matrix)) {
+          /* istanbul ignore next */
           throw new Error(
             'This should be impossible since then the idxShift should have been -1'
           )
@@ -111,16 +113,16 @@ export class WaveformCollapseAlgorithm {
   }
 
   assignShift(idxShift: number, matrix: boolean[][]): boolean {
-    let cur_shift = this.schedule[idxShift]
+    const curShift = this.schedule[idxShift]
     // Find employees that can take the shift
-    let best: undefined | number = undefined
-    let score: undefined | number = undefined
+    let best: undefined | number
+    let score: undefined | number
     for (let i = 0; i < matrix[0].length; i++) {
       if (
         matrix[idxShift][i] &&
-        this.staff[i].canTakeHours(cur_shift.duration)
+        this.staff[i].canTakeHours(curShift.duration)
       ) {
-        let cur = this.staff[i].score(cur_shift)
+        const cur = this.staff[i].score(curShift)
         if (score === undefined || cur < score) {
           score = cur
           best = i
@@ -128,7 +130,7 @@ export class WaveformCollapseAlgorithm {
       }
     }
     if (best !== undefined) {
-      this.staff[best].gainHours(cur_shift.duration)
+      this.staff[best].current_hours += curShift.duration
       this.schedule[idxShift].owner = this.staff[best].name
       // Update matrix to note that the shift cannot be assigned to anyone else
       for (let j = 0; j < matrix[0].length; j++) {
@@ -137,7 +139,7 @@ export class WaveformCollapseAlgorithm {
       // Update matrix to note employee cannot be scheduled for an overlapping shift
       for (let j = 0; j < matrix.length; j++) {
         if (
-          cur_shift.overlaps(this.schedule[j]) ||
+          curShift.overlaps(this.schedule[j]) ||
           !this.staff[best].canTakeHours(this.schedule[j].duration)
         ) {
           matrix[j][best] = false
@@ -145,20 +147,23 @@ export class WaveformCollapseAlgorithm {
       }
       return true
     }
-    return false
+    /* istanbul ignore next */
+    throw new Error(
+      'This should be impossible since then the idxShift should have been -1'
+    )
   }
 
   assignEmployee(idxEmployee: number, matrix: boolean[][]): boolean {
-    let cur_employee = this.staff[idxEmployee]
+    const curEmployee = this.staff[idxEmployee]
     // Find shift that the employee can take
-    let best: undefined | number = undefined
-    let score: undefined | number = undefined
+    let best: undefined | number
+    let score: undefined | number
     for (let i = 0; i < matrix.length; i++) {
       if (
         matrix[i][idxEmployee] &&
-        cur_employee.canTakeHours(this.schedule[i].duration)
+        curEmployee.canTakeHours(this.schedule[i].duration)
       ) {
-        let cur = cur_employee.score(this.schedule[i])
+        const cur = curEmployee.score(this.schedule[i])
         if (score === undefined || cur < score) {
           score = cur
           best = i
@@ -166,7 +171,7 @@ export class WaveformCollapseAlgorithm {
       }
     }
     if (best !== undefined) {
-      this.schedule[best].owner = cur_employee.name
+      this.schedule[best].owner = curEmployee.name
       // Update matrix to note that the shift cannot be assigned to anyone else
       for (let j = 0; j < matrix[0].length; j++) {
         matrix[best][j] = false
@@ -175,14 +180,17 @@ export class WaveformCollapseAlgorithm {
       for (let j = 0; j < matrix.length; j++) {
         if (
           this.schedule[best].overlaps(this.schedule[j]) ||
-          !cur_employee.canTakeHours(this.schedule[j].duration)
+          !curEmployee.canTakeHours(this.schedule[j].duration)
         ) {
           matrix[j][idxEmployee] = false
         }
       }
       return true
     }
-    return false
+    /* istanbul ignore next */
+    throw new Error(
+      'This should be impossible since then the idxShift should have been -1'
+    )
   }
 
   getSchedule(): Shift[] {
