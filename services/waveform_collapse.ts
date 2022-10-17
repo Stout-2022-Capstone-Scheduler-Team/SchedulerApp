@@ -73,8 +73,8 @@ export class WaveformCollapseAlgorithm {
       })
       matrix.push(staff)
     })
-    //Either the function return false or assign a shift each loop
-    for(let i=0;i<this.schedule.length;i++) {
+    // Either the function return false or assign a shift each loop
+    for (let i = 0; i < this.schedule.length; i++) {
       const counts = matrixCounts(matrix)
       // We could choose to always select by shift
       const [idxShift, minShift] = arrMin(counts.shift)
@@ -109,7 +109,7 @@ export class WaveformCollapseAlgorithm {
         }
       }
     }
-    return true;
+    return true
   }
 
   assignShift(idxShift: number, matrix: boolean[][]): boolean {
