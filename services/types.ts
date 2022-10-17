@@ -28,13 +28,13 @@ export class Time {
  * Represents a specific day of the week
  */
 export enum DayOftheWeek {
-  Monday = 'Monday',
-  Tuesday = 'Tuesday',
-  Wednesday = 'Wednesday',
-  Thursday = 'Thursday',
-  Friday = 'Friday',
-  Saturday = 'Saturday',
-  Sunday = 'Sunday',
+  Monday = 0,
+  Tuesday = 1,
+  Wednesday = 2,
+  Thursday = 3,
+  Friday = 4,
+  Saturday = 5,
+  Sunday = 6,
 }
 
 export function compareDaytimes (
@@ -44,9 +44,28 @@ export function compareDaytimes (
   bTime: Time
 ): number {
   if (aDay !== bDay) {
-    return 1
+    return aDay - bDay
   }
   return aTime.hours - bTime.hours
+}
+
+export function dayName(d: DayOftheWeek): string {
+  switch (d) {
+    case DayOftheWeek.Monday:
+      return 'Monday'
+    case DayOftheWeek.Tuesday:
+      return 'Tuesday'
+    case DayOftheWeek.Wednesday:
+      return 'Wednesday'
+    case DayOftheWeek.Thursday:
+      return 'Thursday'
+    case DayOftheWeek.Friday:
+      return 'Friday'
+    case DayOftheWeek.Saturday:
+      return 'Saturday'
+    case DayOftheWeek.Sunday:
+      return 'Sunday'
+  }
 }
 
 /**
@@ -97,42 +116,23 @@ export class Employee {
   max_hours: number
   current_hours: number = 0
   available: Shift[] = []
-  busy: Shift[] = []
-  constructor (name: string, minHours: number, maxHours: number) {
+  constructor(name: string, minHours: number, maxHours: number) {
     assert(minHours <= maxHours)
     this.name = name
     this.min_hours = minHours
     this.max_hours = maxHours
     this.current_hours = 0
-    this.busy = []
     this.available = []
   }
 
-  notBusy (inputShift: Shift): boolean {
-    for (let y = 0; y < this.busy.length; y++) {
-      if (inputShift.overlaps(this.busy[y])) {
-        return false
-      }
-    }
-    return true
-  }
-
-  isAvailable (inputShift: Shift): boolean {
+  isAvailable(inputShift: Shift): boolean {
     return (
       this.canTakeHours(inputShift.duration) &&
       this.available.some((a) => a.contains(inputShift))
     )
   }
 
-  gainHours (input: number): boolean {
-    if (this.current_hours + input <= this.max_hours) {
-      this.current_hours += input
-      return true
-    }
-    return false
-  }
-
-  canTakeHours (input: number): boolean {
+  canTakeHours(input: number): boolean {
     return this.current_hours + input <= this.max_hours
   }
 
