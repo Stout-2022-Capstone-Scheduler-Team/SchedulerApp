@@ -142,45 +142,45 @@ export class WaveformCollapseAlgorithm {
     )
   }
 
-  assignEmployee(idxEmployee: number, matrix: boolean[][]): boolean {
-    const curEmployee = this.staff[idxEmployee]
-    // Find shift that the employee can take
-    let best: undefined | number
-    let score: undefined | number
-    for (let i = 0; i < matrix.length; i++) {
-      if (
-        matrix[i][idxEmployee] &&
-        curEmployee.canTakeHours(this.schedule[i].duration)
-      ) {
-        const cur = curEmployee.score(this.schedule[i])
-        if (score === undefined || cur < score) {
-          score = cur
-          best = i
-        }
-      }
-    }
-    if (best !== undefined) {
-      this.schedule[best].owner = curEmployee.name
-      // Update matrix to note that the shift cannot be assigned to anyone else
-      for (let j = 0; j < matrix[0].length; j++) {
-        matrix[best][j] = false
-      }
-      // Update matrix to note employee cannot be scheduled for an overlapping shift
-      for (let j = 0; j < matrix.length; j++) {
-        if (
-          this.schedule[best].overlaps(this.schedule[j]) ||
-          !curEmployee.canTakeHours(this.schedule[j].duration)
-        ) {
-          matrix[j][idxEmployee] = false
-        }
-      }
-      return true
-    }
-    /* istanbul ignore next */
-    throw new Error(
-      'This should be impossible since then the idxShift should have been -1'
-    )
-  }
+  // assignEmployee(idxEmployee: number, matrix: boolean[][]): boolean {
+  //   const curEmployee = this.staff[idxEmployee]
+  //   // Find shift that the employee can take
+  //   let best: undefined | number
+  //   let score: undefined | number
+  //   for (let i = 0; i < matrix.length; i++) {
+  //     if (
+  //       matrix[i][idxEmployee] &&
+  //       curEmployee.canTakeHours(this.schedule[i].duration)
+  //     ) {
+  //       const cur = curEmployee.score(this.schedule[i])
+  //       if (score === undefined || cur < score) {
+  //         score = cur
+  //         best = i
+  //       }
+  //     }
+  //   }
+  //   if (best !== undefined) {
+  //     this.schedule[best].owner = curEmployee.name
+  //     // Update matrix to note that the shift cannot be assigned to anyone else
+  //     for (let j = 0; j < matrix[0].length; j++) {
+  //       matrix[best][j] = false
+  //     }
+  //     // Update matrix to note employee cannot be scheduled for an overlapping shift
+  //     for (let j = 0; j < matrix.length; j++) {
+  //       if (
+  //         this.schedule[best].overlaps(this.schedule[j]) ||
+  //         !curEmployee.canTakeHours(this.schedule[j].duration)
+  //       ) {
+  //         matrix[j][idxEmployee] = false
+  //       }
+  //     }
+  //     return true
+  //   }
+  //   /* istanbul ignore next */
+  //   throw new Error(
+  //     'This should be impossible since then the idxShift should have been -1'
+  //   )
+  // }
 
   getSchedule(): Shift[] {
     return this.schedule

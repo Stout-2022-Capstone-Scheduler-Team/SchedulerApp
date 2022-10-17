@@ -5,21 +5,21 @@ import assert from 'assert'
  */
 export class Time {
   hours: number
-  constructor (hours: number) {
+  constructor(hours: number) {
     this.hours = hours
   }
 
   /**
    * Time.FromString("05:15") -> 5.25
    * */
-  static FromString (s: string): Time {
+  static FromString(s: string): Time {
     const hours = Number(s.substring(0, 2))
     assert(s.charAt(2) === ':')
     const minutes = Number(s.substring(3, 5))
     return new Time(hours + minutes / 60)
   }
 
-  hoursBetween (other: Time): number {
+  hoursBetween(other: Time): number {
     return Math.abs(other.hours - this.hours)
   }
 }
@@ -37,7 +37,7 @@ export enum DayOftheWeek {
   Sunday = 6,
 }
 
-export function compareDaytimes (
+export function compareDaytimes(
   aDay: DayOftheWeek,
   aTime: Time,
   bDay: DayOftheWeek,
@@ -78,14 +78,14 @@ export class Shift {
   day: DayOftheWeek
   owner: string = ''
 
-  constructor (name: string, start: Time, end: Time, day: DayOftheWeek) {
+  constructor(name: string, start: Time, end: Time, day: DayOftheWeek) {
     this.name = name
     this.start = start
     this.end = end
     this.day = day
   }
 
-  overlaps (other: Shift): boolean {
+  overlaps(other: Shift): boolean {
     if (this.day === other.day) {
       return (
         this.start.hours <= other.end.hours &&
@@ -95,7 +95,7 @@ export class Shift {
     return false
   }
 
-  contains (other: Shift): boolean {
+  contains(other: Shift): boolean {
     if (this.day === other.day) {
       return (
         this.start.hours <= other.start.hours &&
@@ -105,7 +105,7 @@ export class Shift {
     return false
   }
 
-  get duration (): number {
+  get duration(): number {
     return this.start.hoursBetween(this.end)
   }
 }
@@ -140,7 +140,7 @@ export class Employee {
    * Score on how good a shift is to take. Better scores are lower
    *
    * */
-  score (shift: Shift): number {
+  score(shift: Shift): number {
     return this.current_hours + shift.duration
   }
 }
