@@ -1,15 +1,49 @@
-import { Time } from '../../services/types'
+import { compareDaytimes, dayName, Time } from '../../services/types'
 
-import { shift, Monday, Tuesday } from './utils'
+import {
+  shift,
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday,
+  Sunday,
+} from './utils'
+
+function time(t: string): Time {
+  return Time.FromString(t)
+}
 
 test('Time', () => {
-  expect(Time.FromString('15:45').hours).toBeCloseTo(15.75)
+  expect(time('15:45').hours).toBeCloseTo(15.75)
+  expect(time('15:45').hoursBetween(time('16:00'))).toBeCloseTo(0.25)
+  expect(time('16:00').hoursBetween(time('15:15'))).toBeCloseTo(0.75)
+
   expect(
-    Time.FromString('15:45').hoursBetween(Time.FromString('16:00'))
-  ).toBeCloseTo(0.25)
+    compareDaytimes(Monday, time('04:00'), Monday, time('05:00'))
+  ).toBeLessThan(0)
   expect(
-    Time.FromString('16:00').hoursBetween(Time.FromString('15:15'))
-  ).toBeCloseTo(0.75)
+    compareDaytimes(Monday, time('05:00'), Monday, time('04:00'))
+  ).toBeGreaterThan(0)
+  expect(
+    compareDaytimes(Monday, time('05:00'), Monday, time('05:00'))
+  ).toBeCloseTo(0)
+
+  expect(
+    compareDaytimes(Monday, time('04:00'), Tuesday, time('04:00'))
+  ).toBeLessThan(0)
+  expect(
+    compareDaytimes(Tuesday, time('04:00'), Monday, time('04:00'))
+  ).toBeGreaterThan(0)
+
+  expect(dayName(Monday)).toBe('Monday')
+  expect(dayName(Tuesday)).toBe('Tuesday')
+  expect(dayName(Wednesday)).toBe('Wednesday')
+  expect(dayName(Thursday)).toBe('Thursday')
+  expect(dayName(Friday)).toBe('Friday')
+  expect(dayName(Saturday)).toBe('Saturday')
+  expect(dayName(Sunday)).toBe('Sunday')
 })
 
 test('Shift', () => {
