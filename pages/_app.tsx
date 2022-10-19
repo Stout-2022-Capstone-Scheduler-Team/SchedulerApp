@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Calendar />
     </>
   );
+
 }
 
 export default MyApp;
