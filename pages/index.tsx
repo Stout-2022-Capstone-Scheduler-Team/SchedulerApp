@@ -4,6 +4,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 import ExportModal from '../components/export/ExportModal'
+import MyComponent from '../components/export/print'
 
 const Home: NextPage = () => {
   return (
@@ -55,6 +56,7 @@ const Home: NextPage = () => {
             </p>
           </a>
         </div>
+        <MyComponent />
       </main>
 
       <footer className={styles.footer}>
