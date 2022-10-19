@@ -2,20 +2,23 @@ env:
   browser: true
   es2021: true
 extends:
-  - 'plugin:@next/next/recommended'
-  - 'standard-with-typescript'
+  - "plugin:@next/next/recommended"
+  - "standard-with-typescript"
 rules:
   space-before-function-paren: 0
   comma-dangle: 0
-  semi:
-    - error
-    - always
+  semi: [warn, always]
+  quotes: [warn, double]
+  "@typescript-eslint/quotes": [warn, double]
+  "@typescript-eslint/semi": [warn, always]
+  "@typescript-eslint/space-before-function-paren": [warn, never]
+  "@typescript-eslint/member-delimiter-style": off
 parserOptions:
-  ecmaVersion: 'latest'
-  sourceType: 'module'
-  project: ['./tsconfig.json']
+  ecmaVersion: "latest"
+  sourceType: "module"
+  project: ["./tsconfig.json"]
 plugins:
-  - 'react'
+  - "react"
 settings:
   react:
-    version: 'detect'
+    version: "detect"
