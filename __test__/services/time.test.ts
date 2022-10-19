@@ -1,4 +1,4 @@
-import { compareDaytimes, dayName, Time } from '../../services/types'
+import { compareDaytimes, dayName, Time } from '../../entities/types'
 
 import {
   shift,

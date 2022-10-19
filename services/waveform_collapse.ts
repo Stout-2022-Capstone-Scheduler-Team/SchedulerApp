@@ -1,4 +1,4 @@
-import { Shift, Employee, compareDaytimes } from './types'
+import { Shift, Employee, compareDaytimes } from '../entities/types'
 
 interface MatrixCount {
   employee: number[]
