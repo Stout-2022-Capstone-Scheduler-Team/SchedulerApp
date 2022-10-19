@@ -1,4 +1,5 @@
 # Override Defaults
 tabWidth: 2
-semi: true
+semi: es5
 singleQuote: false
+trailingComma: none
