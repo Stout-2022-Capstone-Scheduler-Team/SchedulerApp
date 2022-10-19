@@ -12,7 +12,7 @@ import {
 } from './utils'
 
 function time(t: string): Time {
-  return Time.FromString(t)
+  return Time.fromString(t)
 }
 
 test('Time', () => {
