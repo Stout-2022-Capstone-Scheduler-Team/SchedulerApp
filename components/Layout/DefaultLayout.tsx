@@ -1,10 +1,10 @@
-import Head from "next/head";
-import NavBar from "./NavBar";
-import ThemeProvider from "@mui/material/styles/ThemeProvider";
-import defaultTheme from "../../styles/defaultTheme";
+import Head from 'next/head'
+import NavBar from './NavBar'
+import ThemeProvider from '@mui/material/styles/ThemeProvider'
+import defaultTheme from '../../styles/defaultTheme'
 
 interface LayoutProps {
-  children: JSX.Element | JSX.Element[];
+  children: JSX.Element | JSX.Element[]
 }
 
 export default function DefaultLayout({ children }: LayoutProps): JSX.Element {
@@ -18,5 +18,5 @@ export default function DefaultLayout({ children }: LayoutProps): JSX.Element {
       <NavBar />
       <main>{children}</main>
     </ThemeProvider>
-  );
+  )
 }
