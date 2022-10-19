@@ -1,5 +1,13 @@
 import { Paper, Grid, Container, Button, Tabs, Tab, Card, Box, AppBar } from '@mui/material'
 import Shift from './Shift';
+import DailyShifts from './DailyShifts';
+
+
+const arr = ['shift1', 'shift2', 'shift3']
+
+const shifts = arr.map(
+  (shift) => (<Shift />)
+)
 
 const Calender = () => {
   return (
@@ -27,47 +35,28 @@ const Calender = () => {
           Saturday
         </Grid>
         <Grid item xs={1} sx={{ borderRight: 2 }}>
-          <Shift />
+          <DailyShifts />
         </Grid>
         <Grid item xs={1} sx={{ borderRight: 2 }}>
-        <Shift />
+          <DailyShifts />
         </Grid>
         <Grid item xs={1} sx={{ borderRight: 2 }}>
-        <Shift />
+          <DailyShifts />
         </Grid>
         <Grid item xs={1} sx={{ borderRight: 2 }}>
-          <Shift />
+          <DailyShifts />
         </Grid>
         <Grid item xs={1} sx={{ borderRight: 2 }}>
-        <Shift />
+          <DailyShifts />
         </Grid>
         <Grid item xs={1} sx={{ borderRight: 2 }}>
-        <Shift />
+          <DailyShifts />
         </Grid>
         <Grid item xs={1} sx={{ borderRight: 2 }}>
-        <Shift />
+          <DailyShifts />
         </Grid>
-        <Grid item xs={1} sx={{ borderRight: 2 }}>
-          <Shift />
-        </Grid>
-        <Grid item xs={1} sx={{ borderRight: 2 }}>
-        <Shift />
-        </Grid>
-        <Grid item xs={1} sx={{ borderRight: 2 }}>
-        <Shift />
-        </Grid>
-        <Grid item xs={1} sx={{ borderRight: 2 }}>
-          <Shift />
-        </Grid>
-        <Grid item xs={1} sx={{ borderRight: 2 }}>
-        <Shift />
-        </Grid>
-        <Grid item xs={1} sx={{ borderRight: 2 }}>
-        <Shift />
-        </Grid>
-        <Grid item xs={1} sx={{ borderRight: 2 }}>
-        <Shift />
-        </Grid>
+      
+        
       </Grid>
     </Paper>
   )

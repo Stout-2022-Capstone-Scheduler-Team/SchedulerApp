@@ -1,8 +1,9 @@
 import { Paper, Grid, Container, Button, Tabs, Tab, Card, Box, AppBar } from '@mui/material'
 
+//eventually will take in start time, end time, and assignee
 const Shift = () => {
   return (
-    <Paper >
+    <Paper sx={{mb:1}}>
       <Grid container columns={1}>
         <Grid item xs={1} >
           11:00 AM - 12:00 AM
