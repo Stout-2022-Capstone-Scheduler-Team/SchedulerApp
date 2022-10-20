@@ -10,13 +10,27 @@ export class Time {
   }
 
   /**
-   * Time.FromString("05:15") -> 5.25
+   * Time.fromString("05:15") -> 5.25
    * */
-  static FromString(s: string): Time {
+  static fromString(s: string): Time {
     const hours = Number(s.substring(0, 2))
     assert(s.charAt(2) === ':')
     const minutes = Number(s.substring(3, 5))
     return new Time(hours + minutes / 60)
+  }
+
+  /**
+   * Time.toString(5.25) -> "5:15"
+   * */
+  static toString(t: Time): string {
+    const minute = t.hours - Math.floor(t.hours)
+    let hour = t.hours - minute
+    let zone = ' am'
+    if (hour > 12) {
+      hour -= 12
+      zone = ' pm'
+    }
+    return String(hour) + ':' + String(minute * 60) + zone
   }
 
   hoursBetween(other: Time): number {
