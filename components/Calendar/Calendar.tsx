@@ -1,15 +1,15 @@
-import { Paper, Grid, Container, Button, Tabs, Tab, Card, Box, AppBar } from '@mui/material'
-import Shift from './Shift';
+import { Paper, Grid } from '@mui/material'
 import DailyShifts from './DailyShifts';
 
+import { Shift, Time, DayOftheWeek } from '../../entities/types'
 
-const arr = ['shift1', 'shift2', 'shift3']
 
-const shifts = arr.map(
-  (shift) => (<Shift />)
-)
+interface Props {
+  allShifts: Shift[];
+}
 
-const Calender = () => {
+const Calender = (props: Props) => {
+  props.allShifts.filter(shift => shift.day === DayOftheWeek.Monday)
   return (
     <Paper sx={{m:1, bgcolor: '#eeeeee'}}>
       <Grid container spacing={2} columns={7} sx={{m: 1}} > 
@@ -35,25 +35,25 @@ const Calender = () => {
           Saturday
         </Grid>
         <Grid item xs={1} sx={{ borderRight: 2 }}>
-          <DailyShifts />
+          <DailyShifts allShifts={ props.allShifts.filter(shift => shift.day === DayOftheWeek.Sunday)}/>
         </Grid>
         <Grid item xs={1} sx={{ borderRight: 2 }}>
-          <DailyShifts />
+          <DailyShifts allShifts={ props.allShifts.filter(shift => shift.day === DayOftheWeek.Monday)}/>
         </Grid>
         <Grid item xs={1} sx={{ borderRight: 2 }}>
-          <DailyShifts />
+          <DailyShifts allShifts={ props.allShifts.filter(shift => shift.day === DayOftheWeek.Tuesday)}/>
         </Grid>
         <Grid item xs={1} sx={{ borderRight: 2 }}>
-          <DailyShifts />
+          <DailyShifts allShifts={ props.allShifts.filter(shift => shift.day === DayOftheWeek.Wednesday)} />
         </Grid>
         <Grid item xs={1} sx={{ borderRight: 2 }}>
-          <DailyShifts />
+          <DailyShifts allShifts={ props.allShifts.filter(shift => shift.day === DayOftheWeek.Thursday)}/>
         </Grid>
         <Grid item xs={1} sx={{ borderRight: 2 }}>
-          <DailyShifts />
+          <DailyShifts allShifts={ props.allShifts.filter(shift => shift.day === DayOftheWeek.Friday)} />
         </Grid>
         <Grid item xs={1} sx={{ borderRight: 2 }}>
-          <DailyShifts />
+          <DailyShifts allShifts={ props.allShifts.filter(shift => shift.day === DayOftheWeek.Saturday)}/>
         </Grid>
       
         

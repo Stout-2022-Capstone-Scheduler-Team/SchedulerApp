@@ -61,6 +61,7 @@ test('Impossible Schedule', () => {
   )
   expect(process.generate()).toBe(false)
   const s = process.getSortedSchedule()
+  console.log(s)
   expect(s[0].owner).toBe('alice')
   expect(s[1].owner).toBe('')
   expect(s[2].owner).toBe('')

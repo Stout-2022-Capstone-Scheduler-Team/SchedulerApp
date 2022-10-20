@@ -1,21 +1,20 @@
-import { Paper, Grid, Container, Button, Tabs, Tab, Card, Box, AppBar } from '@mui/material'
+import { Grid } from '@mui/material'
 
-//takes in day, and information about shifts
-import Shift from './Shift';
+import { Shift } from '../../entities/types'
 
-//delete later
-const arr = ['shift1', 'shift2', 'shift3']
+import ShiftInfo from './ShiftInfo';
 
-const shifts = arr.map(
-	//add props
-  (shift) => (<Shift />)
-)
+interface Props {
+  allShifts: Shift[];
+}
 
-const DailyShifts = () => {
+const DailyShifts = (props: Props) => {
+  const shifts = props.allShifts.map((shift) => (<ShiftInfo shift={shift} />))
+
   return (
 		<Grid container spacing={2} columns={1}  > 
 			<Grid item xs={1} >
-          {shifts}
+        {shifts}
       </Grid>
 		</ Grid>
   )
