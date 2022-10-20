@@ -5,7 +5,6 @@ import Home from '../pages/index'
 
 test('renders learn react link', () => {
   render(<Home />)
-  const linkElement = screen.getByText(/Next\.js!/i)
+  const linkElement = screen.getByText(/This is the home/i)
   expect(linkElement).toBeInTheDocument()
-  expect(linkElement).toHaveProperty('href', 'https://nextjs.org/')
 })

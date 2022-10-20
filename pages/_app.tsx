@@ -6,7 +6,7 @@ import { Container } from "@mui/material";
 
 import { Shift, Time, DayOftheWeek } from '../entities/types'
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 
   const dummyData  = [
     new Shift(
@@ -53,6 +53,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     )
   ]  
   
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
     <DefaultLayout>
@@ -61,7 +62,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Calendar allShifts={dummyData}/>
     </>
   );
-
 }
 
 export default MyApp;
