@@ -8,7 +8,7 @@ include method for getting all local storage schedules
 
 CRUD functionality for local storage with schedules*/
 
-type Schedule = any;
+export type Schedule = any;
 
 export class StorageService {
   //getting specific schedule based on key data
