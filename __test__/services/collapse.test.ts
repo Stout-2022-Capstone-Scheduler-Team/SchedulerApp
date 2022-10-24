@@ -1,5 +1,5 @@
 import { WaveformCollapseAlgorithm } from '../../services/waveform_collapse'
-import { shift, allDay, Monday, Tuesday, person } from './utils'
+import { shift, allDay, Monday, Tuesday, person, Wednesday, Thursday, Friday, Saturday, Sunday } from './utils'
 
 test('Empty Schedule', () => {
   const process = new WaveformCollapseAlgorithm([], [])
@@ -29,15 +29,15 @@ test('Collapse Schedule', () => {
 test('Jarod 1 Schedule', () => {
   const process = new WaveformCollapseAlgorithm(
     [
+      shift('09:00', '12:00', Monday), // 3:00
       shift('09:00', '10:00', Monday), // 1:00
       shift('11:00', '12:00', Monday), // 1:00
-      shift('09:00', '12:00', Monday), // 3:00
       shift('09:00', '10:00', Monday), // 1:00
     ],
     [
+      person('clair', 3, 12, [allDay(Monday)]),
       person('alice', 2, 12, [allDay(Monday)]),
       person('bob', 1, 12, [allDay(Monday)]),
-      person('clair', 3, 12, [allDay(Monday)]),
     ]
   )
   expect(process.generate()).toBe(true)
@@ -45,7 +45,7 @@ test('Jarod 1 Schedule', () => {
   const s = process.getSchedule()
   let bobCount = 0
   let aliceCount = 0
-  for (let i = 0; i < 4; i++) {
+  for (let i = 1; i < 4; i++) {
     if (s[i].owner === 'alice') {
       aliceCount++
     } else if (s[i].owner === 'bob') {
@@ -54,7 +54,7 @@ test('Jarod 1 Schedule', () => {
   }
   expect(bobCount).toBe(1)
   expect(aliceCount).toBe(2)
-  expect(s[2].owner).toBe('clair')
+  expect(s[0].owner).toBe('clair')
 })
 
 test('Jarod 2 Schedule', () => {
@@ -86,6 +86,28 @@ test('Jarod 2 Schedule', () => {
   expect(s[6].owner).toBe('alice')
 })
 
+test('Jarod 3 Schedule', () => {
+  const process = new WaveformCollapseAlgorithm(
+    [
+      shift('04:00', '9:00', Monday), // 5:00
+      shift('07:00', '10:00', Monday), // 3:00
+      shift('11:00', '12:00', Friday), // 1:00
+      shift('08:00', '10:00', Wednesday), // 2:00
+    ],
+    [
+      person('alice', 8, 12, [allDay(Monday), allDay(Tuesday), allDay(Wednesday), allDay(Thursday), allDay(Friday), allDay(Saturday), allDay(Sunday)]),
+      person('bob', 1, 4, [allDay(Monday), allDay(Tuesday), allDay(Wednesday), allDay(Thursday), allDay(Friday), allDay(Saturday), allDay(Sunday)]),
+    ]
+  )
+  expect(process.generate()).toBe(true)
+  // expect(process.getSchedule()).toBe([])
+  const s = process.getSchedule()
+  expect(s[0].owner).toBe('alice')
+  expect(s[1].owner).toBe('bob')
+  expect(s[2].owner).toBe('alice')
+  expect(s[3].owner).toBe('alice')
+})
+
 test('Impossible Schedule', () => {
   const process = new WaveformCollapseAlgorithm(
     [
@@ -97,9 +119,4 @@ test('Impossible Schedule', () => {
     [person('alice', 2, 2, [allDay(Monday)])]
   )
   expect(process.generate()).toBe(false)
-  const s = process.getSortedSchedule()
-  expect(s[0].owner).toBe('alice')
-  expect(s[1].owner).toBe('')
-  expect(s[2].owner).toBe('')
-  expect(s[3].owner).toBe('alice')
 })
