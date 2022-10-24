@@ -20,7 +20,7 @@ test("storageService", async () => {
   // testing saving an item to the storage
   foragemock.setItem.mockResolvedValueOnce(a);
 
-  storage.update("item", a);
+  void (await storage.update("item", a));
   expect(foragemock.setItem.mock.calls).toEqual([["item", a]]);
 
   // clearing out for the next test
@@ -29,7 +29,7 @@ test("storageService", async () => {
   // testing removing an item from the storage
   foragemock.removeItem.mockResolvedValueOnce(undefined);
 
-  storage.delete("item");
+  await storage.delete("item");
   expect(foragemock.removeItem.mock.calls).toEqual([["item"]]);
 
   // clearing out for next test
