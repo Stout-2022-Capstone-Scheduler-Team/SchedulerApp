@@ -44,7 +44,7 @@ test("storageService", async () => {
   );
 
   expect(await storage.returnAll()).toStrictEqual<{ [key: string]: Schedule }>({
-    item: a,
+    item: a
   });
 });
 
