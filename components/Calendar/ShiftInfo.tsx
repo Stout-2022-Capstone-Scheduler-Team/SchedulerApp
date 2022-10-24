@@ -10,7 +10,7 @@ const ShiftInfo = (props: ShiftInfo) => {
     <Paper sx={{mb:1}}>
       <Grid container columns={1}>
         <Grid item xs={1} >
-          11:00 AM - 12:00 AM
+          {Time.toString(props.shift.start)} - {Time.toString(props.shift.end)}
         </Grid>
         <Grid item xs={1} >
           {props.shift.owner}
