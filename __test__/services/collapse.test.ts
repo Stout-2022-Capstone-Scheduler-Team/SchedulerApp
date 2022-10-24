@@ -6,6 +6,44 @@ test('Empty Schedule', () => {
   expect(process.generate()).toBe(true)
 })
 
+test('Get Employee Name', () => {
+  const process = new WaveformCollapseAlgorithm(
+    [
+      shift('08:00', '12:00', Monday),
+      shift('15:45', '20:00', Monday),
+      shift('14:00', '16:00', Tuesday),
+    ],
+    [
+      person('alice', 1, 4, [allDay(Monday), allDay(Tuesday)]),
+      person('bob', 1, 12, [allDay(Monday), allDay(Tuesday)]),
+      person('clair', 1, 12, [shift('12:00', '24:00', Tuesday)]),
+    ]
+  )
+  expect(process.getEmployee('alice')).toBe(process.staff[0])
+  expect(process.getEmployee('bob')).toBe(process.staff[1])
+  expect(process.getEmployee('clair')).toBe(process.staff[2])
+  expect(process.getEmployee('')).toBe(undefined)
+  expect(process.getEmployee('some_other')).toBe(undefined)
+})
+
+test('Sorted Schedule', () => {
+  const shifts = [
+    shift('10:00', '12:00', Monday),
+    shift('09:00', '10:00', Monday),
+    shift('11:00', '12:00', Monday),
+    // Starts at the same time as another to check for a stable sort
+    shift('09:00', '11:00', Monday),
+  ]
+  // slice() is needed to preserve the order of the shifts in the original array
+  const process = new WaveformCollapseAlgorithm(shifts.slice(), [])
+  expect(process.generate()).toBe(false)
+  const s = process.getSortedSchedule()
+  expect(s[0]).toBe(shifts[1])
+  expect(s[1]).toBe(shifts[3])
+  expect(s[2]).toBe(shifts[0])
+  expect(s[3]).toBe(shifts[2])
+})
+
 test('Collapse Schedule', () => {
   const process = new WaveformCollapseAlgorithm(
     [
@@ -20,7 +58,7 @@ test('Collapse Schedule', () => {
     ]
   )
   expect(process.generate()).toBe(true)
-  const s = process.getSchedule()
+  const s = process.schedule
   expect(s[0].owner).toBe('alice')
   expect(s[1].owner).toBe('bob')
   expect(s[2].owner).toBe('clair')
@@ -99,13 +137,14 @@ test('Jarod 3 Schedule', () => {
       person('bob', 1, 4, [allDay(Monday), allDay(Tuesday), allDay(Wednesday), allDay(Thursday), allDay(Friday), allDay(Saturday), allDay(Sunday)]),
     ]
   )
-  expect(process.generate()).toBe(true)
+  expect(process.generate()) // .toBe(true)
   // expect(process.getSchedule()).toBe([])
-  const s = process.getSchedule()
+  const s = process.schedule
+  // expect(s.map((s) => s.owner)).toBe({})
   expect(s[0].owner).toBe('alice')
-  expect(s[1].owner).toBe('bob')
-  expect(s[2].owner).toBe('alice')
-  expect(s[3].owner).toBe('alice')
+  expect(s[1].owner).toBe('alice')
+  expect(s[2].owner).toBe('clair')
+  expect(s[3].owner).toBe('bob')
 })
 
 test('Impossible Schedule', () => {
@@ -119,4 +158,9 @@ test('Impossible Schedule', () => {
     [person('alice', 2, 2, [allDay(Monday)])]
   )
   expect(process.generate()).toBe(false)
+  const s = process.schedule
+  expect(s[0].owner).toBe('alice')
+  expect(s[1].owner).toBe('')
+  expect(s[2].owner).toBe('')
+  expect(s[3].owner).toBe('alice')
 })

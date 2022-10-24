@@ -37,4 +37,8 @@ export class Employee {
     }
     return this.current_hours + shift.duration
   }
+
+  get remainingHours(): number {
+    return Math.max(this.min_hours - this.current_hours, 0)
+  }
 }
