@@ -1,23 +1,19 @@
-import { Paper, Grid } from '@mui/material'
-import { Shift, Time } from '../../entities/types'
+import { Paper, Grid, Card, CardContent, Typography } from "@mui/material";
+import { Shift, Time } from "../../entities/types";
 
-interface ShiftInfo {
+interface ShiftCardProps {
   shift: Shift;
 }
 
-const ShiftInfo = (props: ShiftInfo) => {
+const ShiftCard = (props: ShiftCardProps): JSX.Element => {
   return (
-    <Paper sx={{mb:1}}>
-      <Grid container columns={1}>
-        <Grid item xs={1} >
-          11:00 AM - 12:00 AM
-        </Grid>
-        <Grid item xs={1} >
-          {props.shift.owner}
-        </Grid>
-      </ Grid>
-    </Paper>
-  )
-}
+    <Card>
+      <CardContent>
+        <Typography>Start - End</Typography>
+        <Typography>Employee Name</Typography>
+      </CardContent>
+    </Card>
+  );
+};
 
-export default ShiftInfo;
+export default ShiftCard;
