@@ -1,12 +1,12 @@
-import { Shift, Employee, compareDaytimes } from '../entities/types'
-import { Scheduler } from '../interfaces/scheduler'
+import { Shift, Employee, compareDaytimes } from "../entities/types";
+import { Scheduler } from "../interfaces/scheduler";
 
 // I believe this has the same size as `boolean`, since JS uses dynamic
 // types and both number and boolean are less than the min size
-type Assignment = number | boolean
+type Assignment = number | boolean;
 
 function matrixCounts(matrix: Assignment[][]): number[] {
-  return matrix.map((s) => s.filter((cur) => cur === true).length)
+  return matrix.map((s) => s.filter((cur) => cur === true).length);
   // const ret: number[] = []
   // for (let s = 0; s < matrix.length; s++) {
   //   let count = 0
@@ -21,23 +21,23 @@ function matrixCounts(matrix: Assignment[][]): number[] {
 }
 
 function arrMin(arr: number[]): number {
-  let min = Infinity
-  let idx = -1
+  let min = Infinity;
+  let idx = -1;
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] < min && arr[i] > 0) {
-      min = arr[i]
-      idx = i
+      min = arr[i];
+      idx = i;
     }
   }
-  return idx
+  return idx;
 }
 
 export class WaveformCollapseAlgorithm implements Scheduler {
-  schedule: Shift[]
-  staff: Employee[]
+  schedule: Shift[];
+  staff: Employee[];
   constructor(schedule: Shift[], staff: Employee[]) {
-    this.schedule = schedule
-    this.staff = staff
+    this.schedule = schedule;
+    this.staff = staff;
   }
 
   /**
@@ -50,56 +50,56 @@ export class WaveformCollapseAlgorithm implements Scheduler {
   generate(): boolean {
     // Clear current hours and busy
     this.staff.forEach((employee) => {
-      employee.current_hours = 0
-    })
+      employee.current_hours = 0;
+    });
     // Generate matrix & clear owners
-    let matrix: Assignment[][] = []
+    let matrix: Assignment[][] = [];
     this.schedule.forEach((shift) => {
-      shift.owner = ''
-      shift.option = 0
-      shift.assigned = 0
-      shift.first_try = undefined
-      const staff: boolean[] = []
+      shift.owner = "";
+      shift.option = 0;
+      shift.assigned = 0;
+      shift.first_try = undefined;
+      const staff: boolean[] = [];
       this.staff.forEach((employee) => {
-        staff.push(employee.isAvailable(shift))
-      })
-      matrix.push(staff)
-    })
+        staff.push(employee.isAvailable(shift));
+      });
+      matrix.push(staff);
+    });
     // Either the function return false or assign a shift each loop
-    let assigned = 0
+    let assigned = 0;
     while (assigned < this.schedule.length) {
-      const counts = matrixCounts(matrix)
+      const counts = matrixCounts(matrix);
       // We could choose to always select by shift
-      const idxShift = arrMin(counts)
-      console.log('Assigning: ', idxShift)
+      const idxShift = arrMin(counts);
+      console.log("Assigning: ", idxShift);
       // Since we are selecting the shift or employee with the least possible assignments, it should
       // reduce the likelihood we run into a conflict
       if (idxShift !== -1 && this.assignShift(idxShift, matrix, assigned)) {
         // Mark order assigned in
-        console.log('to: ', this.schedule[idxShift].owner)
+        console.log("to: ", this.schedule[idxShift].owner);
         if (!this.canAssignMinHours(matrix)) {
-          matrix = this.unassign(assigned, matrix)
+          matrix = this.unassign(assigned, matrix);
           // assigned -= 1
         } else {
-          assigned += 1
+          assigned += 1;
         }
       } else if (assigned <= -1) {
         // Backtracking has failed (we've backtracked to the beginning)
         // Reset each shift to the first try we made, which will be a partially valid schedule
         this.schedule.forEach((shift) => {
           if (shift.first_try !== undefined) {
-            shift.owner = shift.first_try
+            shift.owner = shift.first_try;
           }
-        })
-        return false
+        });
+        return false;
       } else {
         // No shift can be assigned to an employee, but not every shift has an owner yet
         // backtrack by unassigning a shift
-        matrix = this.unassign(assigned, matrix)
-        assigned -= 1
+        assigned -= 1;
+        matrix = this.unassign(assigned, matrix);
       }
     }
-    return true
+    return true;
   }
 
   assignShift(
@@ -107,7 +107,7 @@ export class WaveformCollapseAlgorithm implements Scheduler {
     matrix: Assignment[][],
     assigned: number
   ): boolean {
-    const curShift = this.schedule[idxShift]
+    const curShift = this.schedule[idxShift];
     // Find employees that can take the shift
     const options = this.staff
       .map((e, i) => ({ e, i }))
@@ -116,21 +116,21 @@ export class WaveformCollapseAlgorithm implements Scheduler {
           matrix[idxShift][i] === true &&
           employee.e.canTakeHours(curShift.duration)
       )
-      .sort((a, b) => a.e.score(curShift) - b.e.score(curShift))
+      .sort((a, b) => a.e.score(curShift) - b.e.score(curShift));
 
     if (curShift.option < options.length) {
-      const { i, e } = options[curShift.option]
-      curShift.option += 1
-      e.current_hours += curShift.duration
-      curShift.owner = e.name
+      const { i, e } = options[curShift.option];
+      curShift.option += 1;
+      e.current_hours += curShift.duration;
+      curShift.owner = e.name;
       if (curShift.first_try === undefined) {
-        curShift.first_try = e.name
+        curShift.first_try = e.name;
       }
-      curShift.assigned = assigned
+      curShift.assigned = assigned;
       // Update matrix to note that the shift cannot be assigned to anyone else
       for (let j = 0; j < matrix[0].length; j++) {
         if (matrix[idxShift][j] === true) {
-          matrix[idxShift][j] = assigned
+          matrix[idxShift][j] = assigned;
         }
       }
       // Update matrix to note employee cannot be scheduled for an overlapping shift
@@ -140,63 +140,63 @@ export class WaveformCollapseAlgorithm implements Scheduler {
           !e.canTakeHours(this.schedule[j].duration)
         ) {
           if (matrix[j][i] === true) {
-            matrix[j][i] = assigned
+            matrix[j][i] = assigned;
           }
         }
       }
-      return true
+      return true;
     }
-    return false
+    return false;
   }
 
   unassign(n: number, matrix: Assignment[][]): Assignment[][] {
     for (let i = 0; i < this.schedule.length; i++) {
       if (this.schedule[i].assigned === n) {
-        const emp = this.getEmployee(this.schedule[i].owner)
+        const emp = this.getEmployee(this.schedule[i].owner);
         if (emp !== undefined) {
-          emp.current_hours -= this.schedule[i].duration
+          emp.current_hours -= this.schedule[i].duration;
         }
         // Remove owner
-        this.schedule[i].owner = ''
+        this.schedule[i].owner = "";
       } else if (this.schedule[i].assigned > n) {
         // Reset option for any shift that was assigned after the current one
-        this.schedule[i].option = 0
+        this.schedule[i].option = 0;
       }
     }
     // update matrix with new availablities
     return matrix.map((s) =>
       s.map((a) => {
-        if (typeof a === 'number' && a >= n) {
-          a = true
+        if (typeof a === "number" && a >= n) {
+          a = true;
         }
-        return a
+        return a;
       })
-    )
+    );
   }
 
   canAssignMinHours(matrix: Assignment[][]): boolean {
     for (let i = 0; i < this.staff.length; i++) {
-      let remaining = 0
+      let remaining = 0;
       for (let j = 0; j < this.schedule.length; j++) {
         if (matrix[j][i] === true) {
-          remaining += this.schedule[j].duration
+          remaining += this.schedule[j].duration;
         }
       }
       if (remaining < this.staff[i].remainingHours) {
-        return false
+        return false;
       }
     }
-    return true
+    return true;
   }
 
   getEmployee(name: string): Employee | undefined {
-    return this.staff.find((e) => e.name === name)
+    return this.staff.find((e) => e.name === name);
   }
 
   getSortedSchedule(): Shift[] {
     this.schedule.sort((a, b) =>
       compareDaytimes(a.day, a.start, b.day, b.start)
-    )
-    return this.schedule
+    );
+    return this.schedule;
   }
 }
