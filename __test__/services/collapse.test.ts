@@ -43,10 +43,18 @@ test('Jarod 1 Schedule', () => {
   expect(process.generate()).toBe(true)
   // expect(process.getSchedule()).toBe([])
   const s = process.getSchedule()
-  expect(s[0].owner).toBe('bob')
-  expect(s[1].owner).toBe('alice')
+  let bobCount = 0
+  let aliceCount = 0
+  for (let i = 0; i < 4; i++) {
+    if (s[i].owner === 'alice') {
+      aliceCount++
+    } else if (s[i].owner === 'bob') {
+      bobCount++
+    }
+  }
+  expect(bobCount).toBe(1)
+  expect(aliceCount).toBe(2)
   expect(s[2].owner).toBe('clair')
-  expect(s[3].owner).toBe('alice')
 })
 
 test('Jarod 2 Schedule', () => {
