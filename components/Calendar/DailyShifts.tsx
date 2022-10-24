@@ -1,22 +1,22 @@
-import { Grid } from '@mui/material'
+import { Grid } from "@mui/material";
 
-import { Shift } from '../../entities/types'
+import { Shift } from "../../entities/types";
 
-import ShiftInfo from './ShiftInfo';
+import ShiftCard from "./ShiftCard";
 
 interface Props {
   allShifts: Shift[];
 }
 
-const DailyShifts = (props: Props) => {
-  const shifts = props.allShifts.map((shift) => (<ShiftInfo shift={shift} />))
+const DailyShifts = (props: Props): JSX.Element => {
+  const shifts = props.allShifts.map((shift) => <ShiftCard shift={shift} />);
 
   return (
-		<Grid container spacing={2} columns={1}  > 
-			<Grid item xs={1} >
+    <Grid container spacing={2} columns={1}>
+      <Grid item xs={1}>
         {shifts}
       </Grid>
-		</ Grid>
-  )
-}
+    </Grid>
+  );
+};
 export default DailyShifts;
