@@ -1,7 +1,7 @@
 import { StorageService, Schedule } from "../../services/storageService";
 import foragemock from "../../__mocks__/localforage";
 
-test("storageService", async() => {
+test("storageService", async () => {
   // declare a dummy object for adding and removing to the storage
   const a = {};
 
@@ -20,7 +20,7 @@ test("storageService", async() => {
   // testing saving an item to the storage
   foragemock.setItem.mockResolvedValueOnce(a);
 
-  expect(storage.update("item", a)).toBe(undefined);
+  storage.update("item", a);
   expect(foragemock.setItem.mock.calls).toEqual([["item", a]]);
 
   // clearing out for the next test
@@ -29,7 +29,7 @@ test("storageService", async() => {
   // testing removing an item from the storage
   foragemock.removeItem.mockResolvedValueOnce(undefined);
 
-  expect(storage.delete("item")).toBe(undefined);
+  storage.delete("item");
   expect(foragemock.removeItem.mock.calls).toEqual([["item"]]);
 
   // clearing out for next test
@@ -37,7 +37,7 @@ test("storageService", async() => {
 
   // testing retrieving all of the items from the storage
   foragemock.iterate.mockImplementationOnce(
-    async(f: (value: Schedule, key: string, _: number) => void) => {
+    async (f: (value: Schedule, key: string, _: number) => void) => {
       f(a, "item", 1);
       return await Promise.resolve(undefined);
     }
