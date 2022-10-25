@@ -7,7 +7,7 @@ interface ShiftInfo {
 
 const ShiftInfo = (props: ShiftInfo) => {
   return (
-    <Paper sx={{mb:1}}>
+    <Paper sx={{mt:1}}>
       <Grid container columns={1}>
         <Grid item xs={1} >
           {Time.toString(props.shift.start)} - {Time.toString(props.shift.end)}
