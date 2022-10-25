@@ -1,40 +1,40 @@
-import assert from 'assert'
+import assert from "assert";
 
 /**
  * Represents a point in time
  */
 export class Time {
-  hours: number
+  hours: number;
   constructor(hours: number) {
-    this.hours = hours
+    this.hours = hours;
   }
 
   /**
    * Time.fromString("05:15") -> 5.25
    * */
   static fromString(s: string): Time {
-    const hours = Number(s.substring(0, 2))
-    assert(s.charAt(2) === ':')
-    const minutes = Number(s.substring(3, 5))
-    return new Time(hours + minutes / 60)
+    const hours = Number(s.substring(0, 2));
+    assert(s.charAt(2) === ":");
+    const minutes = Number(s.substring(3, 5));
+    return new Time(hours + minutes / 60);
   }
 
   /**
    * Time.toString(5.25) -> "5:15"
    * */
   static toString(t: Time): string {
-    const minute = t.hours - Math.floor(t.hours)
-    let hour = t.hours - minute
-    let zone = ' am'
+    const minute = t.hours - Math.floor(t.hours);
+    let hour = t.hours - minute;
+    let zone = " am";
     if (hour > 12) {
-      hour -= 12
-      zone = ' pm'
+      hour -= 12;
+      zone = " pm";
     }
-    return String(hour) + ':' + String(minute * 60) + zone
+    return String(hour) + ":" + String(minute * 60) + zone;
   }
 
   hoursBetween(other: Time): number {
-    return Math.abs(other.hours - this.hours)
+    return Math.abs(other.hours - this.hours);
   }
 }
 
@@ -48,7 +48,7 @@ export enum DayOftheWeek {
   Thursday = 3,
   Friday = 4,
   Saturday = 5,
-  Sunday = 6,
+  Sunday = 6
 }
 
 export function compareDaytimes(
@@ -58,26 +58,26 @@ export function compareDaytimes(
   bTime: Time
 ): number {
   if (aDay !== bDay) {
-    return aDay - bDay
+    return aDay - bDay;
   }
-  return aTime.hours - bTime.hours
+  return aTime.hours - bTime.hours;
 }
 
 export function dayName(d: DayOftheWeek): string {
   switch (d) {
     case DayOftheWeek.Monday:
-      return 'Monday'
+      return "Monday";
     case DayOftheWeek.Tuesday:
-      return 'Tuesday'
+      return "Tuesday";
     case DayOftheWeek.Wednesday:
-      return 'Wednesday'
+      return "Wednesday";
     case DayOftheWeek.Thursday:
-      return 'Thursday'
+      return "Thursday";
     case DayOftheWeek.Friday:
-      return 'Friday'
+      return "Friday";
     case DayOftheWeek.Saturday:
-      return 'Saturday'
+      return "Saturday";
     case DayOftheWeek.Sunday:
-      return 'Sunday'
+      return "Sunday";
   }
 }
