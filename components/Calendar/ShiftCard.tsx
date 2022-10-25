@@ -7,7 +7,7 @@ interface ShiftCardProps {
 
 const ShiftCard = ({ shift }: ShiftCardProps): JSX.Element => {
   return (
-    <Card sx={{ mb: ".50rem" }}>
+    <Card sx={{ mt: ".50rem" }}>
       <CardContent>
         <Typography>
           {Time.toString(shift.start)} - {Time.toString(shift.end)}
