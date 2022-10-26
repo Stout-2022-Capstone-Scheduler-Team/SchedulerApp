@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "npx eslint .",
     "test": "jest --watch",
     "test:ci": "jest",
     "eslint:github-action": "next lint"
@@ -19,6 +19,7 @@
     "@types/node": "18.8.2",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
+    "localforage": "^1.10.0",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
