@@ -1,15 +1,10 @@
-import { Button, Box, Stack } from "@mui/material";
-
 import ExportModal from "../components/export/ExportModal";
-import TestingComponent from "../components/export/print";
-import { React, ReactInstance, RefObject, useRef } from "react";
-import Link from "next/link";
 
-const Home: NextPage = () => {
+const Home: JSX.Element = (): JSX.Element => {
   let goodRef: React.RefObject<any> = useRef();
 
   return (
-    <main>
+    <>
       {/* <TestingComponent
           refSetter={(newRef: any) => {
             console.log('setting ref', newRef)
@@ -17,7 +12,7 @@ const Home: NextPage = () => {
           }}
         /> */}
       <ExportModal componentToExport={goodRef} />
-    </main>
+    </>
   );
 };
 
