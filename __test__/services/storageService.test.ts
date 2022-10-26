@@ -1,7 +1,12 @@
 import { StorageService, Schedule } from "../../services/storageService";
-import foragemock from "../../__mocks__/localforage";
+import localforage from "localforage";
 
-test("storageService", async () => {
+jest.mock("localforage");
+beforeEach(() => {
+  jest.resetAllMocks();
+});
+
+test("Get Item", async () => {
   // declare a dummy object for adding and removing to the storage
   const a = {};
 
@@ -9,34 +14,51 @@ test("storageService", async () => {
   const storage = new StorageService();
 
   // testing retrieving an item from storage
-  foragemock.getItem.mockResolvedValueOnce(a);
+  const getItem = jest.mocked(localforage.getItem);
+  getItem.mockResolvedValueOnce(a);
 
   expect(await storage.read("item")).toBe(a);
-  expect(foragemock.getItem.mock.calls).toEqual([["item"]]);
+  expect(getItem.mock.calls).toEqual([["item"]]);
+});
 
-  // clearing out for the next test
-  foragemock.getItem.mockClear();
+test("Set Item", async () => {
+  // declare a dummy object for adding and removing to the storage
+  const a = {};
+
+  // declare a storage object
+  const storage = new StorageService();
+
+  const setItem = jest.mocked(localforage.setItem);
 
   // testing saving an item to the storage
-  foragemock.setItem.mockResolvedValueOnce(a);
+  setItem.mockResolvedValueOnce(a);
 
   void (await storage.update("item", a));
-  expect(foragemock.setItem.mock.calls).toEqual([["item", a]]);
+  expect(setItem.mock.calls).toEqual([["item", a]]);
+});
 
-  // clearing out for the next test
-  foragemock.setItem.mockClear();
+test("Remove Item", async () => {
+  // declare a storage object
+  const storage = new StorageService();
 
+  const removeItem = jest.mocked(localforage.removeItem);
   // testing removing an item from the storage
-  foragemock.removeItem.mockResolvedValueOnce(undefined);
+  removeItem.mockResolvedValueOnce(undefined);
 
   await storage.delete("item");
-  expect(foragemock.removeItem.mock.calls).toEqual([["item"]]);
+  expect(removeItem.mock.calls).toEqual([["item"]]);
+});
 
-  // clearing out for next test
-  foragemock.removeItem.mockClear();
+test("Iterate", async () => {
+  // declare a dummy object for adding and removing to the storage
+  const a = {};
 
+  // declare a storage object
+  const storage = new StorageService();
+
+  const iterate = jest.mocked(localforage.iterate);
   // testing retrieving all of the items from the storage
-  foragemock.iterate.mockImplementationOnce(
+  iterate.mockImplementationOnce(
     async (f: (value: Schedule, key: string, _: number) => void) => {
       f(a, "item", 1);
       return await Promise.resolve(undefined);
@@ -47,12 +69,3 @@ test("storageService", async () => {
     item: a
   });
 });
-
-// test("delete item", async () => {
-//   let a = {};
-//   foragemock.removeItem.mockResolvedValue(a);
-
-//   let storage = new StorageService();
-//   expect(await storage.read("item")).toBe(a);
-//   expect(foragemock.removeItem.mock.calls).toEqual([["item"]]);
-// });
