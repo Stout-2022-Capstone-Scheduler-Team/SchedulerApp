@@ -7,17 +7,6 @@ type Assignment = number | boolean;
 
 function matrixCounts(matrix: Assignment[][]): number[] {
   return matrix.map((s) => s.filter((cur) => cur === true).length);
-  // const ret: number[] = []
-  // for (let s = 0; s < matrix.length; s++) {
-  //   let count = 0
-  //   for (let i = 0; i < matrix[0].length; i++) {
-  //     if (matrix[s][i]) {
-  //       count += 1
-  //     }
-  //   }
-  //   ret.push(count)
-  // }
-  // return ret
 }
 
 function arrMin(arr: number[]): number {
