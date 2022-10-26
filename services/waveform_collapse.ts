@@ -72,12 +72,10 @@ export class WaveformCollapseAlgorithm implements Scheduler {
       const counts = matrixCounts(matrix);
       // We could choose to always select by shift
       const idxShift = arrMin(counts);
-      console.log("Assigning: ", idxShift);
       // Since we are selecting the shift or employee with the least possible assignments, it should
       // reduce the likelihood we run into a conflict
       if (idxShift !== -1 && this.assignShift(idxShift, matrix, assigned)) {
         // Mark order assigned in
-        console.log("to: ", this.schedule[idxShift].owner);
         if (!this.canAssignMinHours(matrix)) {
           matrix = this.unassign(assigned, matrix);
           // assigned -= 1
