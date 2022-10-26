@@ -1,20 +1,13 @@
 import ExportModal from "../components/export/ExportModal";
 import Calendar from "../components/Calendar/Calendar";
-import { useRef } from "react";
+import React from "react";
 
 export default function Home(): JSX.Element {
-  const goodRef: React.RefObject<any> = useRef();
+  const exportRef = React.useRef(null);
 
   return (
     <>
-      {/* <TestingComponent
-          refSetter={(newRef: any) => {
-            console.log('setting ref', newRef)
-            goodRef = newRef
-          }}
-        /> */}
-      <ExportModal componentToExport={goodRef} />
-      <Calendar allShifts={[]} ref={goodRef} />
+      <h1>This is the home</h1>
     </>
   );
 }

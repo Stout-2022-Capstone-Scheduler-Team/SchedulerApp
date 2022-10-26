@@ -1,209 +1,215 @@
-import { Shift, Time, DayOftheWeek } from '../entities/types'
-import Calendar from "../components/Calendar/Calendar";
+import { Shift, Time, DayOftheWeek } from "../entities/types";
+import { Calendar, ExportModal } from "../components";
+import React from "react";
 
 export default function EditSchedule(): JSX.Element {
   // remove hard coded data once we add functionality to add shifts
-	const dummyData  = [
-		new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+  const dummyData = [
+    new Shift(
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Sunday,
-      'Drew Accola',
+      "Drew Accola"
     ),
-		new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+    new Shift(
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Sunday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Sunday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Sunday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Monday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Monday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Monday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Monday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Tuesday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Tuesday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Tuesday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Tuesday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Wednesday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Wednesday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Wednesday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Wednesday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Thursday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Thursday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Thursday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Thursday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Friday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Friday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Friday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Friday,
-      'Drew Accola',
-    ),new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
-      DayOftheWeek.Saturday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Saturday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Saturday,
-      'Drew Accola',
+      "Drew Accola"
     ),
     new Shift(
-      'Programmer',
-      new Time(9.50),
-      new Time(10.50),
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Saturday,
-      'Drew Accola',
+      "Drew Accola"
     ),
-  ]  
-    return (
-        <>
-					<Calendar allShifts={dummyData}/>
-					{/* Add additional components to this page */}
-        </>
+    new Shift(
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
+      DayOftheWeek.Saturday,
+      "Drew Accola"
     )
+  ];
+
+  // Reference to the calendar which enables exporting it
+  const exportRef = React.useRef(null);
+
+  return (
+    <>
+      <Calendar allShifts={dummyData} exportRef={exportRef} />
+      <ExportModal componentToExport={exportRef} />
+    </>
+  );
 }

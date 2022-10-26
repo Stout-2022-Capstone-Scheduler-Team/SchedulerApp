@@ -1,37 +1,37 @@
-import * as React from 'react'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import Modal from '@mui/material/Modal'
-import FormatSelect from './FormatSelect'
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import FormatSelect from "./FormatSelect";
 
-import { Card, CardActions, CardContent } from '@mui/material'
+import { Card, CardActions, CardContent } from "@mui/material";
 
 export enum ExportType {
-  png = 'png',
-  pdf = 'pdf',
-  jpeg = 'jpeg',
+  png = "png",
+  pdf = "pdf",
+  jpeg = "jpeg"
 }
 
 interface ExportModalProps {
-  componentToExport: React.RefObject<React.ReactInstance>
+  componentToExport: React.RefObject<React.ReactInstance>;
 }
 
-export default function ExportModal({
-  componentToExport,
+export function ExportModal({
+  componentToExport
 }: ExportModalProps): JSX.Element {
-  const [open, setOpen] = React.useState(false)
-  const [type, setType] = React.useState<ExportType>()
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const [open, setOpen] = React.useState(false);
+  const [type, setType] = React.useState<ExportType>();
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handletype = (): void => {
     if (type === ExportType.png) {
-      void import('react-component-export-image').then((result) => {
-        console.log(componentToExport)
-        result.exportComponentAsPNG(componentToExport)
-      })
+      void import("react-component-export-image").then((result) => {
+        console.log(componentToExport);
+        result.exportComponentAsPNG(componentToExport);
+      });
     }
-  }
+  };
 
   return (
     <div>
@@ -42,7 +42,7 @@ export default function ExportModal({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Card sx={{ mx: 'auto', mt: '3rem', width: '40%' }}>
+        <Card sx={{ mx: "auto", mt: "3rem", width: "40%" }}>
           <CardContent>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Export Schedule
@@ -53,7 +53,7 @@ export default function ExportModal({
             <FormatSelect type={type} typeSetter={setType} />
           </CardContent>
           <CardActions>
-            <Button sx={{ ml: 'auto', minWidth: 20 }} onClick={handleClose}>
+            <Button sx={{ ml: "auto", minWidth: 20 }} onClick={handleClose}>
               Cancel
             </Button>
             <Button sx={{ minWidth: 20 }} onClick={handletype}>
@@ -63,5 +63,5 @@ export default function ExportModal({
         </Card>
       </Modal>
     </div>
-  )
+  );
 }

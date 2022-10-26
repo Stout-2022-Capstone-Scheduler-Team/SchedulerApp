@@ -5,7 +5,7 @@ interface ShiftCardProps {
   shift: Shift;
 }
 
-const ShiftCard = ({ shift }: ShiftCardProps): JSX.Element => {
+export function ShiftCard({ shift }: ShiftCardProps): JSX.Element {
   return (
     <Card sx={{ mt: ".50rem" }}>
       <CardContent>
@@ -16,6 +16,6 @@ const ShiftCard = ({ shift }: ShiftCardProps): JSX.Element => {
       </CardContent>
     </Card>
   );
-};
+}
 
 export default ShiftCard;

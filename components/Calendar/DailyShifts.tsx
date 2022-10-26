@@ -8,7 +8,7 @@ interface Props {
   allShifts: Shift[];
 }
 
-const DailyShifts = (props: Props): JSX.Element => {
+export function DailyShifts(props: Props): JSX.Element {
   const shifts = props.allShifts.map((shift) => <ShiftCard shift={shift} />);
 
   return (
@@ -18,5 +18,4 @@ const DailyShifts = (props: Props): JSX.Element => {
       </Grid>
     </Grid>
   );
-};
-export default DailyShifts;
+}
