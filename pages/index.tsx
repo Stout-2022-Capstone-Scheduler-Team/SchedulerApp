@@ -4,9 +4,14 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 import ExportModal from '../components/export/ExportModal'
-import MyComponent from '../components/export/print'
+import TestingComponent from '../components/export/print'
+import { ReactInstance, RefObject, useRef } from 'react'
+import React from 'react'
+import Link from 'next/link'
 
 const Home: NextPage = () => {
+  let goodRef: React.RefObject<any> = useRef()
+
   return (
     <div className={styles.container}>
       <Head>
@@ -20,7 +25,14 @@ const Home: NextPage = () => {
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
-        <ExportModal />
+        <TestingComponent
+          refSetter={(newRef: any) => {
+            console.log('setting ref', newRef)
+            goodRef = newRef
+          }}
+        />
+
+        <ExportModal componentToExport={goodRef} />
 
         <p className={styles.description}>
           Get started by editing{' '}
@@ -56,7 +68,6 @@ const Home: NextPage = () => {
             </p>
           </a>
         </div>
-        <MyComponent />
       </main>
 
       <footer className={styles.footer}>
