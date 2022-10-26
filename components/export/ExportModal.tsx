@@ -2,10 +2,10 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import FormatSelect from "./FormatSelect";
 import IosShareIcon from "@mui/icons-material/IosShare";
 
-import { Backdrop, Card, CardActions, CardContent } from "@mui/material";
+import { Card, CardActions, CardContent } from "@mui/material";
+import { FormatSelect } from "./FormatSelect";
 
 export enum ExportType {
   png = "png",

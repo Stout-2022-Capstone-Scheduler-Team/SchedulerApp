@@ -1,21 +1,22 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
-import { SelectChangeEvent } from '@mui/material/Select'
-import React, { ChangeEvent } from 'react'
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { SelectChangeEvent } from "@mui/material/Select";
+import React, { ChangeEvent } from "react";
 
-import { ExportType } from './ExportModal'
+import { ExportType } from "./ExportModal";
 
 interface FormatSelectProps {
-  type: ExportType | undefined
-  typeSetter: Function
+  type: ExportType | undefined;
+  typeSetter: Function;
 }
 
-export default function FormatSelect({
+export function FormatSelect({
   type,
-  typeSetter,
+  typeSetter
 }: FormatSelectProps): JSX.Element {
   const handleChange = (event: SelectChangeEvent | ChangeEvent): void => {
-    typeSetter(event.target.value)
-  }
+    // @ts-ignore
+    typeSetter(event.target.value);
+  };
 
   return (
     <FormControl fullWidth>
@@ -32,5 +33,5 @@ export default function FormatSelect({
         <MenuItem value={ExportType.pdf}>pdf</MenuItem>
       </Select>
     </FormControl>
-  )
+  );
 }
