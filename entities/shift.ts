@@ -10,11 +10,20 @@ export class Shift {
   day: DayOftheWeek;
   owner: string = "";
 
-  constructor(name: string, start: Time, end: Time, day: DayOftheWeek) {
+  constructor(
+    name: string,
+    start: Time,
+    end: Time,
+    day: DayOftheWeek,
+    owner?: string
+  ) {
     this.name = name;
     this.start = start;
     this.end = end;
     this.day = day;
+    if (owner !== undefined) {
+      this.owner = owner;
+    }
   }
 
   overlaps(other: Shift): boolean {

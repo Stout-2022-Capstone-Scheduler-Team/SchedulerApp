@@ -27,6 +27,7 @@ export default function NavBar(): JSX.Element {
           >
             Scheduler Builder
           </Typography>
+
         </Toolbar>
       </Container>
     </AppBar>

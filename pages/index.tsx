@@ -1,6 +1,6 @@
 import ExportModal from "../components/export/ExportModal";
 
-const Home: JSX.Element = (): JSX.Element => {
+export default function Home(): JSX.Element {
   let goodRef: React.RefObject<any> = useRef();
 
   return (
@@ -12,8 +12,8 @@ const Home: JSX.Element = (): JSX.Element => {
           }}
         /> */}
       <ExportModal componentToExport={goodRef} />
+      <EditSchedule />
+      {/* ADD logic to switch between pages */}
     </>
   );
-};
-
-export default Home;
+}

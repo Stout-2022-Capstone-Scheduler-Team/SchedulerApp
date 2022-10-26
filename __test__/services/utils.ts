@@ -14,14 +14,14 @@ export function shift(
   day: DayOftheWeek,
   owner?: string
 ): Shift {
-  const s = new Shift("", Time.FromString(from), Time.FromString(to), day);
+  const s = new Shift("", Time.fromString(from), Time.fromString(to), day);
   if (owner !== undefined) {
     s.owner = owner;
   }
   return s;
 }
 export function allDay(day: DayOftheWeek): Shift {
-  return new Shift("", Time.FromString("00:00"), Time.FromString("24:00"), day);
+  return new Shift("", Time.fromString("00:00"), Time.fromString("24:00"), day);
 }
 
 export function person(
