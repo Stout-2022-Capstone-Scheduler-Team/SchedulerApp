@@ -10,13 +10,35 @@ export class Time {
   }
 
   /**
-   * Time.FromString("05:15") -> 5.25
+   * Time.fromString("05:15") -> 5.25
    * */
-  static FromString(s: string): Time {
+  static fromString(s: string): Time {
     const hours = Number(s.substring(0, 2));
     assert(s.charAt(2) === ":");
     const minutes = Number(s.substring(3, 5));
     return new Time(hours + minutes / 60);
+  }
+
+  /**
+   * Time.toString(5.25) -> "5:15"
+   * */
+  toString(): string {
+    let minute = this.hours - Math.floor(this.hours);
+    let hour = this.hours - minute;
+    minute = Math.round(minute * 60);
+    let zone = " am";
+    // Set hours
+    if (hour > 12) {
+      hour -= 12;
+      zone = " pm";
+    } else if (hour === 0) {
+      hour = 12;
+    }
+    // Set minute
+    if (minute < 10) {
+      return String(hour) + ":0" + String(minute) + zone;
+    }
+    return String(hour) + ":" + String(minute) + zone;
   }
 
   hoursBetween(other: Time): number {
@@ -34,7 +56,7 @@ export enum DayOftheWeek {
   Thursday = 3,
   Friday = 4,
   Saturday = 5,
-  Sunday = 6,
+  Sunday = 6
 }
 
 export function compareDaytimes(
