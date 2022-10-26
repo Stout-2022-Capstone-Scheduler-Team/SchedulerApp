@@ -7,8 +7,8 @@ export default function EditSchedule(): JSX.Element {
 	const dummyData  = [
 		new Shift(
       'Programmer',
+      new Time(9.50),
       new Time(10.50),
-      new Time(11.50),
       DayOftheWeek.Sunday,
       'Drew',
     ),
