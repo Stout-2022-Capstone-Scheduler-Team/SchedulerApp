@@ -25,13 +25,12 @@ const Home: NextPage = () => {
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
-        <TestingComponent
+        {/* <TestingComponent
           refSetter={(newRef: any) => {
             console.log('setting ref', newRef)
             goodRef = newRef
           }}
-        />
-
+        /> */}
         <ExportModal componentToExport={goodRef} />
 
         <p className={styles.description}>

@@ -53,7 +53,9 @@ export default function ExportModal({
             <FormatSelect type={type} typeSetter={setType} />
           </CardContent>
           <CardActions>
-            <Button sx={{ ml: 'auto', minWidth: 20 }}>Cancel</Button>
+            <Button sx={{ ml: 'auto', minWidth: 20 }} onClick={handleClose}>
+              Cancel
+            </Button>
             <Button sx={{ minWidth: 20 }} onClick={handletype}>
               Export
             </Button>
