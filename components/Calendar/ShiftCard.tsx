@@ -19,7 +19,7 @@ interface ShiftCardProps {
   shift: Shift;
 }
 
-const ShiftCard = ({ shift }: ShiftCardProps): JSX.Element => {
+export function ShiftCard({ shift }: ShiftCardProps): JSX.Element {
   return (
     <Card sx={{ mt: 1, borderLeft:6, borderColor:getRandomColor(shift.owner) }}>
       <CardContent sx={{p:0.25, '&:last-child': { p: 0.25 } }}>
@@ -32,6 +32,6 @@ const ShiftCard = ({ shift }: ShiftCardProps): JSX.Element => {
       </CardContent>
     </Card>
   );
-};
+}
 
 export default ShiftCard;
