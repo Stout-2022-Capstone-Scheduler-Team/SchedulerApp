@@ -18,7 +18,7 @@ export function Calendar({ allShifts, exportRef }: Props): JSX.Element {
   return (
     <Grid container columns={7} sx={{ p: 5, pt: 3 }} ref={exportRef}>
       {dayOfWeekNumber.map((day: number) => (
-        <Grid item xs={1} sx={{ px: 0.75 }}>
+        <Grid item xs={1} sx={{ px: 1.5 }}>
           <WeeklyDate dayOfWeek={dayName(day).substring(0, 3)} date="10.23" />
         </Grid>
       ))}
