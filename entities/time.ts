@@ -25,10 +25,10 @@ export class Time {
   static toString(t: Time): string {
     const minute = t.hours - Math.floor(t.hours);
     let hour = t.hours - minute;
-    let zone = " am";
+    let zone = "am";
     if (hour > 12) {
       hour -= 12;
-      zone = " pm";
+      zone = "pm";
     }
     return String(hour) + ":" + String(minute * 60) + zone;
   }
