@@ -33,8 +33,12 @@ export class Employee {
    * */
   score(shift: Shift): number {
     if (this.current_hours < this.min_hours) {
-      return -10000 + (this.min_hours - this.current_hours)
+      return -10000 + (this.min_hours - this.current_hours);
     }
-    return this.current_hours + shift.duration
+    return this.current_hours + shift.duration;
+  }
+
+  get remainingHours(): number {
+    return Math.max(this.min_hours - this.current_hours, 0);
   }
 }

@@ -22,15 +22,23 @@ export class Time {
   /**
    * Time.toString(5.25) -> "5:15"
    * */
-  static toString(t: Time): string {
-    const minute = t.hours - Math.floor(t.hours);
-    let hour = t.hours - minute;
-    let zone = "am";
+  toString(): string {
+    let minute = this.hours - Math.floor(this.hours);
+    let hour = this.hours - minute;
+    minute = Math.round(minute * 60);
+    let zone = " am";
+    // Set hours
     if (hour > 12) {
       hour -= 12;
-      zone = "pm";
+      zone = " pm";
+    } else if (hour === 0) {
+      hour = 12;
     }
-    return String(hour) + ":" + String(minute * 60) + zone;
+    // Set minute
+    if (minute < 10) {
+      return String(hour) + ":0" + String(minute) + zone;
+    }
+    return String(hour) + ":" + String(minute) + zone;
   }
 
   hoursBetween(other: Time): number {
