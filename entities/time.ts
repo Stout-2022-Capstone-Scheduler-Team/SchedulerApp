@@ -22,9 +22,9 @@ export class Time {
   /**
    * Time.toString(5.25) -> "5:15"
    * */
-  static toString(t: Time): string {
-    let minute = t.hours - Math.floor(t.hours);
-    let hour = t.hours - minute;
+  toString(): string {
+    let minute = this.hours - Math.floor(this.hours);
+    let hour = this.hours - minute;
     minute = Math.round(minute * 60);
     let zone = " am";
     // Set hours
