@@ -17,11 +17,11 @@ interface ExportModalProps {
   componentToExport: React.RefObject<React.ReactInstance>;
 }
 
-export default function ExportModal({
+export function ExportModal({
   componentToExport
 }: ExportModalProps): JSX.Element {
   const [open, setOpen] = React.useState(false);
-  const [type, setType] = React.useState<ExportType>(ExportType.pdf);
+  const [type, setType] = React.useState<ExportType>(ExportType.png);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -30,6 +30,16 @@ export default function ExportModal({
       void import("react-component-export-image").then((result) => {
         console.log(componentToExport);
         result.exportComponentAsPNG(componentToExport);
+      });
+    } else if (type === ExportType.pdf) {
+      void import("react-component-export-image").then((result) => {
+        console.log(componentToExport);
+        result.exportComponentAsPDF(componentToExport);
+      });
+    } else if (type === ExportType.jpeg) {
+      void import("react-component-export-image").then((result) => {
+        console.log(componentToExport);
+        result.exportComponentAsJPEG(componentToExport);
       });
     }
   };
