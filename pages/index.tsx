@@ -1,7 +1,9 @@
 import ExportModal from "../components/export/ExportModal";
+import Calendar from "../components/Calendar/Calendar";
+import { useRef } from "react";
 
 export default function Home(): JSX.Element {
-  let goodRef: React.RefObject<any> = useRef();
+  const goodRef: React.RefObject<any> = useRef();
 
   return (
     <>
@@ -12,8 +14,7 @@ export default function Home(): JSX.Element {
           }}
         /> */}
       <ExportModal componentToExport={goodRef} />
-      <EditSchedule />
-      {/* ADD logic to switch between pages */}
+      <Calendar allShifts={[]} ref={goodRef} />
     </>
   );
 }
