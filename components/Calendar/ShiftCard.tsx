@@ -10,7 +10,7 @@ export function ShiftCard({ shift }: ShiftCardProps): JSX.Element {
     <Card sx={{ mt: ".50rem" }}>
       <CardContent>
         <Typography>
-          {Time.toString(shift.start)} - {Time.toString(shift.end)}
+          {shift.start.toString()} - {shift.end.toString()}
         </Typography>
         <Typography sx={{ fontWeight: "bold" }}>{shift.owner}</Typography>
       </CardContent>
