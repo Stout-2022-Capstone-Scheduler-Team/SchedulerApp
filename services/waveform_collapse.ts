@@ -44,7 +44,8 @@ export class WaveformCollapseAlgorithm implements Scheduler {
    * Generate a valid schedule if possible. Returns whether a schedule was successfully generated
    *
    * This algorithm runs in O(N*M) where N and M are the number of employees and shifts.
-   * Right now, it only makes one attempt to assign shifts.
+   * It now also backtracks, which greatly increases it's worst case time, but only marginally increases it's
+   * average time, since we use hueristics to try more likely options first
    *
    * */
   generate(): boolean {
