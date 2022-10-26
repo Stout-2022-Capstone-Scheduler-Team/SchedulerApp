@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import React, { RefObject, useRef } from 'react'
+import Link from "next/link";
+import React, { RefObject, useRef } from "react";
 
 interface testProps {
-  refSetter: Function
+  refSetter: Function;
 }
 
 const ComponentToPrint = ({ refSetter }: testProps): JSX.Element => {
@@ -11,7 +11,7 @@ const ComponentToPrint = ({ refSetter }: testProps): JSX.Element => {
       <h2>Documentation &rarr;</h2>
       <p>Find in-depth information about Next.js features and API.</p>
     </Link>
-  )
-}
+  );
+};
 
-export default ComponentToPrint
+export default ComponentToPrint;
