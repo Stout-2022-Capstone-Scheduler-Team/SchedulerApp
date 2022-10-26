@@ -23,8 +23,8 @@ const ShiftCard = ({ shift }: ShiftCardProps): JSX.Element => {
   return (
     <Card sx={{ mt: 1, borderLeft:6, borderColor:getRandomColor(shift.owner) }}>
       <CardContent sx={{p:0.25, '&:last-child': { p: 0.25 } }}>
-        <Typography sx={{ display:"flex", justifyContent:"center"}}>
-          {Time.toString(shift.start)} - {Time.toString(shift.end)} 
+        <Typography sx={{ display:"flex", justifyContent:"center" }}>
+          {shift.start.toString()} - {shift.end.toString()} 
         </Typography>
         <Typography sx={{ fontWeight: "bold", display:"flex", justifyContent:"center"}}>
           {shift.owner}

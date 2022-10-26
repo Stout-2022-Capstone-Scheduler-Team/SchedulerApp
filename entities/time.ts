@@ -26,11 +26,11 @@ export class Time {
     let minute = this.hours - Math.floor(this.hours);
     let hour = this.hours - minute;
     minute = Math.round(minute * 60);
-    let zone = " am";
+    let zone = "am";
     // Set hours
     if (hour > 12) {
       hour -= 12;
-      zone = " pm";
+      zone = "pm";
     } else if (hour === 0) {
       hour = 12;
     }
