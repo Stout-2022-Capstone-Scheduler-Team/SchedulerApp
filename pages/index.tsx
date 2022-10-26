@@ -1,23 +1,15 @@
-import { Button, Box, Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 
 export default function Home(): JSX.Element {
   return (
-    <Box sx={{ mx: "7%" }}>
-      <h1>This is the home</h1>
-      <Stack spacing={2}>
-        <Stack direction="row" spacing={2}>
-          <Button variant="contained">Primary</Button>
-          <Button variant="contained" color="secondary">
-            Secondary
+    <Stack sx={{ mx: "7%" }} alignItems="center" spacing={2}>
+      <h1>Welcome to the Scheduler Builder</h1>
+          <Button variant="contained" color="secondary" sx={{ typography: "h5", padding: 2, width: 300 }} href = "/create">
+            Create Schedule
           </Button>
-        </Stack>
-        <Stack direction="row" spacing={2}>
-          <Button variant="contained">Primary Dark</Button>
-          <Button variant="contained" color="secondary">
-            Secondary Dark
+          <Button variant="contained" color="primary">
+            Advanced Options
           </Button>
-        </Stack>
-      </Stack>
-    </Box>
+    </Stack>
   );
 }
