@@ -10,6 +10,10 @@ export class Shift {
   day: DayOftheWeek;
   owner: string = "";
 
+  assigned: number = 0;
+  option: number = 0;
+  first_try: string | undefined;
+
   constructor(
     name: string,
     start: Time,

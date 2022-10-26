@@ -3,7 +3,7 @@ const createJestConfig = nextJest({
   dir: "./"
 });
 
-export default createJestConfig({
+const config = createJestConfig({
   moduleDirectories: ["node_modules", "<rootDir>/"],
   testEnvironment: "jest-environment-jsdom",
   collectCoverage: true,
@@ -23,5 +23,10 @@ export default createJestConfig({
       lines: 80,
       statements: -10
     }
+  },
+  transform: {
+    "^.+\\.(js|jsx|ts|tsx|mjs)$": ["babel-jest", { presets: ["next/babel"] }]
   }
 });
+
+export default config;

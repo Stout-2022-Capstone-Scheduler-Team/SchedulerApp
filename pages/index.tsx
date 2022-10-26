@@ -1,13 +1,23 @@
-import ExportModal from "../components/export/ExportModal";
-import Calendar from "../components/Calendar/Calendar";
+import { Button, Stack } from "@mui/material";
 import React from "react";
 
 export default function Home(): JSX.Element {
   const exportRef = React.useRef(null);
 
   return (
-    <>
-      <h1>This is the home</h1>
-    </>
+    <Stack sx={{ mx: "7%" }} alignItems="center" spacing={2}>
+      <h1>Welcome to the Scheduler Builder</h1>
+      <Button
+        variant="contained"
+        color="secondary"
+        sx={{ typography: "h5", padding: 2, width: 300 }}
+        href="/create"
+      >
+        Create Schedule
+      </Button>
+      <Button variant="contained" color="primary">
+        Advanced Options
+      </Button>
+    </Stack>
   );
 }
