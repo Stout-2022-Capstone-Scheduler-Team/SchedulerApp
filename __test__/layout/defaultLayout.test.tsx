@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 
-import DefaultLayout from "../../components/Layout/DefaultLayout";
+import DefaultLayout from "../../components/layout/DefaultLayout";
 
 test("label links to home", () => {
   render(
