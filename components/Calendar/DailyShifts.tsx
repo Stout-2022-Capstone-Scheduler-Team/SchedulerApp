@@ -9,7 +9,9 @@ interface Props {
 }
 
 export function DailyShifts(props: Props): JSX.Element {
-  const shifts = props.allShifts.map((shift) => <ShiftCard shift={shift} />);
+  const shifts = props.allShifts.map((shift) => (
+    <ShiftCard shift={shift} key={shift.owner + shift.start.toString()} />
+  ));
 
   return (
     <Grid container spacing={2} columns={1}>
