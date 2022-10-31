@@ -11,5 +11,4 @@ test("label links to home", () => {
   );
   const navBarTitle = screen.getByText(/Scheduler Builder/i);
   expect(navBarTitle).toBeInTheDocument();
-  expect(navBarTitle).toHaveAttribute("href");
 });
