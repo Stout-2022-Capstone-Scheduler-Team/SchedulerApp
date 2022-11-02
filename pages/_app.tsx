@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import DefaultLayout from "../components/layout/DefaultLayout";
