@@ -2,8 +2,8 @@ import { Shift, DayOftheWeek, dayName } from "../../entities/types";
 import { DailyShifts } from "./DailyShifts";
 import { WeeklyDate } from "./WeeklyDate";
 
-import { Grid, Paper } from "@mui/material";
-import { ReactInstance, RefObject, useRef } from "react";
+import { Grid } from "@mui/material";
+import { RefObject } from "react";
 
 interface Props {
   allShifts: Shift[];

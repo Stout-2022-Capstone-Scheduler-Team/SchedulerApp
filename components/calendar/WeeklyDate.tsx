@@ -1,11 +1,11 @@
 import { Grid, Typography } from "@mui/material";
 
-interface WeeklyDate {
+interface WeeklyDateProps {
   dayOfWeek: string;
   date: string;
 }
 
-export function WeeklyDate(props: WeeklyDate): JSX.Element {
+export function WeeklyDate(props: WeeklyDateProps): JSX.Element {
   return (
     <Grid container columns={2} sx={{ borderBottom: 1 }}>
       <Grid item xs={1}>

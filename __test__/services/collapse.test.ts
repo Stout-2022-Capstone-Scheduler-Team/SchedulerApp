@@ -12,10 +12,10 @@ import {
   Sunday
 } from "./utils";
 
-test('Empty Schedule', () => {
-  const process = new WaveformCollapseAlgorithm([], [])
-  expect(process.generate()).toBe(true)
-})
+test("Empty Schedule", () => {
+  const process = new WaveformCollapseAlgorithm([], []);
+  expect(process.generate()).toBe(true);
+});
 
 test("Get Employee Name", () => {
   const process = new WaveformCollapseAlgorithm(
@@ -58,14 +58,14 @@ test("Sorted Schedule", () => {
 test("Collapse Schedule", () => {
   const process = new WaveformCollapseAlgorithm(
     [
-      shift('08:00', '12:00', Monday),
-      shift('15:45', '20:00', Monday),
-      shift('14:00', '16:00', Tuesday),
+      shift("08:00", "12:00", Monday),
+      shift("15:45", "20:00", Monday),
+      shift("14:00", "16:00", Tuesday)
     ],
     [
-      person('alice', 1, 4, [allDay(Monday), allDay(Tuesday)]),
-      person('bob', 1, 12, [allDay(Monday), allDay(Tuesday)]),
-      person('clair', 1, 12, [shift('12:00', '24:00', Tuesday)]),
+      person("alice", 1, 4, [allDay(Monday), allDay(Tuesday)]),
+      person("bob", 1, 12, [allDay(Monday), allDay(Tuesday)]),
+      person("clair", 1, 12, [shift("12:00", "24:00", Tuesday)])
     ]
   );
   expect(process.generate()).toBe(true);
@@ -75,7 +75,7 @@ test("Collapse Schedule", () => {
   expect(s[2].owner).toBe("clair");
 });
 
-test('Jarod 1 Schedule', () => {
+test("Jarod 1 Schedule", () => {
   const process = new WaveformCollapseAlgorithm(
     [
       shift("09:00", "12:00", Monday), // 3:00
@@ -84,9 +84,9 @@ test('Jarod 1 Schedule', () => {
       shift("09:00", "10:00", Monday) // 1:00
     ],
     [
-      person('alice', 2, 12, [allDay(Monday)]),
-      person('bob', 1, 12, [allDay(Monday)]),
-      person('clair', 3, 12, [allDay(Monday)]),
+      person("alice", 2, 12, [allDay(Monday)]),
+      person("bob", 1, 12, [allDay(Monday)]),
+      person("clair", 3, 12, [allDay(Monday)])
     ]
   );
   expect(process.generate()).toBe(true);
@@ -176,13 +176,13 @@ test("Jarod 3 Schedule", () => {
   expect(s[3].owner).toBe("alice");
 });
 
-test('Impossible Schedule', () => {
+test("Impossible Schedule", () => {
   const process = new WaveformCollapseAlgorithm(
     [
-      shift('09:00', '10:00', Monday),
-      shift('09:00', '12:00', Monday),
-      shift('09:00', '10:00', Monday),
-      shift('11:00', '12:00', Monday),
+      shift("09:00", "10:00", Monday),
+      shift("09:00", "12:00", Monday),
+      shift("09:00", "10:00", Monday),
+      shift("11:00", "12:00", Monday)
     ],
     [person("alice", 2, 2, [allDay(Monday)])]
   );
