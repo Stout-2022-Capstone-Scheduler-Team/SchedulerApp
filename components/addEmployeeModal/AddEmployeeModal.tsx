@@ -10,7 +10,7 @@ export function AddEmployeeModal() {
 
   return (
     <>
-      <Button onClick={handleOpen} variant={"contained"}>
+      <Button onClick={handleOpen} variant={"contained"} color={"secondary"}>
         Open modal
       </Button>
       <Modal
