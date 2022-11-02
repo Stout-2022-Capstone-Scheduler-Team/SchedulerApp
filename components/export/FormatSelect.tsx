@@ -14,7 +14,7 @@ export function FormatSelect({
   typeSetter
 }: FormatSelectProps): JSX.Element {
   const handleChange = (event: SelectChangeEvent | ChangeEvent): void => {
-    // @ts-ignore
+    // @ts-expect-error
     typeSetter(event.target.value);
   };
 

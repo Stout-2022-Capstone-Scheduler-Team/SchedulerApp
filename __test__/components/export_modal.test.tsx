@@ -4,11 +4,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import React from "react";
 import { ExportModal, ExportType } from "../../components";
 
-import {
-  exportComponentAsJPEG,
-  exportComponentAsPDF,
-  exportComponentAsPNG
-} from "react-component-export-image";
+import { exportComponentAsPNG } from "react-component-export-image";
 jest.mock("react-component-export-image");
 beforeEach(() => {
   jest.resetAllMocks();
@@ -51,7 +47,7 @@ test("Export Functionality", async () => {
 
   fireEvent.click(screen.getByText(/Export/i));
   {
-    let mocked = jest.mocked(exportComponentAsPNG);
+    const mocked = jest.mocked(exportComponentAsPNG);
     mocked.mockResolvedValueOnce(() => {});
     // This needs something else to specify, since the text is the same
     fireEvent.click(screen.getByTestId("export_button"));

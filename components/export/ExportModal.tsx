@@ -22,8 +22,8 @@ export function ExportModal({
 }: ExportModalProps): JSX.Element {
   const [open, setOpen] = React.useState(false);
   const [type, setType] = React.useState<ExportType>(ExportType.png);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = (): void => setOpen(true);
+  const handleClose = (): void => setOpen(false);
 
   const handletype = (): void => {
     // Inline import to force import on the client side
@@ -31,17 +31,23 @@ export function ExportModal({
     if (type === ExportType.png) {
       void exporter.then((result) => {
         console.log(componentToExport);
-        result.exportComponentAsPNG(componentToExport);
+        result
+          .exportComponentAsPNG(componentToExport)
+          .catch(() => console.log("Export Failed"));
       });
-    } else if (type === ExportType.pdf) {
-      void exporter.then((result) => {
-        console.log(componentToExport);
-        result.exportComponentAsPDF(componentToExport);
-      });
+      // } else if (type === ExportType.pdf) {
+      //   void exporter.then((result) => {
+      //     console.log(componentToExport);
+      //     result
+      //       .exportComponentAsPDF(componentToExport)
+      //       .catch(() => console.log("Export Failed"));
+      //   });
     } else if (type === ExportType.jpeg) {
       void exporter.then((result) => {
         console.log(componentToExport);
-        result.exportComponentAsJPEG(componentToExport);
+        result
+          .exportComponentAsJPEG(componentToExport)
+          .catch(() => console.log("Export Failed"));
       });
     }
   };
