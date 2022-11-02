@@ -14,7 +14,7 @@ export class StorageService {
   // getting specific schedule based on key data
   async read(name: string): Promise<Schedule> {
     // The same code, but using ES6 Promises.
-    return await localforage.getItem(name);
+    await localforage.getItem(name);
   }
 
   // reading the schedule list and seeing if the current schedule is already in the storage
