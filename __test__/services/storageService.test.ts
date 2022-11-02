@@ -1,5 +1,6 @@
-import { StorageService, Schedule } from "../../services/storageService";
+import { LocalStorage } from "../../services/storageService";
 import localforage from "localforage";
+import { WaveformCollapseAlgorithm } from "../../services/waveform_collapse";
 
 jest.mock("localforage");
 beforeEach(() => {
@@ -8,10 +9,10 @@ beforeEach(() => {
 
 test("Get Item", async () => {
   // declare a dummy object for adding and removing to the storage
-  const a = {};
+  const a = new WaveformCollapseAlgorithm([], []);
 
   // declare a storage object
-  const storage = new StorageService();
+  const storage = new LocalStorage();
 
   // testing retrieving an item from storage
   const getItem = jest.mocked(localforage.getItem);
@@ -23,10 +24,10 @@ test("Get Item", async () => {
 
 test("Set Item", async () => {
   // declare a dummy object for adding and removing to the storage
-  const a = {};
+  const a = new WaveformCollapseAlgorithm([], []);
 
   // declare a storage object
-  const storage = new StorageService();
+  const storage = new LocalStorage();
 
   const setItem = jest.mocked(localforage.setItem);
 
@@ -39,7 +40,7 @@ test("Set Item", async () => {
 
 test("Remove Item", async () => {
   // declare a storage object
-  const storage = new StorageService();
+  const storage = new LocalStorage();
 
   const removeItem = jest.mocked(localforage.removeItem);
   // testing removing an item from the storage
@@ -51,10 +52,10 @@ test("Remove Item", async () => {
 
 test("Iterate", async () => {
   // declare a dummy object for adding and removing to the storage
-  const a = {};
+  const a = new WaveformCollapseAlgorithm([], []);
 
   // declare a storage object
-  const storage = new StorageService();
+  const storage = new LocalStorage();
 
   const iterate = jest.mocked(localforage.iterate);
   // testing retrieving all of the items from the storage
