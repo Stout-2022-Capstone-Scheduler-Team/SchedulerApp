@@ -1,4 +1,4 @@
-import { Shift, DayOftheWeek } from "../../entities/types";
+import { Shift, DayOftheWeek, dayName } from "../../entities/types";
 import { DailyShifts } from "./DailyShifts";
 import { WeeklyDate } from "./WeeklyDate";
 
@@ -11,80 +11,24 @@ interface Props {
 }
 
 export function Calendar({ allShifts, exportRef }: Props): JSX.Element {
+  const dayOfWeekNumber = Object.keys(DayOftheWeek)
+    .filter((v) => !isNaN(Number(v)))
+    .map((day) => Number(day));
+
   return (
-    <Paper sx={{ m: 2, p: 1, bgcolor: "#eeeeee" }} ref={exportRef}>
-      <Grid container columns={7}>
-        <Grid item xs={1} sx={{ px: 0.75 }}>
-          <WeeklyDate dayOfWeek="Sun" date="10.23" />
+    <Grid container columns={7} sx={{ p: 5, pt: 3 }} ref={exportRef}>
+      {dayOfWeekNumber.map((day: number) => (
+        <Grid item xs={1} sx={{ px: 1.5 }} key={day}>
+          <WeeklyDate dayOfWeek={dayName(day).substring(0, 3)} date="10.23" />
         </Grid>
-        <Grid item xs={1} sx={{ px: 0.75 }}>
-          <WeeklyDate dayOfWeek="Mon" date="10.24" />
-        </Grid>
-        <Grid item xs={1} sx={{ px: 0.75 }}>
-          <WeeklyDate dayOfWeek="Tue" date="10.25" />
-        </Grid>
-        <Grid item xs={1} sx={{ px: 0.75 }}>
-          <WeeklyDate dayOfWeek="Wed" date="10.26" />
-        </Grid>
-        <Grid item xs={1} sx={{ px: 0.75 }}>
-          <WeeklyDate dayOfWeek="Thu" date="10.27" />
-        </Grid>
-        <Grid item xs={1} sx={{ px: 0.75 }}>
-          <WeeklyDate dayOfWeek="Fri" date="10.28" />
-        </Grid>
-        <Grid item xs={1} sx={{ px: 0.75 }}>
-          <WeeklyDate dayOfWeek="Sat" date="10.29" />
-        </Grid>
-        <Grid item xs={1} sx={{ px: 1.5 }}>
+      ))}
+      {dayOfWeekNumber.map((day: number) => (
+        <Grid item xs={1} sx={{ px: 1.5 }} key={day}>
           <DailyShifts
-            allShifts={allShifts.filter(
-              (shift) => shift.day === DayOftheWeek.Sunday
-            )}
+            allShifts={allShifts.filter((shift) => shift.day === day)}
           />
         </Grid>
-        <Grid item xs={1} sx={{ px: 1.5 }}>
-          <DailyShifts
-            allShifts={allShifts.filter(
-              (shift) => shift.day === DayOftheWeek.Monday
-            )}
-          />
-        </Grid>
-        <Grid item xs={1} sx={{ px: 1.5 }}>
-          <DailyShifts
-            allShifts={allShifts.filter(
-              (shift) => shift.day === DayOftheWeek.Tuesday
-            )}
-          />
-        </Grid>
-        <Grid item xs={1} sx={{ px: 1.5 }}>
-          <DailyShifts
-            allShifts={allShifts.filter(
-              (shift) => shift.day === DayOftheWeek.Wednesday
-            )}
-          />
-        </Grid>
-        <Grid item xs={1} sx={{ px: 1.5 }}>
-          <DailyShifts
-            allShifts={allShifts.filter(
-              (shift) => shift.day === DayOftheWeek.Thursday
-            )}
-          />
-        </Grid>
-        <Grid item xs={1} sx={{ px: 1.5 }}>
-          <DailyShifts
-            allShifts={allShifts.filter(
-              (shift) => shift.day === DayOftheWeek.Friday
-            )}
-          />
-        </Grid>
-        <Grid item xs={1} sx={{ px: 1.5 }}>
-          <DailyShifts
-            allShifts={allShifts.filter(
-              (shift) => shift.day === DayOftheWeek.Saturday
-            )}
-          />
-        </Grid>
-      </Grid>
-    </Paper>
+      ))}
+    </Grid>
   );
 }

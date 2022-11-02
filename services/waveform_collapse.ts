@@ -10,23 +10,23 @@ function matrixCounts(matrix: Assignment[][]): number[] {
 }
 
 function arrMin(arr: number[]): number {
-  let min = Infinity;
-  let idx = -1;
+  let min = Infinity
+  let idx = -1
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] < min && arr[i] > 0) {
-      min = arr[i];
-      idx = i;
+      min = arr[i]
+      idx = i
     }
   }
-  return idx;
+  return idx
 }
 
 export class WaveformCollapseAlgorithm implements Scheduler {
   schedule: Shift[];
   staff: Employee[];
   constructor(schedule: Shift[], staff: Employee[]) {
-    this.schedule = schedule;
-    this.staff = staff;
+    this.schedule = schedule
+    this.staff = staff
   }
 
   /**
@@ -40,8 +40,8 @@ export class WaveformCollapseAlgorithm implements Scheduler {
   generate(): boolean {
     // Clear current hours and busy
     this.staff.forEach((employee) => {
-      employee.current_hours = 0;
-    });
+      employee.current_hours = 0
+    })
     // Generate matrix & clear owners
     let matrix: Assignment[][] = [];
     this.schedule.forEach((shift) => {
@@ -51,10 +51,10 @@ export class WaveformCollapseAlgorithm implements Scheduler {
       shift.first_try = undefined;
       const staff: boolean[] = [];
       this.staff.forEach((employee) => {
-        staff.push(employee.isAvailable(shift));
-      });
-      matrix.push(staff);
-    });
+        staff.push(employee.isAvailable(shift))
+      })
+      matrix.push(staff)
+    })
     // Either the function return false or assign a shift each loop
     let assigned = 0;
     while (assigned < this.schedule.length) {
@@ -87,7 +87,7 @@ export class WaveformCollapseAlgorithm implements Scheduler {
         matrix = this.unassign(assigned, matrix);
       }
     }
-    return true;
+    return true
   }
 
   assignShift(
@@ -132,7 +132,7 @@ export class WaveformCollapseAlgorithm implements Scheduler {
           }
         }
       }
-      return true;
+      return true
     }
     return false;
   }
@@ -184,7 +184,7 @@ export class WaveformCollapseAlgorithm implements Scheduler {
   getSortedSchedule(): Shift[] {
     this.schedule.sort((a, b) =>
       compareDaytimes(a.day, a.start, b.day, b.start)
-    );
-    return this.schedule;
+    )
+    return this.schedule
   }
 }

@@ -20,10 +20,10 @@ test("Time", () => {
   expect(time("15:45").hoursBetween(time("16:00"))).toBeCloseTo(0.25);
   expect(time("16:00").hoursBetween(time("15:15"))).toBeCloseTo(0.75);
 
-  expect(time("15:42").toString()).toBe("3:42 pm");
-  expect(time("06:42").toString()).toBe("6:42 am");
-  expect(time("06:02").toString()).toBe("6:02 am");
-  expect(`${time("00:02")}`).toBe("12:02 am");
+  expect(time("15:42").toString()).toBe("3:42pm");
+  expect(time("06:42").toString()).toBe("6:42am");
+  expect(time("06:02").toString()).toBe("6:02am");
+  expect(`${time("00:02")}`).toBe("12:02am");
 
   expect(
     compareDaytimes(Monday, time("04:00"), Monday, time("05:00"))

@@ -4,195 +4,201 @@ import React from "react";
 
 export default function EditSchedule(): JSX.Element {
   // remove hard coded data once we add functionality to add shifts
-  const dummyData = [
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
+	const dummyData  = [
+		new Shift(
+      'Programmer',
+      new Time(9.50),
+      new Time(10.50),
       DayOftheWeek.Sunday,
-      "Drew Accola"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Sunday,
-      "Drew Accola"
+      'Drew',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Sunday,
-      "Drew Accola"
+      'Fred',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Sunday,
-      "Drew Accola"
+      'John',
+    ),
+    new Shift(
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
+      DayOftheWeek.Sunday,
+      'Spencer',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Monday,
-      "Drew Accola"
+      'Mike',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Monday,
-      "Drew Accola"
+      'Drew',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Monday,
-      "Drew Accola"
+      'Fred',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Monday,
-      "Drew Accola"
+      'John',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Tuesday,
-      "Drew Accola"
+      'Spencer',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Tuesday,
-      "Drew Accola"
+      'Mike',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Tuesday,
-      "Drew Accola"
+      'Drew',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Tuesday,
-      "Drew Accola"
+      'Fred',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Wednesday,
-      "Drew Accola"
+      'John',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Wednesday,
-      "Drew Accola"
+      'Spencer',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Wednesday,
-      "Drew Accola"
+      'Mike',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Wednesday,
-      "Drew Accola"
+      'Drew',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Thursday,
-      "Drew Accola"
+      'Fred',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Thursday,
-      "Drew Accola"
+      'John',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Thursday,
-      "Drew Accola"
+      'Spencer',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Thursday,
-      "Drew Accola"
+      'Mike',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Friday,
-      "Drew Accola"
+      'Drew',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Friday,
-      "Drew Accola"
+      'Fred',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Friday,
-      "Drew Accola"
+      'John',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Friday,
-      "Drew Accola"
+      'Spencer',
+    ),new Shift(
+      'Programmer',
+      new Time(9.50),
+      new Time(10.50),
+      DayOftheWeek.Saturday,
+      'Mike',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Saturday,
-      "Drew Accola"
+      'Drew',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Saturday,
-      "Drew Accola"
+      'Fred',
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Saturday,
-      "Drew Accola"
+      'John',
     ),
     new Shift(
       "Programmer",
