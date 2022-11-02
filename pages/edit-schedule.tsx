@@ -1,6 +1,7 @@
 import { Shift, Time, DayOftheWeek } from "../entities/types";
 import { Calendar, ExportModal, AddEmployeeModal } from "../components";
 import React from "react";
+import { Stack } from "@mui/material";
 
 export default function EditSchedule(): JSX.Element {
   // remove hard coded data once we add functionality to add shifts
@@ -216,8 +217,10 @@ export default function EditSchedule(): JSX.Element {
   return (
     <>
       <Calendar allShifts={dummyData} exportRef={exportRef} />
-      <ExportModal componentToExport={exportRef} />
-      <AddEmployeeModal />
+      <Stack spacing={2} direction={"row"}>
+        <ExportModal componentToExport={exportRef} />
+        <AddEmployeeModal />
+      </Stack>
     </>
   );
 }

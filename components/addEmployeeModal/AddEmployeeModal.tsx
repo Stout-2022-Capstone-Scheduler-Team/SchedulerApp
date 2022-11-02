@@ -4,12 +4,15 @@ import modalStyle from "../../styles/modalStyle";
 
 export function AddEmployeeModal() {
   const [open, setOpen] = React.useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Button onClick={handleOpen} variant={"contained"}>
+        Open modal
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -19,7 +22,7 @@ export function AddEmployeeModal() {
         <Card sx={modalStyle}>
           <CardContent>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
+              Add an Employee
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
