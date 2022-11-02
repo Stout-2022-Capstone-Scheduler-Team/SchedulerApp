@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 
-import DefaultLayout from "../../components/Layout/DefaultLayout";
+import DefaultLayout from "../../components/layout/DefaultLayout";
 
 test("label links to home", () => {
   render(
@@ -11,5 +11,4 @@ test("label links to home", () => {
   );
   const navBarTitle = screen.getByText(/Scheduler Builder/i);
   expect(navBarTitle).toBeInTheDocument();
-  expect(navBarTitle).toHaveAttribute("href");
 });

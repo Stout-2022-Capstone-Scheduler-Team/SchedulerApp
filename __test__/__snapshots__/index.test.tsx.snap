@@ -1,31 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Home page snapshot 1`] = `
+exports[`renders learn react link 1`] = `
 <div
   className="css-4c9pgg-MuiStack-root"
 >
   <h1>
     Welcome to the Scheduler Builder
   </h1>
-  <a
+  <button
     className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium css-dbvrvr-MuiButtonBase-root-MuiButton-root"
-    href="/create"
+    disabled={false}
     onBlur={[Function]}
+    onClick={[Function]}
     onContextMenu={[Function]}
     onDragLeave={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
     onMouseDown={[Function]}
+    onMouseEnter={[Function]}
     onMouseLeave={[Function]}
     onMouseUp={[Function]}
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
     tabIndex={0}
+    type="button"
   >
     Create Schedule
-  </a>
+  </button>
   <button
     className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
     disabled={false}
