@@ -1,5 +1,5 @@
 import { Shift, Employee, compareDaytimes } from "../entities/types";
-import { Scheduler } from "../interfaces/scheduler";
+import Scheduler from "../interfaces/scheduler";
 
 // I believe this has the same size as `boolean`, since JS uses dynamic
 // types and both number and boolean are less than the min size
