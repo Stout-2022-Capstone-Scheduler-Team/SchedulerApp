@@ -5,8 +5,8 @@ import React, { ChangeEvent } from "react";
 import { ExportType } from "./ExportModal";
 
 interface FormatSelectProps {
-  type: ExportType | undefined;
-  typeSetter: Function;
+  type: ExportType;
+  typeSetter: (ty: ExportType) => void;
 }
 
 export function FormatSelect({
@@ -27,6 +27,7 @@ export function FormatSelect({
         value={type}
         label="File Type"
         onChange={handleChange}
+        data-testid="file-type-select"
       >
         <MenuItem value={ExportType.jpeg}>jpeg</MenuItem>
         <MenuItem value={ExportType.png}>png</MenuItem>

@@ -26,18 +26,20 @@ export function ExportModal({
   const handleClose = () => setOpen(false);
 
   const handletype = (): void => {
+    // Inline import to force import on the client side
+    const exporter = import("react-component-export-image");
     if (type === ExportType.png) {
-      void import("react-component-export-image").then((result) => {
+      void exporter.then((result) => {
         console.log(componentToExport);
         result.exportComponentAsPNG(componentToExport);
       });
     } else if (type === ExportType.pdf) {
-      void import("react-component-export-image").then((result) => {
+      void exporter.then((result) => {
         console.log(componentToExport);
         result.exportComponentAsPDF(componentToExport);
       });
     } else if (type === ExportType.jpeg) {
-      void import("react-component-export-image").then((result) => {
+      void exporter.then((result) => {
         console.log(componentToExport);
         result.exportComponentAsJPEG(componentToExport);
       });
@@ -74,6 +76,7 @@ export function ExportModal({
               Cancel
             </Button>
             <Button
+              data-testid="export_button"
               sx={{ minWidth: 20 }}
               onClick={handletype}
               variant={"contained"}

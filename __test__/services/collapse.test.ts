@@ -127,7 +127,7 @@ test("Jarod 2 Schedule", () => {
   expect(process.generate()).toBe(true);
   // expect(process.getSchedule()).toBe([])
   const s = process.schedule;
-  console.log(s);
+  // console.log(s);
   expect(s[0].owner).toBe("bob");
   expect(s[1].owner).toBe("bob");
   expect(s[2].owner).toBe("bob");
