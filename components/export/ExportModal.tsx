@@ -28,6 +28,7 @@ export function ExportModal({
   const handletype = (): void => {
     // Inline import to force import on the client side
     const exporter = import("react-component-export-image");
+
     if (type === ExportType.png) {
       void exporter.then((result) => {
         console.log(componentToExport);
@@ -36,7 +37,13 @@ export function ExportModal({
     } else if (type === ExportType.pdf) {
       void exporter.then((result) => {
         console.log(componentToExport);
-        result.exportComponentAsPDF(componentToExport);
+        result.exportComponentAsPDF(componentToExport, {
+          pdfOptions: {
+            orientation: "l",
+            w: 297,
+            h: 210
+          }
+        });
       });
     } else if (type === ExportType.jpeg) {
       void exporter.then((result) => {
