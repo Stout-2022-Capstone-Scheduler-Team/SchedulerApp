@@ -1,1 +1,1 @@
-export * from "./IScheduler";
+export * from "./ISchedulerAlgorithm";
