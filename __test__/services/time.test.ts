@@ -70,6 +70,7 @@ test("Shift", () => {
   {
     const base = shift("23:00", "08:00", Monday);
     expect(base.overlaps(shift("06:00", "10:00", Tuesday))).toBe(true);
+    expect(base.overlaps(shift("13:00", "02:00", Monday))).toBe(true);
   }
 
   expect(shift("03:30", "04:00", Monday).duration).toBeCloseTo(0.5);
