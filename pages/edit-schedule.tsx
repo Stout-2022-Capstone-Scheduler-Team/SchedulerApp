@@ -1,7 +1,7 @@
 import { Shift, Time, DayOftheWeek } from "../entities/types";
-import { Calendar, ExportModal, AddEmployeeModal } from "../components";
+import { Calendar, ExportModal, AddShiftModal } from "../components";
 import React from "react";
-import AddShiftModal from "../components/addShiftModal/AddShiftModal";
+//import {AddShiftModal} from "../components/addShiftModal/AddShiftModal";
 
 export default function EditSchedule(): JSX.Element {
   // remove hard coded data once we add functionality to add shifts
@@ -218,7 +218,6 @@ export default function EditSchedule(): JSX.Element {
     <>
       <Calendar allShifts={dummyData} exportRef={exportRef} />
       <ExportModal componentToExport={exportRef} />
-      <AddEmployeeModal />
       <AddShiftModal />
     </>
   );
