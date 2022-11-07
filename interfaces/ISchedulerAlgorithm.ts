@@ -1,5 +1,6 @@
 import { Employee, Shift } from "../entities";
 
-export interface ISchedulerAlgorithm {
-  readonly generate: (shifts: Shift[], staff: Employee[]) => Shift[];
-}
+export type ISchedulerAlgorithm = (
+  shifts: Shift[],
+  staff: Employee[]
+) => boolean;
