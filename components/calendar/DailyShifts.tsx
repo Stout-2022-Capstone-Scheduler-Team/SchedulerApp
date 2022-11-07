@@ -6,11 +6,12 @@ import ShiftCard from "./ShiftCard";
 
 interface Props {
   allShifts: Shift[];
+  colorsMap: { [key: string]: string };
 }
 
-export function DailyShifts(props: Props): JSX.Element {
-  const shifts = props.allShifts.map((shift) => (
-    <ShiftCard shift={shift} key={shift.owner + shift.start.toString()} />
+export function DailyShifts({ allShifts, colorsMap }: Props): JSX.Element {
+  const shifts = allShifts.map((shift) => (
+    <ShiftCard shift={shift} colorsMap={colorsMap} key={shift.owner + shift.start.toString()} />
   ));
 
   return (

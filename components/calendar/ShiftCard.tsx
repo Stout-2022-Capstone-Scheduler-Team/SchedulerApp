@@ -1,27 +1,15 @@
 import { Card, CardContent, Typography } from "@mui/material";
 import { Shift } from "../../entities/types";
 
-function getRandomColor(str: string): string {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  let color = "#";
-  for (let i = 0; i < 3; i++) {
-    const value = (hash >> (i * 8)) & 0xff;
-    color += ("" + value.toString(16)).substring(-2);
-  }
-  return color;
-}
-
 interface ShiftCardProps {
   shift: Shift;
+  colorsMap: { [key: string]: string };
 }
 
-export default function ShiftCard({ shift }: ShiftCardProps): JSX.Element {
+export default function ShiftCard({ shift, colorsMap }: ShiftCardProps): JSX.Element {
   return (
     <Card
-      sx={{ mt: 1, borderLeft: 6, borderColor: getRandomColor(shift.owner) }}
+      sx={{ mt: 1, borderLeft: 6, borderColor: colorsMap[shift.owner] }}
     >
       <CardContent sx={{ p: 0.25, "&:last-child": { p: 0.25 } }}>
         <Typography sx={{ display: "flex", justifyContent: "center" }}>
