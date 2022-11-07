@@ -58,6 +58,7 @@ test("Shift", () => {
   expect(base.overlaps(shift("04:30", "05:00", Monday))).toBe(false);
   expect(base.overlaps(shift("03:30", "05:00", Tuesday))).toBe(false);
   expect(base.overlaps(shift("04:30", "05:00", Tuesday))).toBe(false);
+  console.log("Base2 day2: " + base2.day2+1);
   expect(base2.overlaps(shift("06:00","10:00",Tuesday))).toBe(true);
 
   expect(base.contains(shift("03:30", "04:00", Monday))).toBe(true);
