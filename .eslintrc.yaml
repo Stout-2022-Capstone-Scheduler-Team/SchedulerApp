@@ -5,8 +5,8 @@ extends:
   - "plugin:@next/next/recommended"
   - "standard-with-typescript"
 rules:
-  space-before-function-paren: [warn, 0]
-  comma-dangle: [warn, 0]
+  space-before-function-paren: [warn, never]
+  comma-dangle: [warn, never]
   semi: [warn, always]
   quotes: [warn, double]
   "@typescript-eslint/quotes": [warn, double]
