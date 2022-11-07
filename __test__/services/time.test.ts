@@ -53,10 +53,12 @@ test("Time", () => {
 
 test("Shift", () => {
   const base = shift("03:00", "04:00", Monday);
+  const base2 = shift("23:00","08:00",Monday);
   expect(base.overlaps(shift("03:30", "05:00", Monday))).toBe(true);
   expect(base.overlaps(shift("04:30", "05:00", Monday))).toBe(false);
   expect(base.overlaps(shift("03:30", "05:00", Tuesday))).toBe(false);
   expect(base.overlaps(shift("04:30", "05:00", Tuesday))).toBe(false);
+  expect(base2.overlaps(shift("06:00","10:00",Tuesday))).toBe(true);
 
   expect(base.contains(shift("03:30", "04:00", Monday))).toBe(true);
   expect(base.contains(shift("03:30", "05:00", Monday))).toBe(false);
