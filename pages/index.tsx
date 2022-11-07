@@ -1,11 +1,14 @@
 import { Button, Stack } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import { StorageService, Schedule } from "../../services/storageService";
+import { StorageService, Schedule } from "../services/storageService";
+
+function Save(Schedule): JSX.Element{
+  
+}
 
 export default function Home(): JSX.Element {
   const exportRef = React.useRef(null);
-
   return (
     <Stack sx={{ mx: "7%" }} alignItems="center" spacing={2}>
       <h1>Welcome to the Scheduler Builder</h1>
@@ -21,8 +24,8 @@ export default function Home(): JSX.Element {
       <Button variant="contained" color="primary">
         Advanced Options
       </Button>
-      <Button variant="contained" color="secondary" onclick={update}>
-        Save Schedules
+      <Button variant="contained" color="primary" onClick={Schedule.update}>
+        Save Schedule
       </Button>
     </Stack>
   );
