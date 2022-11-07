@@ -21,14 +21,12 @@ export function AvailabilityEditor(props: TabPanelProps) {
   const { day, employee } = props;
   const [availabilityArray, setAvailabilityArray] = useState<Shift[]>([
     new Shift("emp1", new Time(10), new Time(16), day, employee?.name),
-    new Shift("emp1", new Time(10), new Time(16), day, employee?.name),
-    new Shift("emp1", new Time(10), new Time(16), day, employee?.name),
     new Shift("emp1", new Time(10), new Time(16), day, employee?.name)
   ]);
 
   return (
     <Grid container sx={{ minHeight: "300px" }}>
-      <Grid xs={6}>
+      <Grid item xs={6}>
         <Stack direction="column" spacing={1} sx={availabilityStyle}>
           <Typography variant="h6">{DayOftheWeek[day]} Availability</Typography>
           {availabilityArray.map((shift: Shift) => (
@@ -39,7 +37,7 @@ export function AvailabilityEditor(props: TabPanelProps) {
           ))}
         </Stack>
       </Grid>
-      <Grid sx={{ px: "1rem" }}>
+      <Grid item sx={{ px: "1rem" }}>
         <Button variant="contained" sx={{ m: 0 }}>
           Add Availability
         </Button>
