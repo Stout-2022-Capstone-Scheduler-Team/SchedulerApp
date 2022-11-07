@@ -2,13 +2,7 @@ import { expect } from "@jest/globals";
 import type { MatcherFunction } from "expect";
 
 import "@testing-library/jest-dom";
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  Matcher
-} from "@testing-library/react";
+import { render, screen, fireEvent, Matcher } from "@testing-library/react";
 
 import React from "react";
 import { ExportModal, ExportType } from "../../components";
