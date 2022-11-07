@@ -84,7 +84,7 @@ export default function generate(shifts: Shift[], staff: Employee[]): boolean {
   return true;
 }
 
-assignShift(
+function assignShift(
   shifts: Shift[],
   staff: Employee[],
   idxShift: number,
@@ -119,10 +119,7 @@ assignShift(
     }
     // Update matrix to note employee cannot be scheduled for an overlapping shift
     for (let j = 0; j < matrix.length; j++) {
-      if (
-        curShift.overlaps(shifts[j]) ||
-        !e.canTakeHours(shifts[j].duration)
-      ) {
+      if (curShift.overlaps(shifts[j]) || !e.canTakeHours(shifts[j].duration)) {
         if (matrix[j][i] === true) {
           matrix[j][i] = assigned;
         }
@@ -182,7 +179,10 @@ function canAssignMinHours(
   return true;
 }
 
-function getEmployee(staff: Employee[], name: string): Employee | undefined {
+export function getEmployee(
+  staff: Employee[],
+  name: string
+): Employee | undefined {
   for (let i = 0; i < staff.length; i++) {
     if (staff[i].name === name) {
       return staff[i];
