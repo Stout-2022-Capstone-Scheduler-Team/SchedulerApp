@@ -1,4 +1,4 @@
-import { Box, Stack, SxProps, Theme, Typography } from "@mui/material";
+import { Box, Chip, Stack, SxProps, Theme, Typography } from "@mui/material";
 import { DayOftheWeek, Shift } from "../../entities";
 
 interface AvailabilityCardProps {
@@ -9,15 +9,15 @@ const boxStyle: SxProps<Theme> = {
   border: "lightgray solid 1px",
   borderRadius: "8px",
   boxShadow: 1,
-  p: 3
+  p: 2
 };
 
 export function AvailabilityCard(props: AvailabilityCardProps): JSX.Element {
   const { shift } = props;
   return (
     <Box sx={boxStyle}>
-      <Stack direction="row" spacing={1} sx={{ flexShrink: 0 }}>
-        <Typography>{DayOftheWeek[shift.day]}</Typography>
+      <Stack alignItems="center" direction="row" spacing={1}>
+        <Chip label={DayOftheWeek[shift.day]} color="secondary" />
         <Typography>{shift.start.toString()}</Typography>
         <Typography>-</Typography>
         <Typography>{shift.end.toString()}</Typography>
