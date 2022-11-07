@@ -18,7 +18,9 @@ export function AvailabilityTabs() {
   const [current, setCurrent] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setCurrent(newValue);
+    if (newValue != current) {
+      setCurrent(newValue);
+    }
   };
 
   return (
