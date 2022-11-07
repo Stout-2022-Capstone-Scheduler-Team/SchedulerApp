@@ -4,7 +4,7 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
 import { AvailabilityEditor, EditEmployeeInfo } from "../";
-import { DayOftheWeek, Time } from "../../entities";
+import { Time } from "../../entities";
 import { TabPanel } from "../";
 
 function a11yProps(index: number) {
@@ -15,17 +15,17 @@ function a11yProps(index: number) {
 }
 
 export function AvailabilityTabs() {
-  const [value, setValue] = React.useState(0);
+  const [current, setCurrent] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    setCurrent(newValue);
   };
 
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
-          value={value}
+          value={current}
           onChange={handleChange}
           aria-label="basic tabs example"
         >
@@ -35,11 +35,11 @@ export function AvailabilityTabs() {
           ))}
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={current} index={0}>
         <EditEmployeeInfo />
       </TabPanel>
       {Time.getWeekDayNumbers().map((day, index) => (
-        <TabPanel value={value} index={index + 1}>
+        <TabPanel value={current} index={index + 1}>
           <AvailabilityEditor day={day} />
         </TabPanel>
       ))}
