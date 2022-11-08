@@ -17,7 +17,7 @@ const availabilityStyle: SxProps<Theme> = {
   pt: ".5rem"
 };
 
-export function AvailabilityEditor(props: TabPanelProps) {
+export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
   const { day, employee } = props;
   const [availabilityArray, setAvailabilityArray] = useState<Shift[]>([
     new Shift("emp1", new Time(10), new Time(16), day, employee?.name),

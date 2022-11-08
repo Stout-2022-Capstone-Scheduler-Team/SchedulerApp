@@ -44,7 +44,7 @@ export function checkExportHide(
   element: JSX.Element,
   selector: Matcher
 ): void {
-  test(name, async () => {
+  test(name, async() => {
     const exportRef: React.RefObject<React.ReactInstance> = React.createRef();
     // Need to add export modal to add printing events
     render(

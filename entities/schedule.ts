@@ -1,8 +1,8 @@
 import { Employee, Shift } from "./types";
 
 export class Schedule {
-  private _staff: Employee[] = [];
-  private _shifts: Shift[] = [];
+  private readonly _staff: Employee[] = [];
+  private readonly _shifts: Shift[] = [];
   private _assignedShifts: Shift[] = [];
   private _minHoursWorked: number;
   private _maxHoursWorked: number;
@@ -17,19 +17,19 @@ export class Schedule {
     this._maxHoursWorked = maxHours;
   }
 
-  public get minHoursWorked() {
+  public get minHoursWorked(): number {
     return this._minHoursWorked;
   }
 
-  public set minHoursWorked(newValue) {
+  public set minHoursWorked(newValue: number) {
     this._minHoursWorked = newValue;
   }
 
-  public get maxHoursWorked() {
+  public get maxHoursWorked(): number {
     return this._maxHoursWorked;
   }
 
-  public set maxHoursWorked(newValue) {
+  public set maxHoursWorked(newValue: number) {
     this._maxHoursWorked = newValue;
   }
 
@@ -37,7 +37,7 @@ export class Schedule {
    * Add a shift that needs to be filled to the schedule
    * @param newShift New shift to add
    */
-  addShift(newShift: Shift) {
+  addShift(newShift: Shift): void {
     this._shifts.concat(newShift);
   }
 
@@ -46,16 +46,16 @@ export class Schedule {
    * @param shiftToRemove Shift to remove
    * @returns shift that was removed
    */
-  removeShift(shiftToRemove: Shift) {
-    let index = this._shifts.indexOf(shiftToRemove);
-    return this._shifts.splice(index, 1);
+  removeShift(shiftToRemove: Shift): Shift {
+    const index = this._shifts.indexOf(shiftToRemove);
+    return this._shifts.splice(index, 1)[0];
   }
 
   /**
    * Get this schedule's shifts that must be filled
    * @returns This schedule's (unassigned) shifts
    */
-  public get shifts() {
+  public get shifts(): Shift[] {
     return this._shifts;
   }
 
@@ -63,7 +63,7 @@ export class Schedule {
    * Add an employee to the schedule
    * @param newEmp Employee to add to the schedule
    */
-  addEmployee(newEmp: Employee) {
+  addEmployee(newEmp: Employee): void {
     this._staff.concat(newEmp);
   }
 
@@ -72,16 +72,16 @@ export class Schedule {
    * @param empToRemove Employee to remove from the schedule
    * @returns the employee removed from the schedule
    */
-  removeEmployee(empToRemove: Employee) {
-    let index = this._staff.indexOf(empToRemove);
-    return this._staff.splice(index, 1);
+  removeEmployee(empToRemove: Employee): Employee {
+    const index = this._staff.indexOf(empToRemove);
+    return this._staff.splice(index, 1)[0];
   }
 
   /**
    * Get all the employees that exist in the schedule
    * @returns Employees in the schedule
    */
-  public get employees() {
+  public get employees(): Employee[] {
     return this._staff;
   }
 
@@ -98,7 +98,7 @@ export class Schedule {
    * Get this schedule's assigned shifts
    * @returns This schedule's assigned shifts
    */
-  public get assignedShifts() {
+  public get assignedShifts(): Shift[] {
     return this._assignedShifts;
   }
 }

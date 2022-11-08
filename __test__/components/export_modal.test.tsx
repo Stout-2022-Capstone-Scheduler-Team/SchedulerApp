@@ -17,7 +17,7 @@ beforeEach(() => {
   jest.resetAllMocks();
 });
 
-test("Export Modal", async () => {
+test("Export Modal", async() => {
   const exportRef: React.RefObject<React.ReactInstance> = React.createRef();
   const dom = render(<ExportModal componentToExport={exportRef} />);
 
@@ -48,7 +48,7 @@ test("Export Modal", async () => {
   }
 });
 
-test("Export as PNG", async () => {
+test("Export as PNG", async() => {
   const exportRef: React.RefObject<React.ReactInstance> = React.createRef();
   render(<ExportModal componentToExport={exportRef} />);
 
@@ -64,7 +64,7 @@ test("Export as PNG", async () => {
   }
 });
 
-test("Export as JPEG", async () => {
+test("Export as JPEG", async() => {
   const exportRef: React.RefObject<React.ReactInstance> = React.createRef();
   render(
     <ExportModal componentToExport={exportRef} defaultValue={ExportType.jpeg} />
@@ -80,7 +80,7 @@ test("Export as JPEG", async () => {
   }
 });
 
-test("Export as PDF", async () => {
+test("Export as PDF", async() => {
   const exportRef: React.RefObject<React.ReactInstance> = React.createRef();
   render(
     <ExportModal componentToExport={exportRef} defaultValue={ExportType.pdf} />

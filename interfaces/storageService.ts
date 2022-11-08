@@ -8,7 +8,7 @@ CRUD functionality for local storage with schedules */
 
 import Scheduler from "../interfaces/scheduler";
 
-export default interface StorageService {
+interface StorageService {
   // getting specific schedule based on key data
   read: (name: string) => Promise<Scheduler | null>;
   // reading the schedule list and seeing if the current schedule is already in the storage
@@ -21,3 +21,5 @@ export default interface StorageService {
   // getting all of the schedules from the storage and returning them
   returnAll: () => Promise<{ [key: string]: Scheduler }>;
 }
+
+export default StorageService;

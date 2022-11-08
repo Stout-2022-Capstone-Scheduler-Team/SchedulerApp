@@ -1,4 +1,4 @@
-import { Shift, DayOftheWeek, dayName, Time } from "../../entities/types";
+import { Shift, dayName, Time } from "../../entities/types";
 import { DailyShifts } from "./DailyShifts";
 import { WeeklyDate } from "./WeeklyDate";
 

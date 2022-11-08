@@ -1,5 +1,4 @@
 import {
-  Box,
   FormControl,
   Grid,
   InputLabel,
@@ -12,11 +11,11 @@ import { useState } from "react";
 
 interface EmployeePanelProps {}
 
-export function EditEmployeeInfo(props: EmployeePanelProps) {
-  const { ...other } = props;
+export function EditEmployeeInfo(props: EmployeePanelProps): JSX.Element {
+  // const { ...other } = props;
   const [employeeColor, setEmployeeColor] = useState<Number>();
 
-  const handleColorPickerUpdate = (event: SelectChangeEvent) => {
+  const handleColorPickerUpdate = (event: SelectChangeEvent): void => {
     let color: Number;
     try {
       color = Number(event.target.value);
