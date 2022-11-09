@@ -8,13 +8,8 @@ export default function EditSchedule(): JSX.Element {
   const dummyData = [
     new Shift(
       "Programmer",
-<<<<<<< HEAD
-      new Time(9.50),
-      new Time(10.50),
-=======
       new Time(9.5),
       new Time(10.5),
->>>>>>> TIME-42-create-default-employee-modal-and-inputs
       DayOftheWeek.Sunday,
       "Drew"
     ),
@@ -178,45 +173,26 @@ export default function EditSchedule(): JSX.Element {
       new Time(10.5),
       DayOftheWeek.Friday,
       "Spencer"
-<<<<<<< HEAD
-    ), new Shift(
+    ),
+    new Shift(
       "Programmer",
-      new Time(9.50),
-      new Time(10.50),
+      new Time(9.5),
+      new Time(10.5),
       DayOftheWeek.Saturday,
       "Mike"
-=======
->>>>>>> TIME-42-create-default-employee-modal-and-inputs
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Saturday,
-<<<<<<< HEAD
       "Drew"
-=======
-      "Mike"
->>>>>>> TIME-42-create-default-employee-modal-and-inputs
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Saturday,
-<<<<<<< HEAD
-      "Fred"
-=======
-      "Drew"
->>>>>>> TIME-42-create-default-employee-modal-and-inputs
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Saturday,
-<<<<<<< HEAD
-=======
       "Fred"
     ),
     new Shift(
@@ -224,7 +200,6 @@ export default function EditSchedule(): JSX.Element {
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Saturday,
->>>>>>> TIME-42-create-default-employee-modal-and-inputs
       "John"
     ),
     new Shift(
