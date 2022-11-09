@@ -3,14 +3,21 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 
 import React from "react";
 import { ExportModal, ExportType } from "../../components";
+import { checkExportHide } from "./util";
 
-import { exportComponentAsPNG } from "react-component-export-image";
+import {
+  exportComponentAsJPEG,
+  exportComponentAsPNG
+} from "react-component-export-image";
+import NavBar from "../../components/layout/NavBar";
 jest.mock("react-component-export-image");
+// jest.mock("window.print");
+
 beforeEach(() => {
   jest.resetAllMocks();
 });
 
-test("Export Modal", async () => {
+test("Export Modal", async() => {
   const exportRef: React.RefObject<React.ReactInstance> = React.createRef();
   const dom = render(<ExportModal componentToExport={exportRef} />);
 
@@ -41,47 +48,54 @@ test("Export Modal", async () => {
   }
 });
 
-test("Export Functionality", async () => {
+test("Export as PNG", async() => {
   const exportRef: React.RefObject<React.ReactInstance> = React.createRef();
   render(<ExportModal componentToExport={exportRef} />);
 
   fireEvent.click(screen.getByText(/Export/i));
   {
     const mocked = jest.mocked(exportComponentAsPNG);
-    mocked.mockResolvedValueOnce(() => {});
+    mocked.mockResolvedValueOnce(() => { });
     // This needs something else to specify, since the text is the same
     fireEvent.click(screen.getByTestId("export_button"));
 
     await waitFor(() => expect(mocked.mock.calls.length).toBe(1));
     expect(mocked.mock.calls[0][0]).toBe(exportRef);
   }
-
-  // TODO: Updating a MuiSelect element in a test is a challenge
-  // const select = screen.getByTestId("file-type-select");
-  // const input = select.getElementsByTagName("input").item(0);
-  // if (input !== null) {
-  //   input.value = ExportType.jpeg;
-  // }
-  //
-  // {
-  //   let mocked = jest.mocked(exportComponentAsJPEG);
-  //   mocked.mockResolvedValueOnce(() => {});
-  //   fireEvent.click(screen.getByTestId("export_button"));
-  //
-  //   await waitFor(() => expect(mocked.mock.calls.length).toBe(1));
-  //   expect(mocked.mock.calls[0][0]).toBe(exportRef);
-  // }
-  //
-  // if (input !== null) {
-  //   input.value = ExportType.pdf;
-  // }
-  //
-  // {
-  //   let mocked = jest.mocked(exportComponentAsPDF);
-  //   mocked.mockResolvedValueOnce(() => {});
-  //   fireEvent.click(screen.getByTestId("export_button"));
-  //
-  //   await waitFor(() => expect(mocked.mock.calls.length).toBe(1));
-  //   expect(mocked.mock.calls[0][0]).toBe(exportRef);
-  // }
 });
+
+test("Export as JPEG", async() => {
+  const exportRef: React.RefObject<React.ReactInstance> = React.createRef();
+  render(
+    <ExportModal componentToExport={exportRef} defaultValue={ExportType.jpeg} />
+  );
+  fireEvent.click(screen.getByText(/Export/i));
+  {
+    const mocked = jest.mocked(exportComponentAsJPEG);
+    mocked.mockResolvedValueOnce(() => { });
+    fireEvent.click(screen.getByTestId("export_button"));
+
+    await waitFor(() => expect(mocked.mock.calls.length).toBe(1));
+    expect(mocked.mock.calls[0][0]).toBe(exportRef);
+  }
+});
+
+test("Export as PDF", async() => {
+  const exportRef: React.RefObject<React.ReactInstance> = React.createRef();
+  render(
+    <ExportModal componentToExport={exportRef} defaultValue={ExportType.pdf} />
+  );
+  fireEvent.click(screen.getByText(/Export/i));
+  {
+    window.print = jest.fn();
+    const mocked = jest.mocked(window.print);
+    mocked.mockReturnValue(undefined);
+    fireEvent.click(screen.getByTestId("export_button"));
+
+    await waitFor(() => expect(mocked.mock.calls.length).toBe(1));
+  }
+});
+
+checkExportHide("Export Button Export", <></>, /Export/i);
+
+checkExportHide("Navbar Export", <NavBar />, /Scheduler Builder/i);

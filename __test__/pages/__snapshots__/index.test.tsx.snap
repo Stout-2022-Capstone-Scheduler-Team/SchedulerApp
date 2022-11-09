@@ -3,7 +3,7 @@
 exports[`EditSchedule Renders 1`] = `
 [
   <div
-    className="MuiGrid-root MuiGrid-container css-17qsxia-MuiGrid-root"
+    className="MuiGrid-root MuiGrid-container printed css-17qsxia-MuiGrid-root"
   >
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1i5d9ma-MuiGrid-root"

@@ -1,4 +1,4 @@
-import { Calendar } from "../../components";
+import { Calendar } from "../../../components";
 import renderer from "react-test-renderer";
 import { Monday, shift } from "../services/utils";
 

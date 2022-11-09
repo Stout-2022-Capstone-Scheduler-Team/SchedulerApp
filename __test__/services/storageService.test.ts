@@ -1,17 +1,18 @@
-import { StorageService, Schedule } from "../../services/storageService";
+import { LocalStorage } from "../../services/storageService";
 import localforage from "localforage";
+import { WaveformCollapseAlgorithm } from "../../services/waveform_collapse";
 
 jest.mock("localforage");
 beforeEach(() => {
   jest.resetAllMocks();
 });
 
-test("Get Item", async () => {
+test("Get Item", async() => {
   // declare a dummy object for adding and removing to the storage
-  const a = {};
+  const a = new WaveformCollapseAlgorithm([], []);
 
   // declare a storage object
-  const storage = new StorageService();
+  const storage = new LocalStorage();
 
   // testing retrieving an item from storage
   const getItem = jest.mocked(localforage.getItem);
@@ -21,12 +22,12 @@ test("Get Item", async () => {
   expect(getItem.mock.calls).toEqual([["item"]]);
 });
 
-test("Set Item", async () => {
+test("Set Item", async() => {
   // declare a dummy object for adding and removing to the storage
-  const a = {};
+  const a = new WaveformCollapseAlgorithm([], []);
 
   // declare a storage object
-  const storage = new StorageService();
+  const storage = new LocalStorage();
 
   const setItem = jest.mocked(localforage.setItem);
 
@@ -37,9 +38,9 @@ test("Set Item", async () => {
   expect(setItem.mock.calls).toEqual([["item", a]]);
 });
 
-test("Remove Item", async () => {
+test("Remove Item", async() => {
   // declare a storage object
-  const storage = new StorageService();
+  const storage = new LocalStorage();
 
   const removeItem = jest.mocked(localforage.removeItem);
   // testing removing an item from the storage
@@ -49,17 +50,17 @@ test("Remove Item", async () => {
   expect(removeItem.mock.calls).toEqual([["item"]]);
 });
 
-test("Iterate", async () => {
+test("Iterate", async() => {
   // declare a dummy object for adding and removing to the storage
-  const a = {};
+  const a = new WaveformCollapseAlgorithm([], []);
 
   // declare a storage object
-  const storage = new StorageService();
+  const storage = new LocalStorage();
 
   const iterate = jest.mocked(localforage.iterate);
   // testing retrieving all of the items from the storage
   iterate.mockImplementationOnce(
-    async (f: (value: Schedule, key: string, _: number) => void) => {
+    async(f: (value: Schedule, key: string, _: number) => void) => {
       f(a, "item", 1);
       return await Promise.resolve(undefined);
     }

@@ -15,19 +15,25 @@ export enum ExportType {
 
 interface ExportModalProps {
   componentToExport: React.RefObject<React.ReactInstance>;
+  defaultValue?: ExportType;
 }
 
 export function ExportModal({
-  componentToExport
+  componentToExport,
+  defaultValue
 }: ExportModalProps): JSX.Element {
   const [open, setOpen] = React.useState(false);
-  const [type, setType] = React.useState<ExportType>(ExportType.png);
+  // Default value
+  const [type, setType] = React.useState<ExportType>(
+    defaultValue === undefined ? ExportType.png : defaultValue
+  );
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
 
   const handletype = (): void => {
     // Inline import to force import on the client side
     const exporter = import("react-component-export-image");
+
     if (type === ExportType.png) {
       void exporter.then((result) => {
         console.log(componentToExport);
@@ -35,13 +41,10 @@ export function ExportModal({
           .exportComponentAsPNG(componentToExport)
           .catch(() => console.log("Export Failed"));
       });
-      // } else if (type === ExportType.pdf) {
-      //   void exporter.then((result) => {
-      //     console.log(componentToExport);
-      //     result
-      //       .exportComponentAsPDF(componentToExport)
-      //       .catch(() => console.log("Export Failed"));
-      //   });
+    } else if (type === ExportType.pdf) {
+      // Since all of the logic for this is wrapped up in before & after print event
+      // listeners, we don't need to redirect ^p, and we can just call window.print here.
+      window.print();
     } else if (type === ExportType.jpeg) {
       void exporter.then((result) => {
         console.log(componentToExport);
@@ -51,6 +54,40 @@ export function ExportModal({
       });
     }
   };
+
+  // Adjust page for printing. Components with the `printed` class, along with their
+  // parents & children are the only elements that remain visible.
+  //
+  // Notes - This relies on elements NOT using inline styles
+  React.useEffect(() => {
+    window.addEventListener("beforeprint", () => {
+      function hide(el: Element): void {
+        if (!el.matches(".printed")) {
+          if (el.querySelector(".printed") !== null) {
+            for (let i = 0; i < el.children.length; i++) {
+              hide(el.children[i]);
+            }
+          } else {
+            if (el instanceof HTMLElement) {
+              el.setAttribute("data-screen-display", el.style.display);
+              el.style.display = "none";
+            }
+          }
+        }
+      }
+      hide(document.body);
+    });
+    window.addEventListener("afterprint", () => {
+      document.querySelectorAll("*").forEach((el) => {
+        if (el instanceof HTMLElement) {
+          const display = el.getAttribute("data-screen-display");
+          if (display !== null) {
+            el.style.display = "";
+          }
+        }
+      });
+    });
+  }, []);
 
   return (
     <div>
