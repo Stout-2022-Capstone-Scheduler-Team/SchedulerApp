@@ -4,19 +4,23 @@ import assert from "assert";
  * Represents a point in time
  */
 export class Time {
-  hours: number;
-  constructor(hours: number) {
-    this.hours = hours;
+  totalHours: number;
+  dayHours: number;
+  day: DayOftheWeek;
+  constructor(hours: number, day: DayOftheWeek) {
+    this.totalHours = hours + 24 * day;
+    this.dayHours = hours;
+    this.day = day;
   }
 
   /**
    * Time.fromString("05:15") -> 5.25
    * */
-  static fromString(s: string): Time {
+  static fromString(s: string, day: DayOftheWeek): Time {
     const hours = Number(s.substring(0, 2));
     assert(s.charAt(2) === ":");
     const minutes = Number(s.substring(3, 5));
-    return new Time(hours + minutes / 60);
+    return new Time(hours + minutes / 60, day);
   }
 
   /**
@@ -41,8 +45,8 @@ export class Time {
    * Time.toString(5.25) -> "5:15"
    * */
   toString(): string {
-    let minute = this.hours - Math.floor(this.hours);
-    let hour = this.hours - minute;
+    let minute = this.dayHours - Math.floor(this.dayHours);
+    let hour = this.dayHours - minute;
     minute = Math.round(minute * 60);
     let zone = "am";
     // Set hours
@@ -60,7 +64,11 @@ export class Time {
   }
 
   hoursBetween(other: Time): number {
-    return other.hours - this.hours + (other.hours - this.hours < 0 ? 24 : 0);
+    return Math.abs(other.totalHours - this.totalHours);
+  }
+
+  static compare(a: Time, other: Time): number {
+    return other.totalHours - a.totalHours;
   }
 }
 
@@ -75,18 +83,6 @@ export enum DayOftheWeek {
   Thursday = 4,
   Friday = 5,
   Saturday = 6
-}
-
-export function compareDaytimes(
-  aDay: DayOftheWeek,
-  aTime: Time,
-  bDay: DayOftheWeek,
-  bTime: Time
-): number {
-  if (aDay !== bDay) {
-    return aDay - bDay;
-  }
-  return aTime.hours - bTime.hours;
 }
 
 export function dayName(d: DayOftheWeek): string {

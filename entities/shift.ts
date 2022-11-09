@@ -1,4 +1,4 @@
-import { Time, DayOftheWeek } from "./time";
+import { Time } from "./time";
 
 /**
  * A Shift that can be assigned to an Employee
@@ -7,7 +7,6 @@ export class Shift {
   name: string;
   start: Time;
   end: Time;
-  day: DayOftheWeek;
   owner: string = "";
 
   assigned: number = 0;
@@ -18,33 +17,22 @@ export class Shift {
     name: string,
     start: Time,
     end: Time,
-    day: DayOftheWeek,
     owner?: string
   ) {
     this.name = name;
     this.start = start;
     this.end = end;
-    this.day = day;
     if (owner !== undefined) {
       this.owner = owner;
     }
   }
 
   overlaps(other: Shift): boolean {
-    const thisStart = this.start.hours + 24 * this.day;
-    const thisEnd = this.end.hours + 24 * this.day + (this.end.hours <= this.start.hours ? 24 : 0);
-    const otherStart = other.start.hours + 24 * other.day;
-    const otherEnd = other.end.hours + 24 * other.day + (other.end.hours <= other.start.hours ? 24 : 0);
-    return thisStart <= otherEnd && otherStart <= thisEnd;
+    return this.start.totalHours <= other.end.totalHours && other.start.totalHours <= this.end.totalHours;
   }
 
-  // The starting shift must always be put first to get an accurate duration
   contains(other: Shift): boolean {
-    const thisStart = this.start.hours + 24 * this.day;
-    const thisEnd = this.end.hours + 24 * this.day + (this.end.hours <= this.start.hours ? 24 : 0);
-    const otherStart = other.start.hours + 24 * other.day;
-    const otherEnd = other.end.hours + 24 * other.day + (other.end.hours <= other.start.hours ? 24 : 0);
-    return thisStart <= otherStart && otherEnd <= thisEnd;
+    return this.start.totalHours <= other.start.totalHours && other.end.totalHours <= this.end.totalHours;
   }
 
   get duration(): number {

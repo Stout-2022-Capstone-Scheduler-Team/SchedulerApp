@@ -140,7 +140,7 @@ test("Jarod 3 Schedule", () => {
 test("Overnight Schedule 1", () => {
   const shifts: Shift[] = [
     shift("18:00", "23:00", Monday), // 5:00
-    shift("22:00", "05:00", Monday) // 7:00 (N)
+    shift("22:00", "05:00", Monday, Tuesday) // 7:00 (N)
   ];
   const staff: Employee[] = [
     person("alice", 2, 12, [allDay(Monday)]),
@@ -155,7 +155,7 @@ test("Overnight Schedule 1", () => {
 test("Overnight Schedule 2", () => {
   const shifts: Shift[] = [
     shift("18:00", "23:00", Monday), // 5:00
-    shift("22:00", "05:00", Monday), // 7:00 (N)
+    shift("22:00", "05:00", Monday, Tuesday), // 7:00 (N)
     shift("10:00", "15:00", Tuesday), // 5:00
     shift("01:00", "05:00", Tuesday) // 4:00
   ];

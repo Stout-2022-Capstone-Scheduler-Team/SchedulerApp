@@ -41,4 +41,22 @@ export class Employee {
   get remainingHours(): number {
     return Math.max(this.min_hours - this.current_hours, 0);
   }
+
+  // Can be inproved
+  combineAvailable(): void {
+    for (let i = 0; i < this.available.length; i++) {
+      for (let z = i + 1; z < this.available.length; z++) {
+        if (this.available[i].overlaps(this.available[z])) {
+          if (this.available[z].start < this.available[i].start) {
+            this.available[i].start = this.available[z].start;
+          }
+          if (this.available[z].end < this.available[i].end) {
+            this.available[i].end = this.available[z].end;
+          }
+          this.available.splice(z);
+          z--;
+        }
+      }
+    }
+  }
 }
