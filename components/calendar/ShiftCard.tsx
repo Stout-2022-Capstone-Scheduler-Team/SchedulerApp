@@ -1,15 +1,16 @@
 import { Card, CardContent, Typography } from "@mui/material";
 import { Shift } from "../../entities/types";
+import { WaveformCollapseAlgorithm } from "../../services/waveform_collapse";
 
 interface ShiftCardProps {
   shift: Shift;
-  colorsMap: { [key: string]: string };
+  scheduler: WaveformCollapseAlgorithm;
 }
 
-export default function ShiftCard({ shift, colorsMap }: ShiftCardProps): JSX.Element {
+export default function ShiftCard({ shift, scheduler }: ShiftCardProps): JSX.Element {
   return (
     <Card
-      sx={{ mt: 1, borderLeft: 6, borderColor: colorsMap[shift.owner] }}
+      sx={{ mt: 1, borderLeft: 6, borderColor: scheduler.getEmployee(shift.owner)?.color.colorHex }}
     >
       <CardContent sx={{ p: 0.25, "&:last-child": { p: 0.25 } }}>
         <Typography sx={{ display: "flex", justifyContent: "center" }}>

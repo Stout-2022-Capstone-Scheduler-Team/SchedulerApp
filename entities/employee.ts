@@ -1,5 +1,6 @@
 import assert from "assert";
 import { Shift } from "./shift";
+import { Color } from "./color";
 
 export class Employee {
   name: string;
@@ -7,13 +8,15 @@ export class Employee {
   max_hours: number;
   current_hours: number = 0;
   available: Shift[] = [];
-  constructor(name: string, minHours: number, maxHours: number) {
+  color: Color;
+  constructor(name: string, minHours: number, maxHours: number, color: Color) {
     assert(minHours <= maxHours);
     this.name = name;
     this.min_hours = minHours;
     this.max_hours = maxHours;
     this.current_hours = 0;
     this.available = [];
+    this.color = color;
   }
 
   isAvailable(inputShift: Shift): boolean {

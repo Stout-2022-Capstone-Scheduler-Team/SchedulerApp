@@ -1,220 +1,40 @@
-import { Shift, Time, DayOftheWeek } from "../entities/types";
 import { Calendar, ExportModal } from "../components";
 import React from "react";
+import { WaveformCollapseAlgorithm } from "../services/waveform_collapse";
+import { shift, allDay, Monday, Tuesday, person, Wednesday, Thursday, Friday, Saturday, Sunday } from "../__test__/services/utils";
+import { Color } from "../entities/color";
 
 export default function EditSchedule(): JSX.Element {
-  // remove hard coded data once we add functionality to add shifts
-  const dummyData = [
-    new Shift(
-      "Programmer",
-      new Time(9.50),
-      new Time(10.50),
-      DayOftheWeek.Sunday,
-      "Drew"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Sunday,
-      "Fred"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Sunday,
-      "John"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Sunday,
-      "Spencer"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Monday,
-      "Mike"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Monday,
-      "Drew"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Monday,
-      "Fred"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Monday,
-      "John"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Tuesday,
-      "Spencer"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Tuesday,
-      "Mike"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Tuesday,
-      "Drew"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Tuesday,
-      "Fred"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Wednesday,
-      "John"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Wednesday,
-      "Spencer"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Wednesday,
-      "Mike"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Wednesday,
-      "Drew"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Thursday,
-      "Fred"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Thursday,
-      "John"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Thursday,
-      "Spencer"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Thursday,
-      "Mike"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Friday,
-      "Drew"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Friday,
-      "Fred"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Friday,
-      "John"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Friday,
-      "Spencer"
-    ), new Shift(
-      "Programmer",
-      new Time(9.50),
-      new Time(10.50),
-      DayOftheWeek.Saturday,
-      "Mike"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Saturday,
-      "Drew"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Saturday,
-      "Fred"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Saturday,
-      "John"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5),
-      new Time(10.5),
-      DayOftheWeek.Saturday,
-      "Drew Accola"
-    )
-  ];
+  const schedulerDummyData = new WaveformCollapseAlgorithm(
+    [
+      shift("08:00", "12:00", Sunday),
+      shift("08:00", "12:00", Monday),
+      shift("08:00", "12:00", Tuesday),
+      shift("08:00", "12:00", Wednesday),
+      shift("08:00", "12:00", Thursday),
+      shift("08:00", "12:00", Friday),
+      shift("08:00", "12:00", Saturday)
+
+    ],
+    [
+      person("Alice", 1, 12, [allDay(Sunday)], new Color("Red")),
+      person("Bob", 1, 12, [allDay(Monday)], new Color("Orange")),
+      person("Claire", 1, 12, [allDay(Tuesday)], new Color("Yellow")),
+      person("Drew", 1, 12, [allDay(Wednesday)], new Color("Green")),
+      person("Ethan", 1, 12, [allDay(Thursday)], new Color("Blue")),
+      person("Frank", 1, 12, [allDay(Friday)], new Color()),
+      person("Gabe", 1, 12, [allDay(Saturday)], new Color())
+    ]
+  );
+
+  schedulerDummyData.generate();
 
   // Reference to the calendar which enables exporting it
   const exportRef = React.useRef(null);
 
   return (
     <>
-      <Calendar allShifts={dummyData} exportRef={exportRef} />
+      <Calendar scheduler={schedulerDummyData} exportRef={exportRef} />
       <ExportModal componentToExport={exportRef} />
     </>
   );
