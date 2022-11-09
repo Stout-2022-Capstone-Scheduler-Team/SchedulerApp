@@ -12,7 +12,15 @@ export class Schedule {
    * @param minHours Minimum man hours for this week
    * @param maxHours Maximum man hours for this week
    */
-  constructor(minHours = 0, maxHours = 400) {
+  constructor(
+    staff: Employee[] = [],
+    shifts: Shift[] = [],
+    minHours = 0,
+    maxHours = 400
+  ) {
+    this._staff = staff;
+    this._shifts = shifts;
+    this._assignedShifts = [];
     this._minHoursWorked = minHours;
     this._maxHoursWorked = maxHours;
   }

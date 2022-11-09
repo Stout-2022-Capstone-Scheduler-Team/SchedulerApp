@@ -7,6 +7,7 @@ export class Employee {
   max_hours: number;
   current_hours: number = 0;
   available: Shift[] = [];
+
   constructor(name: string, minHours: number, maxHours: number) {
     assert(minHours <= maxHours);
     this.name = name;

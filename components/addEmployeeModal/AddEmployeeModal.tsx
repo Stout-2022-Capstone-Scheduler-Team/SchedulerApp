@@ -9,8 +9,13 @@ import {
 } from "@mui/material";
 import modalStyle from "../../styles/modalStyle";
 import { AvailabilityTabs } from "../";
+import { Employee } from "../../entities";
 
-export function AddEmployeeModal(): JSX.Element {
+interface EmployeeModalProps {
+  existingEmployees: Employee[];
+}
+
+export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = (): void => setOpen(true);
