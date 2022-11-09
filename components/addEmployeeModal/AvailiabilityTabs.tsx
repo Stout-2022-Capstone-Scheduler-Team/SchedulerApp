@@ -35,7 +35,7 @@ export function AvailabilityTabs(): JSX.Element {
         >
           <Tab label="Employee Info" {...a11yProps(0)} />
           {Time.getWeekDays().map((day, index) => (
-            <Tab label={day} {...a11yProps(index + 1)} />
+            <Tab label={day} key={day} {...a11yProps(index + 1)} />
           ))}
         </Tabs>
       </Box>
@@ -43,7 +43,7 @@ export function AvailabilityTabs(): JSX.Element {
         <EditEmployeeInfo />
       </TabPanel>
       {Time.getWeekDayNumbers().map((day, index) => (
-        <TabPanel value={current} index={index + 1}>
+        <TabPanel value={current} index={index + 1} key={index}>
           <AvailabilityEditor day={day} />
         </TabPanel>
       ))}

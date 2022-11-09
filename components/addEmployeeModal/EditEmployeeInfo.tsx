@@ -15,33 +15,19 @@ export function EditEmployeeInfo(props: EmployeePanelProps): JSX.Element {
   // const { ...other } = props;
   const [employeeColor, setEmployeeColor] = useState<Number>();
 
-  const handleColorPickerUpdate = (event: SelectChangeEvent): void => {
-    let color: Number;
-    try {
-      color = Number(event.target.value);
-    } catch (ex) {
-      console.error(
-        "The selected employee color was unable to be parsed into an int"
-      );
-      color = 0;
-    }
-    setEmployeeColor(color);
-  };
-
   return (
     <Grid container spacing={2} sx={{ p: 2 }}>
-      <Grid xs={3}>
+      <Grid item xs={3}>
         <TextField label="Employee Name" variant="standard" />
       </Grid>
-      <Grid xs={3}>
+      <Grid item xs={3}>
         <FormControl variant="standard" sx={{ minWidth: "80%" }}>
           <InputLabel id="employee-color-selector">Employee Color</InputLabel>
           <Select
             labelId="employee-color-selector"
-            id="demo-simple-select"
-            value={employeeColor?.toString()}
+            id="employee-color-select"
+            value={employeeColor?.toString() ?? ""}
             label="Employee Color"
-            onChange={handleColorPickerUpdate}
             sx={{ width: "90%" }}
           >
             <MenuItem value={0} sx={{ color: "gray" }}>
@@ -53,7 +39,7 @@ export function EditEmployeeInfo(props: EmployeePanelProps): JSX.Element {
           </Select>
         </FormControl>
       </Grid>
-      <Grid xs={3}>
+      <Grid item xs={3}>
         <TextField
           label="Minimum Hours per Week"
           defaultValue={10}
@@ -64,7 +50,7 @@ export function EditEmployeeInfo(props: EmployeePanelProps): JSX.Element {
           }}
         />
       </Grid>
-      <Grid xs={3}>
+      <Grid item xs={3}>
         <TextField
           label="Maximum Hours per Week"
           defaultValue={40}
