@@ -1,6 +1,7 @@
 import { LocalStorage } from "../../services/storageService";
 import localforage from "localforage";
 import { generate as WaveformCollapseAlgorithm } from "../../services/waveform_collapse";
+import { Schedule } from "../../entities";
 
 jest.mock("localforage");
 beforeEach(() => {
