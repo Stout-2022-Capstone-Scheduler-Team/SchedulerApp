@@ -1,6 +1,6 @@
 import { LocalStorage } from "../../services/storageService";
 import localforage from "localforage";
-import { WaveformCollapseAlgorithm } from "../../services/waveform_collapse";
+import { Schedule } from "../../entities";
 
 jest.mock("localforage");
 beforeEach(() => {
@@ -9,7 +9,7 @@ beforeEach(() => {
 
 test("Get Item", async() => {
   // declare a dummy object for adding and removing to the storage
-  const a = new WaveformCollapseAlgorithm([], []);
+  const a = new Schedule();
 
   // declare a storage object
   const storage = new LocalStorage();
@@ -24,7 +24,7 @@ test("Get Item", async() => {
 
 test("Set Item", async() => {
   // declare a dummy object for adding and removing to the storage
-  const a = new WaveformCollapseAlgorithm([], []);
+  const a = new Schedule();
 
   // declare a storage object
   const storage = new LocalStorage();
@@ -52,7 +52,7 @@ test("Remove Item", async() => {
 
 test("Iterate", async() => {
   // declare a dummy object for adding and removing to the storage
-  const a = new WaveformCollapseAlgorithm([], []);
+  const a = new Schedule();
 
   // declare a storage object
   const storage = new LocalStorage();

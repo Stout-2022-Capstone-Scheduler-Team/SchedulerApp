@@ -5,13 +5,21 @@ extends:
   - "plugin:@next/next/recommended"
   - "standard-with-typescript"
 rules:
-  space-before-function-paren: [warn, never]
+  space-before-function-paren:
+    - warn
+    - anonymous: "never"
+      named: "never"
+      asyncArrow: "always"
   comma-dangle: [warn, never]
   semi: [warn, always]
   quotes: [warn, double]
   "@typescript-eslint/quotes": [warn, double]
   "@typescript-eslint/semi": [warn, always]
-  "@typescript-eslint/space-before-function-paren": [warn, never]
+  "@typescript-eslint/space-before-function-paren":
+    - warn
+    - anonymous: "never"
+      named: "never"
+      asyncArrow: "always"
   "@typescript-eslint/member-delimiter-style": off
   "@typescript-eslint/restrict-template-expressions": off
 ignorePatterns:
