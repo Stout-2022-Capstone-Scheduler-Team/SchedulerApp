@@ -1,4 +1,4 @@
-/*import { Button, Modal, Typography } from "@mui/material";
+/* import { Button, Modal, Typography } from "@mui/material";
 import Box from "@mui/system/Box/Box";
 import { style } from "@mui/system/style";
 import React from "react";
@@ -11,7 +11,7 @@ const Modal = props => {
                     <h4 className="modal-title">Add Shift Modal</h4>
                 </div>
                 <div className="Modal-body">
-                    This is The Add Shift 
+                    This is The Add Shift
                 </div>
             </div>
         </div>
@@ -36,10 +36,10 @@ const style = {
   p: 4
 };
 
-export default function BasicModal() {
+export default function BasicModal(): JSX.Element {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = (): void => setOpen(true);
+  const handleClose = (): void => setOpen(false);
 
   return (
     <div>

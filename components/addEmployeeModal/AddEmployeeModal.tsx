@@ -10,12 +10,12 @@ import {
 import modalStyle from "../../styles/modalStyle";
 import { AvailabilityTabs } from "../";
 
-export function AddEmployeeModal() {
+export function AddEmployeeModal(): JSX.Element {
   const [open, setOpen] = React.useState(false);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const handleSubmit = () => setOpen(false);
+  const handleOpen = (): void => setOpen(true);
+  const handleClose = (): void => setOpen(false);
+  const handleSubmit = (): void => setOpen(false);
 
   return (
     <>

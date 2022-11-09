@@ -1,9 +1,9 @@
-import { Shift, DayOftheWeek, dayName, Time } from "../../entities/types";
+import { Shift, dayName, Time } from "../../entities/types";
 import { DailyShifts } from "./DailyShifts";
 import { WeeklyDate } from "./WeeklyDate";
 
-import { Grid, Paper } from "@mui/material";
-import { ReactInstance, RefObject, useRef } from "react";
+import { Grid } from "@mui/material";
+import { RefObject } from "react";
 
 interface Props {
   allShifts: Shift[];
@@ -14,7 +14,13 @@ export function Calendar({ allShifts, exportRef }: Props): JSX.Element {
   const dayOfWeekNumber = Time.getWeekDayNumbers();
 
   return (
-    <Grid container columns={7} sx={{ p: 5, pt: 3 }} ref={exportRef}>
+    <Grid
+      container
+      columns={7}
+      sx={{ p: 5, pt: 3 }}
+      ref={exportRef}
+      className="printed"
+    >
       {dayOfWeekNumber.map((day: number) => (
         <Grid item xs={1} sx={{ px: 1.5 }} key={day}>
           <WeeklyDate dayOfWeek={dayName(day).substring(0, 3)} date="10.23" />

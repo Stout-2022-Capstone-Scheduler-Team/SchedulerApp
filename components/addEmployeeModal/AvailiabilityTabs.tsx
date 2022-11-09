@@ -3,22 +3,24 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
-import { AvailabilityEditor, EditEmployeeInfo } from "../";
+import { AvailabilityEditor, EditEmployeeInfo, TabPanel } from "../";
 import { Time } from "../../entities";
-import { TabPanel } from "../";
 
-function a11yProps(index: number) {
+function a11yProps(index: number): { id: string; "aria-controls": string } {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`
   };
 }
 
-export function AvailabilityTabs() {
+export function AvailabilityTabs(): JSX.Element {
   const [current, setCurrent] = React.useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    if (newValue != current) {
+  const handleChange = (
+    event: React.SyntheticEvent,
+    newValue: number
+  ): void => {
+    if (newValue !== current) {
       setCurrent(newValue);
     }
   };

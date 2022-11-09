@@ -14,7 +14,7 @@ export function FormatSelect({
   typeSetter
 }: FormatSelectProps): JSX.Element {
   const handleChange = (event: SelectChangeEvent | ChangeEvent): void => {
-    // @ts-ignore
+    // @ts-expect-error
     typeSetter(event.target.value);
   };
 
@@ -31,9 +31,7 @@ export function FormatSelect({
       >
         <MenuItem value={ExportType.jpeg}>jpeg</MenuItem>
         <MenuItem value={ExportType.png}>png</MenuItem>
-        <MenuItem value={ExportType.pdf} disabled>
-          pdf
-        </MenuItem>
+        <MenuItem value={ExportType.pdf}>pdf</MenuItem>
       </Select>
     </FormControl>
   );
