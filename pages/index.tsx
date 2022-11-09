@@ -1,7 +1,8 @@
+import { Schedule } from "@mui/icons-material";
 import { Button, Stack } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import { StorageService, Schedule } from "./../services/storageService";
+import { StorageService } from "./../services/storageService";
 
 export default function Home(): JSX.Element {
   const exportRef = React.useRef(null);
