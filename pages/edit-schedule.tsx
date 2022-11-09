@@ -1,14 +1,20 @@
 import { Shift, Time, DayOftheWeek } from "../entities/types";
-import { Calendar, ExportModal } from "../components";
+import { Calendar, ExportModal, AddEmployeeModal } from "../components";
 import React from "react";
+import { Stack } from "@mui/material";
 
 export default function EditSchedule(): JSX.Element {
   // remove hard coded data once we add functionality to add shifts
   const dummyData = [
     new Shift(
       "Programmer",
+<<<<<<< HEAD
       new Time(9.50),
       new Time(10.50),
+=======
+      new Time(9.5),
+      new Time(10.5),
+>>>>>>> TIME-42-create-default-employee-modal-and-inputs
       DayOftheWeek.Sunday,
       "Drew"
     ),
@@ -172,25 +178,45 @@ export default function EditSchedule(): JSX.Element {
       new Time(10.5),
       DayOftheWeek.Friday,
       "Spencer"
+<<<<<<< HEAD
     ), new Shift(
       "Programmer",
       new Time(9.50),
       new Time(10.50),
       DayOftheWeek.Saturday,
       "Mike"
+=======
+>>>>>>> TIME-42-create-default-employee-modal-and-inputs
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Saturday,
+<<<<<<< HEAD
       "Drew"
+=======
+      "Mike"
+>>>>>>> TIME-42-create-default-employee-modal-and-inputs
     ),
     new Shift(
       "Programmer",
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Saturday,
+<<<<<<< HEAD
+      "Fred"
+=======
+      "Drew"
+>>>>>>> TIME-42-create-default-employee-modal-and-inputs
+    ),
+    new Shift(
+      "Programmer",
+      new Time(9.5),
+      new Time(10.5),
+      DayOftheWeek.Saturday,
+<<<<<<< HEAD
+=======
       "Fred"
     ),
     new Shift(
@@ -198,6 +224,7 @@ export default function EditSchedule(): JSX.Element {
       new Time(9.5),
       new Time(10.5),
       DayOftheWeek.Saturday,
+>>>>>>> TIME-42-create-default-employee-modal-and-inputs
       "John"
     ),
     new Shift(
@@ -215,7 +242,10 @@ export default function EditSchedule(): JSX.Element {
   return (
     <>
       <Calendar allShifts={dummyData} exportRef={exportRef} />
-      <ExportModal componentToExport={exportRef} />
+      <Stack spacing={2} direction={"row"}>
+        <ExportModal componentToExport={exportRef} />
+        <AddEmployeeModal />
+      </Stack>
     </>
   );
 }
