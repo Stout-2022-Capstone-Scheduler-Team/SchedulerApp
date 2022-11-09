@@ -138,39 +138,34 @@ test("Jarod 3 Schedule", () => {
 });
 
 test("Overnight Schedule 1", () => {
-  const process = new WaveformCollapseAlgorithm(
-    [
-      shift("18:00", "23:00", Monday), // 5:00
-      shift("22:00", "05:00", Monday) // 7:00 (N)
-    ],
-    [
-      person("alice", 2, 12, [allDay(Monday)]),
-      person("bob", 2, 12, [allDay(Monday), allDay(Tuesday)])
-    ]
-  );
-  expect(process.generate()).toBe(true);
-  const s = process.schedule;
-  console.log(s);
-  expect(s[0].owner).toBe("alice");
-  expect(s[1].owner).toBe("bob");
+  const shifts: Shift[] = [
+    shift("18:00", "23:00", Monday), // 5:00
+    shift("22:00", "05:00", Monday) // 7:00 (N)
+  ];
+  const staff: Employee[] = [
+    person("alice", 2, 12, [allDay(Monday)]),
+    person("bob", 2, 12, [allDay(Monday), allDay(Tuesday)])
+  ];
+  expect(WaveformCollapseAlgorithm(shifts, staff)).toBe(true);
+  console.log(shifts);
+  expect(shifts[0].owner).toBe("alice");
+  expect(shifts[1].owner).toBe("bob");
 });
 
 test("Overnight Schedule 2", () => {
-  const process = new WaveformCollapseAlgorithm(
-    [
-      shift("18:00", "23:00", Monday), // 5:00
-      shift("22:00", "05:00", Monday), // 7:00 (N)
-      shift("10:00", "15:00", Tuesday), // 5:00
-      shift("01:00", "05:00", Tuesday) // 4:00
-    ],
-    [
-      person("alice", 2, 12, [allDay(Monday)]),
-      person("bob", 10, 12, [allDay(Monday), allDay(Tuesday)]),
-      person("claire", 2, 12, [allDay(Tuesday)])
-    ]
-  );
-  // expect(process.generate()).toBe(true);
-  const s = process.schedule;
+  const shifts: Shift[] = [
+    shift("18:00", "23:00", Monday), // 5:00
+    shift("22:00", "05:00", Monday), // 7:00 (N)
+    shift("10:00", "15:00", Tuesday), // 5:00
+    shift("01:00", "05:00", Tuesday) // 4:00
+  ];
+  const staff: Employee[] = [
+    person("alice", 2, 12, [allDay(Monday)]),
+    person("bob", 10, 12, [allDay(Monday), allDay(Tuesday)]),
+    person("claire", 2, 12, [allDay(Tuesday)])
+  ];
+  expect(WaveformCollapseAlgorithm(shifts, staff)).toBe(true);
+  const s = shifts;
   console.log(s);
   expect(s[0].owner).toBe("alice");
   expect(s[1].owner).toBe("bob");
@@ -179,15 +174,13 @@ test("Overnight Schedule 2", () => {
 });
 
 test("Impossible Overnight Schedule", () => {
-  const process = new WaveformCollapseAlgorithm(
-    [
-      shift("22:00", "05:00", Monday) // 7:00
-    ],
-    [
-      person("alice", 2, 12, [allDay(Monday)])
-    ]
-  );
-  expect(process.generate()).toBe(false);
+  const shifts: Shift[] = [
+    shift("22:00", "05:00", Monday) // 7:00
+  ];
+  const staff: Employee[] = [
+    person("alice", 2, 12, [allDay(Monday)])
+  ];
+  expect(WaveformCollapseAlgorithm(shifts, staff)).toBe(false);
 });
 
 test("Impossible Schedule", () => {
