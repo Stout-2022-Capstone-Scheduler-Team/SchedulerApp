@@ -1,4 +1,3 @@
-import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-
-test("modal ");
+import React, { useEffect } from "react";
+import ReactDOM from "react-dom";
+import { render, fireEvent } from "@testing-library/react";
