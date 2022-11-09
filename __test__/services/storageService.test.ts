@@ -10,7 +10,7 @@ beforeEach(() => {
 
 test("Get Item", async () => {
   // declare a dummy object for adding and removing to the storage
-  const a = new WaveformCollapseAlgorithm([], []);
+  const a = new Schedule();
 
   // declare a storage object
   const storage = new LocalStorage();
@@ -25,7 +25,7 @@ test("Get Item", async () => {
 
 test("Set Item", async () => {
   // declare a dummy object for adding and removing to the storage
-  const a = new WaveformCollapseAlgorithm([], []);
+  const a = new Schedule();
 
   // declare a storage object
   const storage = new LocalStorage();
