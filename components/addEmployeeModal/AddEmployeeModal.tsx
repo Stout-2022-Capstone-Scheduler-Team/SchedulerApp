@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import modalStyle from "../../styles/modalStyle";
 import { AvailabilityTabs } from "../";
-import { Employee } from "../../entities";
+import { Color, Employee } from "../../entities";
 
 interface EmployeeModalProps {
   existingEmployees: Employee[];
@@ -17,11 +17,16 @@ interface EmployeeModalProps {
 }
 
 export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
+  const { addEmployee } = props;
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
-  const handleSubmit = (): void => setOpen(false);
+  const handleSubmit = (): void => {
+    const newEmployee = new Employee("Test", 0, 40, new Color("Blue"));
+    addEmployee(newEmployee);
+    setOpen(false);
+  };
 
   return (
     <>
