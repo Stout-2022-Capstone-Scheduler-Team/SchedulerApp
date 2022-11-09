@@ -12,6 +12,7 @@ export type Schedule = any;
 
 export class StorageService {
   static returnAll: any;
+  static update: any;
   // getting specific schedule based on key data
   async read(name: string): Promise<Schedule> {
     // The same code, but using ES6 Promises.
