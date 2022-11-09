@@ -1,11 +1,13 @@
-import { Schedule } from "@mui/icons-material";
+// import { Schedule } from "@mui/icons-material";
 import { Button, Stack } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import { StorageService } from "./../services/storageService";
+import { StorageService, Schedule } from "./../services/storageService";
 
 export default function Home(): JSX.Element {
   const exportRef = React.useRef(null);
+  const storage = new StorageService();
+  // const sched = new Schedule;
 
   return (
     <Stack sx={{ mx: "7%" }} alignItems="center" spacing={2}>
@@ -28,14 +30,14 @@ export default function Home(): JSX.Element {
       <Button
         variant="contained"
         color="secondary"
-        onClick={StorageService.returnAll()}
+        // onClick={async () => {void (await storage.update("name", sched));} }
       >
         Get Schedules
       </Button>
       <Button
         variant="contained"
         color="secondary"
-        onClick={StorageService.update(name, Schedule)}
+        onClick={async () => {await storage.returnAll();}}
       >
         Save Schedule
       </Button>
