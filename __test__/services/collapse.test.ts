@@ -194,19 +194,18 @@ test('Impossible Schedule', () => {
   expect(s[3].owner).toBe("alice");
 });
 
-test('Jarod 4 Schedule', () => {
+test('Impossible Schedule 2', () => {
   const process = new WaveformCollapseAlgorithm(
     [
       shift("23:00", "06:00", Monday), // 6:00
-      shift("07:00", "08:00", Tuesday), // 1:00
-      shift("06:00", "11:00", Tuesday), // 5:00
+      shift("05:00", "08:00", Tuesday), // 3:00
+      shift("05:00", "11:00", Tuesday), // 5:00
     ],
     [
-      person('alice', 10, 100, [allDay(Monday),allDay(Tuesday)]),
+      person('alice', 1, 100, [allDay(Monday),allDay(Tuesday)]),
       person('bob', 1, 100, [allDay(Monday),allDay(Tuesday)]),
     ]
   );
   expect(process.generate()).toBe(false);
   const s = process.schedule;
-  console.log(s);
 });
