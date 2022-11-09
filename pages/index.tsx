@@ -6,9 +6,10 @@ import { StorageService, Schedule } from "./../services/storageService";
 
 function handletype(): void {
   const storage = new StorageService();
-  storage.returnAll().then((Schedule) => {
+  storage.returnAll().then((schedules) => {
     // TODO
-  });
+    console.log(schedules);
+  }).catch((error) => console.log(error));
 }
 
 export default function Home(): JSX.Element {

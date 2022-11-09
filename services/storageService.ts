@@ -36,7 +36,6 @@ export class StorageService {
     const ret: { [key: string]: Schedule } = {};
     await localforage.iterate((value: Schedule, key: string, _: number) => {
       ret[key] = value;
-      console.log("string getsHere");
     });
     return ret;
   }
