@@ -13,6 +13,7 @@ import { Employee } from "../../entities";
 
 interface EmployeeModalProps {
   existingEmployees: Employee[];
+  addEmployee: (employee: Employee) => void;
 }
 
 export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
