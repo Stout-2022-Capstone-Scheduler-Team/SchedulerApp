@@ -42,7 +42,7 @@ export class Time {
   }
 
   hoursBetween(other: Time): number {
-    return Math.abs(other.hours - this.hours);
+    return other.hours - this.hours + (other.hours - this.hours < 0 ? 24 : 0);
   }
 }
 
