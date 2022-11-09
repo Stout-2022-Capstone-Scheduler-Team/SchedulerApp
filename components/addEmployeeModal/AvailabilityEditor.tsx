@@ -19,7 +19,7 @@ const availabilityStyle: SxProps<Theme> = {
 
 export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
   const { day, employee } = props;
-  const [availabilityArray, setAvailabilityArray] = useState<Shift[]>([
+  const [availabilityArray] = useState<Shift[]>([
     new Shift("emp1", new Time(10), new Time(16), day, employee?.name),
     new Shift("emp1", new Time(10), new Time(17), day, employee?.name)
   ]);
@@ -33,7 +33,10 @@ export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
             <AvailabilityCard
               shift={shift}
               key={
-                shift.name + shift.start.toString() + shift.end + shift.owner
+                shift.name +
+                shift.start.toString() +
+                shift.end.toString() +
+                shift.owner
               }
             />
           ))}

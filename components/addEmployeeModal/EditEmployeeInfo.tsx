@@ -4,16 +4,12 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  SelectChangeEvent,
   TextField
 } from "@mui/material";
 import { useState } from "react";
 
-interface EmployeePanelProps {}
-
-export function EditEmployeeInfo(props: EmployeePanelProps): JSX.Element {
-  // const { ...other } = props;
-  const [employeeColor, setEmployeeColor] = useState<Number>();
+export function EditEmployeeInfo(): JSX.Element {
+  const [employeeColor] = useState<Number>();
 
   return (
     <Grid container spacing={2} sx={{ p: 2 }}>
