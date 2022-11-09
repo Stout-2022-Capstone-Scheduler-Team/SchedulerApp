@@ -4,10 +4,16 @@ import Link from "next/link";
 import React from "react";
 import { StorageService, Schedule } from "./../services/storageService";
 
-export default function Home(): JSX.Element {
-  const exportRef = React.useRef(null);
+function handletype(): void {
   const storage = new StorageService();
-  // const sched = new Schedule;
+  storage.returnAll().then((Schedule) => {
+    // TODO
+  });
+}
+
+export default function Home(): JSX.Element {
+  // const exportRef = React.useRef(null);
+  // const sched = new Schedule();
 
   return (
     <Stack sx={{ mx: "7%" }} alignItems="center" spacing={2}>
@@ -37,7 +43,7 @@ export default function Home(): JSX.Element {
       <Button
         variant="contained"
         color="secondary"
-        onClick={async () => {await storage.returnAll();}}
+        onClick={handletype}
       >
         Save Schedule
       </Button>
