@@ -1,13 +1,13 @@
 import { Grid } from "@mui/material";
+import { Schedule } from "../../entities/schedule";
 
 import { Shift } from "../../entities/types";
-import { WaveformCollapseAlgorithm } from "../../services/waveform_collapse";
 
 import ShiftCard from "./ShiftCard";
 
 interface Props {
   allShifts: Shift[];
-  scheduler: WaveformCollapseAlgorithm;
+  scheduler: Schedule;
 }
 
 export function DailyShifts({ allShifts, scheduler }: Props): JSX.Element {

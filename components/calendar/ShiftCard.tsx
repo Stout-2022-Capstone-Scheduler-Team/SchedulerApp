@@ -1,10 +1,10 @@
 import { Card, CardContent, Typography } from "@mui/material";
+import { Schedule } from "../../entities/schedule";
 import { Shift } from "../../entities/types";
-import { WaveformCollapseAlgorithm } from "../../services/waveform_collapse";
 
 interface ShiftCardProps {
   shift: Shift;
-  scheduler: WaveformCollapseAlgorithm;
+  scheduler: Schedule;
 }
 
 export default function ShiftCard({ shift, scheduler }: ShiftCardProps): JSX.Element {
