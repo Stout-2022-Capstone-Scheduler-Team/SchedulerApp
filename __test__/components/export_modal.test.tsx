@@ -55,7 +55,7 @@ test("Export as PNG", async () => {
   fireEvent.click(screen.getByText(/Export/i));
   {
     const mocked = jest.mocked(exportComponentAsPNG);
-    mocked.mockResolvedValueOnce(() => { });
+    mocked.mockResolvedValueOnce(() => {});
     // This needs something else to specify, since the text is the same
     fireEvent.click(screen.getByTestId("export_button"));
 
@@ -72,7 +72,7 @@ test("Export as JPEG", async () => {
   fireEvent.click(screen.getByText(/Export/i));
   {
     const mocked = jest.mocked(exportComponentAsJPEG);
-    mocked.mockResolvedValueOnce(() => { });
+    mocked.mockResolvedValueOnce(() => {});
     fireEvent.click(screen.getByTestId("export_button"));
 
     await waitFor(() => expect(mocked.mock.calls.length).toBe(1));

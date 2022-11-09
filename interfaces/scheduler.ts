@@ -1,5 +1,5 @@
 import { Shift, Employee } from "../entities/types";
-export default interface Scheduler {
+interface Scheduler {
   schedule: Shift[];
   staff: Employee[];
 
@@ -20,3 +20,5 @@ export default interface Scheduler {
    * */
   getEmployee: (name: string) => Employee | undefined;
 }
+
+export default Scheduler;

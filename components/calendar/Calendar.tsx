@@ -1,4 +1,4 @@
-import { Shift, DayOftheWeek, dayName } from "../../entities/types";
+import { Shift, dayName, Time } from "../../entities/types";
 import { DailyShifts } from "./DailyShifts";
 import { WeeklyDate } from "./WeeklyDate";
 
@@ -11,9 +11,7 @@ interface Props {
 }
 
 export function Calendar({ allShifts, exportRef }: Props): JSX.Element {
-  const dayOfWeekNumber = Object.keys(DayOftheWeek)
-    .filter((v) => !isNaN(Number(v)))
-    .map((day) => Number(day));
+  const dayOfWeekNumber = Time.getWeekDayNumbers();
 
   return (
     <Grid
