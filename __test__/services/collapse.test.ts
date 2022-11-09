@@ -1,4 +1,5 @@
-import WaveformCollapseAlgorithm, {
+import {
+  generate as WaveformCollapseAlgorithm,
   getEmployee
 } from "../../services/waveform_collapse";
 import {

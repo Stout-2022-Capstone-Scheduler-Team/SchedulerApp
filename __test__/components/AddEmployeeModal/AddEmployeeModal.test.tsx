@@ -1,11 +1,5 @@
 import { AddEmployeeModal } from "../../../components";
-import {
-  act,
-  render,
-  screen,
-  fireEvent,
-  waitFor
-} from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 
 test("Add Employee Renders", () => {
   const employeeModal = render(<AddEmployeeModal />);
@@ -60,7 +54,7 @@ test("Modal has 8 tabs", () => {
 
 it("Modal Switches Tabs", () => {
   // Setup modal, open it
-  let modal = render(<AddEmployeeModal />);
+  const modal = render(<AddEmployeeModal />);
   fireEvent.click(modal.getByText(/Add Employee/i));
 
   // Navigate to wednesday's tab
