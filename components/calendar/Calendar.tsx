@@ -1,18 +1,22 @@
-import { DayOftheWeek, dayName } from "../../entities/types";
-import { Shift, Time } from "../../entities/types";
+import { dayName, Employee } from "../../entities/types";
+import { Shift, Time } from "../../entities";
 import { DailyShifts } from "./DailyShifts";
 import { WeeklyDate } from "./WeeklyDate";
 
 import { Grid } from "@mui/material";
 import { RefObject } from "react";
-import { Schedule } from "../../entities/schedule";
 
-interface Props {
-  scheduler: Schedule;
+interface CalendarProps {
+  shifts: Shift[];
+  employees: Employee[];
   exportRef?: RefObject<any>;
 }
 
-export function Calendar({ scheduler, exportRef }: Props): JSX.Element {
+export function Calendar({
+  shifts,
+  employees,
+  exportRef
+}: CalendarProps): JSX.Element {
   const dayOfWeekNumber = Time.getWeekDayNumbers();
 
   return (
@@ -32,8 +36,8 @@ export function Calendar({ scheduler, exportRef }: Props): JSX.Element {
         <Grid item xs={1} sx={{ px: 1.5 }} key={day}>
           <DailyShifts
             // allShifts={scheduler.getSortedSchedule().filter((shift) => shift.day === day)}
-            allShifts={scheduler.shifts}
-            scheduler={scheduler}
+            allShifts={shifts}
+            employees={employees}
           />
         </Grid>
       ))}

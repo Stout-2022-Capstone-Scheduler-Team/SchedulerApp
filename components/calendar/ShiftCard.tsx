@@ -1,17 +1,17 @@
 import { Card, CardContent, Typography } from "@mui/material";
-import { Schedule } from "../../entities/schedule";
-import { Shift } from "../../entities/types";
+import { Employee, Shift } from "../../entities/types";
 
 interface ShiftCardProps {
   shift: Shift;
-  scheduler: Schedule;
+  employee: Employee;
 }
 
-export default function ShiftCard({ shift, scheduler }: ShiftCardProps): JSX.Element {
+export default function ShiftCard({
+  shift,
+  employee
+}: ShiftCardProps): JSX.Element {
   return (
-    <Card
-      sx={{ mt: 1, borderLeft: 6, borderColor: scheduler.getEmployee(shift.owner)?.color.colorHex }}
-    >
+    <Card sx={{ mt: 1, borderLeft: 6, borderColor: employee.color.colorHex }}>
       <CardContent sx={{ p: 0.25, "&:last-child": { p: 0.25 } }}>
         <Typography sx={{ display: "flex", justifyContent: "center" }}>
           {shift.start.toString()} - {shift.end.toString()}
