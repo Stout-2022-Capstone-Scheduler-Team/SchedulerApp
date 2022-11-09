@@ -1,3 +1,4 @@
+import { Color } from "../../entities/color";
 import { Time, Shift, DayOftheWeek, Employee } from "../../entities/types";
 
 export const Monday = DayOftheWeek.Monday;
@@ -28,9 +29,10 @@ export function person(
   name: string,
   minHours: number,
   maxHours: number,
-  available: Shift[]
+  available: Shift[],
+  color: Color
 ): Employee {
-  const ret = new Employee(name, minHours, maxHours);
+  const ret = new Employee(name, minHours, maxHours, color);
   ret.available = available;
   return ret;
 }
