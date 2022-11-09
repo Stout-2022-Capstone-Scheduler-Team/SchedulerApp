@@ -17,7 +17,7 @@ beforeEach(() => {
   jest.resetAllMocks();
 });
 
-test("Export Modal", async() => {
+test("Export Modal", async () => {
   const exportRef: React.RefObject<React.ReactInstance> = React.createRef();
   const dom = render(<ExportModal componentToExport={exportRef} />);
 
@@ -48,14 +48,14 @@ test("Export Modal", async() => {
   }
 });
 
-test("Export as PNG", async() => {
+test("Export as PNG", async () => {
   const exportRef: React.RefObject<React.ReactInstance> = React.createRef();
   render(<ExportModal componentToExport={exportRef} />);
 
   fireEvent.click(screen.getByText(/Export/i));
   {
     const mocked = jest.mocked(exportComponentAsPNG);
-    mocked.mockResolvedValueOnce(() => { });
+    mocked.mockResolvedValueOnce(() => {});
     // This needs something else to specify, since the text is the same
     fireEvent.click(screen.getByTestId("export_button"));
 
@@ -64,7 +64,7 @@ test("Export as PNG", async() => {
   }
 });
 
-test("Export as JPEG", async() => {
+test("Export as JPEG", async () => {
   const exportRef: React.RefObject<React.ReactInstance> = React.createRef();
   render(
     <ExportModal componentToExport={exportRef} defaultValue={ExportType.jpeg} />
@@ -72,7 +72,7 @@ test("Export as JPEG", async() => {
   fireEvent.click(screen.getByText(/Export/i));
   {
     const mocked = jest.mocked(exportComponentAsJPEG);
-    mocked.mockResolvedValueOnce(() => { });
+    mocked.mockResolvedValueOnce(() => {});
     fireEvent.click(screen.getByTestId("export_button"));
 
     await waitFor(() => expect(mocked.mock.calls.length).toBe(1));
@@ -80,7 +80,7 @@ test("Export as JPEG", async() => {
   }
 });
 
-test("Export as PDF", async() => {
+test("Export as PDF", async () => {
   const exportRef: React.RefObject<React.ReactInstance> = React.createRef();
   render(
     <ExportModal componentToExport={exportRef} defaultValue={ExportType.pdf} />
