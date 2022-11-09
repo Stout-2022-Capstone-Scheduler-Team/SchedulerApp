@@ -1,22 +1,12 @@
 import localforage from "localforage";
+import { Schedule } from "../entities/schedule";
+import StorageService from "../interfaces/storageService";
 
-/* Create a TS Service and interface that can save and retrieve schedule data by a given id or key (up to you, must be unique identifier)
-
-Save data to browser storage, look into localforage npm package or related
-
-include method for getting all local storage schedules
-
-CRUD functionality for local storage with schedules */
-
-export type Schedule = any;
-
-export class StorageService {
-  static returnAll: any;
-  static update: any;
+export class LocalStorage implements StorageService {
   // getting specific schedule based on key data
-  async read(name: string): Promise<Schedule> {
+  async read(name: string): Promise<Schedule | null> {
     // The same code, but using ES6 Promises.
-    await localforage.getItem(name);
+    return await localforage.getItem(name);
   }
 
   // reading the schedule list and seeing if the current schedule is already in the storage

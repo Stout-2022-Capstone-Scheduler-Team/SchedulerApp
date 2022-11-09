@@ -1,6 +1,6 @@
-import { Calendar } from "../../components";
+import { Calendar } from "../../../components";
 import renderer from "react-test-renderer";
-import { Monday, shift } from "../services/utils";
+import { Monday, shift } from "../../services/utils";
 
 test("Test Calendar Renders", () => {
   const calendar = renderer.create(<Calendar allShifts={[]} />);

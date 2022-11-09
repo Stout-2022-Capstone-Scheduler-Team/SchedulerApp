@@ -3,7 +3,7 @@
 exports[`EditSchedule Renders 1`] = `
 [
   <div
-    className="MuiGrid-root MuiGrid-container css-17qsxia-MuiGrid-root"
+    className="MuiGrid-root MuiGrid-container printed css-17qsxia-MuiGrid-root"
   >
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1i5d9ma-MuiGrid-root"
@@ -852,9 +852,34 @@ exports[`EditSchedule Renders 1`] = `
       </div>
     </div>
   </div>,
-  <div>
+  <div
+    className="css-e53awj-MuiStack-root"
+  >
+    <div>
+      <button
+        className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
+      >
+        Export
+      </button>
+    </div>
     <button
-      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
+      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium css-zcbmsk-MuiButtonBase-root-MuiButton-root"
       disabled={false}
       onBlur={[Function]}
       onClick={[Function]}
@@ -872,7 +897,7 @@ exports[`EditSchedule Renders 1`] = `
       tabIndex={0}
       type="button"
     >
-      Export
+      Add Employee
     </button>
   </div>,
 ]
