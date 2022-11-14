@@ -45,7 +45,7 @@ export default function Home(): JSX.Element {
       <Button
         variant="contained"
         color="secondary"
-        onClick={() => {storage.update("name", new Schedule()).catch(console.log);} }
+        onClick={() => { storage.update("name", new Schedule()).catch(console.log); } }
       >
         Save Schedule
       </Button>
