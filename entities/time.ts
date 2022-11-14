@@ -1,5 +1,3 @@
-import assert from "assert";
-
 /**
  * Represents a point in time
  */
@@ -17,10 +15,8 @@ export class Time {
    * Time.fromString("05:15") -> 5.25
    * */
   static fromString(s: string, day: DayOftheWeek): Time {
-    const hours = Number(s.substring(0, 2));
-    assert(s.charAt(2) === ":");
-    const minutes = Number(s.substring(3, 5));
-    return new Time(hours + minutes / 60, day);
+    const [hours, minutes] = s.split(":");
+    return new Time(Number(hours) + Number(minutes) / 60, day);
   }
 
   /**
