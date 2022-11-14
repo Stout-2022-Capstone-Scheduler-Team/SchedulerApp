@@ -12,17 +12,20 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
-export function AddShiftModal() {
+export function AddShiftModal(): JSX.Element {
   const [open, setOpen] = React.useState(false);
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleOpen = () => setOpen(true);
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleClose = () => setOpen(false);
   const [DayVal, setDay] = React.useState("");
   const [valueStartTime, setValueStartTime] = React.useState<Dayjs | null>(
     null
   ); // start time variables
   const [valueEndTime, setValueEndTime] = React.useState<Dayjs | null>(null); // end time variables
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleChange = (event: SelectChangeEvent) => {
-    setDay(event.target.value as string);
+    setDay(event.target.value);
   };
   return (
     <>
