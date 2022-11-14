@@ -1,4 +1,4 @@
-import { Time, Shift, DayOftheWeek, Employee } from "../../entities/types";
+import { Time, Shift, DayOftheWeek, Employee } from "../entities/types";
 
 export const Monday = DayOftheWeek.Monday;
 export const Tuesday = DayOftheWeek.Tuesday;
