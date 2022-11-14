@@ -170,7 +170,7 @@ test("Overnight Schedule 2", () => {
   expect(s[0].owner).toBe("alice");
   expect(s[1].owner).toBe("bob");
   expect(s[2].owner).toBe("bob");
-  expect(s[3].owner).toBe("clair");
+  expect(s[3].owner).toBe("claire");
 });
 
 test("Impossible Overnight Schedule", () => {
