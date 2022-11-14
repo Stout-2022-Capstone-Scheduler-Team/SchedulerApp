@@ -137,6 +137,52 @@ test("Jarod 3 Schedule", () => {
   expect(shifts[3].owner).toBe("alice");
 });
 
+test("Overnight Schedule 1", () => {
+  const shifts: Shift[] = [
+    shift("18:00", "23:00", Monday), // 5:00
+    shift("22:00", "05:00", Monday, Tuesday) // 7:00 (N)
+  ];
+  const staff: Employee[] = [
+    person("alice", 2, 12, [allDay(Monday)]),
+    person("bob", 2, 12, [allDay(Monday), allDay(Tuesday)])
+  ];
+  expect(WaveformCollapseAlgorithm(shifts, staff)).toBe(true);
+  console.log(shifts);
+  expect(shifts[0].owner).toBe("alice");
+  expect(shifts[1].owner).toBe("bob");
+});
+
+test("Overnight Schedule 2", () => {
+  const shifts: Shift[] = [
+    shift("18:00", "23:00", Monday), // 5:00
+    shift("22:00", "05:00", Monday, Tuesday), // 7:00 (N)
+    shift("10:00", "15:00", Tuesday), // 5:00
+    shift("01:00", "05:00", Tuesday) // 4:00
+  ];
+  const staff: Employee[] = [
+    person("alice", 2, 12, [allDay(Monday)]),
+    person("bob", 10, 12, [allDay(Monday), allDay(Tuesday)]),
+    person("claire", 2, 12, [allDay(Tuesday)])
+  ];
+  expect(WaveformCollapseAlgorithm(shifts, staff)).toBe(true);
+  const s = shifts;
+  console.log(s);
+  expect(s[0].owner).toBe("alice");
+  expect(s[1].owner).toBe("bob");
+  expect(s[2].owner).toBe("bob");
+  expect(s[3].owner).toBe("claire");
+});
+
+test("Impossible Overnight Schedule", () => {
+  const shifts: Shift[] = [
+    shift("22:00", "05:00", Monday) // 7:00
+  ];
+  const staff: Employee[] = [
+    person("alice", 2, 12, [allDay(Monday)])
+  ];
+  expect(WaveformCollapseAlgorithm(shifts, staff)).toBe(false);
+});
+
 test("Impossible Schedule", () => {
   const shifts: Shift[] = [
     shift("09:00", "10:00", Monday),
@@ -150,4 +196,17 @@ test("Impossible Schedule", () => {
   expect(shifts[1].owner).toBe("");
   expect(shifts[2].owner).toBe("");
   expect(shifts[3].owner).toBe("alice");
+});
+
+test("Back to Back", () => {
+  const shifts: Shift[] = [
+    shift("10:00", "11:00", Monday),
+    shift("11:00", "12:00", Monday)
+  ];
+  const staff: Employee[] = [
+    person("alice", 2, 12, [allDay(Monday)])
+  ];
+  expect(WaveformCollapseAlgorithm(shifts, staff)).toBe(true);
+  expect(shifts[0].owner).toBe("alice");
+  expect(shifts[1].owner).toBe("alice");
 });

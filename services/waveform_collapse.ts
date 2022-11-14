@@ -32,6 +32,7 @@ export function generate(shifts: Shift[], staff: Employee[]): boolean {
   // Clear current hours and busy
   staff.forEach((employee) => {
     employee.current_hours = 0;
+    employee.combineAvailable();
   });
   // Generate matrix & clear owners
   let matrix: Assignment[][] = [];

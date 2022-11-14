@@ -12,22 +12,23 @@ export default function EditSchedule(): JSX.Element {
       [
         new Shift(
           "testShift1",
-          new Time(10),
-          new Time(15),
-          DayOftheWeek.Monday
+          new Time(10, DayOftheWeek.Monday),
+          new Time(15, DayOftheWeek.Monday)
         ),
-        new Shift("testShift2", new Time(9), new Time(15), DayOftheWeek.Monday),
+        new Shift(
+          "testShift2",
+          new Time(9, DayOftheWeek.Monday),
+          new Time(15, DayOftheWeek.Monday)
+        ),
         new Shift(
           "testShift3",
-          new Time(10),
-          new Time(18),
-          DayOftheWeek.Wednesday
+          new Time(10, DayOftheWeek.Wednesday),
+          new Time(18, DayOftheWeek.Wednesday)
         ),
         new Shift(
           "testShift4",
-          new Time(12),
-          new Time(16),
-          DayOftheWeek.Tuesday
+          new Time(12, DayOftheWeek.Tuesday),
+          new Time(16, DayOftheWeek.Tuesday)
         )
       ]
     )
