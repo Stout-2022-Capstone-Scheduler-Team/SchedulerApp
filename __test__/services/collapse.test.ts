@@ -197,3 +197,18 @@ test("Impossible Schedule", () => {
   expect(shifts[2].owner).toBe("");
   expect(shifts[3].owner).toBe("alice");
 });
+
+test("Back to Back", () => {
+  const shifts: Shift[] = [
+    shift("09:00", "10:00", Monday),
+    shift("09:00", "12:00", Monday),
+    shift("09:00", "10:00", Monday),
+    shift("11:00", "12:00", Monday)
+  ];
+  const staff: Employee[] = [person("alice", 2, 2, [allDay(Monday)])];
+  expect(WaveformCollapseAlgorithm(shifts, staff)).toBe(false);
+  expect(shifts[0].owner).toBe("alice");
+  expect(shifts[1].owner).toBe("");
+  expect(shifts[2].owner).toBe("");
+  expect(shifts[3].owner).toBe("alice");
+});

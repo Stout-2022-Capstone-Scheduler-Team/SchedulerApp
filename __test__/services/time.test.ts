@@ -8,7 +8,9 @@ import {
   Thursday,
   Friday,
   Saturday,
-  Sunday
+  Sunday,
+  person,
+  allDay
 } from "./utils";
 
 function time(t: string, day: DayOftheWeek): Time {
@@ -85,4 +87,38 @@ test("Shift", () => {
   expect(overnight.contains(shift("02:30", "10:00", Monday))).toBe(false);
   expect(overnight.contains(shift("01:00", "05:00", Tuesday))).toBe(true);
   expect(overnight.contains(shift("22:30", "05:00", Tuesday, Wednesday))).toBe(false);
+});
+
+test("Combine", () => {
+  const alice = person("alice", 2, 12, [allDay(Monday), allDay(Tuesday)]);
+  alice.combineAvailable();
+  expect(alice.available).toStrictEqual([shift("00:00", "24:00", Monday, Tuesday)]);
+
+  const harry = person("harry", 2, 12, [allDay(Monday), allDay(Tuesday), allDay(Wednesday), allDay(Thursday), allDay(Friday), allDay(Saturday), allDay(Sunday)]);
+  harry.combineAvailable();
+  expect(harry.available).toStrictEqual([shift("00:00", "24:00", Sunday, Saturday)]);
+
+  const bob = person("bob", 2, 12, [shift("09:00", "10:00", Monday), shift("09:30", "10:30", Monday)]);
+  bob.combineAvailable();
+  expect(bob.available).toStrictEqual([shift("09:00", "10:30", Monday)]);
+
+  const claire = person("claire", 2, 12, [allDay(Monday), shift("09:00", "10:00", Monday)]);
+  claire.combineAvailable();
+  expect(claire.available).toStrictEqual([allDay(Monday)]);
+
+  const david = person("david", 2, 12, [shift("09:00", "10:00", Monday), shift("09:00", "10:00", Tuesday)]);
+  david.combineAvailable();
+  expect(david.available).toStrictEqual([shift("09:00", "10:00", Monday), shift("09:00", "10:00", Tuesday)]);
+
+  const gary = person("gary", 2, 12, [shift("09:00", "10:00", Monday), shift("07:00", "10:30", Monday), shift("09:00", "10:00", Tuesday)]);
+  gary.combineAvailable();
+  expect(gary.available).toStrictEqual([shift("07:00", "10:30", Monday), shift("09:00", "10:00", Tuesday)]);
+
+  const ethan = person("ethan", 2, 12, [shift("23:00", "04:00", Tuesday, Wednesday), shift("03:00", "07:00", Wednesday)]);
+  ethan.combineAvailable();
+  expect(ethan.available).toStrictEqual([shift("23:00", "07:00", Tuesday, Wednesday)]);
+
+  const nathan = person("nathan", 2, 12, [allDay(Monday), shift("09:00", "10:00", Monday), shift("23:00", "05:00", Monday, Tuesday), allDay(Wednesday), allDay(Thursday), shift("08:00", "09:00", Friday)]);
+  nathan.combineAvailable();
+  expect(nathan.available).toStrictEqual([shift("00:00", "05:00", Monday, Tuesday), shift("00:00", "24:00", Wednesday, Thursday), shift("08:00", "09:00", Friday)]);
 });

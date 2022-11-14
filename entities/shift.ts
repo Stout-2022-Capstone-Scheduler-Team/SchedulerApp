@@ -28,6 +28,10 @@ export class Shift {
   }
 
   overlaps(other: Shift): boolean {
+    return this.start.totalHours < other.end.totalHours && other.start.totalHours < this.end.totalHours;
+  }
+
+  overlapsAvalible(other: Shift): boolean {
     return this.start.totalHours <= other.end.totalHours && other.start.totalHours <= this.end.totalHours;
   }
 
