@@ -13,7 +13,7 @@ import {
   Friday,
   Saturday,
   Sunday
-} from "./utils";
+} from "../utils";
 import { Shift, Employee } from "../../entities";
 
 test("Empty Schedule", () => {

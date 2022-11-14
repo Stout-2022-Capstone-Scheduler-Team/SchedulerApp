@@ -38,7 +38,7 @@ export class Schedule {
    * @param newShift New shift to add
    */
   addShift(newShift: Shift): void {
-    this._shifts.concat(newShift);
+    this._shifts.push(newShift);
   }
 
   /**
@@ -64,7 +64,7 @@ export class Schedule {
    * @param newEmp Employee to add to the schedule
    */
   addEmployee(newEmp: Employee): void {
-    this._staff.concat(newEmp);
+    this._staff.push(newEmp);
   }
 
   /**
@@ -90,7 +90,7 @@ export class Schedule {
    * @param shifts set of assigned shifts (obtained from IScheduleAlgorithm)
    */
   public set assignedShifts(shifts: Shift[]) {
-    this._assignedShifts.slice(0);
+    // this._assignedShifts.slice(0);
     this._assignedShifts = shifts;
   }
 
