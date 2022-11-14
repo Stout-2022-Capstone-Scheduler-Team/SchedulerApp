@@ -1,0 +1,94 @@
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  getListItemSecondaryActionClassesUtilityClass,
+  Grid,
+  Modal,
+  SelectChangeEvent,
+  Stack,
+  SxProps,
+  Theme,
+  Typography
+} from "@mui/material";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { Dayjs } from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import TextField from "@mui/material/TextField";
+import { useState } from "react";
+import modalStyle from "../../styles/modalStyle";
+
+export function AddAvailabilityModal(): JSXElement {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = (): void => setOpen(true);
+  const handleClose = (): void => setOpen(false);
+  const handleSubmit = (): void => setOpen(false);
+  const [DayVal, setDay] = useState("");
+  const [valueStartTime, setValueStartTime] = useState<Dayjs | null>(null);
+  const [valueEndTime, setValueEndTime] = useState<Dayjs | null>(null);
+  const handleChange = (event: SelectChangeEvent) => {
+    setDay(event.target.value as string);
+  };
+
+  return (
+    <>
+      <Button onClick={handleOpen} variant="contained" sx={{ m: 0 }}>
+        Add Availability
+      </Button>
+      <Modal open={open}>
+        <Card sx={{ ...modalStyle }}>
+          <CardContent sx={{ p: 0 }}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Add Availability
+            </Typography>
+            <FormGroup>
+              <FormControlLabel control={<Checkbox />} label="Use Full Date" />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Shift runs into the next day"
+              />
+            </FormGroup>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <TimePicker
+                label="Select Start Time"
+                value={valueStartTime}
+                onChange={(newValueST) => {
+                  setValueStartTime(newValueST);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              ></TimePicker>
+            </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs} sx={{ mx: 2 }}>
+              <TimePicker
+                label="Select End Time"
+                value={valueEndTime}
+                onChange={(newValueET) => {
+                  setValueEndTime(newValueET);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              ></TimePicker>
+            </LocalizationProvider>
+            <CardActions>
+              <Button onClick={handleClose} color={"error"} sx={{ ml: "auto" }}>
+                Close
+              </Button>
+              <Button
+                onClick={handleSubmit}
+                color={"primary"}
+                variant={"contained"}
+              >
+                Submit
+              </Button>
+            </CardActions>
+          </CardContent>
+        </Card>
+      </Modal>
+    </>
+  );
+}
