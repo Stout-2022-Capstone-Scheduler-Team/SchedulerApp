@@ -1,15 +1,14 @@
-import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
 import { Card, CardContent, Typography } from "@mui/material";
-import { Shift, Time } from "../../entities/types";
+import { Shift } from "../../entities/types";
 
-function getRandomColor(str: string) {
-  var hash = 0;
-  for (var i = 0; i < str.length; i++) {
+function getRandomColor(str: string): string {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
-  var color = "#";
-  for (var i = 0; i < 3; i++) {
-    var value = (hash >> (i * 8)) & 0xff;
+  let color = "#";
+  for (let i = 0; i < 3; i++) {
+    const value = (hash >> (i * 8)) & 0xff;
     color += ("" + value.toString(16)).substring(-2);
   }
   return color;
@@ -19,7 +18,7 @@ interface ShiftCardProps {
   shift: Shift;
 }
 
-export function ShiftCard({ shift }: ShiftCardProps): JSX.Element {
+export default function ShiftCard({ shift }: ShiftCardProps): JSX.Element {
   return (
     <Card
       sx={{ mt: 1, borderLeft: 6, borderColor: getRandomColor(shift.owner) }}
@@ -37,5 +36,3 @@ export function ShiftCard({ shift }: ShiftCardProps): JSX.Element {
     </Card>
   );
 }
-
-export default ShiftCard;

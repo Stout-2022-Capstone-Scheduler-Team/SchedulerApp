@@ -20,6 +20,24 @@ export class Time {
   }
 
   /**
+   * Get the week day names as an array
+   * @returns array of week day names
+   */
+  static getWeekDays(): string[] {
+    return Object.keys(DayOftheWeek).filter((v) => isNaN(Number(v)));
+  }
+
+  /**
+   * Get the week days as an array of numbers
+   * @returns array of week day numbers (start with sunday)
+   */
+  static getWeekDayNumbers(): number[] {
+    return Object.keys(DayOftheWeek)
+      .filter((v) => !isNaN(Number(v)))
+      .map((day) => Number(day));
+  }
+
+  /**
    * Time.toString(5.25) -> "5:15"
    * */
   toString(): string {
