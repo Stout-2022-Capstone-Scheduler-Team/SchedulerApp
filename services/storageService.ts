@@ -13,6 +13,7 @@ export class LocalStorage implements StorageService {
   // if it isnt then add the currently held schedule to the schedule list
   async update(name: string, val: Schedule): Promise<void> {
     await localforage.setItem(name, val);
+    console.log("string getsHere");
   }
 
   // deleting a specific schedule list and seeing if the specified schedule is even in the storage

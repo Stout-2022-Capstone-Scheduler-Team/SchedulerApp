@@ -1,5 +1,5 @@
-import { Color } from "../../entities/color";
-import { Time, Shift, DayOftheWeek, Employee } from "../../entities/types";
+import { Color } from "../entities";
+import { Time, Shift, DayOftheWeek, Employee } from "../entities/types";
 
 export const Monday = DayOftheWeek.Monday;
 export const Tuesday = DayOftheWeek.Tuesday;
