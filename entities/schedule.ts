@@ -26,8 +26,7 @@ export class Schedule {
 
     // Map to a new shift object, this ensures shifts keep their logic
     this.shifts = shifts.map(
-      (shift) =>
-        new Shift(shift.name, shift.start, shift.end, shift.day, shift.owner)
+      (shift) => new Shift(shift.name, shift.start, shift.end, shift.owner)
     );
     this.minHoursWorked = minHours;
     this.maxHoursWorked = maxHours;

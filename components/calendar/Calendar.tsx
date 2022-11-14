@@ -21,8 +21,8 @@ export function Calendar({
 
   function getDayShifts(day: DayOftheWeek): Shift[] {
     return shifts
-      .filter((shift) => shift.day === day)
-      .sort((a, b) => (a.start.hours > b.start.hours ? 1 : -1));
+      .filter((shift) => shift.start.day === day)
+      .sort((a, b) => (a.start.dayHours > b.start.dayHours ? 1 : -1));
   }
 
   return (
