@@ -1,4 +1,4 @@
-import { Schedule } from "../../entities";
+import { Color, Schedule } from "../../entities";
 
 import { shift, Monday, person } from "../utils";
 
@@ -27,7 +27,10 @@ test("Adding and removing Shifts", () => {
 
 test("Adding and removing Employees", () => {
   const s = new Schedule();
-  const staff = [person("a", 1, 2, []), person("b", 1, 2, [])];
+  const staff = [
+    person("a", 1, 2, [], new Color("blue")),
+    person("b", 1, 2, [], new Color("red"))
+  ];
   s.addEmployee(staff[0]);
   s.addEmployee(staff[1]);
   expect(s.employees).toStrictEqual(staff);
@@ -37,7 +40,10 @@ test("Adding and removing Employees", () => {
 
 test("Error on duplicate names", () => {
   const s = new Schedule();
-  const staff = [person("a", 1, 2, []), person("a", 1, 2, [])];
+  const staff = [
+    person("a", 1, 2, [], new Color("blue")),
+    person("a", 1, 2, [], new Color("red"))
+  ];
   s.addEmployee(staff[0]);
   expect(() => s.addEmployee(staff[1])).toThrowError("");
 });
