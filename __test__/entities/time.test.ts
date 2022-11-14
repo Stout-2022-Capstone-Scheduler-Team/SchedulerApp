@@ -9,7 +9,7 @@ import {
   Friday,
   Saturday,
   Sunday
-} from "./utils";
+} from "../utils";
 
 function time(t: string): Time {
   return Time.fromString(t);
