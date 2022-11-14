@@ -1,5 +1,10 @@
 import { Shift, Time, DayOftheWeek } from "../entities/types";
-import { Calendar, ExportModal, AddShiftModal } from "../components";
+import {
+  Calendar,
+  ExportModal,
+  AddShiftModal,
+  AddEmployeeModal
+} from "../components";
 import React from "react";
 import { Stack } from "@mui/material";
 
