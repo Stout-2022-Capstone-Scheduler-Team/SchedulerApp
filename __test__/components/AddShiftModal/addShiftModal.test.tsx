@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import { AddShiftModal } from "../../components/addShiftModal";
+import { AddShiftModal } from "../../../components";
 
 test("Add Shift Renders", () => {
   const addShiftModal = render(<AddShiftModal />);
