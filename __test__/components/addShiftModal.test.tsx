@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { AddShiftModal } from "../../components/addShiftModal";
 
@@ -13,6 +12,7 @@ test("Modal opens and closes", () => {
   // Make sure no modal exists
   {
     const header = modal.queryByText(/ADD SHIFT/i);
+    expect(header).toBe(null);
     expect(modal).toMatchSnapshot();
   }
 
@@ -29,12 +29,12 @@ test("Modal opens and closes", () => {
   }
 
   // Click the submit button
-  //fireEvent.click(modal.getByText(/Submit /i));
+  fireEvent.click(modal.getByText(/Submit /i));
 
   // Make sure the modal is gone
   {
     const header = modal.queryByText(/ADD SHIFT/i);
-    // expect(header).toBe(null);
+    expect(header).toBe(null);
 
     expect(modal).toMatchSnapshot();
   }
