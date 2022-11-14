@@ -3,13 +3,16 @@ import renderer from "react-test-renderer";
 import { Monday, shift } from "../../utils";
 
 test("Test Calendar Renders", () => {
-  const calendar = renderer.create(<Calendar allShifts={[]} />);
+  const calendar = renderer.create(<Calendar shifts={[]} employees={[]} />);
   expect(calendar).toMatchSnapshot();
 });
 
 test("Single Shift", () => {
   const calendar = renderer.create(
-    <Calendar allShifts={[shift("09:45", "10:15", Monday, "Drew")]} />
+    <Calendar
+      shifts={[shift("09:45", "10:15", Monday, "Drew")]}
+      employees={[]}
+    />
   );
   expect(calendar).toMatchSnapshot();
 });
@@ -17,7 +20,7 @@ test("Single Shift", () => {
 test("Many Shifts", () => {
   const calendar = renderer.create(
     <Calendar
-      allShifts={[
+      shifts={[
         shift("09:45", "10:15", Monday, "Drew"),
         shift("09:46", "10:15", Monday, "Drew"),
         shift("09:47", "10:15", Monday, "Drew"),
@@ -25,6 +28,7 @@ test("Many Shifts", () => {
         shift("09:49", "10:15", Monday, "Drew"),
         shift("09:50", "10:15", Monday, "Drew")
       ]}
+      employees={[]}
     />
   );
   expect(calendar).toMatchSnapshot();

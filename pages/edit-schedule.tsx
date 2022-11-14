@@ -15,12 +15,12 @@ export default function EditSchedule(): JSX.Element {
 
   const onScheduleUpdate = (): void => {
     // Create a deep copy so we can mutate the schedule in the generate function
-    const scheduleCopyBase = JSON.parse(JSON.stringify(schedule));
+    const scheduleCopyBase: Schedule = JSON.parse(JSON.stringify(schedule));
     const scheduleCopy = new Schedule(
-      scheduleCopyBase._staff,
-      scheduleCopyBase._shifts,
-      scheduleCopyBase._minHoursWorked,
-      scheduleCopyBase._maxHoursWorked
+      scheduleCopyBase.employees,
+      scheduleCopyBase.shifts,
+      scheduleCopyBase.minHoursWorked,
+      scheduleCopyBase.maxHoursWorked
     );
 
     console.log(scheduleCopy);
@@ -34,8 +34,6 @@ export default function EditSchedule(): JSX.Element {
         schedule.minHoursWorked,
         schedule.maxHoursWorked
       );
-
-      newSchedule.assignedShifts = scheduleCopy.shifts;
 
       setSchedule(newSchedule);
     } else {
@@ -61,7 +59,7 @@ export default function EditSchedule(): JSX.Element {
   return (
     <>
       <Calendar
-        shifts={schedule.assignedShifts}
+        shifts={schedule.shifts}
         employees={schedule.employees}
         exportRef={exportRef}
       />
