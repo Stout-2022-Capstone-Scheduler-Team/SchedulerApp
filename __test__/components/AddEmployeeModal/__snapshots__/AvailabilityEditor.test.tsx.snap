@@ -31,9 +31,7 @@ exports[`Can Render 1`] = `
                 >
                   <span
                     class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
-                  >
-                    Sunday
-                  </span>
+                  />
                 </div>
                 <p
                   class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
@@ -63,9 +61,7 @@ exports[`Can Render 1`] = `
                 >
                   <span
                     class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
-                  >
-                    Sunday
-                  </span>
+                  />
                 </div>
                 <p
                   class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
@@ -130,9 +126,7 @@ exports[`Can Render 1`] = `
               >
                 <span
                   class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
-                >
-                  Sunday
-                </span>
+                />
               </div>
               <p
                 class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
@@ -162,9 +156,7 @@ exports[`Can Render 1`] = `
               >
                 <span
                   class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
-                >
-                  Sunday
-                </span>
+                />
               </div>
               <p
                 class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"

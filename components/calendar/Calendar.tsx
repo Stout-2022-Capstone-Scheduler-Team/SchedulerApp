@@ -29,7 +29,7 @@ export function Calendar({ allShifts, exportRef }: Props): JSX.Element {
       {dayOfWeekNumber.map((day: number) => (
         <Grid item xs={1} sx={{ px: 1.5 }} key={day}>
           <DailyShifts
-            allShifts={allShifts.filter((shift) => shift.day === day)}
+            allShifts={allShifts.filter((shift) => shift.start.day === day)}
           />
         </Grid>
       ))}
