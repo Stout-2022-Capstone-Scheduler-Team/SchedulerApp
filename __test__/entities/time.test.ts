@@ -11,7 +11,7 @@ import {
   Sunday,
   person,
   allDay
-} from "./utils";
+} from "../utils";
 
 function time(t: string, day: DayOftheWeek): Time {
   return Time.fromString(t, day);
