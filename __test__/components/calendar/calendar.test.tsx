@@ -9,7 +9,7 @@ test("Test Calendar Renders", () => {
 
 test("Single Shift", () => {
   const calendar = renderer.create(
-    <Calendar allShifts={[shift("09:45", "10:15", Monday, "Drew")]} />
+    <Calendar allShifts={[shift("09:45", "10:15", Monday, Monday, "Drew")]} />
   );
   expect(calendar).toMatchSnapshot();
 });
@@ -18,12 +18,12 @@ test("Many Shifts", () => {
   const calendar = renderer.create(
     <Calendar
       allShifts={[
-        shift("09:45", "10:15", Monday, "Drew"),
-        shift("09:46", "10:15", Monday, "Drew"),
-        shift("09:47", "10:15", Monday, "Drew"),
-        shift("09:48", "10:15", Monday, "Drew"),
-        shift("09:49", "10:15", Monday, "Drew"),
-        shift("09:50", "10:15", Monday, "Drew")
+        shift("09:45", "10:15", Monday, Monday, "Drew"),
+        shift("09:46", "10:15", Monday, Monday, "Drew"),
+        shift("09:47", "10:15", Monday, Monday, "Drew"),
+        shift("09:48", "10:15", Monday, Monday, "Drew"),
+        shift("09:49", "10:15", Monday, Monday, "Drew"),
+        shift("09:50", "10:15", Monday, Monday, "Drew")
       ]}
     />
   );

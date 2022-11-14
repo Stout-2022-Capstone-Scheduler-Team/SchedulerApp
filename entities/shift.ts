@@ -1,4 +1,4 @@
-import { Time, DayOftheWeek } from "./time";
+import { Time } from "./time";
 
 /**
  * A Shift that can be assigned to an Employee
@@ -7,7 +7,6 @@ export class Shift {
   name: string;
   start: Time;
   end: Time;
-  day: DayOftheWeek;
   owner: string = "";
 
   assigned: number = 0;
@@ -18,36 +17,26 @@ export class Shift {
     name: string,
     start: Time,
     end: Time,
-    day: DayOftheWeek,
     owner?: string
   ) {
     this.name = name;
     this.start = start;
     this.end = end;
-    this.day = day;
     if (owner !== undefined) {
       this.owner = owner;
     }
   }
 
   overlaps(other: Shift): boolean {
-    if (this.day === other.day) {
-      return (
-        this.start.hours <= other.end.hours &&
-        other.start.hours <= this.end.hours
-      );
-    }
-    return false;
+    return this.start.totalHours < other.end.totalHours && other.start.totalHours < this.end.totalHours;
+  }
+
+  overlapsAvalible(other: Shift): boolean {
+    return this.start.totalHours <= other.end.totalHours && other.start.totalHours <= this.end.totalHours;
   }
 
   contains(other: Shift): boolean {
-    if (this.day === other.day) {
-      return (
-        this.start.hours <= other.start.hours &&
-        other.end.hours <= this.end.hours
-      );
-    }
-    return false;
+    return this.start.totalHours <= other.start.totalHours && other.end.totalHours <= this.end.totalHours;
   }
 
   get duration(): number {
