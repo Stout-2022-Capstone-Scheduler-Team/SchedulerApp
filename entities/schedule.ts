@@ -1,25 +1,25 @@
 import { Employee, Shift } from "./types";
 
 export class Schedule {
-  public readonly staff: Employee[] = [];
+  public readonly employees: Employee[] = [];
   public readonly shifts: Shift[] = [];
   public minHoursWorked: number;
   public maxHoursWorked: number;
 
   /**
    * Constructor
-   * @param staff List of employees that are available to be assigned to shifts
+   * @param employees List of employees that are available to be assigned to shifts
    * @param shifts List of shifts that must be assigned
    * @param minHours Minimum man hours for this week
    * @param maxHours Maximum man hours for this week
    */
   constructor(
-    staff: Employee[] = [],
+    employees: Employee[] = [],
     shifts: Shift[] = [],
     minHours = 0,
     maxHours = 400
   ) {
-    this.staff = staff;
+    this.employees = employees;
     this.shifts = shifts;
     this.minHoursWorked = minHours;
     this.maxHoursWorked = maxHours;
@@ -48,12 +48,12 @@ export class Schedule {
    * @param newEmp Employee to add to the schedule
    */
   addEmployee(newEmp: Employee): void {
-    if (this.staff.some((emp) => emp.name === newEmp.name)) {
+    if (this.employees.some((emp) => emp.name === newEmp.name)) {
       throw new Error(
         `Unable to add employee with duplicate name ${newEmp.name}`
       );
     } else {
-      this.staff.push(newEmp);
+      this.employees.push(newEmp);
     }
   }
 
@@ -63,7 +63,7 @@ export class Schedule {
    * @returns the employee removed from the schedule
    */
   removeEmployee(empToRemove: Employee): Employee {
-    const index = this.staff.indexOf(empToRemove);
-    return this.staff.splice(index, 1)[0];
+    const index = this.employees.indexOf(empToRemove);
+    return this.employees.splice(index, 1)[0];
   }
 }
