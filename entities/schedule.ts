@@ -19,8 +19,16 @@ export class Schedule {
     minHours = 0,
     maxHours = 400
   ) {
-    this.employees = employees;
-    this.shifts = shifts;
+    // Map to a new employee object; this ensures the employee array has all the required logic
+    this.employees = employees.map(
+      (emp) => new Employee(emp.name, emp.min_hours, emp.max_hours, emp.color)
+    );
+
+    // Map to a new shift object, this ensures shifts keep their logic
+    this.shifts = shifts.map(
+      (shift) =>
+        new Shift(shift.name, shift.start, shift.end, shift.day, shift.owner)
+    );
     this.minHoursWorked = minHours;
     this.maxHoursWorked = maxHours;
   }

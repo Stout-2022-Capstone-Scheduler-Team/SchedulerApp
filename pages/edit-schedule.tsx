@@ -9,13 +9,35 @@ export default function EditSchedule(): JSX.Element {
   const [schedule, setSchedule] = useState<Schedule>(
     new Schedule(
       [],
-      [new Shift("testShift", new Time(10), new Time(15), DayOftheWeek.Monday)]
+      [
+        new Shift(
+          "testShift1",
+          new Time(10),
+          new Time(15),
+          DayOftheWeek.Monday
+        ),
+        new Shift("testShift2", new Time(9), new Time(15), DayOftheWeek.Monday),
+        new Shift(
+          "testShift3",
+          new Time(10),
+          new Time(18),
+          DayOftheWeek.Wednesday
+        ),
+        new Shift(
+          "testShift4",
+          new Time(12),
+          new Time(16),
+          DayOftheWeek.Tuesday
+        )
+      ]
     )
   );
 
-  const onScheduleUpdate = (): void => {
+  const updateSchedule = (newSchedule: Schedule | undefined): void => {
     // Create a deep copy so we can mutate the schedule in the generate function
-    const scheduleCopyBase: Schedule = JSON.parse(JSON.stringify(schedule));
+    const scheduleCopyBase: Schedule = JSON.parse(
+      JSON.stringify(newSchedule ?? schedule)
+    );
     const scheduleCopy = new Schedule(
       scheduleCopyBase.employees,
       scheduleCopyBase.shifts,
@@ -28,17 +50,19 @@ export default function EditSchedule(): JSX.Element {
     // Generate the schedule
     if (generate(scheduleCopy.shifts, scheduleCopy.employees)) {
       // If the scheduler finished successfully, update the schedule object
-      const newSchedule: Schedule = new Schedule(
-        scheduleCopy.employees,
-        schedule.shifts,
-        schedule.minHoursWorked,
-        schedule.maxHoursWorked
+      setSchedule(
+        new Schedule(
+          scheduleCopy.employees,
+          schedule.shifts,
+          schedule.minHoursWorked,
+          schedule.maxHoursWorked
+        )
       );
-
-      setSchedule(newSchedule);
     } else {
       // If the scheduler failed, error out
-      console.error("Unable to build schedule completely");
+      console.error(
+        "Unable to build schedule completely, schedule was not updated"
+      );
     }
   };
 
@@ -49,8 +73,7 @@ export default function EditSchedule(): JSX.Element {
       schedule.minHoursWorked,
       schedule.maxHoursWorked
     );
-    setSchedule(newSchedule);
-    onScheduleUpdate();
+    updateSchedule(newSchedule);
   };
 
   // Reference to the calendar which enables exporting it
