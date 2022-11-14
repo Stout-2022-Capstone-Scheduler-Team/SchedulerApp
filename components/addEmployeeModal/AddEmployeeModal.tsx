@@ -2,9 +2,11 @@ import * as React from "react";
 import { Button, Modal, Typography, Card, CardContent } from "@mui/material";
 import modalStyle from "../../styles/modalStyle";
 
-export function AddEmployeeModal() {
+export function AddEmployeeModal(): JSX.Element {
   const [open, setOpen] = React.useState(false);
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleOpen = () => setOpen(true);
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleClose = () => setOpen(false);
 
   return (
