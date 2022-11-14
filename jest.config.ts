@@ -1,27 +1,26 @@
-import nextJest from 'next/jest'
+import nextJest from "next/jest";
 const createJestConfig = nextJest({
-  dir: './'
-})
+  dir: "./"
+});
 
 export default createJestConfig({
-  moduleDirectories: ['node_modules', '<rootDir>/'],
-  testEnvironment: 'jest-environment-jsdom',
+  moduleDirectories: ["node_modules", "<rootDir>/"],
+  testEnvironment: "jest-environment-jsdom",
   collectCoverage: true,
   collectCoverageFrom: [
-    './components/**',
-    './entities/**',
-    './interfaces/**',
-    './pages/**',
-    './public/**',
-    './services/**',
-    './styles/**'
+    "./components/**",
+    "./entities/**",
+    "./interfaces/**",
+    "./pages/**",
+    "./public/**",
+    "./services/**",
+    "./styles/**"
   ],
   coverageThreshold: {
     global: {
       branches: 80,
       functions: 80,
-      lines: 80,
-      statements: -10
+      lines: 80
     }
   }
-})
+});
