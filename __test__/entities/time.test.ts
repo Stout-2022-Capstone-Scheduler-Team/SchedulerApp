@@ -183,3 +183,44 @@ test("Combine", () => {
     shift("08:00", "09:00", Friday)
   ]);
 });
+
+test("Split", () => {
+  // const alice = person("alice", 2, 12, [shift("9:00", "12:00", Monday)]);
+  // alice.splitAvailable(shift("8:00", "10:00", Monday));
+  // expect(alice.available).toStrictEqual([
+  //   shift("10:00", "12:00", Monday)
+  // ]);
+
+  // const bob = person("bob", 2, 12, [shift("9:00", "12:00", Monday)]);
+  // bob.splitAvailable(shift("11:00", "01:00", Monday));
+  // expect(bob.available).toStrictEqual([
+  //   shift("9:00", "11:00", Monday)
+  // ]);
+
+  // const claire = person("claire", 2, 12, [shift("9:00", "12:00", Monday)]);
+  // claire.splitAvailable(shift("10:00", "11:00", Monday));
+  // expect(claire.available).toStrictEqual([
+  //   shift("9:00", "10:00", Monday),
+  //   shift("11:00", "12:00", Monday)
+  // ]);
+});
+
+test("Split2", () => {
+  const david = person("david", 2, 12, [allDay(Monday)]);
+  david.splitAvailable(shift("10:00", "1:00", Monday));
+  expect(david.available).toStrictEqual([
+    shift("00:00", "10:00", Monday),
+    shift("1:00", "24:00", Monday)
+  ]);
+
+  const ethan = person("ethan", 2, 12, [shift("9:00", "12:00", Monday, Tuesday)]);
+  expect([shift("9:00", "12:00", Monday, Tuesday)]).toBe([shift("11:00", "1:00", Wednesday, Friday)]);
+
+  ethan.splitAvailable(shift("10:00", "11:00", Monday));
+  ethan.splitAvailable(shift("1:00", "5:00", Tuesday));
+  expect(ethan.available).toStrictEqual([
+    shift("9:00", "10:00", Monday),
+    shift("11:00", "1:00", Monday, Tuesday),
+    shift("5:00", "00:00", Tuesday)
+  ]);
+});

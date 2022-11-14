@@ -1,4 +1,6 @@
 import assert from "assert";
+import { sortAndDeduplicateDiagnostics } from "typescript";
+import { shift } from "../__test__/utils";
 import { Shift } from "./shift";
 
 export class Employee {
@@ -7,6 +9,7 @@ export class Employee {
   max_hours: number;
   current_hours: number = 0;
   available: Shift[] = [];
+  hasCombined: boolean;
   constructor(name: string, minHours: number, maxHours: number) {
     assert(minHours <= maxHours);
     this.name = name;
@@ -14,6 +17,7 @@ export class Employee {
     this.max_hours = maxHours;
     this.current_hours = 0;
     this.available = [];
+    this.hasCombined = false;
   }
 
   isAvailable(inputShift: Shift): boolean {
@@ -21,6 +25,11 @@ export class Employee {
       this.canTakeHours(inputShift.duration) &&
       this.available.some((a) => a.contains(inputShift))
     );
+  }
+
+  addAvailable(inputShift: Shift): void {
+    this.available.push(inputShift);
+    this.hasCombined = false;
   }
 
   canTakeHours(input: number): boolean {
@@ -42,7 +51,30 @@ export class Employee {
     return Math.max(this.min_hours - this.current_hours, 0);
   }
 
+  splitAvailable(removeShift: Shift): void {
+    for (let i = 0; i < this.available.length; i++) {
+      if (removeShift.contains(this.available[i])) {
+        this.available.splice(i, 1);
+        i--;
+      } else if (this.available[i].contains(removeShift)) {
+        this.available[i].end = removeShift.start;
+        this.available.push(new Shift("", removeShift.end, this.available[i].end));
+      } else if (this.available[i].overlaps(removeShift)) {
+        if (this.available[i].end.totalHours < removeShift.start.totalHours) {
+          this.available[i].end = removeShift.start;
+        }
+        if (this.available[i].start.totalHours < removeShift.end.totalHours) {
+          this.available[i].start = removeShift.end;
+        }
+      }
+    }
+  }
+
   combineAvailable(): void {
+    if (this.hasCombined) {
+      return;
+    }
+    this.hasCombined = true;
     for (let i = 0; i < this.available.length; i++) {
       for (let z = i + 1; z < this.available.length; z++) {
         if (this.available[i].overlapsAvalible(this.available[z])) {

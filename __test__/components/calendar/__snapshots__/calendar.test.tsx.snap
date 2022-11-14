@@ -205,128 +205,7 @@ exports[`Many Shifts 1`] = `
     >
       <div
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1idn90j-MuiGrid-root"
-      >
-        <div
-          className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1i1uysr-MuiPaper-root-MuiCard-root"
-        >
-          <div
-            className="MuiCardContent-root css-1i89k6q-MuiCardContent-root"
-          >
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-ety8s4-MuiTypography-root"
-            >
-              9:45am
-               - 
-              10:15am
-            </p>
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-1ptsv0t-MuiTypography-root"
-            >
-              Drew
-            </p>
-          </div>
-        </div>
-        <div
-          className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1i1uysr-MuiPaper-root-MuiCard-root"
-        >
-          <div
-            className="MuiCardContent-root css-1i89k6q-MuiCardContent-root"
-          >
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-ety8s4-MuiTypography-root"
-            >
-              9:46am
-               - 
-              10:15am
-            </p>
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-1ptsv0t-MuiTypography-root"
-            >
-              Drew
-            </p>
-          </div>
-        </div>
-        <div
-          className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1i1uysr-MuiPaper-root-MuiCard-root"
-        >
-          <div
-            className="MuiCardContent-root css-1i89k6q-MuiCardContent-root"
-          >
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-ety8s4-MuiTypography-root"
-            >
-              9:47am
-               - 
-              10:15am
-            </p>
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-1ptsv0t-MuiTypography-root"
-            >
-              Drew
-            </p>
-          </div>
-        </div>
-        <div
-          className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1i1uysr-MuiPaper-root-MuiCard-root"
-        >
-          <div
-            className="MuiCardContent-root css-1i89k6q-MuiCardContent-root"
-          >
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-ety8s4-MuiTypography-root"
-            >
-              9:48am
-               - 
-              10:15am
-            </p>
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-1ptsv0t-MuiTypography-root"
-            >
-              Drew
-            </p>
-          </div>
-        </div>
-        <div
-          className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1i1uysr-MuiPaper-root-MuiCard-root"
-        >
-          <div
-            className="MuiCardContent-root css-1i89k6q-MuiCardContent-root"
-          >
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-ety8s4-MuiTypography-root"
-            >
-              9:49am
-               - 
-              10:15am
-            </p>
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-1ptsv0t-MuiTypography-root"
-            >
-              Drew
-            </p>
-          </div>
-        </div>
-        <div
-          className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1i1uysr-MuiPaper-root-MuiCard-root"
-        >
-          <div
-            className="MuiCardContent-root css-1i89k6q-MuiCardContent-root"
-          >
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-ety8s4-MuiTypography-root"
-            >
-              9:50am
-               - 
-              10:15am
-            </p>
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-1ptsv0t-MuiTypography-root"
-            >
-              Drew
-            </p>
-          </div>
-        </div>
-      </div>
+      />
     </div>
   </div>
   <div
@@ -592,28 +471,7 @@ exports[`Single Shift 1`] = `
     >
       <div
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1idn90j-MuiGrid-root"
-      >
-        <div
-          className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1i1uysr-MuiPaper-root-MuiCard-root"
-        >
-          <div
-            className="MuiCardContent-root css-1i89k6q-MuiCardContent-root"
-          >
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-ety8s4-MuiTypography-root"
-            >
-              9:45am
-               - 
-              10:15am
-            </p>
-            <p
-              className="MuiTypography-root MuiTypography-body1 css-1ptsv0t-MuiTypography-root"
-            >
-              Drew
-            </p>
-          </div>
-        </div>
-      </div>
+      />
     </div>
   </div>
   <div
