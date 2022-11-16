@@ -14,7 +14,7 @@ import { ScheduleAction, Dispatch } from "../../services/scheduleState";
 import { useState } from "react";
 
 interface EmployeeModalProps {
-  existingEmployees: Schedule;
+  existingEmployees: Employee[];
   addEmployee: Dispatch<ScheduleAction>;
 }
 
