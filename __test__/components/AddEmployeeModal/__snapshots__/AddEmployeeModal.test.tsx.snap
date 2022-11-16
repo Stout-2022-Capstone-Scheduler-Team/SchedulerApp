@@ -1,0 +1,726 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Add Employee Renders 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium css-zcbmsk-MuiButtonBase-root-MuiButton-root"
+        tabindex="0"
+        type="button"
+      >
+        Add Employee
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+  </body>,
+  "container": <div>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium css-zcbmsk-MuiButtonBase-root-MuiButton-root"
+      tabindex="0"
+      type="button"
+    >
+      Add Employee
+      <span
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </button>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`Modal opens and closes 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium css-zcbmsk-MuiButtonBase-root-MuiButton-root"
+        tabindex="0"
+        type="button"
+      >
+        Add Employee
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+  </body>,
+  "container": <div>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium css-zcbmsk-MuiButtonBase-root-MuiButton-root"
+      tabindex="0"
+      type="button"
+    >
+      Add Employee
+      <span
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </button>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`Modal opens and closes 2`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body
+    style="padding-right: 1024px; overflow: hidden;"
+  >
+    <div
+      aria-hidden="true"
+    >
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium css-zcbmsk-MuiButtonBase-root-MuiButton-root"
+        tabindex="0"
+        type="button"
+      >
+        Add Employee
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+    <div
+      aria-labelledby="modal-modal-title"
+      class="MuiModal-root css-79ws1d-MuiModal-root"
+      role="presentation"
+    >
+      <div
+        aria-hidden="true"
+        class="MuiBackdrop-root css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop"
+        style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+      />
+      <div
+        data-testid="sentinelStart"
+        tabindex="0"
+      />
+      <div
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1vqd9pp-MuiPaper-root-MuiCard-root"
+        tabindex="-1"
+      >
+        <div
+          class="MuiCardContent-root css-1i9wt8r-MuiCardContent-root"
+        >
+          <h2
+            class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+            id="modal-modal-title"
+          >
+            Add an Employee
+          </h2>
+          <div
+            class="MuiBox-root css-8atqhb"
+          >
+            <div
+              class="MuiBox-root css-1gsv261"
+            >
+              <div
+                class="MuiTabs-root css-1ujnqem-MuiTabs-root"
+              >
+                <div
+                  class="MuiTabs-scroller MuiTabs-fixed css-jpln7h-MuiTabs-scroller"
+                  style="overflow: hidden; margin-bottom: 0px;"
+                >
+                  <div
+                    aria-label="basic tabs example"
+                    class="MuiTabs-flexContainer css-heg063-MuiTabs-flexContainer"
+                    role="tablist"
+                  >
+                    <button
+                      aria-controls="simple-tabpanel-0"
+                      aria-selected="true"
+                      class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary Mui-selected css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+                      id="simple-tab-0"
+                      role="tab"
+                      tabindex="0"
+                      type="button"
+                    >
+                      Employee Info
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                    <button
+                      aria-controls="simple-tabpanel-1"
+                      aria-selected="false"
+                      class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+                      id="simple-tab-1"
+                      role="tab"
+                      tabindex="-1"
+                      type="button"
+                    >
+                      Sunday
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                    <button
+                      aria-controls="simple-tabpanel-2"
+                      aria-selected="false"
+                      class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+                      id="simple-tab-2"
+                      role="tab"
+                      tabindex="-1"
+                      type="button"
+                    >
+                      Monday
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                    <button
+                      aria-controls="simple-tabpanel-3"
+                      aria-selected="false"
+                      class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+                      id="simple-tab-3"
+                      role="tab"
+                      tabindex="-1"
+                      type="button"
+                    >
+                      Tuesday
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                    <button
+                      aria-controls="simple-tabpanel-4"
+                      aria-selected="false"
+                      class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+                      id="simple-tab-4"
+                      role="tab"
+                      tabindex="-1"
+                      type="button"
+                    >
+                      Wednesday
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                    <button
+                      aria-controls="simple-tabpanel-5"
+                      aria-selected="false"
+                      class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+                      id="simple-tab-5"
+                      role="tab"
+                      tabindex="-1"
+                      type="button"
+                    >
+                      Thursday
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                    <button
+                      aria-controls="simple-tabpanel-6"
+                      aria-selected="false"
+                      class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+                      id="simple-tab-6"
+                      role="tab"
+                      tabindex="-1"
+                      type="button"
+                    >
+                      Friday
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                    <button
+                      aria-controls="simple-tabpanel-7"
+                      aria-selected="false"
+                      class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+                      id="simple-tab-7"
+                      role="tab"
+                      tabindex="-1"
+                      type="button"
+                    >
+                      Saturday
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </div>
+                  <span
+                    class="MuiTabs-indicator css-1aquho2-MuiTabs-indicator"
+                    style="left: 0px; width: 0px;"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-labelledby="simple-tab-0"
+              id="simple-tabpanel-0"
+              role="tabpanel"
+            >
+              <div
+                class="MuiBox-root css-19kzrtu"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-1ebqi03-MuiGrid-root"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 css-1equabv-MuiGrid-root"
+                  >
+                    <div
+                      class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+                    >
+                      <label
+                        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root"
+                        data-shrink="false"
+                        for=":r0:"
+                        id=":r0:-label"
+                      >
+                        Employee Name
+                      </label>
+                      <div
+                        class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl css-1ptx2yq-MuiInputBase-root-MuiInput-root"
+                      >
+                        <input
+                          aria-invalid="false"
+                          class="MuiInputBase-input MuiInput-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
+                          id=":r0:"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 css-1equabv-MuiGrid-root"
+                  >
+                    <div
+                      class="MuiFormControl-root css-1ht9964-MuiFormControl-root"
+                    >
+                      <label
+                        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root"
+                        data-shrink="false"
+                        id="employee-color-selector"
+                      >
+                        Employee Color
+                      </label>
+                      <div
+                        class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl  css-izo85p-MuiInputBase-root-MuiInput-root-MuiSelect-root"
+                      >
+                        <div
+                          aria-expanded="false"
+                          aria-haspopup="listbox"
+                          aria-labelledby="employee-color-selector employee-color-select"
+                          class="MuiSelect-select MuiSelect-standard MuiInputBase-input MuiInput-input css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input"
+                          id="employee-color-select"
+                          role="button"
+                          tabindex="0"
+                        >
+                          <span
+                            class="notranslate"
+                          >
+                            ​
+                          </span>
+                        </div>
+                        <input
+                          aria-hidden="true"
+                          class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+                          tabindex="-1"
+                          value=""
+                        />
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconStandard css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon"
+                          data-testid="ArrowDropDownIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M7 10l5 5 5-5z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 css-1equabv-MuiGrid-root"
+                  >
+                    <div
+                      class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+                    >
+                      <label
+                        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard css-1c2i806-MuiFormLabel-root-MuiInputLabel-root"
+                        data-shrink="true"
+                        for=":r1:"
+                        id=":r1:-label"
+                      >
+                        Minimum Hours per Week
+                      </label>
+                      <div
+                        class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl css-1ptx2yq-MuiInputBase-root-MuiInput-root"
+                      >
+                        <input
+                          aria-invalid="false"
+                          class="MuiInputBase-input MuiInput-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
+                          id=":r1:"
+                          type="number"
+                          value="10"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 css-1equabv-MuiGrid-root"
+                  >
+                    <div
+                      class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+                    >
+                      <label
+                        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard css-1c2i806-MuiFormLabel-root-MuiInputLabel-root"
+                        data-shrink="true"
+                        for=":r2:"
+                        id=":r2:-label"
+                      >
+                        Maximum Hours per Week
+                      </label>
+                      <div
+                        class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl css-1ptx2yq-MuiInputBase-root-MuiInput-root"
+                      >
+                        <input
+                          aria-invalid="false"
+                          class="MuiInputBase-input MuiInput-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
+                          id=":r2:"
+                          type="number"
+                          value="40"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-labelledby="simple-tab-1"
+              hidden=""
+              id="simple-tabpanel-1"
+              role="tabpanel"
+            />
+            <div
+              aria-labelledby="simple-tab-2"
+              hidden=""
+              id="simple-tabpanel-2"
+              role="tabpanel"
+            />
+            <div
+              aria-labelledby="simple-tab-3"
+              hidden=""
+              id="simple-tabpanel-3"
+              role="tabpanel"
+            />
+            <div
+              aria-labelledby="simple-tab-4"
+              hidden=""
+              id="simple-tabpanel-4"
+              role="tabpanel"
+            />
+            <div
+              aria-labelledby="simple-tab-5"
+              hidden=""
+              id="simple-tabpanel-5"
+              role="tabpanel"
+            />
+            <div
+              aria-labelledby="simple-tab-6"
+              hidden=""
+              id="simple-tabpanel-6"
+              role="tabpanel"
+            />
+            <div
+              aria-labelledby="simple-tab-7"
+              hidden=""
+              id="simple-tabpanel-7"
+              role="tabpanel"
+            />
+          </div>
+        </div>
+        <div
+          class="MuiCardActions-root MuiCardActions-spacing css-1t6e9jv-MuiCardActions-root"
+        >
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textError MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textError MuiButton-sizeMedium MuiButton-textSizeMedium css-rpzv7-MuiButtonBase-root-MuiButton-root"
+            tabindex="0"
+            type="button"
+          >
+            Close
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
+            tabindex="0"
+            type="button"
+          >
+            Submit
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </div>
+      <div
+        data-testid="sentinelEnd"
+        tabindex="0"
+      />
+    </div>
+  </body>,
+  "container": <div
+    aria-hidden="true"
+  >
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium css-zcbmsk-MuiButtonBase-root-MuiButton-root"
+      tabindex="0"
+      type="button"
+    >
+      Add Employee
+      <span
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </button>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`Modal opens and closes 3`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body
+    style=""
+  >
+    <div>
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium css-zcbmsk-MuiButtonBase-root-MuiButton-root"
+        tabindex="0"
+        type="button"
+      >
+        Add Employee
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+  </body>,
+  "container": <div>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium css-zcbmsk-MuiButtonBase-root-MuiButton-root"
+      tabindex="0"
+      type="button"
+    >
+      Add Employee
+      <span
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </button>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
