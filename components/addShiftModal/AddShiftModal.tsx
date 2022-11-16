@@ -27,6 +27,7 @@ export function AddShiftModal(): JSX.Element {
   const handleChange = (event: SelectChangeEvent) => {
     setDay(event.target.value);
   };
+
   return (
     <>
       <Button onClick={handleOpen}>Add Shift</Button>
@@ -89,7 +90,7 @@ export function AddShiftModal(): JSX.Element {
               />
             </LocalizationProvider>
             <Typography id="modal-submit" sx={{ mt: 2 }}></Typography>
-            <Button variant="contained">Submit</Button>
+            <Button variant="contained" onClick={handleClose}>Submit</Button>
           </CardContent>
         </Card>
       </Modal>
