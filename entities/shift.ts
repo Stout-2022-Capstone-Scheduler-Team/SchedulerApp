@@ -39,6 +39,10 @@ export class Shift {
     return this.start.totalHours <= other.start.totalHours && other.end.totalHours <= this.end.totalHours;
   }
 
+  containsRemove(other: Shift): boolean {
+    return this.start.totalHours < other.start.totalHours && other.end.totalHours < this.end.totalHours;
+  }
+
   get duration(): number {
     return this.start.hoursBetween(this.end);
   }

@@ -1,6 +1,4 @@
 import assert from "assert";
-import { sortAndDeduplicateDiagnostics } from "typescript";
-import { shift } from "../__test__/utils";
 import { Shift } from "./shift";
 
 export class Employee {
@@ -53,21 +51,26 @@ export class Employee {
 
   splitAvailable(removeShift: Shift): void {
     for (let i = 0; i < this.available.length; i++) {
+      assert(this.available.length < 10000);
       if (removeShift.contains(this.available[i])) {
         this.available.splice(i, 1);
         i--;
-      } else if (this.available[i].contains(removeShift)) {
+      } else if (this.available[i].containsRemove(removeShift)) {
+        this.available.unshift(
+          new Shift("", removeShift.end, this.available[i].end)
+        );
+        i++;
         this.available[i].end = removeShift.start;
-        this.available.push(new Shift("", removeShift.end, this.available[i].end));
       } else if (this.available[i].overlaps(removeShift)) {
-        if (this.available[i].end.totalHours < removeShift.start.totalHours) {
-          this.available[i].end = removeShift.start;
-        }
-        if (this.available[i].start.totalHours < removeShift.end.totalHours) {
+        if (this.available[i].start.totalHours > removeShift.start.totalHours) {
           this.available[i].start = removeShift.end;
+        }
+        if (this.available[i].end.totalHours < removeShift.end.totalHours) {
+          this.available[i].end = removeShift.start;
         }
       }
     }
+    this.available.sort((a, b) => a.start.totalHours - b.start.totalHours);
   }
 
   combineAvailable(): void {
@@ -78,10 +81,15 @@ export class Employee {
     for (let i = 0; i < this.available.length; i++) {
       for (let z = i + 1; z < this.available.length; z++) {
         if (this.available[i].overlapsAvalible(this.available[z])) {
-          if (this.available[z].start.totalHours < this.available[i].start.totalHours) {
+          if (
+            this.available[z].start.totalHours <
+            this.available[i].start.totalHours
+          ) {
             this.available[i].start = this.available[z].start;
           }
-          if (this.available[z].end.totalHours > this.available[i].end.totalHours) {
+          if (
+            this.available[z].end.totalHours > this.available[i].end.totalHours
+          ) {
             this.available[i].end = this.available[z].end;
           }
           this.available.splice(z, 1);
