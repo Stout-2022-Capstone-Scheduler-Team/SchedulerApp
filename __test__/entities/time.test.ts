@@ -224,4 +224,14 @@ test("Split", () => {
   expect(frank.sortedAvailable).toStrictEqual([
     shift("9:00", "12:00", Monday, Tuesday)
   ]);
+
+  // Completly remove shift
+  const gary = person("gary", 2, 12, [
+    shift("9:00", "12:00", Monday),
+    shift("9:00", "10:00", Tuesday)
+  ]);
+  gary.splitAvailable(shift("7:00", "14:00", Tuesday));
+  expect(gary.sortedAvailable).toStrictEqual([
+    shift("9:00", "12:00", Monday)
+  ]);
 });
