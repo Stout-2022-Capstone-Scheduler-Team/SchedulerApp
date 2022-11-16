@@ -4,11 +4,12 @@ import {
   Typography,
   Card,
   CardContent,
-  CardActions
+  CardActions,
+  Chip
 } from "@mui/material";
 import modalStyle from "../../styles/modalStyle";
-import { AvailabilityTabs } from "../";
-import { Color, Employee, Shift } from "../../entities";
+import { AvailabilityEditor, AvailabilityTabs, EditEmployeeInfo } from "../";
+import { Color, Employee, Shift, Time } from "../../entities";
 import { useState } from "react";
 
 interface EmployeeModalProps {
@@ -50,8 +51,26 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
           <CardContent sx={{ p: 0 }}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Add an Employee
+              <Chip
+                label={name}
+                sx={{ ml: 2, display: name === "" ? "none" : "" }}
+                color="primary"
+              />
             </Typography>
-            <AvailabilityTabs />
+            <AvailabilityTabs
+              tabHeaders={["Edit Employee Info", ...Time.getWeekDays()]}
+              tabContent={[
+                <EditEmployeeInfo
+                  setEmployeeName={setName}
+                  setEmployeeColor={setColor}
+                  setEmployeeMaxHours={setMaxHours}
+                  setEmployeeMinHours={setMinHours}
+                />,
+                ...Time.getWeekDayNumbers().map((day) => (
+                  <AvailabilityEditor day={day} />
+                ))
+              ]}
+            />
           </CardContent>
           <CardActions>
             <Button onClick={handleClose} color={"error"} sx={{ ml: "auto" }}>
