@@ -147,7 +147,6 @@ test("Overnight Schedule 1", () => {
     person("bob", 2, 12, [allDay(Monday), allDay(Tuesday)])
   ];
   expect(WaveformCollapseAlgorithm(shifts, staff)).toBe(true);
-  console.log(shifts);
   expect(shifts[0].owner).toBe("alice");
   expect(shifts[1].owner).toBe("bob");
 });
@@ -166,7 +165,6 @@ test("Overnight Schedule 2", () => {
   ];
   expect(WaveformCollapseAlgorithm(shifts, staff)).toBe(true);
   const s = shifts;
-  console.log(s);
   expect(s[0].owner).toBe("alice");
   expect(s[1].owner).toBe("bob");
   expect(s[2].owner).toBe("bob");
