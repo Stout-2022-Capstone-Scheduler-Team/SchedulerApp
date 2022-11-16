@@ -28,6 +28,25 @@ export class Employee {
   addAvailable(inputShift: Shift): void {
     this.available.push(inputShift);
     this.hasCombined = false;
+    // for (let i = 0; i < this.available.length; i++) {
+    //   for (let z = i + 1; z < this.available.length; z++) {
+    //     if (this.available[i].overlapsAvalible(this.available[z])) {
+    //       if (
+    //         this.available[z].start.totalHours <
+    //         this.available[i].start.totalHours
+    //       ) {
+    //         this.available[i].start = this.available[z].start;
+    //       }
+    //       if (
+    //         this.available[z].end.totalHours > this.available[i].end.totalHours
+    //       ) {
+    //         this.available[i].end = this.available[z].end;
+    //       }
+    //       this.available.splice(z, 1);
+    //       z--;
+    //     }
+    //   }
+    // }
   }
 
   canTakeHours(input: number): boolean {
@@ -70,7 +89,6 @@ export class Employee {
         }
       }
     }
-    this.available.sort((a, b) => a.start.totalHours - b.start.totalHours);
   }
 
   combineAvailable(): void {
@@ -97,5 +115,10 @@ export class Employee {
         }
       }
     }
+  }
+
+  get sortedAvailable(): Shift[] {
+    this.available.sort((a, b) => a.start.totalHours - b.start.totalHours);
+    return this.available;
   }
 }
