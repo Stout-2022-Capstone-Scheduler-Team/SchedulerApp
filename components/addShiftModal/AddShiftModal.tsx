@@ -30,7 +30,7 @@ export function AddShiftModal(): JSX.Element {
 
   return (
     <>
-      <Button variant="contained" onClick={handleOpen}>
+      <Button onClick={handleOpen} variant={"contained"} color={"secondary"}>
         Add Shift
       </Button>
       <Modal
@@ -92,7 +92,9 @@ export function AddShiftModal(): JSX.Element {
               />
             </LocalizationProvider>
             <Typography id="modal-submit" sx={{ mt: 2 }}></Typography>
-            <Button variant="contained" onClick={handleClose}>Submit</Button>
+            <Button variant="contained" onClick={handleClose}>
+              Submit
+            </Button>
           </CardContent>
         </Card>
       </Modal>
