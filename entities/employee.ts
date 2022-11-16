@@ -87,8 +87,6 @@ export class Employee {
     }
   }
 
-  combineAvailable(): void {}
-
   get sortedAvailable(): Shift[] {
     this._available.sort((a, b) => a.start.totalHours - b.start.totalHours);
     return this._available;
