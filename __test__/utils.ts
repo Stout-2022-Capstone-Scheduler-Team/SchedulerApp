@@ -18,14 +18,22 @@ export function shift(
   if (day2 === undefined) {
     day2 = day;
   }
-  const s = new Shift("", Time.fromString(from, day), Time.fromString(to, day2));
+  const s = new Shift(
+    "",
+    Time.fromString(from, day),
+    Time.fromString(to, day2)
+  );
   if (owner !== undefined) {
     s.owner = owner;
   }
   return s;
 }
 export function allDay(day: DayOftheWeek): Shift {
-  return new Shift("", Time.fromString("00:00", day), Time.fromString("24:00", day));
+  return new Shift(
+    "",
+    Time.fromString("00:00", day),
+    Time.fromString("24:00", day)
+  );
 }
 
 export function person(
@@ -35,6 +43,6 @@ export function person(
   available: Shift[]
 ): Employee {
   const ret = new Employee(name, minHours, maxHours);
-  ret.available = available;
+  available.forEach((shift) => ret.addAvailable(shift));
   return ret;
 }
