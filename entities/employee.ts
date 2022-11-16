@@ -6,47 +6,41 @@ export class Employee {
   min_hours: number;
   max_hours: number;
   current_hours: number = 0;
-  available: Shift[] = [];
-  hasCombined: boolean;
+  private readonly _available: Shift[] = [];
   constructor(name: string, minHours: number, maxHours: number) {
     assert(minHours <= maxHours);
     this.name = name;
     this.min_hours = minHours;
     this.max_hours = maxHours;
     this.current_hours = 0;
-    this.available = [];
-    this.hasCombined = false;
+    this._available = [];
+  }
+
+  get available(): Shift[] {
+    return this._available;
   }
 
   isAvailable(inputShift: Shift): boolean {
     return (
       this.canTakeHours(inputShift.duration) &&
-      this.available.some((a) => a.contains(inputShift))
+      this._available.some((a) => a.contains(inputShift))
     );
   }
 
   addAvailable(inputShift: Shift): void {
-    this.available.push(inputShift);
-    this.hasCombined = false;
-    // for (let i = 0; i < this.available.length; i++) {
-    //   for (let z = i + 1; z < this.available.length; z++) {
-    //     if (this.available[i].overlapsAvalible(this.available[z])) {
-    //       if (
-    //         this.available[z].start.totalHours <
-    //         this.available[i].start.totalHours
-    //       ) {
-    //         this.available[i].start = this.available[z].start;
-    //       }
-    //       if (
-    //         this.available[z].end.totalHours > this.available[i].end.totalHours
-    //       ) {
-    //         this.available[i].end = this.available[z].end;
-    //       }
-    //       this.available.splice(z, 1);
-    //       z--;
-    //     }
-    //   }
-    // }
+    for (let z = 0; z < this._available.length; z++) {
+      if (inputShift.overlapsAvalible(this._available[z])) {
+        if (this._available[z].start.totalHours < inputShift.start.totalHours) {
+          inputShift.start = this._available[z].start;
+        }
+        if (this._available[z].end.totalHours > inputShift.end.totalHours) {
+          inputShift.end = this._available[z].end;
+        }
+        this._available.splice(z, 1);
+        z--;
+      }
+    }
+    this._available.push(inputShift);
   }
 
   canTakeHours(input: number): boolean {
@@ -69,56 +63,34 @@ export class Employee {
   }
 
   splitAvailable(removeShift: Shift): void {
-    for (let i = 0; i < this.available.length; i++) {
-      assert(this.available.length < 10000);
-      if (removeShift.contains(this.available[i])) {
-        this.available.splice(i, 1);
+    for (let i = 0; i < this._available.length; i++) {
+      assert(this._available.length < 10000);
+      if (removeShift.contains(this._available[i])) {
+        this._available.splice(i, 1);
         i--;
-      } else if (this.available[i].containsRemove(removeShift)) {
-        this.available.unshift(
-          new Shift("", removeShift.end, this.available[i].end)
+      } else if (this._available[i].containsRemove(removeShift)) {
+        this._available.unshift(
+          new Shift("", removeShift.end, this._available[i].end)
         );
         i++;
-        this.available[i].end = removeShift.start;
-      } else if (this.available[i].overlaps(removeShift)) {
-        if (this.available[i].start.totalHours > removeShift.start.totalHours) {
-          this.available[i].start = removeShift.end;
+        this._available[i].end = removeShift.start;
+      } else if (this._available[i].overlaps(removeShift)) {
+        if (
+          this._available[i].start.totalHours > removeShift.start.totalHours
+        ) {
+          this._available[i].start = removeShift.end;
         }
-        if (this.available[i].end.totalHours < removeShift.end.totalHours) {
-          this.available[i].end = removeShift.start;
+        if (this._available[i].end.totalHours < removeShift.end.totalHours) {
+          this._available[i].end = removeShift.start;
         }
       }
     }
   }
 
-  combineAvailable(): void {
-    if (this.hasCombined) {
-      return;
-    }
-    this.hasCombined = true;
-    for (let i = 0; i < this.available.length; i++) {
-      for (let z = i + 1; z < this.available.length; z++) {
-        if (this.available[i].overlapsAvalible(this.available[z])) {
-          if (
-            this.available[z].start.totalHours <
-            this.available[i].start.totalHours
-          ) {
-            this.available[i].start = this.available[z].start;
-          }
-          if (
-            this.available[z].end.totalHours > this.available[i].end.totalHours
-          ) {
-            this.available[i].end = this.available[z].end;
-          }
-          this.available.splice(z, 1);
-          z--;
-        }
-      }
-    }
-  }
+  combineAvailable(): void {}
 
   get sortedAvailable(): Shift[] {
-    this.available.sort((a, b) => a.start.totalHours - b.start.totalHours);
-    return this.available;
+    this._available.sort((a, b) => a.start.totalHours - b.start.totalHours);
+    return this._available;
   }
 }
