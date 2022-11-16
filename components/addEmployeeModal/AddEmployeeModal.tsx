@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import modalStyle from "../../styles/modalStyle";
 import { AvailabilityTabs } from "../";
-import { Color, DayOftheWeek, Employee, Shift, Time } from "../../entities";
+import { Color, Employee, Shift } from "../../entities";
 import { useState } from "react";
 
 interface EmployeeModalProps {
