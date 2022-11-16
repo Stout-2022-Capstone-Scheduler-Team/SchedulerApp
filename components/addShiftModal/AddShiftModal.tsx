@@ -29,7 +29,9 @@ export function AddShiftModal(): JSX.Element {
   };
   return (
     <>
-      <Button onClick={handleOpen}>Add Shift</Button>
+      <Button variant="contained" onClick={handleOpen}>
+        Add Shift
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
