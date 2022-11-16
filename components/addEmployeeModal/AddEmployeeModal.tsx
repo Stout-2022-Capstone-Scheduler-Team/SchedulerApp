@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   Button,
   Modal,
@@ -10,6 +9,7 @@ import {
 import modalStyle from "../../styles/modalStyle";
 import { AvailabilityTabs } from "../";
 import { Color, DayOftheWeek, Employee, Shift, Time } from "../../entities";
+import { useState } from "react";
 
 interface EmployeeModalProps {
   existingEmployees: Employee[];
@@ -18,18 +18,19 @@ interface EmployeeModalProps {
 
 export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   const { addEmployee } = props;
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState<string>("");
+  const [minHours, setMinHours] = useState(0);
+  const [maxHours, setMaxHours] = useState(40);
+  const [color, setColor] = useState<Color>(new Color());
+  const [availability, setAvailability] = useState<Shift[]>([]);
 
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
   const handleSubmit = (): void => {
-    const newEmployee = new Employee("Test", 0, 40, new Color("Blue"));
-    newEmployee.addAvailability(
-      new Shift(
-        "all week",
-        new Time(0, DayOftheWeek.Monday),
-        new Time(23, DayOftheWeek.Friday)
-      )
+    const newEmployee = new Employee(name, minHours, maxHours, color);
+    availability.forEach((avail) =>
+      newEmployee.addAvailability(new Shift(avail.name, avail.start, avail.end))
     );
     addEmployee(newEmployee);
     setOpen(false);
