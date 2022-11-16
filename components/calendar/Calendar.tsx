@@ -3,21 +3,25 @@ import { Shift, Time } from "../../entities";
 import { DailyShifts } from "./DailyShifts";
 import { WeeklyDate } from "./WeeklyDate";
 
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { RefObject } from "react";
 
 interface CalendarProps {
   shifts: Shift[];
   employees: Employee[];
   exportRef?: RefObject<any>;
+  loading?: boolean;
 }
 
 export function Calendar({
   shifts,
   employees,
-  exportRef
+  exportRef,
+  loading
 }: CalendarProps): JSX.Element {
   const dayOfWeekNumber = Time.getWeekDayNumbers();
+
+  const getLoading = (): boolean => loading ?? false;
 
   function getDayShifts(day: DayOftheWeek): Shift[] {
     return shifts
@@ -26,26 +30,29 @@ export function Calendar({
   }
 
   return (
-    <Grid
-      container
-      columns={7}
-      sx={{ p: 5, pt: 3 }}
-      ref={exportRef}
-      className="printed"
-    >
-      {dayOfWeekNumber.map((day: number) => (
-        <Grid item xs={1} sx={{ px: 1.5 }} key={day}>
-          <WeeklyDate
-            dayOfWeek={dayName(day).substring(0, 3)}
-            date="10.23(TODO)"
-          />
-        </Grid>
-      ))}
-      {dayOfWeekNumber.map((day: number) => (
-        <Grid item xs={1} sx={{ px: 1.5 }} key={day}>
-          <DailyShifts allShifts={getDayShifts(day)} employees={employees} />
-        </Grid>
-      ))}
-    </Grid>
+    <>
+      <Grid
+        container
+        columns={7}
+        sx={{ p: 5, pt: 3 }}
+        ref={exportRef}
+        className="printed"
+      >
+        {dayOfWeekNumber.map((day: number) => (
+          <Grid item xs={1} sx={{ px: 1.5 }} key={day}>
+            <WeeklyDate
+              dayOfWeek={dayName(day).substring(0, 3)}
+              date="10.23(TODO)"
+            />
+          </Grid>
+        ))}
+        {dayOfWeekNumber.map((day: number) => (
+          <Grid item xs={1} sx={{ px: 1.5 }} key={day}>
+            <DailyShifts allShifts={getDayShifts(day)} employees={employees} />
+          </Grid>
+        ))}
+      </Grid>
+      {getLoading() && <Typography>Generating Schedule...</Typography>}
+    </>
   );
 }

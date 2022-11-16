@@ -28,7 +28,10 @@ function arrMin(arr: number[]): number {
  * average time, since we use hueristics to try more likely options first
  *
  * */
-export function generate(shifts: Shift[], staff: Employee[]): boolean {
+export async function generate(
+  shifts: Shift[],
+  staff: Employee[]
+): Promise<boolean> {
   // Clear current hours and busy
   staff.forEach((employee) => {
     employee.current_hours = 0;
