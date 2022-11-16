@@ -22,16 +22,33 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import modalStyle from "../../styles/modalStyle";
+import { DayOftheWeek, Employee, Shift, Time } from "../../entities";
 
-export function AddAvailabilityModal(): JSXElement {
+interface AddAvailabilityModalProps {
+  addAvailability: (shift: Shift) => void;
+  day: DayOftheWeek;
+  employee?: Employee;
+}
+export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSXElement {
+
   const [open, setOpen] = useState(false);
-
-  const handleOpen = (): void => setOpen(true);
-  const handleClose = (): void => setOpen(false);
-  const handleSubmit = (): void => setOpen(false);
-  const [DayVal, setDay] = useState("");
   const [valueStartTime, setValueStartTime] = useState<Dayjs | null>(null);
   const [valueEndTime, setValueEndTime] = useState<Dayjs | null>(null);
+
+  const handleOpen = (): void => setOpen(true);
+  const handleClose = (): void =>{ 
+    setOpen(false) 
+  };
+
+  const handleSubmit = (): void => {
+    setOpen(false)
+    props.addAvailability(new Shift("", new Time(3), new Time(4), props.day, props.employee?.name));
+  };
+  const [DayVal, setDay] = useState("");
+
+
+
+  
   const handleChange = (event: SelectChangeEvent) => {
     setDay(event.target.value as string);
   };
