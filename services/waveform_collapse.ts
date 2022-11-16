@@ -20,6 +20,10 @@ function arrMin(arr: number[]): number {
   return idx;
 }
 
+async function yieldTask(): Promise<void> {
+  await new Promise((resolve) => setTimeout(resolve, 0));
+}
+
 /**
  * Generate a valid schedule if possible. Returns whether a schedule was successfully generated
  *
@@ -84,6 +88,7 @@ export async function generate(
       assigned -= 1;
       matrix = unassign(shifts, staff, assigned, matrix);
     }
+    await yieldTask();
   }
   return true;
 }

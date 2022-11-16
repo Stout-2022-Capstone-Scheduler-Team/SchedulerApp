@@ -8,13 +8,14 @@ import {
   Chip
 } from "@mui/material";
 import modalStyle from "../../styles/modalStyle";
-import { AvailabilityEditor, AvailabilityTabs, EditEmployeeInfo } from "../";
-import { Color, Employee, Shift, Time } from "../../entities";
+import { AvailabilityTabs } from "../";
+import { Color, Employee, Shift, Time, Schedule } from "../../entities";
+import { ScheduleAction, Dispatch } from "../../services/scheduleState";
 import { useState } from "react";
 
 interface EmployeeModalProps {
-  existingEmployees: Employee[];
-  addEmployee: (employee: Employee) => void;
+  existingEmployees: Schedule;
+  addEmployee: Dispatch<ScheduleAction>;
 }
 
 export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
@@ -33,7 +34,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
     availability.forEach((avail) =>
       newEmployee.addAvailability(new Shift(avail.name, avail.start, avail.end))
     );
-    addEmployee(newEmployee);
+    void addEmployee({ add: newEmployee });
     setOpen(false);
   };
 
