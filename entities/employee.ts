@@ -6,7 +6,7 @@ export class Employee {
   min_hours: number;
   max_hours: number;
   current_hours: number = 0;
-  available: Shift[] = [];
+  readonly available: Shift[] = [];
   constructor(name: string, minHours: number, maxHours: number) {
     assert(minHours <= maxHours);
     this.name = name;
@@ -21,6 +21,22 @@ export class Employee {
       this.canTakeHours(inputShift.duration) &&
       this.available.some((a) => a.contains(inputShift))
     );
+  }
+
+  addAvailable(inputShift: Shift): void {
+    for (let z = 0; z < this.available.length; z++) {
+      if (inputShift.overlapsAvalible(this.available[z])) {
+        if (this.available[z].start.totalHours < inputShift.start.totalHours) {
+          inputShift.start = this.available[z].start;
+        }
+        if (this.available[z].end.totalHours > inputShift.end.totalHours) {
+          inputShift.end = this.available[z].end;
+        }
+        this.available.splice(z, 1);
+        z--;
+      }
+    }
+    this.available.push(inputShift);
   }
 
   canTakeHours(input: number): boolean {
@@ -40,5 +56,34 @@ export class Employee {
 
   get remainingHours(): number {
     return Math.max(this.min_hours - this.current_hours, 0);
+  }
+
+  splitAvailable(removeShift: Shift): void {
+    for (let i = 0; i < this.available.length; i++) {
+      assert(this.available.length < 10000);
+      if (removeShift.contains(this.available[i])) {
+        this.available.splice(i, 1);
+        console.log(this.available);
+        i--;
+      } else if (this.available[i].containsRemove(removeShift)) {
+        this.available.unshift(
+          new Shift("", removeShift.end, this.available[i].end)
+        );
+        i++;
+        this.available[i].end = removeShift.start;
+      } else if (this.available[i].overlaps(removeShift)) {
+        if (this.available[i].start.totalHours > removeShift.start.totalHours) {
+          this.available[i].start = removeShift.end;
+        }
+        if (this.available[i].end.totalHours < removeShift.end.totalHours) {
+          this.available[i].end = removeShift.start;
+        }
+      }
+    }
+  }
+
+  get sortedAvailable(): Shift[] {
+    this.available.sort((a, b) => a.start.totalHours - b.start.totalHours);
+    return this.available;
   }
 }

@@ -17,7 +17,7 @@ export function AvailabilityCard(props: AvailabilityCardProps): JSX.Element {
   return (
     <Box sx={boxStyle}>
       <Stack alignItems="center" direction="row" spacing={1}>
-        <Chip label={DayOftheWeek[shift.day]} color="secondary" />
+        <Chip label={DayOftheWeek[shift.start.day]} color="secondary" />
         <Typography>{shift.start.toString()}</Typography>
         <Typography>-</Typography>
         <Typography>{shift.end.toString()}</Typography>

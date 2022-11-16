@@ -21,8 +21,8 @@ const availabilityStyle: SxProps<Theme> = {
 export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
   const { day, employee } = props;
   const [availabilityArray, setAvailabilityArray] = useState<Shift[]>([
-    //new Shift("emp1", new Time(10), new Time(16), day, employee?.name),
-    //new Shift("emp1", new Time(10), new Time(17), day, employee?.name)
+    new Shift("emp1", new Time(10, day), new Time(16, day), employee?.name),
+    new Shift("emp1", new Time(10, day), new Time(17, day), employee?.name)
   ]);
 
   //Work on updating Availability on Submit
