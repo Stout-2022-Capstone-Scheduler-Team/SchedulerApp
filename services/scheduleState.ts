@@ -1,17 +1,42 @@
-import React, { useState } from "react";
-import { Color, Employee, Schedule, Shift } from "../entities";
+import { useState } from "react";
+import { Color, Employee, Schedule, Shift, Time } from "../entities";
 import { generate } from "./waveform_collapse";
 
+interface Add {
+  add: Employee | Shift;
+}
+
+interface Remove {
+  remove: Employee | Shift;
+}
+
+interface UpdateEmployee {
+  update: Employee;
+  color?: Color;
+  name?: string;
+  maxHours?: number;
+  minHours?: number;
+}
+
+interface UpdateShift {
+  update: Shift;
+  name?: string;
+  start?: Time;
+  end?: Time;
+}
+
+interface UpdateBase {
+  update: "default";
+  maxHours?: number;
+  minHours?: number;
+}
+
 export type ScheduleAction =
-  | { add: Employee | Shift }
-  | { remove: Employee | Shift }
-  | {
-      update: Employee;
-      color?: Color;
-      name?: string;
-      maxHours?: number;
-      minHours?: number;
-    };
+  | Add
+  | Remove
+  | UpdateEmployee
+  | UpdateShift
+  | UpdateBase;
 
 export async function updateSchedule(
   state: Schedule,
@@ -25,6 +50,16 @@ export async function updateSchedule(
     } else if (action.add instanceof Shift) {
       scheduleCopy.addShift(action.add);
     }
+  } else if ("remove" in action) {
+    if (action.remove instanceof Employee) {
+      scheduleCopy.removeEmployee(action.remove);
+    } else if (action.remove instanceof Shift) {
+      scheduleCopy.removeShift(action.remove);
+    }
+  } else if ("update" in action) {
+    // if (action.update === "default") {
+    // }
+    console.error("Update not implemented yet");
   }
 
   // Generate the schedule
@@ -33,18 +68,14 @@ export async function updateSchedule(
     scheduleCopy.shifts,
     scheduleCopy.employees
   );
-  // // setBuildingSchedule(false);
-  if (schedulePromise) {
-    console.log(scheduleCopy);
-    // If the scheduler finished successfully, update the schedule object
-    return scheduleCopy;
-  } else {
+  // // // setBuildingSchedule(false);
+  if (!schedulePromise) {
     // If the scheduler failed, error out
     console.error(
       "Unable to build schedule completely, schedule was not updated"
     );
-    return scheduleCopy;
   }
+  return scheduleCopy;
 }
 
 export type Dispatch<A> = (action: A) => Promise<void>;
