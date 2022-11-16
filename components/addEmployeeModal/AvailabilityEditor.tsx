@@ -29,7 +29,7 @@ export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
   const addAvailability = (shift: Shift): void => {
     setAvailabilityArray([ 
       ...availabilityArray,
-      shift 
+      shift
     ])
   };
 

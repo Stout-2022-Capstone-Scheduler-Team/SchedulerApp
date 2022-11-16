@@ -31,27 +31,48 @@ interface AddAvailabilityModalProps {
   employee?: Employee;
 }
 export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSXElement {
+  const {addAvailability, day, employee } = props;
 
   const [open, setOpen] = useState(false);
+  const [checked, setChecked] = useState(false);
+
   const [valueStartTime, setValueStartTime] = useState<Dayjs | null>(null);
   const [valueEndTime, setValueEndTime] = useState<Dayjs | null>(null);
 
   const handleOpen = (): void => setOpen(true);
-  const handleClose = (): void =>{ 
-    setOpen(false) 
+
+  const handleClose = (): void => {
+    setOpen(false);
+    setValueStartTime(null);
+    setValueEndTime(null);
+    setChecked(false);
   };
 
   const handleSubmit = (): void => {
-    setOpen(false)
-    props.addAvailability(new Shift("", new Time(3), new Time(4), props.day, props.employee?.name));
+    //check if both arent null
+    //check that start is less than last
+
+    if(checked) {
+      addAvailability(new Shift("", new Time(0, day), new Time(24, day), employee?.name))
+    }
+    else {
+      addAvailability(new Shift("", Time.fromDayJs(valueStartTime, day), Time.fromDayJs(valueEndTime, day), employee?.name))
+    }
+    setValueStartTime(null);
+    setValueEndTime(null);
+    setChecked(false);
+    setOpen(false);
   };
-  const [DayVal, setDay] = useState("");
 
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
 
-  
-  const handleChange = (event: SelectChangeEvent) => {
-    setDay(event.target.value as string);
+    if(checked) {
+      //set time to 0 -24
+      setValueStartTime(null);
+      setValueEndTime(null);
+    }
   };
 
   return (
@@ -67,12 +88,11 @@ export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSXEleme
             </Typography>
             <FormGroup aria-label="position" row>
               <FormControlLabel
-                control={<Checkbox />}
+                control={<Checkbox
+                  checked={checked}
+                  onChange={handleChange}
+                />}
                 label="Available all day"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Shift runs into the next day"
               />
             </FormGroup>
             <FormControl sx={{ mr: 2 }}>
@@ -80,6 +100,7 @@ export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSXEleme
                 <TimePicker
                   label="Select Start Time"
                   value={valueStartTime}
+                  disabled={checked}
                   onChange={(newValueST) => {
                     setValueStartTime(newValueST);
                   }}
@@ -92,6 +113,7 @@ export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSXEleme
                 <TimePicker
                   label="Select End Time"
                   value={valueEndTime}
+                  disabled={checked}
                   onChange={(newValueET) => {
                     setValueEndTime(newValueET);
                   }}
