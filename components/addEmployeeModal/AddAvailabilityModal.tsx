@@ -4,6 +4,7 @@ import {
   CardActions,
   CardContent,
   Checkbox,
+  FormControl,
   FormControlLabel,
   FormGroup,
   getListItemSecondaryActionClassesUtilityClass,
@@ -47,33 +48,40 @@ export function AddAvailabilityModal(): JSXElement {
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Add Availability
             </Typography>
-            <FormGroup>
-              <FormControlLabel control={<Checkbox />} label="Use Full Date" />
+            <FormGroup aria-label="position" row>
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Available all day"
+              />
               <FormControlLabel
                 control={<Checkbox />}
                 label="Shift runs into the next day"
               />
             </FormGroup>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <TimePicker
-                label="Select Start Time"
-                value={valueStartTime}
-                onChange={(newValueST) => {
-                  setValueStartTime(newValueST);
-                }}
-                renderInput={(params) => <TextField {...params} />}
-              ></TimePicker>
-            </LocalizationProvider>
-            <LocalizationProvider dateAdapter={AdapterDayjs} sx={{ mx: 2 }}>
-              <TimePicker
-                label="Select End Time"
-                value={valueEndTime}
-                onChange={(newValueET) => {
-                  setValueEndTime(newValueET);
-                }}
-                renderInput={(params) => <TextField {...params} />}
-              ></TimePicker>
-            </LocalizationProvider>
+            <FormControl sx={{ mr: 2 }}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <TimePicker
+                  label="Select Start Time"
+                  value={valueStartTime}
+                  onChange={(newValueST) => {
+                    setValueStartTime(newValueST);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                ></TimePicker>
+              </LocalizationProvider>
+            </FormControl>
+            <FormControl>
+              <LocalizationProvider dateAdapter={AdapterDayjs} sx={{ m: 2 }}>
+                <TimePicker
+                  label="Select End Time"
+                  value={valueEndTime}
+                  onChange={(newValueET) => {
+                    setValueEndTime(newValueET);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                ></TimePicker>
+              </LocalizationProvider>
+            </FormControl>
             <CardActions>
               <Button onClick={handleClose} color={"error"} sx={{ ml: "auto" }}>
                 Close
