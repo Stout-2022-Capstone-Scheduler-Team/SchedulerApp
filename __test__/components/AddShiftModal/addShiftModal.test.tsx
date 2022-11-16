@@ -18,7 +18,7 @@ test("Modal opens and closes", () => {
     const header = modal.queryByText(/ADD SHIFT/i);
     expect(header).not.toBe(null);
 
-    // expect(modal).toMatchSnapshot();
+    expect(modal).toMatchSnapshot();
   }
 
   // Click the submit button
