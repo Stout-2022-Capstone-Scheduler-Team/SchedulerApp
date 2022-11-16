@@ -9,11 +9,19 @@ import {
 } from "@mui/material";
 import modalStyle from "../../styles/modalStyle";
 import { AvailabilityTabs } from "../";
-import { Color, DayOftheWeek, Employee, Shift, Time } from "../../entities";
+import {
+  Color,
+  DayOftheWeek,
+  Employee,
+  Shift,
+  Time,
+  Schedule
+} from "../../entities";
+import { ScheduleAction, Dispatch } from "../../services/scheduleState";
 
 interface EmployeeModalProps {
-  existingEmployees: Employee[];
-  addEmployee: (employee: Employee) => void;
+  existingEmployees: Schedule;
+  addEmployee: Dispatch<ScheduleAction>;
 }
 
 export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
@@ -31,7 +39,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
         new Time(23, DayOftheWeek.Friday)
       )
     );
-    addEmployee(newEmployee);
+    void addEmployee({ add: newEmployee });
     setOpen(false);
   };
 
