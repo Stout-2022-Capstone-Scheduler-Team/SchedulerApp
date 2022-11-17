@@ -119,7 +119,7 @@ test("Full Add Employee", async () => {
   // Enter basic details
   await user.type(modal.getByLabelText(/Employee Name/i), "Alice");
   await user.click(modal.getByLabelText(/Employee Color/i));
-  await user.click(modal.getByLabelText(/Red/i));
+  await user.click(modal.getByText(/Red/i));
 
   // Enter availability
   await user.click(modal.getByText(/Monday/i));
