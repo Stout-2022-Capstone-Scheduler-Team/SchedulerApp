@@ -12,14 +12,16 @@ import { AvailabilityTabs } from "../";
 import { Color, Employee, Shift, Time, Schedule } from "../../entities";
 import { ScheduleAction, Dispatch } from "../../services/scheduleState";
 import { useState } from "react";
+import { AvailabilityEditor } from "./AvailabilityEditor";
+import { EditEmployeeInfo } from "./EditEmployeeInfo";
 
 interface EmployeeModalProps {
-  existingEmployees: Employee[];
-  addEmployee: Dispatch<ScheduleAction>;
+  existingEmployees: Schedule;
+  dispatch: Dispatch<ScheduleAction>;
 }
 
 export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
-  const { addEmployee } = props;
+  const { dispatch } = props;
   const [open, setOpen] = useState(false);
   const [name, setName] = useState<string>("");
   const [minHours, setMinHours] = useState(0);
@@ -34,7 +36,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
     availability.forEach((avail) =>
       newEmployee.addAvailability(new Shift(avail.name, avail.start, avail.end))
     );
-    void addEmployee({ add: newEmployee });
+    void dispatch({ add: newEmployee });
     setOpen(false);
   };
 

@@ -1,4 +1,5 @@
 import { Shift, Employee } from "../entities/types";
+import { sleepTask, yieldTask } from "./util";
 
 // I believe this has the same size as `boolean`, since JS uses dynamic
 // types and both number and boolean are less than the min size
@@ -18,10 +19,6 @@ function arrMin(arr: number[]): number {
     }
   }
   return idx;
-}
-
-async function yieldTask(): Promise<void> {
-  await new Promise((resolve) => setTimeout(resolve, 0));
 }
 
 /**
@@ -88,7 +85,7 @@ export async function generate(
       assigned -= 1;
       matrix = unassign(shifts, staff, assigned, matrix);
     }
-    await yieldTask();
+    await sleepTask(0);
   }
   return true;
 }
