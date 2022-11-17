@@ -15,18 +15,14 @@ export enum ExportType {
 
 interface ExportModalProps {
   componentToExport: React.RefObject<React.ReactInstance>;
-  defaultValue?: ExportType;
 }
 
 export function ExportModal({
-  componentToExport,
-  defaultValue
+  componentToExport
 }: ExportModalProps): JSX.Element {
   const [open, setOpen] = React.useState(false);
   // Default value
-  const [type, setType] = React.useState<ExportType>(
-    defaultValue === undefined ? ExportType.png : defaultValue
-  );
+  const [type, setType] = React.useState<ExportType>(ExportType.png);
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
 

@@ -36,7 +36,6 @@ export async function generate(
   // Clear current hours and busy
   staff.forEach((employee) => {
     employee.current_hours = 0;
-    employee.combineAvailable();
   });
   // Generate matrix & clear owners
   let matrix: Assignment[][] = [];
