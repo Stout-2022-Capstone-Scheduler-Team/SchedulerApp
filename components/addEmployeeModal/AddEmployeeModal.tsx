@@ -16,7 +16,7 @@ import { AvailabilityEditor } from "./AvailabilityEditor";
 import { EditEmployeeInfo } from "./EditEmployeeInfo";
 
 interface EmployeeModalProps {
-  existingEmployees: Schedule;
+  schedule: Schedule;
   dispatch: Dispatch<ScheduleAction>;
 }
 
