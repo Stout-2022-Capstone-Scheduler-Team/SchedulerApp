@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Color, Employee, Schedule, Shift, Time } from "../entities";
 import { generate } from "./waveform_collapse";
-import { or } from "./util";
-import { now } from "moment";
+import { or, log } from "./util";
 
 interface Add {
   add: Employee | Shift;
@@ -98,7 +97,7 @@ export async function updateSchedule(
     // If the scheduler failed, error out
     console.error("Unable to build schedule completely");
   }
-  console.log(scheduleCopy);
+  log(scheduleCopy);
   return scheduleCopy;
 }
 
