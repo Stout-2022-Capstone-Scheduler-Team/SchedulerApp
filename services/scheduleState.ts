@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Color, Employee, Schedule, Shift, Time } from "../entities";
 import { generate } from "./waveform_collapse";
 import { or } from "./util";
+import { now } from "moment";
 
 interface Add {
   add: Employee | Shift;
@@ -97,10 +98,11 @@ export async function updateSchedule(
     // If the scheduler failed, error out
     console.error("Unable to build schedule completely");
   }
+  console.log(scheduleCopy);
   return scheduleCopy;
 }
 
-export type Dispatch<A> = (action: A) => Promise<void>;
+export type Dispatch<A> = (action: A) => void;
 
 /**
  * Async equavalent to React.useReducer
@@ -110,10 +112,20 @@ export function useAsyncReducer<T, A>(
   initialState: T
 ): [T, Dispatch<A>] {
   const [state, setState] = useState(initialState);
+  let current: Promise<T> = Promise.resolve(state);
 
-  const dispatch = async (action: A): Promise<void> => {
-    const result = await reducer(state, action);
-    setState(result);
+  const dispatch = (action: A): void => {
+    // We need to be able to handle multiple in-flight requests
+    //
+    // The idea is this will force multiple requests to wait in line. Ideally,
+    // we would also be able to tell the reducer that there are more (i.e. don't
+    // bother fully generating the schedule), but that doesn't seem like something
+    // JS can do.
+    current = current.then(async (state) => {
+      const newState = await reducer(state, action);
+      setState(newState);
+      return newState;
+    });
   };
 
   return [state, dispatch];

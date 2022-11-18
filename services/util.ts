@@ -9,3 +9,11 @@ export function or<T>(a: T | undefined, b: T): T {
     return b;
   }
 }
+
+const DEBUG_LOG = false;
+
+export function log(message?: any, ...more: any[]): void {
+  if (DEBUG_LOG) {
+    console.log(message, ...more);
+  }
+}
