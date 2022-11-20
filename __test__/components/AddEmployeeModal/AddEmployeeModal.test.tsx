@@ -1,24 +1,22 @@
 import { AddEmployeeModal } from "../../../components";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Color, Employee, Schedule } from "../../../entities";
+import { Color, DayOftheWeek, Employee, Shift, Time } from "../../../entities";
 jest.mock("../../../entities/color");
 
 test("Add Employee Renders", () => {
-  const empty = new Schedule();
   const dispatch = jest.fn();
   const employeeModal = render(
-    <AddEmployeeModal schedule={empty} dispatch={dispatch} />
+    <AddEmployeeModal existingEmployees={[]} dispatch={dispatch} />
   );
   expect(employeeModal).toMatchSnapshot();
 });
 
 test("Modal opens and closes", async () => {
   const user = userEvent.setup();
-  const empty = new Schedule();
   const dispatch = jest.fn();
   const modal = render(
-    <AddEmployeeModal schedule={empty} dispatch={dispatch} />
+    <AddEmployeeModal existingEmployees={[]} dispatch={dispatch} />
   );
 
   // Make sure no modal exists
@@ -55,10 +53,9 @@ test("Modal opens and closes", async () => {
 test("Modal has 8 tabs", async () => {
   // Setup modal, open it
   const user = userEvent.setup();
-  const empty = new Schedule();
   const dispatch = jest.fn();
   const modal = render(
-    <AddEmployeeModal schedule={empty} dispatch={dispatch} />
+    <AddEmployeeModal existingEmployees={[]} dispatch={dispatch} />
   );
   await user.click(modal.getByText(/Add Employee/i));
 
@@ -72,10 +69,9 @@ test("Modal has 8 tabs", async () => {
 test("Modal Switches Tabs", async () => {
   // Setup modal, open it
   const user = userEvent.setup();
-  const empty = new Schedule();
   const dispatch = jest.fn();
   const modal = render(
-    <AddEmployeeModal schedule={empty} dispatch={dispatch} />
+    <AddEmployeeModal existingEmployees={[]} dispatch={dispatch} />
   );
   await user.click(modal.getByText(/Add Employee/i));
 
@@ -87,32 +83,13 @@ test("Modal Switches Tabs", async () => {
   expect(header).not.toBe(null);
 });
 
-test("Simple Add Employee", async () => {
-  // Setup modal, open it
-  const user = userEvent.setup();
-  const empty = new Schedule();
-  const dispatch = jest.fn();
-  dispatch.mockResolvedValue(undefined);
-  jest.mocked(Color.getRandomColorName).mockReturnValueOnce("Red");
-  const modal = render(
-    <AddEmployeeModal schedule={empty} dispatch={dispatch} />
-  );
-  await user.click(modal.getByText(/Add Employee/i));
-  await user.type(modal.getByLabelText(/Employee Name/i), "Alice");
-  await user.click(modal.getByText(/Submit/i));
-  expect(dispatch.mock.calls).toEqual([
-    [{ add: new Employee("Alice", 0, 40, new Color("Red")) }]
-  ]);
-});
-
 test("Full Add Employee", async () => {
   // Setup modal, open it
   const user = userEvent.setup();
-  const empty = new Schedule();
   const dispatch = jest.fn();
   dispatch.mockResolvedValue(undefined);
   const modal = render(
-    <AddEmployeeModal schedule={empty} dispatch={dispatch} />
+    <AddEmployeeModal existingEmployees={[]} dispatch={dispatch} />
   );
   await user.click(modal.getByText(/Add Employee/i));
 
@@ -126,7 +103,15 @@ test("Full Add Employee", async () => {
   // TODO
 
   await user.click(modal.getByText(/Submit/i));
-  expect(dispatch.mock.calls).toEqual([
-    [{ add: new Employee("Alice", 0, 40, new Color("Red")) }]
-  ]);
+
+  // Assert
+  const newEmp = new Employee("Alice", 0, 40, new Color("Red"));
+  newEmp.addAvailability(
+    new Shift(
+      "",
+      new Time(8, DayOftheWeek.Monday),
+      new Time(4, DayOftheWeek.Friday)
+    )
+  );
+  expect(dispatch.mock.calls).toEqual([[{ add: newEmp }]]);
 });

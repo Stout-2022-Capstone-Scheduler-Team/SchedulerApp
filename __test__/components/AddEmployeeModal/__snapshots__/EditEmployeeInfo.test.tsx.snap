@@ -42,8 +42,8 @@ exports[`Can Render 1`] = `
             class="MuiFormControl-root css-1ht9964-MuiFormControl-root"
           >
             <label
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root"
-              data-shrink="false"
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard css-1c2i806-MuiFormLabel-root-MuiInputLabel-root"
+              data-shrink="true"
               id="employee-color-selector"
             >
               Employee Color
@@ -70,7 +70,7 @@ exports[`Can Render 1`] = `
                 aria-hidden="true"
                 class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
                 tabindex="-1"
-                value=""
+                value="Green"
               />
               <svg
                 aria-hidden="true"
@@ -108,7 +108,7 @@ exports[`Can Render 1`] = `
                 class="MuiInputBase-input MuiInput-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
                 id=":r1:"
                 type="number"
-                value="10"
+                value="0"
               />
             </div>
           </div>
@@ -181,8 +181,8 @@ exports[`Can Render 1`] = `
           class="MuiFormControl-root css-1ht9964-MuiFormControl-root"
         >
           <label
-            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root"
-            data-shrink="false"
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard css-1c2i806-MuiFormLabel-root-MuiInputLabel-root"
+            data-shrink="true"
             id="employee-color-selector"
           >
             Employee Color
@@ -209,7 +209,7 @@ exports[`Can Render 1`] = `
               aria-hidden="true"
               class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
               tabindex="-1"
-              value=""
+              value="Green"
             />
             <svg
               aria-hidden="true"
@@ -247,7 +247,7 @@ exports[`Can Render 1`] = `
               class="MuiInputBase-input MuiInput-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
               id=":r1:"
               type="number"
-              value="10"
+              value="0"
             />
           </div>
         </div>

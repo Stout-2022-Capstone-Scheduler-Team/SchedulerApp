@@ -30,12 +30,35 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
   const handleSubmit = (): void => {
-    const newEmployee = new Employee(name, minHours, maxHours, color);
-    availability.forEach((avail) =>
-      newEmployee.addAvailability(new Shift(avail.name, avail.start, avail.end))
+    if (validateInputs()) {
+      const newEmployee = new Employee(name, minHours, maxHours, color);
+      availability.forEach((avail) =>
+        newEmployee.addAvailability(
+          new Shift(avail.name, avail.start, avail.end)
+        )
+      );
+      void dispatch({ add: newEmployee });
+      clearInputs();
+      setOpen(false);
+    } else {
+      alert("This employee is not done being created");
+    }
+  };
+
+  const validateInputs = (): boolean => {
+    return (
+      existingEmployees.findIndex((emp) => emp.name === name) === -1 &&
+      minHours <= maxHours &&
+      availability.length > 0
     );
-    void dispatch({ add: newEmployee });
-    setOpen(false);
+  };
+
+  const clearInputs = (): void => {
+    setName("");
+    setMinHours(0);
+    setMaxHours(40);
+    setColor(new Color());
+    setAvailability([]);
   };
 
   const getAvailableColors = (): Color[] => {
