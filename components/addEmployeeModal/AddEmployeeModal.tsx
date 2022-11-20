@@ -8,8 +8,8 @@ import {
   Chip
 } from "@mui/material";
 import modalStyle from "../../styles/modalStyle";
-import { AvailabilityTabs } from "../";
-import { Color, Employee, Shift, Time, Schedule } from "../../entities";
+import { AvailabilityEditor, AvailabilityTabs, EditEmployeeInfo } from "../";
+import { Color, Employee, Shift, Time } from "../../entities";
 import { ScheduleAction, Dispatch } from "../../services/scheduleState";
 import { useState } from "react";
 
@@ -19,7 +19,7 @@ interface EmployeeModalProps {
 }
 
 export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
-  const { addEmployee } = props;
+  const { existingEmployees, addEmployee } = props;
   const [open, setOpen] = useState(false);
   const [name, setName] = useState<string>("");
   const [minHours, setMinHours] = useState(0);
@@ -38,6 +38,18 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
     setOpen(false);
   };
 
+  const getAvailableColors = (): Color[] => {
+    const allColors = Object.keys(Color.colorsMap);
+    const existingColorNames = existingEmployees.map(
+      (emp) => emp.color.colorName
+    );
+    const freeColorNames = allColors.filter(
+      (colorName) => !existingColorNames.includes(colorName)
+    );
+
+    return freeColorNames.map((name) => new Color(name));
+  };
+
   return (
     <>
       <Button onClick={handleOpen} variant={"contained"} color={"secondary"}>
@@ -54,7 +66,11 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
               Add an Employee
               <Chip
                 label={name}
-                sx={{ ml: 2, display: name === "" ? "none" : "" }}
+                sx={{
+                  backgroundColor: color.colorHex,
+                  ml: 2,
+                  display: name === "" ? "none" : ""
+                }}
                 color="primary"
               />
             </Typography>
@@ -62,6 +78,11 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
               tabHeaders={["Edit Employee Info", ...Time.getWeekDays()]}
               tabContent={[
                 <EditEmployeeInfo
+                  name={name}
+                  color={color}
+                  maxHours={maxHours}
+                  minHours={minHours}
+                  availableColors={getAvailableColors()}
                   setEmployeeName={setName}
                   setEmployeeColor={setColor}
                   setEmployeeMaxHours={setMaxHours}

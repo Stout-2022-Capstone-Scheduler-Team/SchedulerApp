@@ -1,5 +1,4 @@
 export class Color {
-  static colorsUsed: string[] = [];
   static colorsMap: { [key: string]: string } = {
     Red: "#e6194b",
     Green: "#3cb44b",
@@ -34,17 +33,10 @@ export class Color {
     }
 
     this.colorHex = Color.colorsMap[this.colorName];
-    Color.colorsUsed.push(this.colorName);
   }
 
   static getRandomColorName(): string {
-    const colors = Object.keys(this.getUnusedColors());
+    const colors = Object.keys(this.colorsMap);
     return colors[Math.floor(Math.random() * colors.length)];
-  }
-
-  static getUnusedColors(): { [key: string]: string } {
-    const convertedToArray = Object.entries(Color.colorsMap);
-    const filteredArray = convertedToArray.filter(([key]) => !this.colorsUsed.includes(key));
-    return Object.fromEntries(filteredArray);
   }
 }

@@ -17,7 +17,7 @@ exports[`EditSchedule Renders 1`] = `
           <h6
             className="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-16taog-MuiTypography-root"
           >
-            10.23
+            10.23(TODO)
           </h6>
         </div>
         <div
@@ -43,7 +43,7 @@ exports[`EditSchedule Renders 1`] = `
           <h6
             className="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-16taog-MuiTypography-root"
           >
-            10.23
+            10.23(TODO)
           </h6>
         </div>
         <div
@@ -69,7 +69,7 @@ exports[`EditSchedule Renders 1`] = `
           <h6
             className="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-16taog-MuiTypography-root"
           >
-            10.23
+            10.23(TODO)
           </h6>
         </div>
         <div
@@ -95,7 +95,7 @@ exports[`EditSchedule Renders 1`] = `
           <h6
             className="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-16taog-MuiTypography-root"
           >
-            10.23
+            10.23(TODO)
           </h6>
         </div>
         <div
@@ -121,7 +121,7 @@ exports[`EditSchedule Renders 1`] = `
           <h6
             className="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-16taog-MuiTypography-root"
           >
-            10.23
+            10.23(TODO)
           </h6>
         </div>
         <div
@@ -147,7 +147,7 @@ exports[`EditSchedule Renders 1`] = `
           <h6
             className="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-16taog-MuiTypography-root"
           >
-            10.23
+            10.23(TODO)
           </h6>
         </div>
         <div
@@ -173,7 +173,7 @@ exports[`EditSchedule Renders 1`] = `
           <h6
             className="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-16taog-MuiTypography-root"
           >
-            10.23
+            10.23(TODO)
           </h6>
         </div>
         <div
@@ -195,9 +195,20 @@ exports[`EditSchedule Renders 1`] = `
       >
         <div
           className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1idn90j-MuiGrid-root"
+        />
+      </div>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1i5d9ma-MuiGrid-root"
+    >
+      <div
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
+      >
+        <div
+          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1idn90j-MuiGrid-root"
         >
           <div
-            className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1dt2rr7-MuiPaper-root-MuiCard-root"
+            className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1yfs2qv-MuiPaper-root-MuiCard-root"
           >
             <div
               className="MuiCardContent-root css-1i89k6q-MuiCardContent-root"
@@ -214,138 +225,6 @@ exports[`EditSchedule Renders 1`] = `
               />
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1i5d9ma-MuiGrid-root"
-    >
-      <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
-      >
-        <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1idn90j-MuiGrid-root"
-        >
-          <div
-            className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1e979ss-MuiPaper-root-MuiCard-root"
-          >
-            <div
-              className="MuiCardContent-root css-1i89k6q-MuiCardContent-root"
-            >
-              <p
-                className="MuiTypography-root MuiTypography-body1 css-ety8s4-MuiTypography-root"
-              >
-                10:00am
-                 - 
-                3:00pm
-              </p>
-              <p
-                className="MuiTypography-root MuiTypography-body1 css-1ptsv0t-MuiTypography-root"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1i5d9ma-MuiGrid-root"
-    >
-      <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
-      >
-        <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1idn90j-MuiGrid-root"
-        >
-          <div
-            className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1qaq3kq-MuiPaper-root-MuiCard-root"
-          >
-            <div
-              className="MuiCardContent-root css-1i89k6q-MuiCardContent-root"
-            >
-              <p
-                className="MuiTypography-root MuiTypography-body1 css-ety8s4-MuiTypography-root"
-              >
-                10:00am
-                 - 
-                3:00pm
-              </p>
-              <p
-                className="MuiTypography-root MuiTypography-body1 css-1ptsv0t-MuiTypography-root"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1i5d9ma-MuiGrid-root"
-    >
-      <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
-      >
-        <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1idn90j-MuiGrid-root"
-        >
-          <div
-            className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-ubev9u-MuiPaper-root-MuiCard-root"
-          >
-            <div
-              className="MuiCardContent-root css-1i89k6q-MuiCardContent-root"
-            >
-              <p
-                className="MuiTypography-root MuiTypography-body1 css-ety8s4-MuiTypography-root"
-              >
-                10:00am
-                 - 
-                3:00pm
-              </p>
-              <p
-                className="MuiTypography-root MuiTypography-body1 css-1ptsv0t-MuiTypography-root"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1i5d9ma-MuiGrid-root"
-    >
-      <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
-      >
-        <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1idn90j-MuiGrid-root"
-        >
-          <div
-            className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-13urdhb-MuiPaper-root-MuiCard-root"
-          >
-            <div
-              className="MuiCardContent-root css-1i89k6q-MuiCardContent-root"
-            >
-              <p
-                className="MuiTypography-root MuiTypography-body1 css-ety8s4-MuiTypography-root"
-              >
-                10:00am
-                 - 
-                3:00pm
-              </p>
-              <p
-                className="MuiTypography-root MuiTypography-body1 css-1ptsv0t-MuiTypography-root"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1i5d9ma-MuiGrid-root"
-    >
-      <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
-      >
-        <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1idn90j-MuiGrid-root"
-        >
           <div
             className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-8w92q3-MuiPaper-root-MuiCard-root"
           >
@@ -355,9 +234,9 @@ exports[`EditSchedule Renders 1`] = `
               <p
                 className="MuiTypography-root MuiTypography-body1 css-ety8s4-MuiTypography-root"
               >
-                10:00am
-                 - 
                 3:00pm
+                 - 
+                4:00pm
               </p>
               <p
                 className="MuiTypography-root MuiTypography-body1 css-1ptsv0t-MuiTypography-root"
@@ -377,7 +256,37 @@ exports[`EditSchedule Renders 1`] = `
           className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1idn90j-MuiGrid-root"
         >
           <div
-            className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-atnisy-MuiPaper-root-MuiCard-root"
+            className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-a2tws7-MuiPaper-root-MuiCard-root"
+          >
+            <div
+              className="MuiCardContent-root css-1i89k6q-MuiCardContent-root"
+            >
+              <p
+                className="MuiTypography-root MuiTypography-body1 css-ety8s4-MuiTypography-root"
+              >
+                12:00am
+                 - 
+                4:00pm
+              </p>
+              <p
+                className="MuiTypography-root MuiTypography-body1 css-1ptsv0t-MuiTypography-root"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1i5d9ma-MuiGrid-root"
+    >
+      <div
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
+      >
+        <div
+          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1idn90j-MuiGrid-root"
+        >
+          <div
+            className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1nfmizm-MuiPaper-root-MuiCard-root"
           >
             <div
               className="MuiCardContent-root css-1i89k6q-MuiCardContent-root"
@@ -387,7 +296,7 @@ exports[`EditSchedule Renders 1`] = `
               >
                 10:00am
                  - 
-                3:00pm
+                6:00pm
               </p>
               <p
                 className="MuiTypography-root MuiTypography-body1 css-1ptsv0t-MuiTypography-root"
@@ -395,6 +304,39 @@ exports[`EditSchedule Renders 1`] = `
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1i5d9ma-MuiGrid-root"
+    >
+      <div
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
+      >
+        <div
+          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1idn90j-MuiGrid-root"
+        />
+      </div>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1i5d9ma-MuiGrid-root"
+    >
+      <div
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
+      >
+        <div
+          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1idn90j-MuiGrid-root"
+        />
+      </div>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1i5d9ma-MuiGrid-root"
+    >
+      <div
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
+      >
+        <div
+          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-1idn90j-MuiGrid-root"
+        />
       </div>
     </div>
   </div>,
@@ -425,27 +367,6 @@ exports[`EditSchedule Renders 1`] = `
       </button>
     </div>
     <button
-      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium css-zcbmsk-MuiButtonBase-root-MuiButton-root"
-      disabled={false}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onContextMenu={[Function]}
-      onDragLeave={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      tabIndex={0}
-      type="button"
-    >
-      Add Employee
-    </button>
-    <button
       className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-1e6y48t-MuiButtonBase-root-MuiButton-root"
       disabled={false}
       onBlur={[Function]}
@@ -465,6 +386,27 @@ exports[`EditSchedule Renders 1`] = `
       type="button"
     >
       Add Shift
+    </button>
+    <button
+      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium css-zcbmsk-MuiButtonBase-root-MuiButton-root"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onContextMenu={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      Add Employee
     </button>
   </div>,
 ]

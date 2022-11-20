@@ -7,10 +7,14 @@ import {
   SelectChangeEvent,
   TextField
 } from "@mui/material";
-import { useState } from "react";
 import { Color } from "../../entities";
 
 interface EditEmployeeInfoProps {
+  name: string;
+  color: Color;
+  maxHours: number;
+  minHours: number;
+  availableColors: Color[];
   setEmployeeName: (name: string) => void;
   setEmployeeColor: (color: Color) => void;
   setEmployeeMaxHours: (maxHours: number) => void;
@@ -19,12 +23,16 @@ interface EditEmployeeInfoProps {
 
 export function EditEmployeeInfo(props: EditEmployeeInfoProps): JSX.Element {
   const {
+    name,
+    color,
+    maxHours,
+    minHours,
+    availableColors,
     setEmployeeName,
     setEmployeeColor,
     setEmployeeMaxHours,
     setEmployeeMinHours
   } = props;
-  const [employeeColor] = useState<Number>();
 
   const onColorUpdate = (event: SelectChangeEvent<string>): void => {
     const newColor = new Color(event.target.value);
@@ -37,6 +45,7 @@ export function EditEmployeeInfo(props: EditEmployeeInfoProps): JSX.Element {
         <TextField
           label="Employee Name"
           variant="standard"
+          value={name}
           onChange={(event) => setEmployeeName(event.target.value)}
         />
       </Grid>
@@ -46,7 +55,7 @@ export function EditEmployeeInfo(props: EditEmployeeInfoProps): JSX.Element {
           <Select
             labelId="employee-color-selector"
             id="employee-color-select"
-            value={employeeColor?.toString() ?? ""}
+            value={color?.colorName ?? ""}
             label="Employee Color"
             sx={{ width: "90%" }}
             onChange={onColorUpdate}
@@ -54,21 +63,21 @@ export function EditEmployeeInfo(props: EditEmployeeInfoProps): JSX.Element {
             <MenuItem value={0} sx={{ color: "gray" }}>
               Random
             </MenuItem>
-            <MenuItem value={10}>Blue</MenuItem>
-            <MenuItem value={20}>Green</MenuItem>
-            <MenuItem value={30}>Red</MenuItem>
+            {availableColors.map((color) => (
+              <MenuItem value={color.colorName}>{color.colorName}</MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Grid>
       <Grid item xs={3}>
         <TextField
           label="Minimum Hours per Week"
-          defaultValue={10}
           variant="standard"
           type="number"
           InputLabelProps={{
             shrink: true
           }}
+          value={minHours}
           onChange={(event) =>
             setEmployeeMinHours(parseInt(event.target.value))
           }
@@ -77,12 +86,12 @@ export function EditEmployeeInfo(props: EditEmployeeInfoProps): JSX.Element {
       <Grid item xs={3}>
         <TextField
           label="Maximum Hours per Week"
-          defaultValue={40}
           variant="standard"
           type="number"
           InputLabelProps={{
             shrink: true
           }}
+          value={maxHours}
           onChange={(event) =>
             setEmployeeMaxHours(parseInt(event.target.value))
           }
