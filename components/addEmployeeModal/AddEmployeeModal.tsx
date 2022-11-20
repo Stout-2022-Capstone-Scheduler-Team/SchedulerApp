@@ -15,11 +15,11 @@ import { useState } from "react";
 
 interface EmployeeModalProps {
   existingEmployees: Employee[];
-  addEmployee: Dispatch<ScheduleAction>;
+  dispatch: Dispatch<ScheduleAction>;
 }
 
 export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
-  const { existingEmployees, addEmployee } = props;
+  const { existingEmployees, dispatch } = props;
   const [open, setOpen] = useState(false);
   const [name, setName] = useState<string>("");
   const [minHours, setMinHours] = useState(0);
@@ -34,7 +34,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
     availability.forEach((avail) =>
       newEmployee.addAvailability(new Shift(avail.name, avail.start, avail.end))
     );
-    void addEmployee({ add: newEmployee });
+    void dispatch({ add: newEmployee });
     setOpen(false);
   };
 

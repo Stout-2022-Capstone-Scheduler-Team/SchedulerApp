@@ -1,17 +1,43 @@
-import React, { useState } from "react";
-import { Color, Employee, Schedule, Shift } from "../entities";
+import { useState } from "react";
+import { Color, Employee, Schedule, Shift, Time } from "../entities";
 import { generate } from "./waveform_collapse";
+import { or } from "./util";
+
+interface Add {
+  add: Employee | Shift;
+}
+
+interface Remove {
+  remove: Employee | Shift;
+}
+
+interface UpdateEmployee {
+  update: Employee;
+  color?: Color;
+  name?: string;
+  maxHours?: number;
+  minHours?: number;
+}
+
+interface UpdateShift {
+  update: Shift;
+  name?: string;
+  start?: Time;
+  end?: Time;
+}
+
+interface UpdateBase {
+  update: "default";
+  maxHours?: number;
+  minHours?: number;
+}
 
 export type ScheduleAction =
-  | { add: Employee | Shift }
-  | { remove: Employee | Shift }
-  | {
-      update: Employee;
-      color?: Color;
-      name?: string;
-      maxHours?: number;
-      minHours?: number;
-    };
+  | Add
+  | Remove
+  | UpdateEmployee
+  | UpdateShift
+  | UpdateBase;
 
 export async function updateSchedule(
   state: Schedule,
@@ -25,30 +51,60 @@ export async function updateSchedule(
     } else if (action.add instanceof Shift) {
       scheduleCopy.addShift(action.add);
     }
+  } else if ("remove" in action) {
+    if (action.remove instanceof Employee) {
+      scheduleCopy.removeEmployee(action.remove);
+    } else if (action.remove instanceof Shift) {
+      scheduleCopy.removeShift(action.remove);
+    }
+  } else if ("update" in action) {
+    if (action.update === "default") {
+      if (action.maxHours !== undefined) {
+        scheduleCopy.maxHoursWorked = action.maxHours;
+      }
+      if (action.minHours !== undefined) {
+        scheduleCopy.minHoursWorked = action.minHours;
+      }
+    } else if (action.update instanceof Shift) {
+      // @ts-ignore
+      const a: UpdateShift = action;
+      const e = scheduleCopy.removeShift(a.update);
+      scheduleCopy.addShift(
+        new Shift(or(a.name, e.name), or(a.start, e.start), or(a.end, e.end))
+      );
+    } else if (action.update instanceof Employee) {
+      // @ts-ignore
+      const a: UpdateEmployee = action;
+      const e = scheduleCopy.removeEmployee(a.update);
+      scheduleCopy.addEmployee(
+        new Employee(
+          or(a.name, e.name),
+          or(a.minHours, e.min_hours),
+          or(a.maxHours, e.max_hours),
+          or(a.color, e.color),
+          e.available
+        )
+      );
+    }
   }
 
   // Generate the schedule
-  // setBuildingSchedule(true);
   const schedulePromise = await generate(
     scheduleCopy.shifts,
     scheduleCopy.employees
   );
-  // // setBuildingSchedule(false);
-  if (schedulePromise) {
-    console.log(scheduleCopy);
-    // If the scheduler finished successfully, update the schedule object
-    return scheduleCopy;
-  } else {
+  if (!schedulePromise) {
     // If the scheduler failed, error out
-    console.error(
-      "Unable to build schedule completely, schedule was not updated"
-    );
-    return scheduleCopy;
+    console.error("Unable to build schedule completely");
   }
+  return scheduleCopy;
 }
 
 export type Dispatch<A> = (action: A) => Promise<void>;
 
+/**
+ * Async equavalent to React.useReducer
+ * */
 export function useAsyncReducer<T, A>(
   reducer: (state: T, action: A) => Promise<T>,
   initialState: T

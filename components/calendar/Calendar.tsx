@@ -3,14 +3,14 @@ import { Shift, Time } from "../../entities";
 import { DailyShifts } from "./DailyShifts";
 import { WeeklyDate } from "./WeeklyDate";
 
-import { Grid, Typography } from "@mui/material";
+import { CircularProgress, Fade, Grid, Typography } from "@mui/material";
 import { RefObject } from "react";
 
 interface CalendarProps {
   shifts: Shift[];
   employees: Employee[];
   exportRef?: RefObject<any>;
-  loading?: boolean;
+  loading: boolean;
 }
 
 export function Calendar({
@@ -20,8 +20,6 @@ export function Calendar({
   loading
 }: CalendarProps): JSX.Element {
   const dayOfWeekNumber = Time.getWeekDayNumbers();
-
-  const getLoading = (): boolean => loading ?? false;
 
   function getDayShifts(day: DayOftheWeek): Shift[] {
     return shifts
@@ -52,7 +50,15 @@ export function Calendar({
           </Grid>
         ))}
       </Grid>
-      {getLoading() && <Typography>Generating Schedule...</Typography>}
+      <Fade
+        in={loading}
+        style={{
+          transitionDelay: loading ? "800ms" : "0ms"
+        }}
+        unmountOnExit
+      >
+        <CircularProgress />
+      </Fade>
     </>
   );
 }

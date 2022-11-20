@@ -1,3 +1,4 @@
+import { Color } from "./color";
 import { Employee, Shift, Time } from "./types";
 
 export class Schedule {
@@ -82,7 +83,7 @@ export class Schedule {
             emp.name,
             emp.min_hours,
             emp.max_hours,
-            emp.color,
+            new Color(emp.color.colorName),
             emp.available.map(
               (shift) =>
                 new Shift(

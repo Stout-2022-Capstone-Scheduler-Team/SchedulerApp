@@ -17,6 +17,7 @@
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.9",
     "@mui/x-date-pickers": "^5.0.8",
+    "@testing-library/user-event": "^14.4.3",
     "@types/localforage": "^0.0.34",
     "@types/node": "18.8.2",
     "@types/react": "18.0.21",
