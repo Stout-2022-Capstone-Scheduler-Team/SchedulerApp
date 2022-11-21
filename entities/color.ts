@@ -28,7 +28,7 @@ export class Color {
   constructor(colorName?: string) {
     if (
       typeof colorName !== "string" ||
-      String(colorName).toLowerCase() === "random"
+      Color.colorsMap[colorName] === undefined
     ) {
       this.colorName = Color.getRandomColorName();
     } else {

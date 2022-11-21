@@ -38,8 +38,19 @@ export function EditEmployeeInfo(props: EditEmployeeInfoProps): JSX.Element {
     validHours
   } = props;
 
+  /**
+   * Event to fire when color selector is updated
+   */
   const onColorUpdate = (event: SelectChangeEvent<string>): void => {
-    const newColor = new Color(event.target.value);
+    const desiredColor = String(event.target.value);
+    let newColor: Color;
+    if (desiredColor.toLocaleLowerCase() === "random") {
+      newColor =
+        availableColors[Math.floor(Math.random() * availableColors.length)];
+    } else {
+      newColor = new Color(desiredColor);
+    }
+
     setEmployeeColor(newColor);
   };
 
