@@ -8,16 +8,15 @@ import {
   FormControlLabel,
   FormGroup,
   Modal,
+  TextField,
   Typography
 } from "@mui/material";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import TextField from "@mui/material/TextField";
+import { Dayjs } from "dayjs";
 import { useState } from "react";
 import modalStyle from "../../styles/modalStyle";
 import { DayOftheWeek, Shift, Time } from "../../entities";
+import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 
 interface AddAvailabilityModalProps {
   day: DayOftheWeek;
@@ -69,12 +68,12 @@ export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSX.Elem
 
   return (
     <>
-      <Button onClick={handleOpen} variant="contained" sx={{ m: 0 }}>
+      <Button onClick={handleOpen} variant="contained" >
         Add Availability
       </Button>
       <Modal open={open}>
-        <Card sx={{ ...modalStyle }}>
-          <CardContent sx={{ p: 0 }}>
+        <Card sx={modalStyle}>
+          <CardContent sx={{ p: 0, "&:last-child": { p: 0.25 }}}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Add Availability
             </Typography>
@@ -97,11 +96,11 @@ export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSX.Elem
                     setValueStartTime(newValueST);
                   }}
                   renderInput={(params) => <TextField {...params} />}
-                ></TimePicker>
+                />
               </LocalizationProvider>
             </FormControl>
             <FormControl>
-              <LocalizationProvider dateAdapter={AdapterDayjs} sx={{ m: 2 }}>
+              <LocalizationProvider dateAdapter={AdapterDayjs} sx={{ m: 0 }}>
                 <TimePicker
                   label="Select End Time"
                   value={valueEndTime}
@@ -110,7 +109,7 @@ export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSX.Elem
                     setValueEndTime(newValueET);
                   }}
                   renderInput={(params) => <TextField {...params} />}
-                ></TimePicker>
+                />
               </LocalizationProvider>
             </FormControl>
             <CardActions>
