@@ -7,13 +7,7 @@ import {
   FormControl,
   FormControlLabel,
   FormGroup,
-  getListItemSecondaryActionClassesUtilityClass,
-  Grid,
   Modal,
-  SelectChangeEvent,
-  Stack,
-  SxProps,
-  Theme,
   Typography
 } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
@@ -23,53 +17,54 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import modalStyle from "../../styles/modalStyle";
-import { DayOftheWeek, Employee, Shift, Time } from "../../entities";
+import { DayOftheWeek, Shift, Time } from "../../entities";
 
 interface AddAvailabilityModalProps {
-  addAvailability: (shift: Shift) => void;
   day: DayOftheWeek;
-  employee?: Employee;
+  addAvailability: (shift: Shift) => void;
 }
 export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSX.Element {
-  const {addAvailability, day, employee } = props;
+  // Props
+  const { day, addAvailability } = props;
 
+  // Employee State
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
-
   const [valueStartTime, setValueStartTime] = useState<Dayjs | null>(null);
   const [valueEndTime, setValueEndTime] = useState<Dayjs | null>(null);
 
+  // Form Event Handlers
   const handleOpen = (): void => setOpen(true);
-
-  const handleClose = (): void => {
-    setOpen(false);
-    setValueStartTime(null);
-    setValueEndTime(null);
-    setChecked(false);
-  };
-
+  const handleClose = (): void => clearInputs();
   const handleSubmit = (): void => {
-    // check if both arent null
-    // check that start is less than last
-
-    addAvailability(new Shift("", Time.fromDayJs(valueStartTime, day), Time.fromDayJs(valueEndTime, day), employee?.name));
-
-    setValueStartTime(null);
-    setValueEndTime(null);
-    setChecked(false);
-    setOpen(false);
+    if (validateInputs()) {
+      // Is there anything I have to name the shift as?
+      addAvailability(new Shift("", Time.fromDayJs(valueStartTime, day), Time.fromDayJs(valueEndTime, day)));
+      clearInputs();
+    } else {
+      alert("Please enter a valid time!");
+    }
   };
 
-
-  //this fails when we click in a new tab after, we want to store [] one component up, and then filter
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-
-    if(checked) {
-      //set time to 0 -24
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    if (event.target.checked) {
       setValueStartTime(null);
       setValueEndTime(null);
     }
+
+    setChecked(event.target.checked);
+  };
+
+  const validateInputs = (): boolean => {
+    const nonNull = valueStartTime !== null && valueEndTime !== null;
+    return checked || (nonNull && valueStartTime.isBefore(valueEndTime));
+  };
+
+  const clearInputs = (): void => {
+    setOpen(false);
+    setChecked(false);
+    setValueStartTime(null);
+    setValueEndTime(null);
   };
 
   return (
@@ -89,7 +84,7 @@ export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSX.Elem
                   checked={checked}
                   onChange={handleChange}
                 />}
-                label="Available all day"
+                label="All day"
               />
             </FormGroup>
             <FormControl sx={{ mr: 2 }}>

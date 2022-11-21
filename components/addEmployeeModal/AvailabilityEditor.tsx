@@ -40,7 +40,7 @@ export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
         </Stack>
       </Grid>
       <Grid item sx={{ px: "1rem" }}>
-        <AddAvailabilityModal addAvailability={addAvailability} day={day} />
+        <AddAvailabilityModal day={day} addAvailability={addAvailability} />
       </Grid>
     </Grid>
   );
