@@ -174,6 +174,13 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
     return freeColorNames.map((name) => new Color(name));
   };
 
+  // const addAvailability = (shift: Shift): void => {
+  //   setAvailability([
+  //     ...availability,
+  //     shift
+  //   ]);
+  // };
+
   return (
     <>
       <Button onClick={handleOpen} variant={"contained"} color={"secondary"}>
