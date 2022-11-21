@@ -11,13 +11,21 @@ import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { ScheduleAction, Dispatch } from "../../services/scheduleState";
+import { DayOftheWeek, Employee, Shift, Time } from "../../entities";
 
-export function AddShiftModal(): JSX.Element {
+interface ShiftModalProps {
+  existingShifts: Shift[];
+  dispatch: Dispatch<ScheduleAction>;
+}
+
+export function AddShiftModal(props: ShiftModalProps): JSX.Element {
+  // Props
+  const { dispatch } = props;
+
   const [open, setOpen] = React.useState(false);
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  const handleOpen = () => setOpen(true);
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  const handleClose = () => setOpen(false);
+  const handleOpen = (): void => setOpen(true);
+  const handleClose = (): void => setOpen(false);
   const [DayVal, setDay] = React.useState("");
   const [valueStartTime, setValueStartTime] = React.useState<Dayjs | null>(
     null
@@ -26,6 +34,25 @@ export function AddShiftModal(): JSX.Element {
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleChange = (event: SelectChangeEvent) => {
     setDay(event.target.value);
+  };
+
+  // Event Handler
+  const handleSubmit = (): void => {
+    if (DayVal !== "" && valueStartTime !== null && valueEndTime !== null) {
+      const newShift = new Shift("", Time.fromDayjs(valueStartTime), Time.fromDayjs(valueEndTime));
+      void dispatch({ add: newShift });
+      setOpen(false);
+      clearInputs();
+    }
+  };
+
+  /**
+   * Clear the modal's inputs (resets the state)
+   */
+  const clearInputs = (): void => {
+    setDay("");
+    setValueStartTime(null);
+    setValueEndTime(null);
   };
   return (
     <>
@@ -89,7 +116,7 @@ export function AddShiftModal(): JSX.Element {
               />
             </LocalizationProvider>
             <Typography id="modal-submit" sx={{ mt: 2 }}></Typography>
-            <Button variant="contained">Submit</Button>
+            <Button variant="contained" onClick={handleSubmit}>Submit</Button>
           </CardContent>
         </Card>
       </Modal>

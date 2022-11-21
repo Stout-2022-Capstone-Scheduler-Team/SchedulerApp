@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs";
+
 /**
  * Represents a point in time
  */
@@ -17,6 +19,10 @@ export class Time {
   static fromString(s: string, day: DayOftheWeek): Time {
     const [hours, minutes] = s.split(":");
     return new Time(Number(hours) + Number(minutes) / 60, day);
+  }
+
+  static fromDayjs(time: Dayjs): Time {
+    return new Time(time.hour() + time.minute() / 60, time.day());
   }
 
   /**

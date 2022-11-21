@@ -32,7 +32,10 @@ export default function EditSchedule(): JSX.Element {
       />
       <Stack spacing={2} direction={"row"}>
         <ExportModal componentToExport={exportRef} />
-        <AddShiftModal />
+        <AddShiftModal
+          existingShifts={schedule.shifts}
+          dispatch={dispatch}
+        />
         <AddEmployeeModal
           existingEmployees={schedule.employees}
           dispatch={dispatch}
