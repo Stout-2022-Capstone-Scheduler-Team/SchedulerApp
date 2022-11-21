@@ -100,7 +100,16 @@ exports[`Modal opens and closes 1`] = `
         Add Shift
         <span
           class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-        />
+        >
+          <span
+            class="css-y4cjyz-MuiTouchRipple-ripple MuiTouchRipple-ripple MuiTouchRipple-rippleVisible"
+            style="width: 2.8284271247461903px; height: 2.8284271247461903px; top: -1.4142135623730951px; left: -1.4142135623730951px;"
+          >
+            <span
+              class="MuiTouchRipple-child MuiTouchRipple-childLeaving"
+            />
+          </span>
+        </span>
       </button>
     </div>
     <div
@@ -131,7 +140,7 @@ exports[`Modal opens and closes 1`] = `
           />
           <p
             class="MuiTypography-root MuiTypography-body1 css-ix1f03-MuiTypography-root"
-            id="selectDay"
+            id="Select Start Day"
           />
           <div
             class="MuiBox-root css-ece9u5"
@@ -142,9 +151,9 @@ exports[`Modal opens and closes 1`] = `
               <label
                 class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
                 data-shrink="false"
-                id="selectDayLabel"
+                id="SelectStartDay"
               >
-                Select Day
+                Select Start Day
               </label>
               <div
                 class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl  css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
@@ -152,9 +161,8 @@ exports[`Modal opens and closes 1`] = `
                 <div
                   aria-expanded="false"
                   aria-haspopup="listbox"
-                  aria-labelledby="selectDayLabel demo-simple-select"
+                  aria-labelledby="SelectStartDay"
                   class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
-                  id="demo-simple-select"
                   role="button"
                   tabindex="0"
                 >
@@ -189,7 +197,7 @@ exports[`Modal opens and closes 1`] = `
                     class="css-yjsfm1"
                   >
                     <span>
-                      Select Day
+                      Select Start Day
                     </span>
                   </legend>
                 </fieldset>
@@ -264,6 +272,72 @@ exports[`Modal opens and closes 1`] = `
                   </span>
                 </legend>
               </fieldset>
+            </div>
+          </div>
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-ix1f03-MuiTypography-root"
+            id="Select End Day"
+          />
+          <div
+            class="MuiBox-root css-ece9u5"
+          >
+            <div
+              class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+            >
+              <label
+                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+                data-shrink="false"
+                id="SelectEndDay"
+              >
+                Select End Day
+              </label>
+              <div
+                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl  css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+              >
+                <div
+                  aria-expanded="false"
+                  aria-haspopup="listbox"
+                  aria-labelledby="SelectEndDay"
+                  class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+                  role="button"
+                  tabindex="0"
+                >
+                  <span
+                    class="notranslate"
+                  >
+                    ​
+                  </span>
+                </div>
+                <input
+                  aria-hidden="true"
+                  class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+                  tabindex="-1"
+                  value=""
+                />
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
+                  data-testid="ArrowDropDownIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M7 10l5 5 5-5z"
+                  />
+                </svg>
+                <fieldset
+                  aria-hidden="true"
+                  class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                >
+                  <legend
+                    class="css-yjsfm1"
+                  >
+                    <span>
+                      Select End Day
+                    </span>
+                  </legend>
+                </fieldset>
+              </div>
             </div>
           </div>
           <p
@@ -367,7 +441,16 @@ exports[`Modal opens and closes 1`] = `
       Add Shift
       <span
         class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-      />
+      >
+        <span
+          class="css-y4cjyz-MuiTouchRipple-ripple MuiTouchRipple-ripple MuiTouchRipple-rippleVisible"
+          style="width: 2.8284271247461903px; height: 2.8284271247461903px; top: -1.4142135623730951px; left: -1.4142135623730951px;"
+        >
+          <span
+            class="MuiTouchRipple-child MuiTouchRipple-childLeaving"
+          />
+        </span>
+      </span>
     </button>
   </div>,
   "debug": [Function],
