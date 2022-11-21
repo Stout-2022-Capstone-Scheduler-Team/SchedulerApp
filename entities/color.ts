@@ -36,6 +36,10 @@ export class Color {
     }
 
     this.colorHex = Color.colorsMap[this.colorName];
+
+    if (colorName === "White") {
+      this.colorHex = "#ffffff";
+    }
   }
 
   static getRandomColorName(): string {
