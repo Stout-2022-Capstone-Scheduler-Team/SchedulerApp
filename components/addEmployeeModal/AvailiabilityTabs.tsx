@@ -4,7 +4,8 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
 import { AvailabilityEditor, EditEmployeeInfo, TabPanel } from "../";
-import { Time } from "../../entities";
+import { Shift, Time } from "../../entities";
+import { useState } from "react";
 
 function a11yProps(index: number): { id: string; "aria-controls": string } {
   return {
@@ -15,6 +16,16 @@ function a11yProps(index: number): { id: string; "aria-controls": string } {
 
 export function AvailabilityTabs(): JSX.Element {
   const [current, setCurrent] = React.useState(0);
+
+  const [availabilityArray, setAvailabilityArray] = useState<Shift[]>([]);
+
+  // //Work on updating Availability on Submit
+  const addAvailability = (shift: Shift): void => {
+    setAvailabilityArray([
+      ...availabilityArray,
+      shift
+    ]);
+  };
 
   const handleChange = (
     event: React.SyntheticEvent,
@@ -44,7 +55,7 @@ export function AvailabilityTabs(): JSX.Element {
       </TabPanel>
       {Time.getWeekDayNumbers().map((day, index) => (
         <TabPanel value={current} index={index + 1} key={index}>
-          <AvailabilityEditor day={day} />
+          <AvailabilityEditor day={day} dailyAvailability={availabilityArray.filter(shift => shift.start.day === day)} addAvailability={addAvailability}/>
         </TabPanel>
       ))}
     </Box>

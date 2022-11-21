@@ -1,12 +1,12 @@
 import { Grid, Stack, SxProps, Theme, Typography } from "@mui/material";
-import { useState } from "react";
 import { AvailabilityCard } from "..";
-import { Shift, DayOftheWeek, Time, Employee } from "../../entities";
+import { Shift, DayOftheWeek } from "../../entities";
 import { AddAvailabilityModal } from "./AddAvailabilityModal";
 
 interface TabPanelProps {
   day: DayOftheWeek;
-  employee?: Employee;
+  dailyAvailability: Shift[];
+  addAvailability: (shift: Shift) => void;
 }
 
 const availabilityStyle: SxProps<Theme> = {
@@ -19,26 +19,14 @@ const availabilityStyle: SxProps<Theme> = {
 };
 
 export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
-  const { day, employee } = props;
-  const [availabilityArray, setAvailabilityArray] = useState<Shift[]>([
-    new Shift("emp1", new Time(10, day), new Time(16, day), employee?.name),
-    new Shift("emp1", new Time(10, day), new Time(17, day), employee?.name)
-  ]);
-
-  //Work on updating Availability on Submit
-  const addAvailability = (shift: Shift): void => {
-    setAvailabilityArray([ 
-      ...availabilityArray,
-      shift
-    ])
-  };
+  const { day, dailyAvailability, addAvailability } = props;
 
   return (
     <Grid container sx={{ minHeight: "300px" }}>
       <Grid item xs={6}>
         <Stack direction="column" spacing={1} sx={availabilityStyle}>
           <Typography variant="h6">{DayOftheWeek[day]} Availability</Typography>
-          {availabilityArray.map((shift: Shift) => (
+          {dailyAvailability.map((shift: Shift) => (
             <AvailabilityCard
               shift={shift}
               key={
@@ -52,7 +40,7 @@ export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
         </Stack>
       </Grid>
       <Grid item sx={{ px: "1rem" }}>
-        <AddAvailabilityModal addAvailability={addAvailability} day={day} employee={employee}/>
+        <AddAvailabilityModal addAvailability={addAvailability} day={day} />
       </Grid>
     </Grid>
   );

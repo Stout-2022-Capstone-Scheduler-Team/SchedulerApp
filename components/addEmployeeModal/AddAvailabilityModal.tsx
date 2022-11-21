@@ -24,7 +24,6 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import modalStyle from "../../styles/modalStyle";
 import { DayOftheWeek, Employee, Shift, Time } from "../../entities";
-import { useNextMonthDisabled } from "@mui/x-date-pickers/internals/hooks/date-helpers-hooks";
 
 interface AddAvailabilityModalProps {
   addAvailability: (shift: Shift) => void;
@@ -66,6 +65,7 @@ export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSXEleme
   };
 
 
+  //this fails when we click in a new tab after, we want to store [] one component up, and then filter
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
 
