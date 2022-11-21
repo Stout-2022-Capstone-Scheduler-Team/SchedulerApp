@@ -100,6 +100,9 @@ test("Full Add Employee", async () => {
   // Enter availability
   await user.click(modal.getByText(/Monday/i));
   await user.click(modal.getByText(/Add Availability/i));
+  await user.type(modal.getAllByLabelText(/Select Start Time/i)[0], "10:00 AM");
+  await user.type(modal.getAllByLabelText(/Select End Time/i)[0], "12:00 PM");
+  await user.click(modal.getByText(/^Add$/i));
 
   // Submit
   await user.click(modal.getByText(/Submit/i));
@@ -110,7 +113,7 @@ test("Full Add Employee", async () => {
     new Shift(
       "emp1",
       new Time(10, DayOftheWeek.Monday),
-      new Time(16, DayOftheWeek.Monday)
+      new Time(12, DayOftheWeek.Monday)
     )
   );
   expect(dispatch.mock.calls).toEqual([[{ add: newEmp }]]);

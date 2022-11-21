@@ -128,7 +128,7 @@ export function AddAvailabilityModal(
                 variant={"contained"}
                 disabled={!validateInputs()}
               >
-                Submit
+                Add
               </Button>
             </CardActions>
           </CardContent>

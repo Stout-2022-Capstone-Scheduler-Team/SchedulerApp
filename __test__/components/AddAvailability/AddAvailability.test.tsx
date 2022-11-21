@@ -72,7 +72,7 @@ test("Full Add Availability", async () => {
   await user.type(modal.getAllByLabelText(/Select End Time/i)[0], "12:00 PM");
 
   // Submit
-  await user.click(modal.getByText(/Submit/i));
+  await user.click(modal.getByText(/^Add$/i));
 
   const newShift = new Shift(
     "",
@@ -98,7 +98,7 @@ test("Full Add Availability Checked", async () => {
   await user.click(modal.getByText(/All Day/i));
 
   // Submit
-  await user.click(modal.getByText(/Submit/i));
+  await user.click(modal.getByText(/^Add$/i));
 
   const newShift = new Shift(
     "",
