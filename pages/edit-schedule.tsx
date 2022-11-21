@@ -14,10 +14,8 @@ export default function EditSchedule(): JSX.Element {
   const [buildingSchedule, setBuildingSchedule] = useState<boolean>(false);
   const [schedule, dispatch] = useAsyncReducer(async (a, b: ScheduleAction) => {
     setBuildingSchedule(true);
-    const ret = await updateSchedule(a, b);
-    setBuildingSchedule(false);
-    return ret;
-  }, new Schedule([], [new Shift("testShift1", new Time(10, DayOftheWeek.Monday), new Time(15, DayOftheWeek.Monday)), new Shift("testShift2", new Time(15, DayOftheWeek.Monday), new Time(16, DayOftheWeek.Monday)), new Shift("testShift3", new Time(10, DayOftheWeek.Wednesday), new Time(18, DayOftheWeek.Wednesday)), new Shift("testShift4", new Time(12, DayOftheWeek.Tuesday), new Time(16, DayOftheWeek.Tuesday))]));
+    return await updateSchedule(a, b).finally(() => setBuildingSchedule(false));
+  }, new Schedule([], []));
 
   // Reference to the calendar which enables exporting it
   const exportRef = useRef(null);

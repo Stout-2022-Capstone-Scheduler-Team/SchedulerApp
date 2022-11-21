@@ -1,7 +1,9 @@
 import { Color, Employee, Schedule, Shift, Time } from "../../entities";
-import { updateSchedule } from "../../services/scheduleState";
+import { updateSchedule, useAsyncReducer } from "../../services/scheduleState";
 import { Monday, Tuesday } from "../utils";
 import { generate } from "../../services/waveform_collapse";
+import { sleepTask } from "../../services";
+import React, { SetStateAction } from "react";
 
 jest.mock("../../services/waveform_collapse");
 
@@ -110,4 +112,73 @@ test("Update default", async () => {
   });
   expect(ret.minHoursWorked).toBe(1);
   expect(ret.maxHoursWorked).toBe(2);
+});
+
+test("Schedule Error reporting", async () => {
+  const schedule = new Schedule([], []);
+  console.error = jest.fn();
+  const mocked = jest.mocked(console.error);
+  jest.mocked(generate).mockResolvedValueOnce(false);
+  await updateSchedule(schedule, {
+    update: "default"
+  });
+
+  expect(mocked).toBeCalled();
+});
+
+function defined<T>(val: T | undefined): T {
+  if (val === undefined) {
+    throw new Error("Expected val to be defined");
+  } else {
+    return val;
+  }
+}
+
+test("Async Reducer", async () => {
+  React.useState = jest.fn();
+  const a: { a: number } | undefined = { a: 0 };
+  jest.mocked(React.useState<typeof a>).mockReturnValueOnce([
+    a,
+    (value: SetStateAction<typeof a | undefined>): void => {
+      if (value !== undefined) {
+        if (typeof value === "function") {
+          const v = value(a);
+          if (v !== undefined) {
+            a.a = v.a;
+          }
+        } else {
+          a.a = value.a;
+        }
+      }
+    }
+  ]);
+
+  const resolvers: Array<(v: unknown) => void> = [];
+  const [val, dispatch] = useAsyncReducer(
+    async (a: { a: number }, b: number) => {
+      await new Promise((resolve) => resolvers.push(resolve));
+      return { a: a.a + b };
+    },
+    { a: 0 }
+  );
+
+  expect(val.a).toBe(0);
+  dispatch(1);
+  await sleepTask(0);
+  expect(val.a).toBe(0);
+  defined(resolvers.pop())(undefined);
+  await sleepTask(0);
+  expect(val.a).toBe(1);
+  dispatch(1);
+  await sleepTask(0);
+  expect(val.a).toBe(1);
+  dispatch(2);
+  await sleepTask(0);
+  expect(val.a).toBe(1);
+  defined(resolvers.pop())(undefined);
+  await sleepTask(0);
+  expect(val.a).toBe(2);
+  defined(resolvers.pop())(undefined);
+  await sleepTask(0);
+  expect(val.a).toBe(4);
 });

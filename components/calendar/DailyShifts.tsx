@@ -14,7 +14,7 @@ export function DailyShifts({ allShifts, employees }: Props): JSX.Element {
       shift={shift}
       employee={
         employees.find((emp) => emp.name === shift.owner) ??
-        new Employee("DEFAULT", 0, 0, new Color())
+        new Employee("DEFAULT", 0, 0, new Color("White"))
       }
       key={shift.owner + shift.start.toString()}
     />

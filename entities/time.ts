@@ -21,8 +21,8 @@ export class Time {
     return new Time(Number(hours) + Number(minutes) / 60, day);
   }
 
-  static fromDayjs(time: Dayjs): Time {
-    return new Time(time.hour() + time.minute() / 60, time.day());
+  static fromDayjs(time: Dayjs, day: DayOftheWeek): Time {
+    return new Time(time.hour() + time.minute() / 60, day);
   }
 
   /**
@@ -54,7 +54,9 @@ export class Time {
     // Set hours
     if (hour > 12) {
       hour -= 12;
-      zone = "pm";
+      if (hour !== 12) {
+        zone = "pm";
+      }
     } else if (hour === 0) {
       hour = 12;
     }

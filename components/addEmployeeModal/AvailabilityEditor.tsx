@@ -1,6 +1,7 @@
-import { Button, Grid, Stack, SxProps, Theme, Typography } from "@mui/material";
+import { Grid, Stack, SxProps, Theme, Typography } from "@mui/material";
 import { AvailabilityCard } from "..";
-import { Shift, DayOftheWeek, Time, Employee } from "../../entities";
+import { Shift, DayOftheWeek } from "../../entities";
+import { AddAvailabilityModal } from "./AddAvailabilityModal";
 
 interface TabPanelProps {
   day: DayOftheWeek;
@@ -50,22 +51,7 @@ export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
         </Stack>
       </Grid>
       <Grid item sx={{ px: "1rem" }}>
-        <Button
-          variant="contained"
-          sx={{ m: 0 }}
-          onClick={() =>
-            addAvailability(
-              new Shift(
-                "emp1",
-                new Time(10, day),
-                new Time(16, day),
-                employee?.name
-              )
-            )
-          }
-        >
-          Add Availability
-        </Button>
+        <AddAvailabilityModal day={day} addAvailability={addAvailability} />
       </Grid>
     </Grid>
   );
