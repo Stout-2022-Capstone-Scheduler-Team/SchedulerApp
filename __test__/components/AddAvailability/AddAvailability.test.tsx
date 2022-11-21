@@ -1,8 +1,7 @@
 import { AddAvailabilityModal } from "../../../components";
-import { render, within } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Color, DayOftheWeek, Employee, Shift, Time } from "../../../entities";
-import { useStyleRegistry } from "styled-jsx";
+import { DayOftheWeek, Shift, Time } from "../../../entities";
 
 test("Add Availability Renders", () => {
   const addavailability = jest.fn();

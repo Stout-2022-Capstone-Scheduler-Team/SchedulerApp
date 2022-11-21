@@ -3,7 +3,7 @@ import { Shift, Time } from "../../entities";
 import { DailyShifts } from "./DailyShifts";
 import { WeeklyDate } from "./WeeklyDate";
 
-import { CircularProgress, Fade, Grid, Typography } from "@mui/material";
+import { CircularProgress, Fade, Grid } from "@mui/material";
 import { RefObject } from "react";
 
 interface CalendarProps {

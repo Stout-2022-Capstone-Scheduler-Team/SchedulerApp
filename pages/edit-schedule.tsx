@@ -7,7 +7,6 @@ import {
 } from "../components";
 import { Stack } from "@mui/material";
 import { Schedule } from "../entities/schedule";
-import { DayOftheWeek, Shift, Time } from "../entities";
 import { ScheduleAction, updateSchedule, useAsyncReducer } from "../services";
 
 export default function EditSchedule(): JSX.Element {
@@ -30,10 +29,7 @@ export default function EditSchedule(): JSX.Element {
       />
       <Stack spacing={2} direction={"row"}>
         <ExportModal componentToExport={exportRef} />
-        <AddShiftModal
-          existingShifts={schedule.shifts}
-          dispatch={dispatch}
-        />
+        <AddShiftModal existingShifts={schedule.shifts} dispatch={dispatch} />
         <AddEmployeeModal
           existingEmployees={schedule.employees}
           dispatch={dispatch}

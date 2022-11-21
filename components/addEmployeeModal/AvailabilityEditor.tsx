@@ -21,13 +21,8 @@ const availabilityStyle: SxProps<Theme> = {
 };
 
 export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
-  const {
-    day,
-    employee,
-    currentAvailability,
-    addAvailability,
-    removeAvailability
-  } = props;
+  const { day, currentAvailability, addAvailability, removeAvailability } =
+    props;
 
   return (
     <Grid container sx={{ minHeight: "300px" }}>

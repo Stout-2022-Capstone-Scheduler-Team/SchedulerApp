@@ -46,8 +46,8 @@ export function AddAvailabilityModal(
       addAvailability(
         new Shift(
           "",
-          Time.fromDayjs(valueStartTime || new Dayjs(), day),
-          Time.fromDayjs(valueEndTime || new Dayjs(), day)
+          Time.fromDayjs(valueStartTime ?? new Dayjs(), day),
+          Time.fromDayjs(valueEndTime ?? new Dayjs(), day)
         )
       );
       clearInputs();
