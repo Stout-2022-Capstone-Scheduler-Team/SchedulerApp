@@ -21,8 +21,8 @@ export class Time {
     return new Time(Number(hours) + Number(minutes) / 60, day);
   }
 
-  static fromDayjs(time: Dayjs): Time {
-    return new Time(time.hour() + time.minute() / 60, time.day());
+  static fromDayjs(time: Dayjs, day: DayOftheWeek): Time {
+    return new Time(time.hour() + time.minute() / 60, day);
   }
 
   /**
