@@ -111,7 +111,7 @@ test("Full Add Employee", async () => {
   const newEmp = new Employee("Alice", 0, 40, new Color("Red"));
   newEmp.addAvailability(
     new Shift(
-      "emp1",
+      "",
       new Time(10, DayOftheWeek.Monday),
       new Time(12, DayOftheWeek.Monday)
     )
