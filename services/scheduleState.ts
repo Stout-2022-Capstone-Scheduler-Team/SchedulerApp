@@ -66,15 +66,13 @@ export async function updateSchedule(
         scheduleCopy.minHoursWorked = action.minHours;
       }
     } else if (action.update instanceof Shift) {
-      // @ts-ignore
-      const a: UpdateShift = action;
+      const a = action as UpdateShift;
       const e = scheduleCopy.removeShift(a.update);
       scheduleCopy.addShift(
         new Shift(or(a.name, e.name), or(a.start, e.start), or(a.end, e.end))
       );
     } else if (action.update instanceof Employee) {
-      // @ts-ignore
-      const a: UpdateEmployee = action;
+      const a = action as UpdateEmployee;
       const e = scheduleCopy.removeEmployee(a.update);
       scheduleCopy.addEmployee(
         new Employee(
