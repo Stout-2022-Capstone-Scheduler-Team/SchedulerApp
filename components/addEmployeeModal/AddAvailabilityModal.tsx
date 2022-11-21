@@ -36,7 +36,10 @@ export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSX.Elem
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => clearInputs();
   const handleSubmit = (): void => {
-    if (validateInputs()) {
+    if (checked) {
+      addAvailability(new Shift("", new Time(0, day), new Time(24, day)));
+      clearInputs();
+    } else if (validateInputs()) {
       // Is there anything I have to name the shift as?
       addAvailability(new Shift("", Time.fromDayJs(valueStartTime, day), Time.fromDayJs(valueEndTime, day)));
       clearInputs();
@@ -56,7 +59,7 @@ export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSX.Elem
 
   const validateInputs = (): boolean => {
     const nonNull = valueStartTime !== null && valueEndTime !== null;
-    return checked || (nonNull && valueStartTime.isBefore(valueEndTime));
+    return nonNull && valueStartTime.isBefore(valueEndTime);
   };
 
   const clearInputs = (): void => {
