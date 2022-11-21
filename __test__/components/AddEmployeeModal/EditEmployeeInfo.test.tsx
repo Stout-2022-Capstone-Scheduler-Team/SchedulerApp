@@ -7,14 +7,16 @@ it("Can Render", () => {
   const dom = render(
     <EditEmployeeInfo
       name={""}
-      color={new Color("blue")}
+      color={new Color("Blue")}
       maxHours={40}
       minHours={0}
-      availableColors={[new Color("blue")]}
+      availableColors={[new Color("Blue")]}
       setEmployeeName={(name: string) => null}
       setEmployeeColor={(color: Color) => null}
       setEmployeeMaxHours={(maxHours: number) => null}
       setEmployeeMinHours={(minHours: number) => null}
+      validName={true}
+      validHours={true}
     />
   );
 

@@ -54,7 +54,7 @@ test("Remove Shift", async () => {
 });
 
 test("Update Employee", async () => {
-  const emp = new Employee("alice", 1, 1, new Color("red"));
+  const emp = new Employee("alice", 1, 1, new Color("Red"));
   const schedule = new Schedule([emp], []);
   {
     const ret = await updateSchedule(schedule, {
@@ -62,10 +62,10 @@ test("Update Employee", async () => {
       name: "bob",
       maxHours: 2,
       minHours: 2,
-      color: new Color("green")
+      color: new Color("Green")
     });
     expect(ret.employees).toStrictEqual([
-      new Employee("bob", 2, 2, new Color("green"))
+      new Employee("bob", 2, 2, new Color("Green"))
     ]);
   }
   {
@@ -74,7 +74,7 @@ test("Update Employee", async () => {
       name: "bob"
     });
     expect(ret.employees).toStrictEqual([
-      new Employee("bob", 1, 1, new Color("red"))
+      new Employee("bob", 1, 1, new Color("Red"))
     ]);
   }
 });

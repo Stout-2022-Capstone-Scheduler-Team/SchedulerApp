@@ -1,8 +1,8 @@
 import { AddEmployeeModal } from "../../../components";
-import { render } from "@testing-library/react";
+import { render, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Color, DayOftheWeek, Employee, Shift, Time } from "../../../entities";
-jest.mock("../../../entities/color");
+// jest.mock("../../../entities/color");
 
 test("Add Employee Renders", () => {
   const dispatch = jest.fn();
@@ -94,23 +94,25 @@ test("Full Add Employee", async () => {
   await user.click(modal.getByText(/Add Employee/i));
 
   // Enter basic details
-  await user.type(modal.getByLabelText(/Employee Name/i), "Alice");
+  await user.type(modal.getAllByLabelText(/Employee Name/i)[0], "Alice");
   await user.click(modal.getByLabelText(/Employee Color/i));
-  await user.click(modal.getByText(/Red/i));
+  const colorList = within(modal.getByRole("listbox"));
+  await user.click(colorList.getByText(/Red/i));
 
   // Enter availability
   await user.click(modal.getByText(/Monday/i));
-  // TODO
+  await user.click(modal.getByText(/Add Availability/i));
 
+  // Submit
   await user.click(modal.getByText(/Submit/i));
 
   // Assert
   const newEmp = new Employee("Alice", 0, 40, new Color("Red"));
   newEmp.addAvailability(
     new Shift(
-      "",
-      new Time(8, DayOftheWeek.Monday),
-      new Time(4, DayOftheWeek.Friday)
+      "emp1",
+      new Time(10, DayOftheWeek.Monday),
+      new Time(16, DayOftheWeek.Monday)
     )
   );
   expect(dispatch.mock.calls).toEqual([[{ add: newEmp }]]);

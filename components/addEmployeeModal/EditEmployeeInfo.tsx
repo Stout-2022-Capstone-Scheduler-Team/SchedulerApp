@@ -81,7 +81,10 @@ export function EditEmployeeInfo(props: EditEmployeeInfoProps): JSX.Element {
               Random
             </MenuItem>
             {availableColors.map((color) => (
-              <MenuItem value={color.colorName} key={color.colorName}>
+              <MenuItem
+                value={color.colorName}
+                key={color.colorName + color.colorHex}
+              >
                 {color.colorName}
               </MenuItem>
             ))}
