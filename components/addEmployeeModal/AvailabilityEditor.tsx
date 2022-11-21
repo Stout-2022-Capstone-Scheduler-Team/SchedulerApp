@@ -5,8 +5,10 @@ import { AddAvailabilityModal } from "./AddAvailabilityModal";
 
 interface TabPanelProps {
   day: DayOftheWeek;
-  dailyAvailability: Shift[];
-  addAvailability: (shift: Shift) => void;
+  employee?: Employee;
+  currentAvailability: Shift[];
+  addAvailability: (newAvailability: Shift) => void;
+  removeAvailability: (oldAvailability: Shift) => void;
 }
 
 const availabilityStyle: SxProps<Theme> = {
@@ -19,22 +21,29 @@ const availabilityStyle: SxProps<Theme> = {
 };
 
 export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
-  const { day, dailyAvailability, addAvailability } = props;
+  const {
+    day,
+    employee,
+    currentAvailability,
+    addAvailability,
+    removeAvailability
+  } = props;
 
   return (
     <Grid container sx={{ minHeight: "300px" }}>
       <Grid item xs={6}>
         <Stack direction="column" spacing={1} sx={availabilityStyle}>
           <Typography variant="h6">{DayOftheWeek[day]} Availability</Typography>
-          {dailyAvailability.map((shift: Shift) => (
+          {currentAvailability.map((shift: Shift) => (
             <AvailabilityCard
-              shift={shift}
               key={
                 shift.name +
                 shift.start.toString() +
                 shift.end.toString() +
                 shift.owner
               }
+              shift={shift}
+              killMe={() => removeAvailability(shift)}
             />
           ))}
         </Stack>
