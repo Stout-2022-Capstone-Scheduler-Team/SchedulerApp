@@ -3,9 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
-import { AvailabilityEditor, EditEmployeeInfo, TabPanel } from "../";
-import { Shift, Time } from "../../entities";
-import { useState } from "react";
+import { TabPanel } from "../";
 
 function a11yProps(index: number): { id: string; "aria-controls": string } {
   return {
@@ -14,18 +12,14 @@ function a11yProps(index: number): { id: string; "aria-controls": string } {
   };
 }
 
-export function AvailabilityTabs(): JSX.Element {
+interface Props {
+  tabContent: JSX.Element[];
+  tabHeaders: string[];
+}
+
+export function AvailabilityTabs(props: Props): JSX.Element {
+  const { tabContent, tabHeaders } = props;
   const [current, setCurrent] = React.useState(0);
-
-  const [availabilityArray, setAvailabilityArray] = useState<Shift[]>([]);
-
-  // //Work on updating Availability on Submit
-  const addAvailability = (shift: Shift): void => {
-    setAvailabilityArray([
-      ...availabilityArray,
-      shift
-    ]);
-  };
 
   const handleChange = (
     event: React.SyntheticEvent,
@@ -44,18 +38,14 @@ export function AvailabilityTabs(): JSX.Element {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Employee Info" {...a11yProps(0)} />
-          {Time.getWeekDays().map((day, index) => (
-            <Tab label={day} key={day} {...a11yProps(index + 1)} />
+          {tabHeaders.map((header, index) => (
+            <Tab label={header} key={header} {...a11yProps(index + 1)} />
           ))}
         </Tabs>
       </Box>
-      <TabPanel value={current} index={0}>
-        <EditEmployeeInfo />
-      </TabPanel>
-      {Time.getWeekDayNumbers().map((day, index) => (
-        <TabPanel value={current} index={index + 1} key={index}>
-          <AvailabilityEditor day={day} dailyAvailability={availabilityArray.filter(shift => shift.start.day === day)} addAvailability={addAvailability}/>
+      {tabContent.map((child, index) => (
+        <TabPanel value={current} index={index} key={index}>
+          {child}
         </TabPanel>
       ))}
     </Box>

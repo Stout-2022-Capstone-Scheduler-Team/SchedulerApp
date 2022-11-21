@@ -1,4 +1,5 @@
 import { Shift, Employee } from "../entities/types";
+import { sleepTask, yieldTask } from "./util";
 
 // I believe this has the same size as `boolean`, since JS uses dynamic
 // types and both number and boolean are less than the min size
@@ -28,7 +29,10 @@ function arrMin(arr: number[]): number {
  * average time, since we use hueristics to try more likely options first
  *
  * */
-export function generate(shifts: Shift[], staff: Employee[]): boolean {
+export async function generate(
+  shifts: Shift[],
+  staff: Employee[]
+): Promise<boolean> {
   // Clear current hours and busy
   staff.forEach((employee) => {
     employee.current_hours = 0;
@@ -80,6 +84,7 @@ export function generate(shifts: Shift[], staff: Employee[]): boolean {
       assigned -= 1;
       matrix = unassign(shifts, staff, assigned, matrix);
     }
+    await sleepTask(0);
   }
   return true;
 }

@@ -183,7 +183,16 @@ exports[`Modal opens and closes 2`] = `
         Add Employee
         <span
           class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-        />
+        >
+          <span
+            class="css-y4cjyz-MuiTouchRipple-ripple MuiTouchRipple-ripple MuiTouchRipple-rippleVisible"
+            style="width: 2.8284271247461903px; height: 2.8284271247461903px; top: -1.4142135623730951px; left: -1.4142135623730951px;"
+          >
+            <span
+              class="MuiTouchRipple-child MuiTouchRipple-childLeaving"
+            />
+          </span>
+        </span>
       </button>
     </div>
     <div
@@ -212,6 +221,13 @@ exports[`Modal opens and closes 2`] = `
             id="modal-modal-title"
           >
             Add an Employee
+            <div
+              class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-filledPrimary css-1w81wgb-MuiChip-root"
+            >
+              <span
+                class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
+              />
+            </div>
           </h2>
           <div
             class="MuiBox-root css-8atqhb"
@@ -232,29 +248,15 @@ exports[`Modal opens and closes 2`] = `
                     role="tablist"
                   >
                     <button
-                      aria-controls="simple-tabpanel-0"
+                      aria-controls="simple-tabpanel-1"
                       aria-selected="true"
                       class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary Mui-selected css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
-                      id="simple-tab-0"
+                      id="simple-tab-1"
                       role="tab"
                       tabindex="0"
                       type="button"
                     >
-                      Employee Info
-                      <span
-                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                      />
-                    </button>
-                    <button
-                      aria-controls="simple-tabpanel-1"
-                      aria-selected="false"
-                      class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
-                      id="simple-tab-1"
-                      role="tab"
-                      tabindex="-1"
-                      type="button"
-                    >
-                      Sunday
+                      Edit Employee Info
                       <span
                         class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                       />
@@ -268,7 +270,7 @@ exports[`Modal opens and closes 2`] = `
                       tabindex="-1"
                       type="button"
                     >
-                      Monday
+                      Sunday
                       <span
                         class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                       />
@@ -282,7 +284,7 @@ exports[`Modal opens and closes 2`] = `
                       tabindex="-1"
                       type="button"
                     >
-                      Tuesday
+                      Monday
                       <span
                         class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                       />
@@ -296,7 +298,7 @@ exports[`Modal opens and closes 2`] = `
                       tabindex="-1"
                       type="button"
                     >
-                      Wednesday
+                      Tuesday
                       <span
                         class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                       />
@@ -310,7 +312,7 @@ exports[`Modal opens and closes 2`] = `
                       tabindex="-1"
                       type="button"
                     >
-                      Thursday
+                      Wednesday
                       <span
                         class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                       />
@@ -324,7 +326,7 @@ exports[`Modal opens and closes 2`] = `
                       tabindex="-1"
                       type="button"
                     >
-                      Friday
+                      Thursday
                       <span
                         class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                       />
@@ -334,6 +336,20 @@ exports[`Modal opens and closes 2`] = `
                       aria-selected="false"
                       class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
                       id="simple-tab-7"
+                      role="tab"
+                      tabindex="-1"
+                      type="button"
+                    >
+                      Friday
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                    <button
+                      aria-controls="simple-tabpanel-8"
+                      aria-selected="false"
+                      class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+                      id="simple-tab-8"
                       role="tab"
                       tabindex="-1"
                       type="button"
@@ -462,7 +478,7 @@ exports[`Modal opens and closes 2`] = `
                           class="MuiInputBase-input MuiInput-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
                           id=":r1:"
                           type="number"
-                          value="10"
+                          value="0"
                         />
                       </div>
                     </div>
@@ -583,7 +599,16 @@ exports[`Modal opens and closes 2`] = `
       Add Employee
       <span
         class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-      />
+      >
+        <span
+          class="css-y4cjyz-MuiTouchRipple-ripple MuiTouchRipple-ripple MuiTouchRipple-rippleVisible"
+          style="width: 2.8284271247461903px; height: 2.8284271247461903px; top: -1.4142135623730951px; left: -1.4142135623730951px;"
+        >
+          <span
+            class="MuiTouchRipple-child MuiTouchRipple-childLeaving"
+          />
+        </span>
+      </span>
     </button>
   </div>,
   "debug": [Function],

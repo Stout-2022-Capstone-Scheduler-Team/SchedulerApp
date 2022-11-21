@@ -22,11 +22,9 @@ export class Time {
     return new Time(Number(hours) + Number(minutes) / 60, day);
   }
 
-
-  static fromDayJs(s: Dayjs, day: DayOftheWeek): Time {
-    if(s === null) {
-      //delete later
-      return new Time(0, DayOftheWeek.Monday);
+  static fromDayJs(s: Dayjs | null, day: DayOftheWeek): Time {
+    if (s === null) {
+      return new Time(0, day);
     }
     return new Time(s?.hour() + (s?.minute() / 60), day);
   }

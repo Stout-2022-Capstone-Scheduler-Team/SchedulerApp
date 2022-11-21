@@ -30,7 +30,7 @@ interface AddAvailabilityModalProps {
   day: DayOftheWeek;
   employee?: Employee;
 }
-export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSXElement {
+export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSX.Element {
   const {addAvailability, day, employee } = props;
 
   const [open, setOpen] = useState(false);
@@ -49,15 +49,11 @@ export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSXEleme
   };
 
   const handleSubmit = (): void => {
-    //check if both arent null
-    //check that start is less than last
+    // check if both arent null
+    // check that start is less than last
 
-    if(checked) {
-      addAvailability(new Shift("", new Time(0, day), new Time(24, day), employee?.name))
-    }
-    else {
-      addAvailability(new Shift("", Time.fromDayJs(valueStartTime, day), Time.fromDayJs(valueEndTime, day), employee?.name))
-    }
+    addAvailability(new Shift("", Time.fromDayJs(valueStartTime, day), Time.fromDayJs(valueEndTime, day), employee?.name));
+
     setValueStartTime(null);
     setValueEndTime(null);
     setChecked(false);

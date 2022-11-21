@@ -1,197 +1,42 @@
-import { Shift, Time, DayOftheWeek } from "../entities/types";
-import { Calendar, ExportModal, AddEmployeeModal, AddShiftModal } from "../components";
-import React from "react";
+import { useRef, useState } from "react";
+import {
+  Calendar,
+  ExportModal,
+  AddEmployeeModal,
+  AddShiftModal
+} from "../components";
 import { Stack } from "@mui/material";
+import { Schedule } from "../entities/schedule";
+import { DayOftheWeek, Shift, Time } from "../entities";
+import { ScheduleAction, updateSchedule, useAsyncReducer } from "../services";
 
 export default function EditSchedule(): JSX.Element {
-  // remove hard coded data once we add functionality to add shifts
-  const dummyData = [
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Sunday),
-      new Time(10.5, DayOftheWeek.Sunday),
-      "Drew"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Sunday),
-      new Time(10.5, DayOftheWeek.Sunday),
-      "Fred"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Sunday),
-      new Time(10.5, DayOftheWeek.Sunday),
-      "John"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Sunday),
-      new Time(10.5, DayOftheWeek.Sunday),
-      "Spencer"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Monday),
-      new Time(10.5, DayOftheWeek.Monday),
-      "Mike"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Monday),
-      new Time(10.5, DayOftheWeek.Monday),
-      "Drew"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Monday),
-      new Time(10.5, DayOftheWeek.Monday),
-      "Fred"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Monday),
-      new Time(10.5, DayOftheWeek.Monday),
-      "John"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Tuesday),
-      new Time(10.5, DayOftheWeek.Tuesday),
-      "Spencer"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Tuesday),
-      new Time(10.5, DayOftheWeek.Tuesday),
-      "Mike"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Tuesday),
-      new Time(10.5, DayOftheWeek.Tuesday),
-      "Drew"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Tuesday),
-      new Time(10.5, DayOftheWeek.Tuesday),
-      "Fred"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Wednesday),
-      new Time(10.5, DayOftheWeek.Wednesday),
-      "John"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Wednesday),
-      new Time(10.5, DayOftheWeek.Wednesday),
-      "Spencer"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Wednesday),
-      new Time(10.5, DayOftheWeek.Wednesday),
-      "Mike"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Wednesday),
-      new Time(10.5, DayOftheWeek.Wednesday),
-      "Drew"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Thursday),
-      new Time(10.5, DayOftheWeek.Thursday),
-      "Fred"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Thursday),
-      new Time(10.5, DayOftheWeek.Thursday),
-      "John"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Thursday),
-      new Time(10.5, DayOftheWeek.Thursday),
-      "Spencer"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Thursday),
-      new Time(10.5, DayOftheWeek.Thursday),
-      "Mike"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Friday),
-      new Time(10.5, DayOftheWeek.Friday),
-      "Drew"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Friday),
-      new Time(10.5, DayOftheWeek.Friday),
-      "Fred"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Friday),
-      new Time(10.5, DayOftheWeek.Friday),
-      "John"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Friday),
-      new Time(10.5, DayOftheWeek.Friday),
-      "Spencer"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Saturday),
-      new Time(10.5, DayOftheWeek.Saturday),
-      "Mike"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Saturday),
-      new Time(10.5, DayOftheWeek.Saturday),
-      "Drew"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Saturday),
-      new Time(10.5, DayOftheWeek.Saturday),
-      "Fred"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Saturday),
-      new Time(10.5, DayOftheWeek.Saturday),
-      "John"
-    ),
-    new Shift(
-      "Programmer",
-      new Time(9.5, DayOftheWeek.Saturday),
-      new Time(10.5, DayOftheWeek.Saturday),
-      "Drew Accola"
-    )
-  ];
+  const [buildingSchedule, setBuildingSchedule] = useState<boolean>(false);
+  const [schedule, dispatch] = useAsyncReducer(async (a, b: ScheduleAction) => {
+    setBuildingSchedule(true);
+    const ret = await updateSchedule(a, b);
+    setBuildingSchedule(false);
+    return ret;
+  }, new Schedule([], [new Shift("testShift1", new Time(10, DayOftheWeek.Monday), new Time(15, DayOftheWeek.Monday)), new Shift("testShift2", new Time(15, DayOftheWeek.Monday), new Time(16, DayOftheWeek.Monday)), new Shift("testShift3", new Time(10, DayOftheWeek.Wednesday), new Time(18, DayOftheWeek.Wednesday)), new Shift("testShift4", new Time(12, DayOftheWeek.Tuesday), new Time(16, DayOftheWeek.Tuesday))]));
 
   // Reference to the calendar which enables exporting it
-  const exportRef = React.useRef(null);
+  const exportRef = useRef(null);
 
   return (
     <>
-      <Calendar allShifts={dummyData} exportRef={exportRef} />
+      <Calendar
+        shifts={schedule.shifts}
+        employees={schedule.employees}
+        exportRef={exportRef}
+        loading={buildingSchedule}
+      />
       <Stack spacing={2} direction={"row"}>
         <ExportModal componentToExport={exportRef} />
-        <AddEmployeeModal />
         <AddShiftModal />
+        <AddEmployeeModal
+          existingEmployees={schedule.employees}
+          dispatch={dispatch}
+        />
       </Stack>
     </>
   );
