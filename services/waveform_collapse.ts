@@ -1,4 +1,5 @@
 import { Shift, Employee } from "../entities/types";
+import { ISchedulerAlgorithm } from "../interfaces";
 import { sleepTask, log } from "./util";
 
 // I believe this has the same size as `boolean`, since JS uses dynamic
@@ -28,11 +29,10 @@ function arrMin(arr: number[]): number {
  * It now also backtracks, which greatly increases it's worst case time, but only marginally increases it's
  * average time, since we use hueristics to try more likely options first
  *
- * */
+ */
 export async function generate(
-  shifts: Shift[],
-  staff: Employee[]
-): Promise<boolean> {
+  ...[shifts, staff]: Parameters<ISchedulerAlgorithm>
+): ReturnType<ISchedulerAlgorithm> {
   // Clear current hours and busy
   staff.forEach((employee) => {
     employee.current_hours = 0;

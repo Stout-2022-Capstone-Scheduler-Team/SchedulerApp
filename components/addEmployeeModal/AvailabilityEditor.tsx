@@ -1,6 +1,6 @@
 import { Grid, Stack, SxProps, Theme, Typography } from "@mui/material";
 import { AvailabilityCard } from "..";
-import { Shift, DayOftheWeek } from "../../entities";
+import { Shift, DayOftheWeek, Employee } from "../../entities";
 import { AddAvailabilityModal } from "./AddAvailabilityModal";
 
 interface TabPanelProps {
