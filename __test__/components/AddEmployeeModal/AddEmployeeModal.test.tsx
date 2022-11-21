@@ -34,8 +34,6 @@ test("Modal opens and closes", async () => {
   {
     const header = modal.queryByText(/Add an Employee/i);
     expect(header).not.toBe(null);
-
-    expect(modal).toMatchSnapshot();
   }
 
   // Click the cancel button
