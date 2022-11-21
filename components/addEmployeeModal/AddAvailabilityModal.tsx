@@ -59,7 +59,7 @@ export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSX.Elem
 
   const validateInputs = (): boolean => {
     const nonNull = valueStartTime !== null && valueEndTime !== null;
-    return nonNull && valueStartTime.isBefore(valueEndTime);
+    return checked || (nonNull && valueStartTime.isBefore(valueEndTime));
   };
 
   const clearInputs = (): void => {
@@ -123,6 +123,7 @@ export function AddAvailabilityModal(props: AddAvailabilityModalProps): JSX.Elem
                 onClick={handleSubmit}
                 color={"primary"}
                 variant={"contained"}
+                disabled={!validateInputs()}
               >
                 Submit
               </Button>
