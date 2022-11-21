@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import { render, screen, fireEvent, Matcher } from "@testing-library/react";
 
 import React from "react";
-import { ExportModal, ExportType } from "../../components";
+import { ExportModal } from "../../components";
 
 const toBeHidden: MatcherFunction<[]> = function toBeHidden(actual) {
   if (!(actual instanceof HTMLElement)) {
@@ -50,10 +50,7 @@ export function checkExportHide(
     render(
       <>
         {element}
-        <ExportModal
-          componentToExport={exportRef}
-          defaultValue={ExportType.pdf}
-        />
+        <ExportModal componentToExport={exportRef} />
         <div className="printed" data-testid="shown" />
       </>
     );

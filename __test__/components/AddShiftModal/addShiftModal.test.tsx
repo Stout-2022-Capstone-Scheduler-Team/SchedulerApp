@@ -3,11 +3,13 @@ import { render, fireEvent } from "@testing-library/react";
 import { AddShiftModal } from "../../../components";
 
 test("Add Shift Renders", () => {
-  const addShiftModal = render(<AddShiftModal />);
-  expect(addShiftModal).toMatchSnapshot();
+  render(<AddShiftModal existingShifts={[]} dispatch={async () => {}} />);
 });
+
 test("Modal opens and closes", () => {
-  const modal = render(<AddShiftModal />);
+  const modal = render(
+    <AddShiftModal existingShifts={[]} dispatch={async () => {}} />
+  );
 
   // Click the modal button
   const openButton = modal.getByText(/ADD SHIFT/i);
@@ -23,12 +25,4 @@ test("Modal opens and closes", () => {
 
   // Click the submit button
   fireEvent.click(modal.getByText(/Submit/i));
-
-  // Make sure the modal is gone
-  /* {
-    const header = modal.queryByText(/ADD SHIFT/i);
-    expect(header).toBe(null);
-
-    expect(modal).toMatchSnapshot();
-  } */
 });

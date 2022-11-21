@@ -30,9 +30,11 @@ export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
 
   return (
     <Grid container sx={{ minHeight: "300px" }}>
-      <Grid item xs={6}>
-        <Stack direction="column" spacing={1} sx={availabilityStyle}>
-          <Typography variant="h6">{DayOftheWeek[day]} Availability</Typography>
+      <Grid item xs={6} sx={availabilityStyle}>
+        <Typography variant="h6" sx={{ mb: 1 }}>
+          {DayOftheWeek[day]} Availability
+        </Typography>
+        <Stack direction="column" spacing={1} data-testid="AvailabilityStack">
           {currentAvailability.map((shift: Shift) => (
             <AvailabilityCard
               key={

@@ -99,7 +99,10 @@ export function EditEmployeeInfo(props: EditEmployeeInfoProps): JSX.Element {
           InputLabelProps={{
             shrink: true
           }}
-          value={minHours}
+          InputProps={{
+            inputProps: { min: 0 }
+          }}
+          value={Number.isNaN(minHours) ? "" : minHours}
           error={!validHours}
           onChange={(event) =>
             setEmployeeMinHours(parseInt(event.target.value))
@@ -114,7 +117,10 @@ export function EditEmployeeInfo(props: EditEmployeeInfoProps): JSX.Element {
           InputLabelProps={{
             shrink: true
           }}
-          value={maxHours}
+          InputProps={{
+            inputProps: { min: 0 }
+          }}
+          value={Number.isNaN(maxHours) ? "" : maxHours}
           error={!validHours}
           onChange={(event) =>
             setEmployeeMaxHours(parseInt(event.target.value))

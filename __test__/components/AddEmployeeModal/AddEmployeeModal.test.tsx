@@ -1,8 +1,8 @@
 import { AddEmployeeModal } from "../../../components";
 import { render, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import "@testing-library/jest-dom";
 import { Color, DayOftheWeek, Employee, Shift, Time } from "../../../entities";
-// jest.mock("../../../entities/color");
 
 test("Add Employee Renders", () => {
   const dispatch = jest.fn();
@@ -43,8 +43,6 @@ test("Modal opens and closes", async () => {
   {
     const header = modal.queryByText(/Add an Employee/i);
     expect(header).toBe(null);
-
-    expect(modal).toMatchSnapshot();
   }
 });
 
@@ -81,8 +79,72 @@ test("Modal Switches Tabs", async () => {
   expect(header).not.toBe(null);
 });
 
+test("Disable Submit on Failed Validation", async () => {
+  // Arrange
+  const user = userEvent.setup();
+  const dispatch = jest.fn();
+  const modal = render(
+    <AddEmployeeModal existingEmployees={[]} dispatch={dispatch} />
+  );
+
+  // Act / Assert
+  // Open modal
+  await user.click(modal.getByText(/Add Employee/i));
+
+  // Verify modal submit button is disabled by default
+  expect(modal.getByText(/Submit/i)).toBeDisabled();
+
+  // Enter name, submit button should still be disabled
+  await user.type(modal.getAllByLabelText(/Employee Name/i)[0], "Alice");
+  expect(modal.getByText(/Submit/i)).toBeDisabled();
+
+  // Add availability, expect submit button to be valid
+  await user.click(modal.getByText(/Monday/i));
+  await user.click(modal.getByText(/Add Availability/i));
+  expect(modal.getByText(/Submit/i)).not.toBeDisabled();
+
+  // Enter invalid hours, expect button to be disabled again
+  await user.click(modal.getByText(/Edit Employee Info/i));
+  await user.type(modal.getAllByLabelText(/Minimum Hours per Week/i)[0], "41");
+  expect(modal.getByText(/Submit/i)).toBeDisabled();
+
+  // Fix min hours, submit is enabled again
+  await user.type(
+    modal.getAllByLabelText(/Minimum Hours per Week/i)[0],
+    "{backspace}{backspace}{backspace}"
+  );
+  expect(modal.getByText(/Submit/i)).toBeDisabled();
+  await user.type(modal.getAllByLabelText(/Minimum Hours per Week/i)[0], "0");
+  expect(modal.getByText(/Submit/i)).not.toBeDisabled();
+});
+
+test("Submit button clears inputs", async () => {
+  // Arrange
+  const user = userEvent.setup();
+  const dispatch = jest.fn();
+  const { getByText, getByLabelText, getAllByLabelText } = render(
+    <AddEmployeeModal existingEmployees={[]} dispatch={dispatch} />
+  );
+
+  // Act / Assert
+  // Open modal, add details, submit employee
+  await user.click(getByText(/Add Employee/i));
+  await user.type(getAllByLabelText(/Employee Name/i)[0], "Alice");
+  await user.click(getByText(/Monday/i));
+  await user.click(getByText(/Add Availability/i));
+  await user.click(getByText(/Submit/i));
+
+  // Reopen modal, expect fields to be empty
+  await user.click(getByText(/Add Employee/i));
+  expect(getAllByLabelText(/Employee Name/i)[0]).toBeEmptyDOMElement();
+  expect(getByLabelText(/Employee Color/i)).not.toBeEmptyDOMElement();
+  expect(getByLabelText(/Minimum Hours per Week/i)).toBeEmptyDOMElement();
+  expect(getByLabelText(/Maximum Hours per Week/i)).toBeEmptyDOMElement();
+});
+
 test("Full Add Employee", async () => {
-  // Setup modal, open it
+  // Arrange
+  jest.setTimeout(10000);
   const user = userEvent.setup();
   const dispatch = jest.fn();
   dispatch.mockResolvedValue(undefined);
@@ -96,6 +158,14 @@ test("Full Add Employee", async () => {
   await user.click(modal.getByLabelText(/Employee Color/i));
   const colorList = within(modal.getByRole("listbox"));
   await user.click(colorList.getByText(/Red/i));
+  await user.type(
+    modal.getAllByLabelText(/Minimum Hours per Week/i)[0],
+    "{backspace}{backspace}{backspace}5"
+  );
+  await user.type(
+    modal.getAllByLabelText(/Maximum Hours per Week/i)[0],
+    "{backspace}{backspace}{backspace}15"
+  );
 
   // Enter availability
   await user.click(modal.getByText(/Monday/i));
@@ -105,7 +175,7 @@ test("Full Add Employee", async () => {
   await user.click(modal.getByText(/Submit/i));
 
   // Assert
-  const newEmp = new Employee("Alice", 0, 40, new Color("Red"));
+  const newEmp = new Employee("Alice", 5, 15, new Color("Red"));
   newEmp.addAvailability(
     new Shift(
       "emp1",

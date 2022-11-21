@@ -124,7 +124,13 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
     }
 
     // Check valid min/max hours
-    if (minHours < 0) {
+    if (Number.isNaN(minHours)) {
+      setValidHours(false);
+      validationErrors.push("Minimum hours must be set");
+    } else if (Number.isNaN(maxHours)) {
+      setValidHours(false);
+      validationErrors.push("Maximum hours must be set");
+    } else if (minHours < 0) {
       setValidHours(false);
       validationErrors.push("Minimum Hours must be 0 or greater");
     } else if (minHours > maxHours) {

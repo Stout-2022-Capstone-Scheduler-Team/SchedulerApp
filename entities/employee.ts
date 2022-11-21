@@ -106,7 +106,6 @@ export class Employee {
       assert(this.available.length < 10000);
       if (removeShift.contains(this.available[i])) {
         this.available.splice(i, 1);
-        console.log(this.available);
         i--;
       } else if (this.available[i].containsRemove(removeShift)) {
         this.available.unshift(

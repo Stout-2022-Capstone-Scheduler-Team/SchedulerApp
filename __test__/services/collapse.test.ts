@@ -1,7 +1,4 @@
-import {
-  generate,
-  getEmployee
-} from "../../services/waveform_collapse";
+import { generate, getEmployee } from "../../services/waveform_collapse";
 import {
   shift,
   allDay,
@@ -171,7 +168,6 @@ test("Overnight Schedule 1", async () => {
     person("bob", 2, 12, [allDay(Monday), allDay(Tuesday)], new Color("Red"))
   ];
   expect(await generate(shifts, staff)).toBe(true);
-  console.log(shifts);
   expect(shifts[0].owner).toBe("alice");
   expect(shifts[1].owner).toBe("bob");
 });
@@ -190,7 +186,6 @@ test("Overnight Schedule 2", async () => {
   ];
   expect(await generate(shifts, staff)).toBe(true);
   const s = shifts;
-  console.log(s);
   expect(s[0].owner).toBe("alice");
   expect(s[1].owner).toBe("bob");
   expect(s[2].owner).toBe("bob");

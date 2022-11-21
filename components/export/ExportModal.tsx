@@ -32,7 +32,6 @@ export function ExportModal({
 
     if (type === ExportType.png) {
       void exporter.then((result) => {
-        console.log(componentToExport);
         result
           .exportComponentAsPNG(componentToExport)
           .catch(() => console.log("Export Failed"));
@@ -43,7 +42,6 @@ export function ExportModal({
       window.print();
     } else if (type === ExportType.jpeg) {
       void exporter.then((result) => {
-        console.log(componentToExport);
         result
           .exportComponentAsJPEG(componentToExport)
           .catch(() => console.log("Export Failed"));
