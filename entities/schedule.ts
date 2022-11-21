@@ -1,4 +1,5 @@
-import { Employee, Shift } from "./types";
+import { Color } from "./color";
+import { Employee, Shift, Time } from "./types";
 
 export class Schedule {
   public readonly employees: Employee[] = [];
@@ -65,5 +66,49 @@ export class Schedule {
   removeEmployee(empToRemove: Employee): Employee {
     const index = this.employees.indexOf(empToRemove);
     return this.employees.splice(index, 1)[0];
+  }
+
+  /**
+   * Create a deep copy of a schedule, which is safe to mutate and include all subtype logic as well
+   * @param baseSchedule Base schedule to copy
+   * @returns A deep copy of the input schedule
+   */
+  public static createDeepCopy(baseSchedule: Schedule): Schedule {
+    const scheduleCopyBase: Schedule = JSON.parse(JSON.stringify(baseSchedule));
+    const scheduleCopy = new Schedule(
+      // Map to a new employee object; this ensures the employee array has all the required logic after being serialized
+      scheduleCopyBase.employees.map(
+        (emp) =>
+          new Employee(
+            emp.name,
+            emp.min_hours,
+            emp.max_hours,
+            new Color(emp.color.colorName),
+            emp.available.map(
+              (shift) =>
+                new Shift(
+                  shift.name,
+                  new Time(shift.start.dayHours, shift.start.day),
+                  new Time(shift.end.dayHours, shift.end.day),
+                  shift.owner
+                )
+            )
+          )
+      ),
+      // Map to a new shift object, this ensures shifts keep their logic after being serialized
+      scheduleCopyBase.shifts.map(
+        (shift) =>
+          new Shift(
+            shift.name,
+            new Time(shift.start.dayHours, shift.start.day),
+            new Time(shift.end.dayHours, shift.end.day),
+            shift.owner
+          )
+      ),
+      scheduleCopyBase.minHoursWorked,
+      scheduleCopyBase.maxHoursWorked
+    );
+
+    return scheduleCopy;
   }
 }

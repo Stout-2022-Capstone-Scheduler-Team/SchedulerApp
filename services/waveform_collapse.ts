@@ -1,4 +1,6 @@
 import { Shift, Employee } from "../entities/types";
+import { ISchedulerAlgorithm } from "../interfaces";
+import { sleepTask, log } from "./util";
 
 // I believe this has the same size as `boolean`, since JS uses dynamic
 // types and both number and boolean are less than the min size
@@ -27,8 +29,10 @@ function arrMin(arr: number[]): number {
  * It now also backtracks, which greatly increases it's worst case time, but only marginally increases it's
  * average time, since we use hueristics to try more likely options first
  *
- * */
-export function generate(shifts: Shift[], staff: Employee[]): boolean {
+ */
+export async function generate(
+  ...[shifts, staff]: Parameters<ISchedulerAlgorithm>
+): ReturnType<ISchedulerAlgorithm> {
   // Clear current hours and busy
   staff.forEach((employee) => {
     employee.current_hours = 0;
@@ -49,9 +53,12 @@ export function generate(shifts: Shift[], staff: Employee[]): boolean {
   // Either the function return false or assign a shift each loop
   let assigned = 0;
   while (assigned < shifts.length) {
+    log(matrix);
     const counts = matrixCounts(matrix);
+    log(counts);
     // We could choose to always select by shift
     const idxShift = arrMin(counts);
+    log(idxShift);
     // Since we are selecting the shift or employee with the least possible assignments, it should
     // reduce the likelihood we run into a conflict
     if (
@@ -61,11 +68,13 @@ export function generate(shifts: Shift[], staff: Employee[]): boolean {
       // Mark order assigned in
       if (!canAssignMinHours(shifts, staff, matrix)) {
         matrix = unassign(shifts, staff, assigned, matrix);
+        log("Can't assign min hours");
         // assigned -= 1
       } else {
         assigned += 1;
       }
     } else if (assigned <= -1) {
+      log("Backtracking failed");
       // Backtracking has failed (we've backtracked to the beginning)
       // Reset each shift to the first try we made, which will be a partially valid schedule
       shifts.forEach((shift) => {
@@ -75,11 +84,13 @@ export function generate(shifts: Shift[], staff: Employee[]): boolean {
       });
       return false;
     } else {
+      log("Failed to assign a shift");
       // No shift can be assigned to an employee, but not every shift has an owner yet
       // backtrack by unassigning a shift
       assigned -= 1;
       matrix = unassign(shifts, staff, assigned, matrix);
     }
+    await sleepTask(0);
   }
   return true;
 }
@@ -107,6 +118,7 @@ function assignShift(
     curShift.option += 1;
     e.current_hours += curShift.duration;
     curShift.owner = e.name;
+    log(`Assigned ${curShift.name} to ${e.name}`);
     if (curShift.first_try === undefined) {
       curShift.first_try = e.name;
     }

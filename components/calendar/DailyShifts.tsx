@@ -1,16 +1,23 @@
 import { Grid } from "@mui/material";
-
-import { Shift } from "../../entities/types";
+import { Employee, Shift, Color } from "../../entities";
 
 import ShiftCard from "./ShiftCard";
 
 interface Props {
   allShifts: Shift[];
+  employees: Employee[];
 }
 
-export function DailyShifts(props: Props): JSX.Element {
-  const shifts = props.allShifts.map((shift) => (
-    <ShiftCard shift={shift} key={shift.owner + shift.start.toString()} />
+export function DailyShifts({ allShifts, employees }: Props): JSX.Element {
+  const shifts = allShifts.map((shift) => (
+    <ShiftCard
+      shift={shift}
+      employee={
+        employees.find((emp) => emp.name === shift.owner) ??
+        new Employee("DEFAULT", 0, 0, new Color("White"))
+      }
+      key={shift.owner + shift.start.toString()}
+    />
   ));
 
   return (
