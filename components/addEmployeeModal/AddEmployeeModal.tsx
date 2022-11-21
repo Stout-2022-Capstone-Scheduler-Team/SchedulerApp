@@ -19,7 +19,10 @@ interface EmployeeModalProps {
 }
 
 export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
+  // Props
   const { existingEmployees, dispatch } = props;
+
+  // Employee State
   const [open, setOpen] = useState(false);
   const [name, setName] = useState<string>("");
   const [minHours, setMinHours] = useState(0);
@@ -27,6 +30,12 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   const [color, setColor] = useState<Color>(new Color());
   const [availability, setAvailability] = useState<Shift[]>([]);
 
+  // Validation State
+  const [validName, setValidName] = useState(true);
+  const [validHours, setValidHours] = useState(true);
+  const [validAvail, setValidAvail] = useState(true);
+
+  // Form Event Handlers
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
   const handleSubmit = (): void => {
@@ -38,19 +47,27 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
         )
       );
       void dispatch({ add: newEmployee });
-      clearInputs();
       setOpen(false);
+      clearInputs();
     } else {
       alert("This employee is not done being created");
     }
   };
 
   const validateInputs = (): boolean => {
-    return (
-      existingEmployees.findIndex((emp) => emp.name === name) === -1 &&
-      minHours <= maxHours &&
-      availability.length > 0
+    // Check employee name is unique and not empty
+    setValidName(
+      name.length > 1 &&
+        existingEmployees.findIndex((emp) => emp.name === name) === -1
     );
+
+    // Check valid min/max hours
+    setValidHours(minHours <= maxHours);
+
+    // Employee has at least one availability block
+    setValidAvail(availability.length > 0);
+
+    return validName && validHours && validAvail;
   };
 
   const clearInputs = (): void => {
@@ -84,7 +101,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
         aria-labelledby="modal-modal-title"
       >
         <Card sx={{ ...modalStyle, width: "70%" }}>
-          <CardContent sx={{ p: 0 }}>
+          <CardContent sx={{ p: 0, height: "25rem" }}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Add an Employee
               <Chip
@@ -110,9 +127,11 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
                   setEmployeeColor={setColor}
                   setEmployeeMaxHours={setMaxHours}
                   setEmployeeMinHours={setMinHours}
+                  validName={true}
+                  validHours={true}
                 />,
                 ...Time.getWeekDayNumbers().map((day) => (
-                  <AvailabilityEditor day={day} />
+                  <AvailabilityEditor day={day} key={day} />
                 ))
               ]}
             />

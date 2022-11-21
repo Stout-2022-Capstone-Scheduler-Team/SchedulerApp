@@ -26,10 +26,13 @@ export class Color {
   colorHex: string;
 
   constructor(colorName?: string) {
-    if (colorName !== undefined) {
-      this.colorName = colorName;
-    } else {
+    if (
+      typeof colorName !== "string" ||
+      String(colorName).toLowerCase() === "random"
+    ) {
       this.colorName = Color.getRandomColorName();
+    } else {
+      this.colorName = colorName;
     }
 
     this.colorHex = Color.colorsMap[this.colorName];

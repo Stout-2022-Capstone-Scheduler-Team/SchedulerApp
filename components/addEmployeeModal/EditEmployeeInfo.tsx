@@ -19,6 +19,8 @@ interface EditEmployeeInfoProps {
   setEmployeeColor: (color: Color) => void;
   setEmployeeMaxHours: (maxHours: number) => void;
   setEmployeeMinHours: (minHours: number) => void;
+  validName: boolean;
+  validHours: boolean;
 }
 
 export function EditEmployeeInfo(props: EditEmployeeInfoProps): JSX.Element {
@@ -31,7 +33,9 @@ export function EditEmployeeInfo(props: EditEmployeeInfoProps): JSX.Element {
     setEmployeeName,
     setEmployeeColor,
     setEmployeeMaxHours,
-    setEmployeeMinHours
+    setEmployeeMinHours,
+    validName,
+    validHours
   } = props;
 
   const onColorUpdate = (event: SelectChangeEvent<string>): void => {
@@ -46,6 +50,8 @@ export function EditEmployeeInfo(props: EditEmployeeInfoProps): JSX.Element {
           label="Employee Name"
           variant="standard"
           value={name}
+          error={!validName}
+          helperText={validName ? "" : "Please enter a unique employee name"}
           onChange={(event) => setEmployeeName(event.target.value)}
         />
       </Grid>
@@ -64,7 +70,9 @@ export function EditEmployeeInfo(props: EditEmployeeInfoProps): JSX.Element {
               Random
             </MenuItem>
             {availableColors.map((color) => (
-              <MenuItem value={color.colorName}>{color.colorName}</MenuItem>
+              <MenuItem value={color.colorName} key={color.colorName}>
+                {color.colorName}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -78,6 +86,7 @@ export function EditEmployeeInfo(props: EditEmployeeInfoProps): JSX.Element {
             shrink: true
           }}
           value={minHours}
+          error={!validHours}
           onChange={(event) =>
             setEmployeeMinHours(parseInt(event.target.value))
           }
@@ -92,6 +101,7 @@ export function EditEmployeeInfo(props: EditEmployeeInfoProps): JSX.Element {
             shrink: true
           }}
           value={maxHours}
+          error={!validHours}
           onChange={(event) =>
             setEmployeeMaxHours(parseInt(event.target.value))
           }

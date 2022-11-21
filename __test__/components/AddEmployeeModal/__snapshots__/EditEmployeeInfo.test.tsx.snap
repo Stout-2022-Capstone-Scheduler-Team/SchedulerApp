@@ -60,17 +60,13 @@ exports[`Can Render 1`] = `
                 role="button"
                 tabindex="0"
               >
-                <span
-                  class="notranslate"
-                >
-                  ​
-                </span>
+                blue
               </div>
               <input
                 aria-hidden="true"
                 class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
                 tabindex="-1"
-                value="Green"
+                value="blue"
               />
               <svg
                 aria-hidden="true"
@@ -199,17 +195,13 @@ exports[`Can Render 1`] = `
               role="button"
               tabindex="0"
             >
-              <span
-                class="notranslate"
-              >
-                ​
-              </span>
+              blue
             </div>
             <input
               aria-hidden="true"
               class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
               tabindex="-1"
-              value="Green"
+              value="blue"
             />
             <svg
               aria-hidden="true"
