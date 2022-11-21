@@ -49,8 +49,6 @@ test("Modal opens and closes", async () => {
   {
     const header = modal.queryByText(/Monday Availability/i);
     expect(header).toBe(null);
-
-    expect(modal).toMatchSnapshot();
   }
 });
 
