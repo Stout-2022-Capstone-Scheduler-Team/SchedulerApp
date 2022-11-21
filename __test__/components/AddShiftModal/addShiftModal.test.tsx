@@ -32,14 +32,6 @@ test("Modal opens and closes", async () => {
 
   // Click the submit button
   await user.click(modal.getByText(/Submit/i));
-
-  // Make sure the modal is gone
-  /* {
-    const header = modal.queryByText(/ADD SHIFT/i);
-    expect(header).toBe(null);
-
-    expect(modal).toMatchSnapshot();
-  } */
 });
 
 test("Adding Shifts", async () => {

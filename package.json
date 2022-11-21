@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "npx eslint .",
-    "test": "jest --watch",
-    "coverage": "jest --coverage",
+    "test": "jest --coverage",
     "test:ci": "jest",
     "eslint:github-action": "next lint"
   },
