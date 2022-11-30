@@ -5,6 +5,7 @@ import { WeeklyDate } from "./WeeklyDate";
 
 import { CircularProgress, Fade, Grid } from "@mui/material";
 import { RefObject } from "react";
+// import { getDatePickerToolbarUtilityClass } from "@mui/x-date-pickers/DatePicker/datePickerToolbarClasses";
 
 interface CalendarProps {
   shifts: Shift[];
@@ -26,7 +27,6 @@ export function Calendar({
       .filter((shift) => shift.start.day === day)
       .sort((a, b) => (a.start.dayHours > b.start.dayHours ? 1 : -1));
   }
-
   return (
     <>
       <Grid
@@ -40,7 +40,7 @@ export function Calendar({
           <Grid item xs={1} sx={{ px: 1.5 }} key={day}>
             <WeeklyDate
               dayOfWeek={dayName(day).substring(0, 3)}
-              date="10.23(TODO)"
+              date="10.23 TODO"
             />
           </Grid>
         ))}
