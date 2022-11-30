@@ -42,9 +42,9 @@ export function person(
   minHours: number,
   maxHours: number,
   available: Shift[],
-  color: Color
+  color?: Color
 ): Employee {
-  const ret = new Employee(name, minHours, maxHours, color);
+  const ret = new Employee(name, minHours, maxHours, (color === undefined) ? new Color("Red") : color);
   available.forEach((shift) => ret.addAvailability(shift));
   return ret;
 }
