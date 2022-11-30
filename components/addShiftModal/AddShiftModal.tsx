@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Modal, Typography, Card, CardContent } from "@mui/material";
+import { Button, Modal, Typography, Card, CardContent, CardActions } from "@mui/material";
 import modalStyle from "../../styles/modalStyle";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -116,7 +116,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
         aria-describedby="addShiftDescription"
       >
         <Card sx={modalStyle}>
-          <CardContent>
+          <CardContent sx={{ p: 0, "&:last-child": { p: 0.25 } }}>
             <Typography id="addShiftTitle" variant="h6" component="h2">
               Add A Shift
             </Typography>
@@ -153,12 +153,14 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
               />
             </LocalizationProvider>
             <Typography id="modal-submit" sx={{ mt: 2 }}></Typography>
-            <Button onClick={handleClose} color={"error"} sx={{ ml: "auto" }}>
-              Close
-            </Button>
-            <Button variant="contained" onClick={handleSubmit}>
-              Submit
-            </Button>
+            <CardActions>
+              <Button onClick={handleClose} color={"error"} sx={{ ml: "auto" }}>
+                Close
+              </Button>
+              <Button variant="contained" onClick={handleSubmit}>
+                Submit
+              </Button>
+            </CardActions>
           </CardContent>
         </Card>
       </Modal>
