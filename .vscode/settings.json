@@ -9,5 +9,5 @@
     "**/package-lock.json": true,
     "**/coverage": true
   },
-  "githubPullRequests.ignoredPullRequestBranches": ["main"]
+  
 }
