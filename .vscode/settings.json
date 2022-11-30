@@ -1,12 +1,13 @@
 {
-    "git.ignoreLimitWarning": true,
-    "files.exclude": {
-        "**/.github": true,
-        "**/.vscode": true,
-        "**/.next": true,
-        "**/.swc": true,
-        "**/node_modules": true,
-        "**/package-lock.json": true,
-        "**/coverage": true
-    }
+  "git.ignoreLimitWarning": true,
+  "files.exclude": {
+    "**/.github": true,
+    "**/.vscode": true,
+    "**/.next": true,
+    "**/.swc": true,
+    "**/node_modules": true,
+    "**/package-lock.json": true,
+    "**/coverage": true
+  },
+  "githubPullRequests.ignoredPullRequestBranches": ["main"]
 }
