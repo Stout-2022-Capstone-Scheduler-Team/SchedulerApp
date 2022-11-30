@@ -45,6 +45,6 @@ export function person(
   color: Color
 ): Employee {
   const ret = new Employee(name, minHours, maxHours, color);
-  available.forEach((shift) => ret.addAvailablity(shift));
+  available.forEach((shift) => ret.addAvailability(shift));
   return ret;
 }

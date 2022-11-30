@@ -47,7 +47,7 @@ export class Employee {
    * When a new availablity is added it will check with all other avalibilities first and if any overlap they will combine.
    *
    */
-  addAvailablity(inputShift: Shift): void {
+  addAvailability(inputShift: Shift): void {
     for (let z = 0; z < this.available.length; z++) {
       if (inputShift.overlapsAvalible(this.available[z])) {
         if (this.available[z].start.totalHours < inputShift.start.totalHours) {
