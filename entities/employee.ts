@@ -27,29 +27,6 @@ export class Employee {
   }
 
   /**
-   * Add an availability time block for this employee
-   * @param newAvailability Availability to add to this employee's availability list
-   * @throws If a duplicate availability shift exists already
-   */
-  addAvailability(newAvailability: Shift): void {
-    if (
-      // Make sure that there is not an availability already existing with the same start and end
-      this.available.some(
-        (avail) =>
-          avail.start.totalHours === newAvailability.start.totalHours &&
-          avail.end.totalHours === newAvailability.end.totalHours
-      )
-    ) {
-      // If there is a duplicate availability already, throw an error
-      throw new Error(
-        "Cannot add duplicate availability to employee availability list"
-      );
-    } else {
-      this.available.push(newAvailability);
-    }
-  }
-
-  /**
    * Removes an availability block from this employee's availability array
    * @param availabilityToRemove Availability block to remove
    * @returns The removed availability block
@@ -66,7 +43,11 @@ export class Employee {
     );
   }
 
-  addAvailable(inputShift: Shift): void {
+  /**
+   * When a new availablity is added it will check with all other avalibilities first and if any overlap they will combine.
+   *
+   */
+  addAvailablity(inputShift: Shift): void {
     for (let z = 0; z < this.available.length; z++) {
       if (inputShift.overlapsAvalible(this.available[z])) {
         if (this.available[z].start.totalHours < inputShift.start.totalHours) {

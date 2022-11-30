@@ -54,10 +54,11 @@ export class Time {
     // Set hours
     if (hour > 12) {
       hour -= 12;
-      if (hour !== 12) {
+      if (hour !== 0) {
         zone = "pm";
       }
-    } else if (hour === 0) {
+    }
+    if (hour === 0) {
       hour = 12;
     }
     // Set minute
