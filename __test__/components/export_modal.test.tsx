@@ -36,7 +36,7 @@ test("Export Modal", async () => {
 
     const dropdown = screen.queryByLabelText(/File Type/i);
     expect(dropdown).toBeInTheDocument();
-    expect(dropdown).toHaveTextContent(ExportType.png); // Default value
+    expect(dropdown).toHaveTextContent(ExportType.pdf); // Default value
     expect(dom.baseElement).toMatchSnapshot();
   }
 
@@ -53,8 +53,10 @@ test("Export as PNG", async () => {
   const user = userEvent.setup();
   const exportRef: React.RefObject<React.ReactInstance> = React.createRef();
   render(<ExportModal componentToExport={exportRef} />);
-
   await user.click(screen.getByText(/Export/i));
+
+  await user.click(screen.getByText(/PDF/i));
+  await user.click(screen.getByText(/PNG/i));
   {
     const mocked = jest.mocked(exportComponentAsPNG);
     mocked.mockResolvedValueOnce(() => {});
@@ -72,7 +74,7 @@ test("Export as JPEG", async () => {
   render(<ExportModal componentToExport={exportRef} />);
   await user.click(screen.getByText(/Export/i));
 
-  await user.click(screen.getByText(/PNG/i));
+  await user.click(screen.getByText(/PDF/i));
   await user.click(screen.getByText(/JPEG/i));
 
   {
@@ -91,8 +93,6 @@ test("Export as PDF", async () => {
   render(<ExportModal componentToExport={exportRef} />);
   await user.click(screen.getByText(/Export/i));
 
-  await user.click(screen.getByText(/PNG/i));
-  await user.click(screen.getByText(/PDF/i));
   {
     window.print = jest.fn();
     const mocked = jest.mocked(window.print);
