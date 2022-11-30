@@ -34,6 +34,16 @@ export default function Home(): JSX.Element {
       .catch((error) => console.log(error));
   }
 
+  function handleSelect(name: string): void {
+    storage
+      .read(name)
+      .then((schedules) => {
+        // TODO
+        console.log(schedules);
+      })
+      .catch((error) => console.log(error));
+  }
+
   return (
     <Stack sx={{ mx: "7%" }} alignItems="center" spacing={2}>
       <h1>Welcome to the Scheduler Builder</h1>
@@ -66,7 +76,7 @@ export default function Home(): JSX.Element {
           "aria-labelledby": "storage-button"
         }}
       >
-        <MenuItem onClick={handleClose}>Schedule 1</MenuItem>
+        <MenuItem onClick={handletype}>Schedule 1</MenuItem>
         <MenuItem onClick={handleClose}>Schedule 2</MenuItem>
         <MenuItem onClick={handleClose}>Schedule 3</MenuItem>
       </Menu>
