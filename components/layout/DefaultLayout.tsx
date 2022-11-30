@@ -2,10 +2,16 @@ import Head from "next/head";
 import NavBar from "./NavBar";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import defaultTheme from "../../styles/defaultTheme";
+import { CSSProperties } from "react";
 
 interface LayoutProps {
   children: JSX.Element | JSX.Element[];
 }
+
+const bodyStyle: CSSProperties = {
+  paddingLeft: 20,
+  paddingRight: 20
+};
 
 export default function DefaultLayout({ children }: LayoutProps): JSX.Element {
   return (
@@ -16,7 +22,9 @@ export default function DefaultLayout({ children }: LayoutProps): JSX.Element {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <NavBar />
-      <main>{children}</main>
+      <main>
+        <body style={bodyStyle}>{children}</body>
+      </main>
     </ThemeProvider>
   );
 }

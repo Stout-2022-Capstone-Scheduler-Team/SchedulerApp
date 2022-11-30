@@ -21,7 +21,7 @@ export default function EditSchedule(): JSX.Element {
   const exportRef = useRef(null);
 
   return (
-    <Grid container spacing={3} sx={{ mx: 3 }}>
+    <Grid container spacing={3}>
       <Grid item xs={12}>
         <Calendar
           shifts={schedule.shifts}
