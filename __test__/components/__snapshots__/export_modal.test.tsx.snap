@@ -187,24 +187,3 @@ exports[`Export Modal 2`] = `
   </div>
 </body>
 `;
-
-exports[`Export Modal 3`] = `
-<body
-  style=""
->
-  <div>
-    <div>
-      <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
-        tabindex="0"
-        type="button"
-      >
-        Export
-        <span
-          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-        />
-      </button>
-    </div>
-  </div>
-</body>
-`;
