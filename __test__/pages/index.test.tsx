@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import renderer from "react-test-renderer";
-import EditSchedule from "../../pages/edit-schedule";
+import Home from "../../pages";
 
-test("EditSchedule Renders", () => {
-  renderer.create(<EditSchedule />);
+test("Index Page Renders", () => {
+  renderer.create(<Home />);
 });
