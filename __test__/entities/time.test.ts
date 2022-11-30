@@ -23,6 +23,7 @@ test("Time", () => {
     0.25
   );
 
+  expect(time("0:00", Monday).toString()).toBe("12:00am");
   expect(time("24:00", Monday).toString()).toBe("12:00am");
   expect(time("12:00", Monday).toString()).toBe("12:00pm");
   expect(time("15:42", Monday).toString()).toBe("3:42pm");
