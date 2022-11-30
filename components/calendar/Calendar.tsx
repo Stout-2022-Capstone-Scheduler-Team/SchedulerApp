@@ -32,7 +32,7 @@ export function Calendar({
       <Grid
         container
         columns={7}
-        sx={{ p: 5, pt: 3 }}
+        sx={{ pt: 3, minHeight: "200px" }}
         ref={exportRef}
         className="printed"
       >
