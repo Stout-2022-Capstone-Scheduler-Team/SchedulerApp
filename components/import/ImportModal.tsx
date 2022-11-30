@@ -4,25 +4,42 @@ import Typography from "@mui/material/Typography";
 import { Card, CardActions, CardContent, Button } from "@mui/material";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { ScheduleSelect } from "./ScheduleSelect";
+import { LocalStorage } from "../../services";
+import { Schedule } from "../../entities";
+import Link from "next/link";
 
-interface ImportModalProps {
-  componentToImport: React.RefObject<React.ReactInstance>;
-}
-
-export function ImportModal({
-  componentToImport
-}: ImportModalProps): JSX.Element {
+export function ImportModal(): JSX.Element {
   const [open, setOpen] = React.useState(false);
   // Default value
-  const [type, setType] = React.useState("");
+  const [name, setName] = React.useState("");
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
+
+  const [hasSchedules, setHasSchedules] = React.useState(true);
+  const [schedules, setSchedules] = React.useState<{ [key: string]: Schedule }>(
+    {}
+  );
+
+  React.useEffect(() => {
+    void (async () => {
+      const localStorage = new LocalStorage();
+      const schedules = await localStorage.returnAll();
+      if (Object.keys(schedules).length > 0) {
+        setHasSchedules(false);
+        setSchedules(schedules);
+      }
+    })();
+  });
 
   const handleImport = (): void => {};
 
   return (
     <div>
-      <Button onClick={handleOpen} variant={"contained"}>
+      <Button
+        onClick={handleOpen}
+        variant={"contained"}
+        disabled={hasSchedules}
+      >
         Import Schedules
       </Button>
       <Modal
@@ -39,7 +56,11 @@ export function ImportModal({
             <Typography id="modal-modal-description" sx={{ my: 2 }}>
               Select a schedule to import from the drop down list.
             </Typography>
-            <ScheduleSelect type={type} typeSetter={setType} />
+            <ScheduleSelect
+              type={name}
+              typeSetter={setName}
+              schedules={schedules}
+            />
           </CardContent>
           <CardActions>
             <Button
@@ -49,15 +70,17 @@ export function ImportModal({
             >
               Cancel
             </Button>
-            <Button
-              data-testid="export_button"
-              sx={{ minWidth: 20 }}
-              onClick={handleImport}
-              variant={"contained"}
-              endIcon={<FileDownloadIcon />}
-            >
-              Import
-            </Button>
+            <Link href={`/edit-schedule#${name}`}>
+              <Button
+                data-testid="export_button"
+                sx={{ minWidth: 20 }}
+                onClick={handleImport}
+                variant={"contained"}
+                endIcon={<FileDownloadIcon />}
+              >
+                Import
+              </Button>
+            </Link>
           </CardActions>
         </Card>
       </Modal>

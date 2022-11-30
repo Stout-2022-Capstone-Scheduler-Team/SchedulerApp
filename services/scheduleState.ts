@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Color, Employee, Schedule, Shift, Time } from "../entities";
 import { generate } from "./waveform_collapse";
 import { or, log } from "./util";
+import { LocalStorage } from "./storageService";
 
 interface Add {
   add: Employee | Shift;
@@ -9,6 +10,10 @@ interface Add {
 
 interface Remove {
   remove: Employee | Shift;
+}
+
+interface Set {
+  set: Schedule;
 }
 
 interface UpdateEmployee {
@@ -35,6 +40,7 @@ interface UpdateBase {
 export type ScheduleAction =
   | Add
   | Remove
+  | Set
   | UpdateEmployee
   | UpdateShift
   | UpdateBase;
@@ -44,8 +50,10 @@ export async function updateSchedule(
   action: ScheduleAction
 ): Promise<Schedule> {
   // Create a deep copy so the generate schedule is allowed to mutate it
-  const scheduleCopy = Schedule.createDeepCopy(state);
-  if ("add" in action) {
+  let scheduleCopy = Schedule.createDeepCopy(state);
+  if ("set" in action) {
+    scheduleCopy = Schedule.createDeepCopy(action.set);
+  } else if ("add" in action) {
     if (action.add instanceof Employee) {
       scheduleCopy.addEmployee(action.add);
     } else if (action.add instanceof Shift) {
@@ -85,6 +93,8 @@ export async function updateSchedule(
       );
     }
   }
+
+  await new LocalStorage().update(scheduleCopy.name, scheduleCopy);
 
   // Generate the schedule
   const schedulePromise = await generate(
