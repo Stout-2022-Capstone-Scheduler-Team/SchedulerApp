@@ -3,10 +3,9 @@ import { Stack, Button } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 import { ImportModal } from "../components/import/ImportModal";
-import { Schedule } from "../entities";
-import { LocalStorage } from "../services";
+// import { LocalStorage } from "../services";
 
-const testList = ["One", "Two", "Three"];
+// const testList = ["One", "Two", "Three"];
 
 export default function Home(): JSX.Element {
   return (
