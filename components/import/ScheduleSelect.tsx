@@ -1,7 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material/Select";
 import React, { ChangeEvent } from "react";
-import { Schedule } from "../../entities";
 
 interface ScheduleSelectProps {
   type: string;
