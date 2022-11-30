@@ -23,29 +23,14 @@ test("Time", () => {
     0.25
   );
 
+  expect(time("24:00", Monday).toString()).toBe("12:00am");
+  expect(time("12:00", Monday).toString()).toBe("12:00pm");
   expect(time("15:42", Monday).toString()).toBe("3:42pm");
   expect(time("06:42", Monday).toString()).toBe("6:42am");
   expect(time("06:02", Monday).toString()).toBe("6:02am");
   expect(time("6:42", Monday).toString()).toBe("6:42am");
   expect(time("6:02", Monday).toString()).toBe("6:02am");
   expect(`${time("00:02", Monday)}`).toBe("12:02am");
-
-  // expect(
-  //   compareDaytimes(Monday, time("04:00"), Monday, time("05:00"))
-  // ).toBeLessThan(0);
-  // expect(
-  //   compareDaytimes(Monday, time("05:00"), Monday, time("04:00"))
-  // ).toBeGreaterThan(0);
-  // expect(
-  //   compareDaytimes(Monday, time("05:00"), Monday, time("05:00"))
-  // ).toBeCloseTo(0);
-
-  // expect(
-  //   compareDaytimes(Monday, time("04:00"), Tuesday, time("04:00"))
-  // ).toBeLessThan(0);
-  // expect(
-  //   compareDaytimes(Tuesday, time("04:00"), Monday, time("04:00"))
-  // ).toBeGreaterThan(0);
 
   expect(dayName(Monday)).toBe("Monday");
   expect(dayName(Tuesday)).toBe("Tuesday");
