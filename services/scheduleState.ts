@@ -35,6 +35,7 @@ interface UpdateBase {
   update: "default";
   maxHours?: number;
   minHours?: number;
+  name?: string;
 }
 
 export type ScheduleAction =
@@ -49,6 +50,7 @@ export async function updateSchedule(
   state: Schedule,
   action: ScheduleAction
 ): Promise<Schedule> {
+  const storage = new LocalStorage();
   // Create a deep copy so the generate schedule is allowed to mutate it
   let scheduleCopy = Schedule.createDeepCopy(state);
   if ("set" in action) {
@@ -73,6 +75,11 @@ export async function updateSchedule(
       if (action.minHours !== undefined) {
         scheduleCopy.minHoursWorked = action.minHours;
       }
+      if (action.name !== undefined) {
+        // Delete old name
+        await storage.delete(scheduleCopy.name);
+        scheduleCopy.name = action.name;
+      }
     } else if (action.update instanceof Shift) {
       const a = action as UpdateShift;
       const e = scheduleCopy.removeShift(a.update);
@@ -94,7 +101,7 @@ export async function updateSchedule(
     }
   }
 
-  await new LocalStorage().update(scheduleCopy.name, scheduleCopy);
+  await storage.update(scheduleCopy.name, scheduleCopy);
 
   // Generate the schedule
   const schedulePromise = await generate(

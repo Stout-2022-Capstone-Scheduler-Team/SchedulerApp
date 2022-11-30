@@ -32,6 +32,10 @@ export default function EditSchedule(): JSX.Element {
             dispatch({ set: schedule });
           }
         });
+      } else {
+        const newUrl = window.location;
+        newUrl.hash = `#${schedule.name}`;
+        window.location.replace(newUrl.href);
       }
       setScheduleLoaded(true);
     }
