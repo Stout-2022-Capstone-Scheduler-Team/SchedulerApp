@@ -2,12 +2,12 @@
 import { Stack, Button } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import { ImportModal } from "../components";
+// import { ImportModal } from "../components";
 // import { LocalStorage } from "../services/storageService";
 
 export default function Home(): JSX.Element {
   // const storage = new LocalStorage();
-  const importRef = React.useRef(null);
+  // const importRef = React.useRef(null);
   // const sched = new Schedule();
 
   return (
@@ -28,7 +28,6 @@ export default function Home(): JSX.Element {
       >
         Advanced Options
       </Button>
-      <ImportModal componentToImport={importRef} />
     </Stack>
   );
 }

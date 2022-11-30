@@ -85,7 +85,7 @@ export function ExportModal({
 
   return (
     <div>
-      <Button onClick={handleOpen} variant={"contained"}>
+      <Button onClick={handleOpen} variant={"contained"} color={"secondary"}>
         Export
       </Button>
       <Modal
