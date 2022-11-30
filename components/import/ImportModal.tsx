@@ -40,7 +40,7 @@ export function ImportModal(): JSX.Element {
         variant={"contained"}
         disabled={hasSchedules}
       >
-        Import Schedules
+        Import Schedule
       </Button>
       <Modal
         open={open}

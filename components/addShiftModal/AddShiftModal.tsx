@@ -22,7 +22,12 @@ function daySelector(
   return (
     <FormControl fullWidth>
       <InputLabel id={labelId}>{label}</InputLabel>
-      <Select labelId={labelId} label={label} onChange={handleChange} value="">
+      <Select
+        labelId={labelId}
+        label={label}
+        onChange={handleChange}
+        defaultValue={undefined}
+      >
         <MenuItem value={DayOftheWeek.Sunday}>Sunday</MenuItem>
         <MenuItem value={DayOftheWeek.Monday}>Monday</MenuItem>
         <MenuItem value={DayOftheWeek.Tuesday}>Tuesday</MenuItem>

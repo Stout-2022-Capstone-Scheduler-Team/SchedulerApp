@@ -21,33 +21,7 @@ export default function Home(): JSX.Element {
           Create Schedule
         </Button>
       </Link>
-      <Button variant="contained" color="primary">
-        Advanced Options
-      </Button>
       <ImportModal />
-      <div> Testing buttons </div>
-      <Button
-        onClick={() => {
-          const storage = new LocalStorage();
-          testList.forEach((name) => {
-            void storage.update(name, new Schedule());
-          });
-        }}
-      >
-        Add set
-      </Button>
-      <Button
-        onClick={() => {
-          const storage = new LocalStorage();
-          void storage.returnAll().then((schedules) => {
-            Object.keys(schedules).forEach((name) => {
-              void storage.delete(name);
-            });
-          });
-        }}
-      >
-        clear
-      </Button>
     </Stack>
   );
 }

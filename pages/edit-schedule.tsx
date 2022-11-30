@@ -28,6 +28,7 @@ export default function EditSchedule(): JSX.Element {
       if (name !== "") {
         const storage = new LocalStorage();
         void storage.read(name).then((schedule) => {
+          console.log(schedule);
           if (schedule !== null) {
             dispatch({ set: schedule });
           }
