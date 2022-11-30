@@ -231,3 +231,57 @@ test("Back to Back", async () => {
   expect(shifts[0].owner).toBe("alice");
   expect(shifts[1].owner).toBe("alice");
 });
+
+jest.setTimeout(1000000);
+test("Absolutely Gigantic Schedule", async () => {
+  const shifts: Shift[] = [
+    shift("07:45", "14:00", Sunday),
+    shift("07:45", "14:00", Sunday),
+    shift("13:00", "21:00", Sunday),
+    shift("13:00", "21:00", Sunday),
+    shift("07:45", "14:00", Monday),
+    shift("07:45", "14:00", Monday),
+    shift("13:00", "21:00", Monday),
+    shift("13:00", "21:00", Monday),
+    shift("07:45", "14:00", Tuesday),
+    shift("07:45", "14:00", Tuesday),
+    shift("13:00", "21:00", Tuesday),
+    shift("13:00", "21:00", Tuesday),
+    shift("07:45", "14:00", Wednesday),
+    shift("07:45", "14:00", Wednesday),
+    shift("13:00", "21:00", Wednesday),
+    shift("13:00", "21:00", Wednesday),
+    shift("07:45", "14:00", Thursday),
+    shift("07:45", "14:00", Thursday),
+    shift("13:00", "21:00", Thursday),
+    shift("13:00", "21:00", Thursday),
+    shift("07:45", "14:00", Sunday),
+    shift("07:45", "14:00", Sunday),
+    shift("13:00", "21:00", Sunday),
+    shift("13:00", "21:00", Sunday),
+    shift("07:45", "14:00", Saturday),
+    shift("07:45", "14:00", Saturday),
+    shift("13:00", "21:00", Saturday),
+    shift("13:00", "21:00", Saturday)
+  ];
+  const always = [
+    allDay(Monday),
+    allDay(Tuesday),
+    allDay(Wednesday),
+    allDay(Thursday),
+    allDay(Friday),
+    allDay(Saturday),
+    allDay(Sunday)
+  ];
+  const staff: Employee[] = [
+    person("alice", 12, 40, always),
+    person("bob", 12, 40, always),
+    person("claire", 12, 40, always),
+    person("david", 12, 40, always),
+    person("ethan", 12, 40, always),
+    person("frank", 12, 40, always),
+    person("gary", 12, 40, always),
+    person("harry", 12, 40, always)
+  ];
+  expect(await generate(shifts, staff)).toBe(true);
+});
