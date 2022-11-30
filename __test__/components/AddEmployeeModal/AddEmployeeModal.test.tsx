@@ -148,7 +148,6 @@ test("Submit button clears inputs", async () => {
 
 test("Full Add Employee", async () => {
   // Arrange
-  jest.setTimeout(10000);
   const user = userEvent.setup();
   const dispatch = jest.fn();
   dispatch.mockResolvedValue(undefined);
