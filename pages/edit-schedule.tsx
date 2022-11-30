@@ -42,24 +42,37 @@ export default function EditSchedule(): JSX.Element {
         <Box
           sx={{
             border: "1px solid lightgray",
-            borderRadius: 2,
-            boxShadow: 1,
-            px: 2
+            borderRadius: "7px",
+            boxShadow: 1
           }}
         >
           <Typography
             variant="h6"
             sx={{
               fontFamily: "monospace", // setting the font of the nav bar
-              fontWeight: 700, // weight of the font
-              letterSpacing: ".3rem", // letter spacing
-              mb: 1
+              fontWeight: 600, // weight of the font
+              letterSpacing: ".2rem", // letter spacing
+              px: 2,
+              py: 0.2,
+              background: "#4f7cac",
+              borderTopLeftRadius: "7px",
+              borderTopRightRadius: "8px"
             }}
           >
             Tools
           </Typography>
-          <ExportModal componentToExport={exportRef} />
-          <AddShiftModal existingShifts={schedule.shifts} dispatch={dispatch} />
+          <Stack
+            sx={{ p: 1.25 }}
+            direction="row"
+            spacing={2}
+            alignItems="center"
+          >
+            <AddShiftModal
+              existingShifts={schedule.shifts}
+              dispatch={dispatch}
+            />
+            <ExportModal componentToExport={exportRef} />
+          </Stack>
         </Box>
       </Grid>
       <Grid item xs={3} />
