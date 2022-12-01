@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import {
   Calendar,
   ExportModal,
-  AddEmployeeModal,
   AddShiftModal,
   EmployeeSummary
 } from "../components";
@@ -33,10 +32,6 @@ export default function EditSchedule(): JSX.Element {
       </Grid>
       <Grid item xs={3}>
         <EmployeeSummary employees={schedule.employees} dispatch={dispatch}/>
-        <AddEmployeeModal
-          existingEmployees={schedule.employees}
-          dispatch={dispatch}
-        />
       </Grid>
       <Grid item xs={3}>
         <Box

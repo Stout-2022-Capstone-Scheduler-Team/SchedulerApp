@@ -182,8 +182,13 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
 
   return (
     <>
-      <Button onClick={handleOpen} variant={"contained"} color={"secondary"}>
-        Add Employee
+      <Button
+        onClick={handleOpen}
+        variant={"contained"}
+        color={"secondary"}
+        sx={{ ml: "auto !important" }}
+      >
+        Add
       </Button>
       <Modal
         open={open}
