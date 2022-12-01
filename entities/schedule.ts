@@ -64,7 +64,7 @@ export class Schedule {
    * @returns the employee removed from the schedule
    */
   removeEmployee(empToRemove: Employee): Employee {
-    const index = this.employees.indexOf(empToRemove);
+    const index = this.employees.findIndex(employee => employee.name === empToRemove.name);
     return this.employees.splice(index, 1)[0];
   }
 
