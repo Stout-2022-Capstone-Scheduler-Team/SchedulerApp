@@ -1,19 +1,15 @@
-import { Card, CardContent, IconButton, Typography, Stack } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Card, CardContent, Typography, Stack } from "@mui/material";
 import { Employee } from "../../entities";
 import { ScheduleAction, Dispatch } from "../../services/scheduleState";
+import { ConfirmationModal } from "./ConfirmationModal";
 
 interface EmployeeCardProps {
   employee: Employee;
   dispatch: Dispatch<ScheduleAction>;
 }
-
 export function EmployeeCard(props: EmployeeCardProps): JSX.Element {
+  // Props
   const { employee, dispatch } = props;
-
-  const handleSubmit = (): void => {
-    void dispatch({ remove: employee });
-  };
 
   return (
     <>
@@ -23,13 +19,7 @@ export function EmployeeCard(props: EmployeeCardProps): JSX.Element {
             <Typography sx={{ fontWeight: "bold", ml: 2 }}>
               {employee.name}
             </Typography>
-            <IconButton
-              sx={{ ml: "auto !important" }}
-              color="error"
-              onClick={handleSubmit}
-            >
-              <DeleteIcon />
-            </IconButton>
+            <ConfirmationModal employee={employee} dispatch={dispatch} />
           </Stack>
         </CardContent>
       </Card>
