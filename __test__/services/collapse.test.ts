@@ -255,10 +255,10 @@ test("Absolutely Gigantic Schedule", async () => {
     shift("07:45", "14:00", Thursday),
     shift("13:00", "21:00", Thursday),
     shift("13:00", "21:00", Thursday),
-    shift("07:45", "14:00", Sunday),
-    shift("07:45", "14:00", Sunday),
-    shift("13:00", "21:00", Sunday),
-    shift("13:00", "21:00", Sunday),
+    shift("07:45", "14:00", Friday),
+    shift("07:45", "14:00", Friday),
+    shift("13:00", "21:00", Friday),
+    shift("13:00", "21:00", Friday),
     shift("07:45", "14:00", Saturday),
     shift("07:45", "14:00", Saturday),
     shift("13:00", "21:00", Saturday),
@@ -278,10 +278,18 @@ test("Absolutely Gigantic Schedule", async () => {
     person("bob", 12, 40, always),
     person("claire", 12, 40, always),
     person("david", 12, 40, always),
-    // person("ethan", 12, 40, always),
-    // person("frank", 12, 40, always),
-    // person("gary", 12, 40, always),
-    person("harry", 12, 40, always)
+    person("ethan", 12, 40, always),
+    person("frank", 12, 40, always),
+    person("gary", 12, 40, always),
+    person("harry", 12, 40, always),
+    person("Iven", 12, 40, always),
+    person("Jarod", 12, 40, always),
+    person("Kelvin", 12, 40, always),
+    person("Larry", 12, 40, always),
+    person("Mary", 12, 40, always),
+    person("Nathan", 12, 40, always),
+    person("Olivia", 12, 40, always),
+    person("Peter", 12, 40, always)
   ];
   expect(await generate(shifts, staff)).toBe(true);
 });
