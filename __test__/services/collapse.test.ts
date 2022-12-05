@@ -232,7 +232,7 @@ test("Back to Back", async () => {
   expect(shifts[1].owner).toBe("alice");
 });
 
-jest.setTimeout(1000000);
+// jest.setTimeout(1000000);
 test("Absolutely Gigantic Schedule", async () => {
   const shifts: Shift[] = [
     shift("07:45", "14:00", Sunday),
@@ -274,22 +274,22 @@ test("Absolutely Gigantic Schedule", async () => {
     allDay(Sunday)
   ];
   const staff: Employee[] = [
-    person("alice", 12, 40, always),
-    person("bob", 12, 40, always),
-    person("claire", 12, 40, always),
-    person("david", 12, 40, always),
-    person("ethan", 12, 40, always),
-    person("frank", 12, 40, always),
-    person("gary", 12, 40, always),
-    person("harry", 12, 40, always),
-    person("Iven", 12, 40, always),
-    person("Jarod", 12, 40, always),
-    person("Kelvin", 12, 40, always),
-    person("Larry", 12, 40, always),
-    person("Mary", 12, 40, always),
-    person("Nathan", 12, 40, always),
-    person("Olivia", 12, 40, always),
-    person("Peter", 12, 40, always)
+    person("alice", 4, 40, always),
+    person("bob", 4, 40, always),
+    person("claire", 4, 40, always),
+    person("david", 4, 40, always),
+    person("ethan", 4, 40, always),
+    person("frank", 4, 40, always),
+    person("gary", 4, 40, always),
+    person("harry", 4, 40, always),
+    person("iven", 4, 40, always),
+    person("jarod", 4, 40, always),
+    person("kelvin", 4, 40, always),
+    person("larry", 4, 40, always),
+    person("mary", 4, 40, always),
+    person("nathan", 4, 40, always),
+    person("olivia", 4, 40, always),
+    person("peter", 4, 40, always)
   ];
   expect(await generate(shifts, staff)).toBe(true);
 });
