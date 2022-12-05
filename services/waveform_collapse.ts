@@ -33,10 +33,13 @@ function arrMin(arr: number[]): number {
 export async function generate(
   ...[shifts, staff]: Parameters<ISchedulerAlgorithm>
 ): ReturnType<ISchedulerAlgorithm> {
+  let maxEmployeeHours = 0;
   // Clear current hours and busy
   staff.forEach((employee) => {
     employee.current_hours = 0;
+    maxEmployeeHours += employee.max_hours;
   });
+  let shiftHours = 0;
   // Generate matrix & clear owners
   let matrix: Assignment[][] = [];
   shifts.forEach((shift) => {
@@ -44,12 +47,14 @@ export async function generate(
     shift.option = 0;
     shift.assigned = 0;
     shift.first_try = undefined;
+    shiftHours += shift.duration;
     const row: boolean[] = [];
     staff.forEach((employee) => {
       row.push(employee.isAvailable(shift));
     });
     matrix.push(row);
   });
+  const canAssignAllShifts = maxEmployeeHours >= shiftHours;
   // Either the function return false or assign a shift each loop
   let assigned = 0;
   while (assigned < shifts.length) {
@@ -82,6 +87,9 @@ export async function generate(
           shift.owner = shift.first_try;
         }
       });
+      return false;
+    } else if (!canAssignAllShifts) {
+      // Skip backtracking if we don't have enough employees to actually fill the schedule
       return false;
     } else {
       log("Failed to assign a shift");
