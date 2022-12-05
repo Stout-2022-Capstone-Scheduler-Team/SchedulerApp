@@ -82,6 +82,10 @@ export class Employee {
     return Math.max(this.min_hours - this.current_hours, 0);
   }
 
+  get remainingMaxHours(): number {
+    return Math.max(this.max_hours - this.current_hours, 0);
+  }
+
   splitAvailable(removeShift: Shift): void {
     for (let i = 0; i < this.available.length; i++) {
       assert(this.available.length < 10000);
