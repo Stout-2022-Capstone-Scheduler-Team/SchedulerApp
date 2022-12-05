@@ -13,6 +13,15 @@ import {
 } from "../utils";
 import { Shift, Employee, Color } from "../../entities";
 import { log } from "console";
+const always = [
+  allDay(Monday),
+  allDay(Tuesday),
+  allDay(Wednesday),
+  allDay(Thursday),
+  allDay(Friday),
+  allDay(Saturday),
+  allDay(Sunday)
+];
 
 test("Empty Schedule", async () => {
   const shifts: Shift[] = [];
@@ -33,24 +42,7 @@ test("Get Employee Name", async () => {
   expect(getEmployee(staff, "some_other")).toBe(undefined);
 });
 
-test("Collapse Schedule", async () => {
-  const shifts: Shift[] = [
-    shift("08:00", "12:00", Monday),
-    shift("15:45", "20:00", Monday),
-    shift("14:00", "16:00", Tuesday)
-  ];
-  const staff: Employee[] = [
-    person("alice", 1, 4, [allDay(Monday), allDay(Tuesday)], new Color("Red")),
-    person("bob", 1, 12, [allDay(Monday), allDay(Tuesday)], new Color("Red")),
-    person("clair", 1, 12, [shift("12:00", "24:00", Tuesday)], new Color("Red"))
-  ];
-  expect(await generate(shifts, staff)).toBeUndefined();
-  expect(shifts[0].owner).toBe("alice");
-  expect(shifts[1].owner).toBe("bob");
-  expect(shifts[2].owner).toBe("clair");
-});
-
-test("Jarod 1 Schedule", async () => {
+test("Min Hours Assign Test", async () => {
   const shifts: Shift[] = [
     shift("09:00", "12:00", Monday), // 3:00
     shift("09:00", "10:00", Monday), // 1:00
@@ -77,7 +69,7 @@ test("Jarod 1 Schedule", async () => {
   expect(shifts[0].owner).toBe("clair");
 });
 
-test("Jarod 2 Schedule", async () => {
+test("Max Hours Assign Test", async () => {
   const shifts: Shift[] = [
     shift("09:00", "10:00", Monday), // 1:00
     shift("11:15", "11:30", Tuesday), // 0:15
@@ -88,20 +80,8 @@ test("Jarod 2 Schedule", async () => {
     shift("12:00", "13:00", Tuesday) // 1:00
   ];
   const staff: Employee[] = [
-    person(
-      "alice",
-      2,
-      10,
-      [shift("09:00", "23:00", Monday), allDay(Tuesday)],
-      new Color("Red")
-    ),
-    person(
-      "bob",
-      2,
-      4,
-      [allDay(Monday), shift("07:00", "24:00", Tuesday)],
-      new Color("Red")
-    )
+    person("alice", 2, 10, [shift("09:00", "23:00", Monday), allDay(Tuesday)], new Color("Red")),
+    person("bob", 2, 4, [allDay(Monday), shift("07:00", "24:00", Tuesday)], new Color("Red"))
   ];
   expect(await generate(shifts, staff)).toBeUndefined();
   expect(shifts[0].owner).toBe("bob");
@@ -113,7 +93,7 @@ test("Jarod 2 Schedule", async () => {
   expect(shifts[6].owner).toBe("alice");
 });
 
-test("Jarod 3 Schedule", async () => {
+test("Multi-Day Assign Test", async () => {
   const shifts: Shift[] = [
     shift("04:00", "09:00", Monday), // 5:00
     shift("07:00", "10:00", Monday), // 3:00
@@ -121,36 +101,8 @@ test("Jarod 3 Schedule", async () => {
     shift("08:00", "10:00", Wednesday) // 2:00
   ];
   const staff: Employee[] = [
-    person(
-      "alice",
-      8,
-      12,
-      [
-        allDay(Monday),
-        allDay(Tuesday),
-        allDay(Wednesday),
-        allDay(Thursday),
-        allDay(Friday),
-        allDay(Saturday),
-        allDay(Sunday)
-      ],
-      new Color("Red")
-    ),
-    person(
-      "bob",
-      1,
-      4,
-      [
-        allDay(Monday),
-        allDay(Tuesday),
-        allDay(Wednesday),
-        allDay(Thursday),
-        allDay(Friday),
-        allDay(Saturday),
-        allDay(Sunday)
-      ],
-      new Color("Red")
-    )
+    person("alice", 8, 12, always, new Color("Red")),
+    person("bob", 1, 4, always, new Color("Red"))
   ];
   expect(await generate(shifts, staff)).toBeUndefined();
   expect(shifts[0].owner).toBe("alice");
@@ -159,7 +111,7 @@ test("Jarod 3 Schedule", async () => {
   expect(shifts[3].owner).toBe("alice");
 });
 
-test("Overnight Schedule 1", async () => {
+test("Simple Overnight Schedule", async () => {
   const shifts: Shift[] = [
     shift("18:00", "23:00", Monday), // 5:00
     shift("22:00", "05:00", Monday, Tuesday) // 7:00 (N)
@@ -173,7 +125,7 @@ test("Overnight Schedule 1", async () => {
   expect(shifts[1].owner).toBe("bob");
 });
 
-test("Overnight Schedule 2", async () => {
+test("Complex Overnight Schedule", async () => {
   const shifts: Shift[] = [
     shift("18:00", "23:00", Monday), // 5:00
     shift("22:00", "05:00", Monday, Tuesday), // 7:00 (N)
@@ -214,13 +166,9 @@ test("Impossible Schedule", async () => {
     person("alice", 2, 2, [allDay(Monday)], new Color("Red"))
   ];
   expect(await generate(shifts, staff)).not.toBeUndefined();
-  expect(shifts[0].owner).toBe("alice");
-  expect(shifts[1].owner).toBe("");
-  expect(shifts[2].owner).toBe("");
-  expect(shifts[3].owner).toBe("alice");
 });
 
-test("Back to Back", async () => {
+test("Consecutive Assign Test", async () => {
   const shifts: Shift[] = [
     shift("10:00", "11:00", Monday),
     shift("11:00", "12:00", Monday)
@@ -234,11 +182,10 @@ test("Back to Back", async () => {
 });
 
 // jest.setTimeout(1000000);
-test("Absolutely Gigantic Schedule", async () => {
+test("Absolutely Gigantic Test", async () => {
   const shifts: Shift[] = [
     shift("07:45", "14:00", Sunday),
     shift("07:45", "14:00", Sunday),
-
     shift("13:00", "21:00", Sunday),
     shift("13:00", "21:00", Sunday),
 
@@ -261,23 +208,16 @@ test("Absolutely Gigantic Schedule", async () => {
     shift("07:45", "14:00", Thursday),
     shift("13:00", "21:00", Thursday),
     shift("13:00", "21:00", Thursday),
+
     shift("07:45", "14:00", Friday),
     shift("07:45", "14:00", Friday),
     shift("13:00", "21:00", Friday),
     shift("13:00", "21:00", Friday),
+
     shift("07:45", "14:00", Saturday),
     shift("07:45", "14:00", Saturday),
     shift("13:00", "21:00", Saturday),
     shift("13:00", "21:00", Saturday)
-  ];
-  const always = [
-    allDay(Monday),
-    allDay(Tuesday),
-    allDay(Wednesday),
-    allDay(Thursday),
-    allDay(Friday),
-    allDay(Saturday),
-    allDay(Sunday)
   ];
   const staff: Employee[] = [
     person("alice", 4, 40, always),
@@ -300,6 +240,5 @@ test("Absolutely Gigantic Schedule", async () => {
   console.log = log;
   console.log("Shifts: ", shifts.length);
   console.log("Staff: ", staff.length);
-  // expect(false).toBe(true);
   expect(await generate(shifts, staff)).toBeUndefined();
 });
