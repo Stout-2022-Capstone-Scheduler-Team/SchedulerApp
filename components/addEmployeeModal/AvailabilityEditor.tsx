@@ -1,4 +1,5 @@
 import {
+  Box,
   Checkbox,
   FormControlLabel,
   FormGroup,
@@ -8,9 +9,9 @@ import {
   Theme,
   Typography
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AvailabilityCard } from "..";
-import { Shift, DayOftheWeek, Employee } from "../../entities";
+import { Shift, DayOftheWeek, Employee, Time } from "../../entities";
 import { AddAvailabilityModal } from "./AddAvailabilityModal";
 
 interface TabPanelProps {
@@ -19,6 +20,10 @@ interface TabPanelProps {
   currentAvailability: Shift[];
   addAvailability: (newAvailability: Shift) => void;
   removeAvailability: (oldAvailability: Shift) => void;
+  setDayAvailability: (
+    day: DayOftheWeek,
+    newAvailabilityArray: Shift[]
+  ) => void;
 }
 
 const availabilityStyle: SxProps<Theme> = {
@@ -30,11 +35,34 @@ const availabilityStyle: SxProps<Theme> = {
   pt: ".5rem"
 };
 
+/**
+ * Availability Editor Component
+ * @param props Component Props
+ * @returns Availability Editor Component
+ */
 export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
-  const { day, currentAvailability, addAvailability, removeAvailability } =
-    props;
+  const {
+    day,
+    currentAvailability,
+    addAvailability,
+    removeAvailability,
+    setDayAvailability
+  } = props;
 
   const [allDay, setAllDay] = useState(false);
+
+  /** Add watcher for the allDay checkbox */
+  useEffect(() => {
+    if (allDay) {
+      // If the allday box was just checked, remove all availabilities and set a single availability that spans the whole day
+      setDayAvailability(day, [
+        new Shift("", new Time(0, day), new Time(24, day))
+      ]);
+    } else {
+      // If the allday box was just unchecked, remove the full day spanning availability (saves user a click)
+      removeAvailability(currentAvailability[0]); // Remove first (and only) availability
+    }
+  }, [allDay]);
 
   return (
     <Grid container sx={{ minHeight: "300px" }}>
@@ -42,7 +70,12 @@ export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
         <Typography variant="h6" sx={{ mb: 1 }}>
           {DayOftheWeek[day]} Availability
         </Typography>
-        <Stack direction="column" spacing={1} data-testid="AvailabilityStack">
+        <Stack
+          direction="column"
+          spacing={1}
+          sx={{ maxHeight: "290px", overflow: "auto" }}
+          data-testid="AvailabilityStack"
+        >
           {currentAvailability.map((shift: Shift) => (
             <AvailabilityCard
               key={
@@ -51,6 +84,7 @@ export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
                 shift.end.toString() +
                 shift.owner
               }
+              disabled={allDay}
               shift={shift}
               killMe={() => removeAvailability(shift)}
             />

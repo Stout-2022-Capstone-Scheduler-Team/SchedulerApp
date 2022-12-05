@@ -3,10 +3,7 @@ import {
   Card,
   CardActions,
   CardContent,
-  Checkbox,
   FormControl,
-  FormControlLabel,
-  FormGroup,
   Modal,
   TextField,
   Typography
@@ -23,6 +20,7 @@ interface AddAvailabilityModalProps {
   day: DayOftheWeek;
   addAvailability: (shift: Shift) => void;
 }
+
 export function AddAvailabilityModal(
   props: AddAvailabilityModalProps
 ): JSX.Element {
@@ -31,19 +29,13 @@ export function AddAvailabilityModal(
 
   // Employee State
   const [open, setOpen] = useState(false);
-  const [checked, setChecked] = useState(false);
   const [valueStartTime, setValueStartTime] = useState<Dayjs | null>(null);
   const [valueEndTime, setValueEndTime] = useState<Dayjs | null>(null);
 
   // Form Event Handlers
-  const handleOpen = (): void => setOpen(true);
-  const handleClose = (): void => clearInputs();
-  const handleSubmit = (): void => {
-    if (checked) {
-      addAvailability(new Shift("", new Time(0, day), new Time(24, day)));
-      clearInputs();
-    } else if (validateInputs()) {
-      // Is there anything I have to name the shift as?
+  /** Handle the submit button being pressed */
+  function handleSubmit(): void {
+    if (validateInputs()) {
       addAvailability(
         new Shift(
           "",
@@ -51,35 +43,35 @@ export function AddAvailabilityModal(
           Time.fromDayjs(valueEndTime ?? new Dayjs(), day)
         )
       );
+      setOpen(false);
       clearInputs();
     }
-  };
+  }
 
-  /** Handle Change from checking 'all day' checkbox */
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    if (event.target.checked) {
-      setValueStartTime(null);
-      setValueEndTime(null);
-    }
-
-    setChecked(event.target.checked);
-  };
-
+  /**
+   * Validate all the inputs and return a value representing their pass or fail
+   * @returns A boolean representing a pass or fail of validation
+   */
   const validateInputs = (): boolean => {
     const nonNull = valueStartTime !== null && valueEndTime !== null;
-    return checked || (nonNull && valueStartTime.isBefore(valueEndTime));
+    return nonNull && valueStartTime.isBefore(valueEndTime);
   };
 
-  const clearInputs = (): void => {
-    setOpen(false);
-    setChecked(false);
+  /**
+   * Clear all the form inputs
+   */
+  function clearInputs(): void {
     setValueStartTime(null);
     setValueEndTime(null);
-  };
+  }
 
   return (
     <>
-      <Button onClick={handleOpen} variant="contained" disabled={disabled}>
+      <Button
+        onClick={() => setOpen(true)}
+        variant="contained"
+        disabled={disabled}
+      >
         Add Availability
       </Button>
       <Modal open={open}>
@@ -88,18 +80,11 @@ export function AddAvailabilityModal(
             <Typography id="modal-modal-title" variant="h6" component="h2">
               {dayName(day)} Availability
             </Typography>
-            <FormGroup aria-label="position" row>
-              <FormControlLabel
-                control={<Checkbox checked={checked} onChange={handleChange} />}
-                label="All Day"
-              />
-            </FormGroup>
             <FormControl sx={{ mr: 2 }}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <TimePicker
                   label="Select Start Time"
                   value={valueStartTime}
-                  disabled={checked}
                   onChange={(newValueST) => {
                     setValueStartTime(newValueST);
                   }}
@@ -112,7 +97,6 @@ export function AddAvailabilityModal(
                 <TimePicker
                   label="Select End Time"
                   value={valueEndTime}
-                  disabled={checked}
                   onChange={(newValueET) => {
                     setValueEndTime(newValueET);
                   }}
@@ -121,7 +105,11 @@ export function AddAvailabilityModal(
               </LocalizationProvider>
             </FormControl>
             <CardActions>
-              <Button onClick={handleClose} color={"error"} sx={{ ml: "auto" }}>
+              <Button
+                onClick={() => setOpen(false)}
+                color={"error"}
+                sx={{ ml: "auto" }}
+              >
                 Close
               </Button>
               <Button
