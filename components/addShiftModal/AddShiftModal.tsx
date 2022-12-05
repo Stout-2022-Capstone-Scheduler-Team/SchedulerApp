@@ -28,13 +28,13 @@ function daySelector(
         onChange={handleChange}
         defaultValue={undefined}
       >
-        <MenuItem value={DayOftheWeek.Sunday}>Sunday</MenuItem>
-        <MenuItem value={DayOftheWeek.Monday}>Monday</MenuItem>
-        <MenuItem value={DayOftheWeek.Tuesday}>Tuesday</MenuItem>
-        <MenuItem value={DayOftheWeek.Wednesday}>Wednesday</MenuItem>
-        <MenuItem value={DayOftheWeek.Thursday}>Thursday</MenuItem>
-        <MenuItem value={DayOftheWeek.Friday}>Friday</MenuItem>
-        <MenuItem value={DayOftheWeek.Saturday}>Saturday</MenuItem>
+        <MenuItem defaultValue={DayOftheWeek.Sunday}>Sunday</MenuItem>
+        <MenuItem defaultValue={DayOftheWeek.Monday}>Monday</MenuItem>
+        <MenuItem defaultValue={DayOftheWeek.Tuesday}>Tuesday</MenuItem>
+        <MenuItem defaultValue={DayOftheWeek.Wednesday}>Wednesday</MenuItem>
+        <MenuItem defaultValue={DayOftheWeek.Thursday}>Thursday</MenuItem>
+        <MenuItem defaultValue={DayOftheWeek.Friday}>Friday</MenuItem>
+        <MenuItem defaultValue={DayOftheWeek.Saturday}>Saturday</MenuItem>
       </Select>
     </FormControl>
   );
@@ -52,12 +52,8 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
   const [open, setOpen] = React.useState(false);
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
-  const [StartDayVal, setStartDay] = React.useState<DayOftheWeek | undefined>(
-    undefined
-  );
-  const [EndDayVal, setEndDay] = React.useState<DayOftheWeek | undefined>(
-    undefined
-  );
+  const [StartDayVal, setStartDay] = React.useState<DayOftheWeek | null>(null);
+  const [EndDayVal, setEndDay] = React.useState<DayOftheWeek | null>(null);
   // start time variables
   const [valueStartTime, setValueStartTime] = React.useState<Dayjs | null>(
     null
@@ -84,8 +80,8 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
   // Event Handler
   const handleSubmit = (): void => {
     if (
-      StartDayVal !== undefined &&
-      EndDayVal !== undefined &&
+      StartDayVal !== null &&
+      EndDayVal !== null &&
       valueStartTime !== null &&
       valueEndTime !== null
     ) {
@@ -104,8 +100,8 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
    * Clear the modal's inputs (resets the state)
    */
   const clearInputs = (): void => {
-    setStartDay(undefined);
-    setEndDay(undefined);
+    setStartDay(null);
+    setEndDay(null);
     setValueStartTime(null);
     setValueEndTime(null);
   };
