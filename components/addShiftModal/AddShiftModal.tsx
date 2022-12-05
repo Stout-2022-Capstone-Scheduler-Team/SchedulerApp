@@ -1,5 +1,12 @@
 import * as React from "react";
-import { Button, Modal, Typography, Card, CardContent, CardActions } from "@mui/material";
+import {
+  Button,
+  Modal,
+  Typography,
+  Card,
+  CardContent,
+  CardActions
+} from "@mui/material";
 import modalStyle from "../../styles/modalStyle";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -120,6 +127,13 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
             <Typography id="addShiftTitle" variant="h6" component="h2">
               Add A Shift
             </Typography>
+            <TextField
+              fullWidth
+              id="Job Title"
+              label="Job Title"
+              variant="outlined"
+              margin="dense"
+            />
             <Typography id="Select Start Day" sx={{ mt: 2 }}></Typography>
             <Box sx={{ minWidth: 120 }}>
               {daySelector(handleStartChange, "Select Start Day")}
