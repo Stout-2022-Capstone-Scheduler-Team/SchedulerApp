@@ -15,16 +15,16 @@ const bodyStyle: CSSProperties = {
 
 export default function DefaultLayout({ children }: LayoutProps): JSX.Element {
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <>
       <Head>
         <title>Scheduler App</title>
         <meta name="description" content="This is the scheduler app"></meta>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <body>
+      <ThemeProvider theme={defaultTheme}>
         <NavBar />
         <main style={bodyStyle}>{children}</main>
-      </body>
-    </ThemeProvider>
+      </ThemeProvider>
+    </>
   );
 }
