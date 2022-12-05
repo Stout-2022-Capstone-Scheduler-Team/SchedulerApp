@@ -1,4 +1,14 @@
-import { Grid, Stack, SxProps, Theme, Typography } from "@mui/material";
+import {
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  Stack,
+  SxProps,
+  Theme,
+  Typography
+} from "@mui/material";
+import { useState } from "react";
 import { AvailabilityCard } from "..";
 import { Shift, DayOftheWeek, Employee } from "../../entities";
 import { AddAvailabilityModal } from "./AddAvailabilityModal";
@@ -24,6 +34,8 @@ export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
   const { day, currentAvailability, addAvailability, removeAvailability } =
     props;
 
+  const [allDay, setAllDay] = useState(false);
+
   return (
     <Grid container sx={{ minHeight: "300px" }}>
       <Grid item xs={6} sx={availabilityStyle}>
@@ -46,7 +58,22 @@ export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
         </Stack>
       </Grid>
       <Grid item sx={{ px: "1rem" }}>
-        <AddAvailabilityModal day={day} addAvailability={addAvailability} />
+        <FormGroup aria-label="position" row>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={allDay}
+                onChange={(event) => setAllDay(event.target.checked)}
+              />
+            }
+            label="All Day"
+          />
+        </FormGroup>
+        <AddAvailabilityModal
+          day={day}
+          addAvailability={addAvailability}
+          disabled={allDay}
+        />
       </Grid>
     </Grid>
   );

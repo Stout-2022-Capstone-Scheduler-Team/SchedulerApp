@@ -19,6 +19,7 @@ import { dayName, DayOftheWeek, Shift, Time } from "../../entities";
 import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 
 interface AddAvailabilityModalProps {
+  disabled?: boolean;
   day: DayOftheWeek;
   addAvailability: (shift: Shift) => void;
 }
@@ -26,7 +27,7 @@ export function AddAvailabilityModal(
   props: AddAvailabilityModalProps
 ): JSX.Element {
   // Props
-  const { day, addAvailability } = props;
+  const { disabled, day, addAvailability } = props;
 
   // Employee State
   const [open, setOpen] = useState(false);
@@ -54,6 +55,7 @@ export function AddAvailabilityModal(
     }
   };
 
+  /** Handle Change from checking 'all day' checkbox */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.checked) {
       setValueStartTime(null);
@@ -77,7 +79,7 @@ export function AddAvailabilityModal(
 
   return (
     <>
-      <Button onClick={handleOpen} variant="contained">
+      <Button onClick={handleOpen} variant="contained" disabled={disabled}>
         Add Availability
       </Button>
       <Modal open={open}>
