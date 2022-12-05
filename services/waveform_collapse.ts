@@ -220,7 +220,17 @@ function canAssignMinHours(
   staff: Employee[],
   matrix: Assignment[][]
 ): boolean {
-  let totalRemainingHours = 0;
+  let totalShiftHoursToAssign = 0;
+  let minBlock = Infinity;
+  shifts.forEach((s) => {
+    if (s.owner === "") {
+      totalShiftHoursToAssign += s.duration;
+      if (s.duration < minBlock) {
+        minBlock = s.duration;
+      }
+    }
+  });
+  let totalRemainingEmployeeHours = 0;
   for (let i = 0; i < staff.length; i++) {
     let remaining = 0;
     for (let j = 0; j < shifts.length; j++) {
@@ -231,10 +241,13 @@ function canAssignMinHours(
     if (remaining < staff[i].remainingHours) {
       return false;
     }
-    totalRemainingHours += staff[i].remainingHours;
+    totalRemainingEmployeeHours += Math.ceil(staff[i].remainingHours / minBlock) * minBlock;
   }
-  shifts.forEach((s) => { totalRemainingHours -= s.duration; });
-  return totalRemainingHours >= 0;
+  // console.log(`${totalRemainingEmployeeHours - totalShiftHoursToAssign}, min: ${minBlock}`);
+  if (totalRemainingEmployeeHours > totalShiftHoursToAssign) {
+    return false;
+  }
+  return true;
 }
 
 export function getEmployee(
