@@ -56,8 +56,14 @@ export async function generate(
   });
   const canAssignAllShifts = maxEmployeeHours >= shiftHours;
   // Either the function return false or assign a shift each loop
+  let iterations = 0;
   let assigned = 0;
   while (assigned < shifts.length) {
+    // console.log(`Starting iteration ${iterations}`);
+    iterations += 1;
+    if (iterations > 10_000) {
+      return "Max iterations reached";
+    }
     log(matrix);
     const counts = matrixCounts(matrix);
     log(counts);
@@ -78,29 +84,58 @@ export async function generate(
       } else {
         assigned += 1;
       }
-    } else if (assigned <= -1) {
-      log("Backtracking failed");
-      // Backtracking has failed (we've backtracked to the beginning)
-      // Reset each shift to the first try we made, which will be a partially valid schedule
-      shifts.forEach((shift) => {
-        if (shift.first_try !== undefined) {
-          shift.owner = shift.first_try;
-        }
-      });
-      return false;
-    } else if (!canAssignAllShifts) {
+    } else if (
+      !canAssignAllShifts ||
+      !canAssignRemainingShifts(shifts, staff, matrix)
+    ) {
       // Skip backtracking if we don't have enough employees to actually fill the schedule
-      return false;
+      return "Not Enough Employees";
     } else {
       log("Failed to assign a shift");
       // No shift can be assigned to an employee, but not every shift has an owner yet
       // backtrack by unassigning a shift
       assigned -= 1;
+      if (assigned <= -1) {
+        log("Backtracking failed");
+        // Backtracking has failed (we've backtracked to the beginning)
+        // Reset each shift to the first try we made, which will be a partially valid schedule
+        shifts.forEach((shift) => {
+          if (shift.first_try !== undefined) {
+            shift.owner = shift.first_try;
+          }
+        });
+        if (canAssignMinHours(shifts, staff, matrix)) {
+          return "Backtracking failed";
+        } else {
+          return "Cannot assign min hours for every employee";
+        }
+      }
       matrix = unassign(shifts, staff, assigned, matrix);
     }
     await sleepTask(0);
   }
-  return true;
+  return undefined;
+}
+
+function canAssignRemainingShifts(
+  shifts: Shift[],
+  staff: Employee[],
+  matrix: Assignment[][]
+): boolean {
+  let remHours = 0;
+  let minBlock = Infinity;
+  shifts.forEach((s) => {
+    if (s.owner === "") {
+      remHours += s.duration;
+      if (s.duration < minBlock) {
+        minBlock = s.duration;
+      }
+    }
+  });
+  staff.forEach((s) => {
+    remHours -= s.remainingMaxHours - (s.remainingMaxHours % minBlock);
+  });
+  return remHours <= 0;
 }
 
 function assignShift(
@@ -185,6 +220,7 @@ function canAssignMinHours(
   staff: Employee[],
   matrix: Assignment[][]
 ): boolean {
+  let totalRemainingHours = 0;
   for (let i = 0; i < staff.length; i++) {
     let remaining = 0;
     for (let j = 0; j < shifts.length; j++) {
@@ -195,8 +231,10 @@ function canAssignMinHours(
     if (remaining < staff[i].remainingHours) {
       return false;
     }
+    totalRemainingHours += staff[i].remainingHours;
   }
-  return true;
+  shifts.forEach((s) => { totalRemainingHours -= s.duration; });
+  return totalRemainingHours >= 0;
 }
 
 export function getEmployee(
