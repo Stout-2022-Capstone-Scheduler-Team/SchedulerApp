@@ -9,6 +9,7 @@ import { Box, Grid, Stack } from "@mui/material";
 import { Schedule } from "../entities/schedule";
 import { ScheduleAction, updateSchedule, useAsyncReducer } from "../services";
 import Typography from "@mui/material/Typography";
+import { Employee } from "../entities";
 
 export default function EditSchedule(): JSX.Element {
   const [buildingSchedule, setBuildingSchedule] = useState<boolean>(false);
@@ -16,6 +17,9 @@ export default function EditSchedule(): JSX.Element {
     setBuildingSchedule(true);
     return await updateSchedule(a, b).finally(() => setBuildingSchedule(false));
   }, new Schedule([], []));
+  const [currentEmployee, setCurrentEmployee] = useState<Employee | null>(null);
+  const [addEmployeeModalOpen, setAddEmployeeModalOpen] =
+    useState<boolean>(false);
 
   // Reference to the calendar which enables exporting it
   const exportRef = useRef(null);
@@ -31,7 +35,14 @@ export default function EditSchedule(): JSX.Element {
         />
       </Grid>
       <Grid item xs={3}>
-        <EmployeeSummary employees={schedule.employees} dispatch={dispatch}/>
+        <EmployeeSummary
+          employees={schedule.employees}
+          dispatch={dispatch}
+          currentEmployee={currentEmployee}
+          setCurrentEmployee={setCurrentEmployee}
+          addEmployeeModalOpen={addEmployeeModalOpen}
+          setAddEmployeeModalOpen={setAddEmployeeModalOpen}
+        />
       </Grid>
       <Grid item xs={3}>
         <Box

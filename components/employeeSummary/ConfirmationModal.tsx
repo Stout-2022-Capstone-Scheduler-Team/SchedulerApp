@@ -31,7 +31,12 @@ export function ConfirmationModal(props: ConfirmationModalProps): JSX.Element {
 
   return (
     <>
-      <IconButton onClick={handleOpen}
+      <IconButton
+        onClick={(event) => {
+          event.stopPropagation();
+          handleOpen();
+          console.log("Button clicked");
+        }}
         sx={{ ml: "auto !important" }}
         color="error"
       >
@@ -47,11 +52,21 @@ export function ConfirmationModal(props: ConfirmationModalProps): JSX.Element {
               Are you sure you want to delete {employee.name}?
             </Typography>
             <CardActions>
-              <Button onClick={handleClose} color={"error"} sx={{ ml: "auto" }}>
+              <Button
+                color={"error"}
+                sx={{ ml: "auto" }}
+                onClick={(event) => {
+                  handleClose();
+                  event.stopPropagation();
+                }}
+              >
                 Close
               </Button>
               <Button
-                onClick={handleSubmit}
+                onClick={(event) => {
+                  handleSubmit();
+                  event.stopPropagation();
+                }}
                 color={"primary"}
                 variant={"contained"}
               >

@@ -7,10 +7,21 @@ import { AddEmployeeModal } from "../addEmployeeModal";
 interface EmployeeSummaryProps {
   employees: Employee[];
   dispatch: Dispatch<ScheduleAction>;
+  currentEmployee: Employee | null;
+  setCurrentEmployee: (employee: Employee | null) => void;
+  addEmployeeModalOpen: boolean;
+  setAddEmployeeModalOpen: (addEmployeeModalOpen: boolean) => void;
 }
 
 export function EmployeeSummary(props: EmployeeSummaryProps): JSX.Element {
-  const { employees, dispatch } = props;
+  const {
+    employees,
+    dispatch,
+    currentEmployee,
+    setCurrentEmployee,
+    addEmployeeModalOpen,
+    setAddEmployeeModalOpen
+  } = props;
   return (
     <>
       <Box
@@ -20,24 +31,39 @@ export function EmployeeSummary(props: EmployeeSummaryProps): JSX.Element {
           boxShadow: 1,
           px: 2,
           py: 1
-
         }}
       >
         <Stack spacing={2} direction={"row"}>
           <Typography
             variant="h6"
-            sx={{ fontFamily: "monospace", fontWeight: 600, letterSpacing: ".2rem" }}
+            sx={{
+              fontFamily: "monospace",
+              fontWeight: 600,
+              letterSpacing: ".2rem"
+            }}
           >
             Employees
           </Typography>
           <AddEmployeeModal
             existingEmployees={employees}
             dispatch={dispatch}
+            currentEmployee={currentEmployee}
+            setCurrentEmployee={setCurrentEmployee}
+            addEmployeeModalOpen={addEmployeeModalOpen}
+            setAddEmployeeModalOpen={setAddEmployeeModalOpen}
           />
         </Stack>
         <Stack>
           {employees.map((employee: Employee) => (
-            <EmployeeCard key={employee.name} employee={employee} dispatch={dispatch}/>
+            <EmployeeCard
+              key={employee.name}
+              employee={employee}
+              dispatch={dispatch}
+              currentEmployee={currentEmployee}
+              setCurrentEmployee={setCurrentEmployee}
+              addEmployeeModalOpen={addEmployeeModalOpen}
+              setAddEmployeeModalOpen={setAddEmployeeModalOpen}
+            />
           ))}
         </Stack>
       </Box>

@@ -17,14 +17,25 @@ import { useEffect, useState } from "react";
 interface EmployeeModalProps {
   existingEmployees: Employee[];
   dispatch: Dispatch<ScheduleAction>;
+  currentEmployee: Employee | null;
+  setCurrentEmployee: (employee: Employee | null) => void;
+  addEmployeeModalOpen: boolean;
+  setAddEmployeeModalOpen: (addEmployeeModalOpen: boolean) => void;
 }
 
 export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   // Props
-  const { existingEmployees, dispatch } = props;
+  const {
+    existingEmployees,
+    dispatch,
+    currentEmployee,
+    setCurrentEmployee,
+    addEmployeeModalOpen,
+    setAddEmployeeModalOpen
+  } = props;
 
   // Employee State
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [name, setName] = useState<string>("");
   const [minHours, setMinHours] = useState(0);
   const [maxHours, setMaxHours] = useState(40);
@@ -39,8 +50,8 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   const [validErrors, setValidErrors] = useState<string[]>([]);
 
   // Form Event Handlers
-  const handleOpen = (): void => setOpen(true);
-  const handleClose = (): void => setOpen(false);
+  const handleOpen = (): void => setAddEmployeeModalOpen(true);
+  const handleClose = (): void => setAddEmployeeModalOpen(false);
   const handleSubmit = (): void => {
     if (canSubmit) {
       const newEmployee = new Employee(name, minHours, maxHours, color);
@@ -50,7 +61,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
         )
       );
       void dispatch({ add: newEmployee });
-      setOpen(false);
+      setAddEmployeeModalOpen(false);
       clearInputs();
     }
   };
@@ -157,6 +168,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   const clearInputs = (): void => {
     setCanSubmit(false);
     setNameUpdateCount(0);
+    // setName(set);
     setName("");
     setMinHours(0);
     setMaxHours(40);
@@ -191,7 +203,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
         Add
       </Button>
       <Modal
-        open={open}
+        open={addEmployeeModalOpen}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
       >
