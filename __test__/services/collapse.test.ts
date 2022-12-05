@@ -181,6 +181,29 @@ test("Consecutive Assign Test", async () => {
   expect(shifts[1].owner).toBe("alice");
 });
 
+test("Too Many Shifts Test", async () => {
+  const shifts: Shift[] = [
+    shift("10:00", "11:00", Monday),
+    shift("10:00", "11:00", Monday),
+    shift("10:00", "11:00", Monday)
+  ];
+  const staff: Employee[] = [
+    person("alice", 0, 12, [allDay(Monday)], new Color("Red")),
+    person("bob", 0, 12, [allDay(Monday)], new Color("Red"))
+  ];
+  expect(await generate(shifts, staff)).not.toBeUndefined();
+});
+
+test("Min Hours Failure Test", async () => {
+  const shifts: Shift[] = [
+    shift("5:00", "11:00", Monday)
+  ];
+  const staff: Employee[] = [
+    person("alice", 8, 12, [allDay(Monday)], new Color("Red"))
+  ];
+  expect(await generate(shifts, staff)).not.toBeUndefined();
+});
+
 // jest.setTimeout(1000000);
 test("Absolutely Gigantic Test", async () => {
   const shifts: Shift[] = [
