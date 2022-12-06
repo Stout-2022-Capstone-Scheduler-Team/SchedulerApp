@@ -32,10 +32,9 @@ export function EmployeeCard(props: EmployeeCardProps): JSX.Element {
     <>
       <Card
         sx={{ mt: 1, borderLeft: 6, borderColor: employee.color.colorHex }}
-        onClick={(event) => {
+        onClick={() => {
           setAddEmployeeModalOpen(true);
           setCurrentEmployee(employee);
-          console.log("CardActionArea clicked");
         }}
       >
         {/* Causes error for where button cannot be nested by other button */}

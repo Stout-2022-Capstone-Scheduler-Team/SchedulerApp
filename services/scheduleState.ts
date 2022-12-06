@@ -11,12 +11,14 @@ interface Remove {
   remove: Employee | Shift;
 }
 
+// todo add test for shift
 interface UpdateEmployee {
   update: Employee;
   color?: Color;
   name?: string;
   maxHours?: number;
   minHours?: number;
+  available?: Shift[];
 }
 
 interface UpdateShift {
@@ -73,6 +75,7 @@ export async function updateSchedule(
       );
     } else if (action.update instanceof Employee) {
       const a = action as UpdateEmployee;
+      const index = scheduleCopy.employees.indexOf(a.update);
       const e = scheduleCopy.removeEmployee(a.update);
       scheduleCopy.addEmployee(
         new Employee(
@@ -80,8 +83,9 @@ export async function updateSchedule(
           or(a.minHours, e.min_hours),
           or(a.maxHours, e.max_hours),
           or(a.color, e.color),
-          e.available
-        )
+          or(a.available, e.available)
+        ),
+        index
       );
     }
   }

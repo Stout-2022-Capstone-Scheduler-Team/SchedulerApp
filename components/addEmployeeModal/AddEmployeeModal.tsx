@@ -57,13 +57,25 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   };
   const handleSubmit = (): void => {
     if (canSubmit) {
-      const newEmployee = new Employee(name, minHours, maxHours, color);
-      availability.forEach((avail) =>
-        newEmployee.addAvailability(
-          new Shift(avail.name, avail.start, avail.end)
-        )
-      );
-      void dispatch({ add: newEmployee });
+      if (currentEmployee === null) {
+        const newEmployee = new Employee(name, minHours, maxHours, color);
+        availability.forEach((avail) =>
+          newEmployee.addAvailability(
+            new Shift(avail.name, avail.start, avail.end)
+          )
+        );
+        void dispatch({ add: newEmployee });
+      } else {
+        void dispatch({
+          update: currentEmployee,
+          name,
+          maxHours,
+          minHours,
+          color,
+          available: availability
+        });
+      }
+
       setAddEmployeeModalOpen(false);
       clearInputs();
     }
@@ -138,7 +150,10 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
     if (name.length === 0) {
       setValidName(false);
       validationErrors.push("Employee name must be given");
-    } else if (existingEmployees.some((emp) => emp.name === name)) {
+    } else if (
+      existingEmployees.some((emp) => emp.name === name) &&
+      name !== currentEmployee?.name
+    ) {
       setValidName(false);
       validationErrors.push("Employee name must be unique");
     } else {
@@ -179,7 +194,6 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   const clearInputs = (): void => {
     setCanSubmit(false);
     setNameUpdateCount(0);
-    // setName(set);
     setName("");
     setMinHours(0);
     setMaxHours(40);

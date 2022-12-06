@@ -35,7 +35,6 @@ export function ConfirmationModal(props: ConfirmationModalProps): JSX.Element {
         onClick={(event) => {
           event.stopPropagation();
           handleOpen();
-          console.log("Button clicked");
         }}
         sx={{ ml: "auto !important" }}
         color="error"
