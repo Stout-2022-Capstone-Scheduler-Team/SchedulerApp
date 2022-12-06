@@ -51,7 +51,10 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
 
   // Form Event Handlers
   const handleOpen = (): void => setAddEmployeeModalOpen(true);
-  const handleClose = (): void => setAddEmployeeModalOpen(false);
+  const handleClose = (): void => {
+    setAddEmployeeModalOpen(false);
+    clearInputs();
+  };
   const handleSubmit = (): void => {
     if (canSubmit) {
       const newEmployee = new Employee(name, minHours, maxHours, color);
@@ -74,6 +77,14 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   useEffect(() => {
     setNameUpdateCount(nameUpdateCount + 1);
   }, [name]);
+
+  useEffect(() => {
+    setName(currentEmployee?.name ?? "");
+    setMinHours(currentEmployee?.min_hours ?? 0);
+    setMaxHours(currentEmployee?.max_hours ?? 40);
+    setColor(currentEmployee?.color ?? new Color());
+    setAvailability(currentEmployee?.available ?? []);
+  }, [currentEmployee]);
 
   /**
    * Add a block of availability to this employee's array
@@ -174,6 +185,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
     setMaxHours(40);
     setColor(new Color());
     setAvailability([]);
+    setCurrentEmployee(null);
   };
 
   /**
@@ -186,7 +198,8 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
       (emp) => emp.color.colorName
     );
     const freeColorNames = allColors.filter(
-      (colorName) => !existingColorNames.includes(colorName)
+      (colorName) =>
+        !existingColorNames.includes(colorName) || color.colorName === colorName
     );
 
     return freeColorNames.map((name) => new Color(name));
