@@ -85,9 +85,7 @@ export async function updateSchedule(
         // Delete old name
         await storage.delete(scheduleCopy.name);
         scheduleCopy.name = action.name;
-        const newUrl = window.location;
-        newUrl.hash = `#${scheduleCopy.name}`;
-        window.location.replace(newUrl.href);
+        window.history.replaceState(scheduleCopy, "", `#${scheduleCopy.name}`);
       }
       if (action.weekDate !== undefined) {
         // Delete old name
