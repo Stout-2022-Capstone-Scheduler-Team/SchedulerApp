@@ -1,58 +1,93 @@
 import * as React from "react";
-import { Button, Modal, Typography, Card, CardContent } from "@mui/material";
-import modalStyle from "../../styles/modalStyle";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { Stack } from "@mui/material";
 import { Dayjs } from "dayjs";
 import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { ScheduleAction, Dispatch } from "../../services/scheduleState";
-import { DayOftheWeek, Shift, Time } from "../../entities";
+import { Schedule } from "../../entities";
 
 interface MetaModalProps {
+  schedule: Schedule;
   dispatch: Dispatch<ScheduleAction>;
 }
 
 export function MetaModal(props: MetaModalProps): JSX.Element {
   // Props
-  const { dispatch } = props;
+  const { dispatch, schedule } = props;
+  const [name, setName] = React.useState("");
+  const [minHours, setMinHours] = React.useState("");
+  const [maxHours, setMaxHours] = React.useState("");
+  const [updated, setUpdated] = React.useState(false);
+  // Force update name to make sure reloads work properly
+  React.useEffect(() => {
+    if (!updated) {
+      setName(schedule.name);
+      setMinHours(schedule.minHoursWorked.toString());
+      setMaxHours(schedule.maxHoursWorked.toString());
+    }
+  }, [schedule]);
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = (): void => setOpen(true);
-  const handleClose = (): void => setOpen(false);
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  // Event Handler
-  // const handleSubmit = (): void => {};
-  // console.log(Dayjs);
-  const [weekDate, setWeekDate] = React.useState<Dayjs | null>(
-    new Dayjs().startOf("week")
-  );
-
-  /**
-   * Clear the modal's inputs (resets the state)
-   */
-  const clearInputs = (): void => {};
   return (
     <>
-      <Card sx={modalStyle}>
-        <CardContent>
-          <Typography id="metaTitle" variant="h6" component="h2"></Typography>
-          <Typography id="Select Start Day" sx={{ mt: 2 }}></Typography>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label="Select Start Time"
-              value={weekDate}
-              onChange={setWeekDate}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
-        </CardContent>
-      </Card>
+      <Stack direction="column" spacing={2}>
+        <TextField
+          label="Schedule Name"
+          value={name}
+          onChange={(update) => {
+            setName(update.target.value);
+            // Disallow empty name
+            if (update.target.value !== "") {
+              dispatch({ update: "default", name: update.target.value });
+            }
+            setUpdated(true);
+          }}
+        />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label="Week"
+            value={schedule.weekDate}
+            onChange={(date: Dayjs | null) => {
+              if (date !== null) {
+                dispatch({ update: "default", weekDate: date });
+              }
+              setUpdated(true);
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
+        <TextField
+          label="Min Hours Worked"
+          value={minHours}
+          type="number"
+          onChange={(update) => {
+            setMinHours(update.target.value);
+            if (update.target.value !== "") {
+              dispatch({
+                update: "default",
+                minHours: Number(update.target.value)
+              });
+            }
+            setUpdated(true);
+          }}
+        />
+        <TextField
+          label="Max Hours Worked"
+          value={maxHours}
+          type="number"
+          onChange={(update) => {
+            setMaxHours(update.target.value);
+            if (update.target.value !== "") {
+              dispatch({
+                update: "default",
+                maxHours: Number(update.target.value)
+              });
+            }
+            setUpdated(true);
+          }}
+        />
+      </Stack>
     </>
   );
 }

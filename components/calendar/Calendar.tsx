@@ -1,29 +1,33 @@
-import { dayName, DayOftheWeek, Employee } from "../../entities/types";
-import { Shift, Time } from "../../entities";
+import { dayName, DayOftheWeek } from "../../entities/types";
+import { Schedule, Shift, Time } from "../../entities";
 import { DailyShifts } from "./DailyShifts";
 import { WeeklyDate } from "./WeeklyDate";
 
 import { CircularProgress, Fade, Grid } from "@mui/material";
 import { RefObject } from "react";
-// import { getDatePickerToolbarUtilityClass } from "@mui/x-date-pickers/DatePicker/datePickerToolbarClasses";
+import { Dayjs } from "dayjs";
 
 interface CalendarProps {
-  shifts: Shift[];
-  employees: Employee[];
+  schedule: Schedule;
   exportRef?: RefObject<any>;
   loading: boolean;
 }
 
+function format(weekDate: Dayjs, day: DayOftheWeek): string {
+  const date = weekDate.add(day, "day");
+  return `${date.month() + 1}.${date.date()}`;
+}
+
 export function Calendar({
-  shifts,
-  employees,
+  schedule,
   exportRef,
   loading
 }: CalendarProps): JSX.Element {
   const dayOfWeekNumber = Time.getWeekDayNumbers();
+  const weekDate = schedule.weekDate.startOf("week");
 
   function getDayShifts(day: DayOftheWeek): Shift[] {
-    return shifts
+    return schedule.shifts
       .filter((shift) => shift.start.day === day)
       .sort((a, b) => (a.start.dayHours > b.start.dayHours ? 1 : -1));
   }
@@ -41,9 +45,12 @@ export function Calendar({
           <Grid item xs={1} key={day}>
             <WeeklyDate
               dayOfWeek={dayName(day).substring(0, 3)}
-              date="10.23 TODO"
+              date={format(weekDate, day)}
             />
-            <DailyShifts allShifts={getDayShifts(day)} employees={employees} />
+            <DailyShifts
+              allShifts={getDayShifts(day)}
+              employees={schedule.employees}
+            />
           </Grid>
         ))}
       </Grid>
