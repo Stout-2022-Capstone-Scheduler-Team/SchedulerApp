@@ -81,28 +81,6 @@ test("Update Employee", async () => {
   }
 });
 
-test("Update Shift", async () => {
-  const shift = new Shift(
-    "alice",
-    Time.fromString("00:00", Monday),
-    Time.fromString("00:00", Monday)
-  );
-  const schedule = new Schedule([], [shift]);
-  const ret = await updateSchedule(schedule, {
-    update: shift,
-    name: "bob",
-    start: Time.fromString("10:10", Tuesday),
-    end: Time.fromString("10:10", Tuesday)
-  });
-  expect(ret.shifts).toStrictEqual([
-    new Shift(
-      "bob",
-      Time.fromString("10:10", Tuesday),
-      Time.fromString("10:10", Tuesday)
-    )
-  ]);
-});
-
 test("Update default", async () => {
   const schedule = new Schedule([], []);
   const ret = await updateSchedule(schedule, {
