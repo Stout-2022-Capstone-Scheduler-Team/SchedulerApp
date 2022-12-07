@@ -19,8 +19,6 @@ it("Can use Reducer", async () => {
   await user.click(page.getByLabelText(/Select Start Day/i));
   await user.click(page.getByText(/Sunday/i));
   await user.type(page.getByLabelText(/Select Start Time/i), "10:10 PM");
-  await user.click(page.getByLabelText(/Select End Day/i));
-  await user.click(page.getByText(/Monday/i));
   await user.type(page.getByLabelText(/Select End Time/i), "02:10 AM");
 
   // Clicking Submit button

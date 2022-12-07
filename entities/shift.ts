@@ -13,12 +13,7 @@ export class Shift {
   option: number = 0;
   first_try: string | undefined;
 
-  constructor(
-    name: string,
-    start: Time,
-    end: Time,
-    owner?: string
-  ) {
+  constructor(name: string, start: Time, end: Time, owner?: string) {
     this.name = name;
     this.start = start;
     this.end = end;
@@ -28,19 +23,31 @@ export class Shift {
   }
 
   overlaps(other: Shift): boolean {
-    return this.start.totalHours < other.end.totalHours && other.start.totalHours < this.end.totalHours;
+    return (
+      this.start.totalHours < other.end.totalHours &&
+      other.start.totalHours < this.end.totalHours
+    );
   }
 
   overlapsAvalible(other: Shift): boolean {
-    return this.start.totalHours <= other.end.totalHours && other.start.totalHours <= this.end.totalHours;
+    return (
+      this.start.totalHours <= other.end.totalHours &&
+      other.start.totalHours <= this.end.totalHours
+    );
   }
 
   contains(other: Shift): boolean {
-    return this.start.totalHours <= other.start.totalHours && other.end.totalHours <= this.end.totalHours;
+    return (
+      this.start.totalHours <= other.start.totalHours &&
+      other.end.totalHours <= this.end.totalHours
+    );
   }
 
   containsRemove(other: Shift): boolean {
-    return this.start.totalHours < other.start.totalHours && other.end.totalHours < this.end.totalHours;
+    return (
+      this.start.totalHours < other.start.totalHours &&
+      other.end.totalHours < this.end.totalHours
+    );
   }
 
   get duration(): number {

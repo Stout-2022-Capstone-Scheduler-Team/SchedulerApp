@@ -6,6 +6,7 @@ export class Schedule {
   public readonly shifts: Shift[] = [];
   public minHoursWorked: number;
   public maxHoursWorked: number;
+  public name: string;
 
   /**
    * Constructor
@@ -24,6 +25,7 @@ export class Schedule {
     this.shifts = shifts;
     this.minHoursWorked = minHours;
     this.maxHoursWorked = maxHours;
+    this.name = new Date().toLocaleString();
   }
 
   /**
@@ -112,6 +114,7 @@ export class Schedule {
       scheduleCopyBase.minHoursWorked,
       scheduleCopyBase.maxHoursWorked
     );
+    scheduleCopy.name = baseSchedule.name;
 
     return scheduleCopy;
   }
