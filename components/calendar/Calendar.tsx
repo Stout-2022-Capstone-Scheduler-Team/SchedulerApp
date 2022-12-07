@@ -5,7 +5,6 @@ import { WeeklyDate } from "./WeeklyDate";
 
 import { CircularProgress, Fade, Grid } from "@mui/material";
 import { RefObject } from "react";
-// import { getDatePickerToolbarUtilityClass } from "@mui/x-date-pickers/DatePicker/datePickerToolbarClasses";
 
 interface CalendarProps {
   shifts: Shift[];
