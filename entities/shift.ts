@@ -17,6 +17,9 @@ export class Shift {
     this.name = name;
     this.start = start;
     this.end = end;
+    if (this.start.hoursBetween(this.end) < 0) {
+      throw new Error("Shift cannot end before it starts");
+    }
     if (owner !== undefined) {
       this.owner = owner;
     }
