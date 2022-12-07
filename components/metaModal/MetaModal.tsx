@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Stack } from "@mui/material";
+import { Stack, Paper } from "@mui/material";
 import { Dayjs } from "dayjs";
 import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -17,16 +17,16 @@ export function MetaModal(props: MetaModalProps): JSX.Element {
   // Props
   const { dispatch, schedule } = props;
   const [name, setName] = React.useState("");
-  const [minHours, setMinHours] = React.useState("");
-  const [maxHours, setMaxHours] = React.useState("");
   const [updated, setUpdated] = React.useState(false);
+  const [totalHours, setTotalHours] = React.useState(0);
   // Force update name to make sure reloads work properly
   React.useEffect(() => {
     if (!updated) {
       setName(schedule.name);
-      setMinHours(schedule.minHoursWorked.toString());
-      setMaxHours(schedule.maxHoursWorked.toString());
     }
+    setTotalHours(
+      schedule.shifts.reduce((sum, shift) => sum + shift.duration, 0)
+    );
   }, [schedule]);
 
   return (
@@ -57,36 +57,9 @@ export function MetaModal(props: MetaModalProps): JSX.Element {
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
-        <TextField
-          label="Min Hours Worked"
-          value={minHours}
-          type="number"
-          onChange={(update) => {
-            setMinHours(update.target.value);
-            if (update.target.value !== "") {
-              dispatch({
-                update: "default",
-                minHours: Number(update.target.value)
-              });
-            }
-            setUpdated(true);
-          }}
-        />
-        <TextField
-          label="Max Hours Worked"
-          value={maxHours}
-          type="number"
-          onChange={(update) => {
-            setMaxHours(update.target.value);
-            if (update.target.value !== "") {
-              dispatch({
-                update: "default",
-                maxHours: Number(update.target.value)
-              });
-            }
-            setUpdated(true);
-          }}
-        />
+        <Paper variant="outlined" sx={{ p: 2 }}>
+          Total hours: {totalHours}
+        </Paper>
       </Stack>
     </>
   );
