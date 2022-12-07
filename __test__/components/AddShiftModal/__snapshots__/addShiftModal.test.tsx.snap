@@ -136,12 +136,65 @@ exports[`Modal opens and closes 1`] = `
         >
           <h2
             class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
-            id="addShiftTitle"
-          />
+            id="shift-modal-title"
+          >
+            Add a Shift
+          </h2>
           <p
             class="MuiTypography-root MuiTypography-body1 css-ix1f03-MuiTypography-root"
-            id="Select Start Day"
-          />
+            id="modal-StartTime"
+          >
+             
+          </p>
+          <div
+            class="MuiBox-root css-ece9u5"
+          >
+            <div
+              class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+            >
+              <div
+                class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+              >
+                <label
+                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+                  data-shrink="false"
+                  for=":r0:"
+                  id=":r0:-label"
+                >
+                  Shift Name
+                </label>
+                <div
+                  class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+                >
+                  <input
+                    aria-invalid="false"
+                    class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                    id=":r0:"
+                    type="text"
+                    value=""
+                  />
+                  <fieldset
+                    aria-hidden="true"
+                    class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      class="css-yjsfm1"
+                    >
+                      <span>
+                        Shift Name
+                      </span>
+                    </legend>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-ix1f03-MuiTypography-root"
+            id="modal-StartTime"
+          >
+             
+          </p>
           <div
             class="MuiBox-root css-ece9u5"
           >
@@ -151,7 +204,7 @@ exports[`Modal opens and closes 1`] = `
               <label
                 class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
                 data-shrink="false"
-                id="SelectStartDay"
+                id="day-label"
               >
                 Select Start Day
               </label>
@@ -161,7 +214,7 @@ exports[`Modal opens and closes 1`] = `
                 <div
                   aria-expanded="false"
                   aria-haspopup="listbox"
-                  aria-labelledby="SelectStartDay"
+                  aria-labelledby="day-label"
                   class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
                   role="button"
                   tabindex="0"
@@ -216,8 +269,8 @@ exports[`Modal opens and closes 1`] = `
             <label
               class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
               data-shrink="false"
-              for=":r0:"
-              id=":r0:-label"
+              for=":r1:"
+              id=":r1:-label"
             >
               Select Start Time
             </label>
@@ -227,7 +280,7 @@ exports[`Modal opens and closes 1`] = `
               <input
                 aria-invalid="false"
                 class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                id=":r0:"
+                id=":r1:"
                 placeholder="hh:mm (a|p)m"
                 type="tel"
                 value=""
@@ -276,72 +329,6 @@ exports[`Modal opens and closes 1`] = `
           </div>
           <p
             class="MuiTypography-root MuiTypography-body1 css-ix1f03-MuiTypography-root"
-            id="Select End Day"
-          />
-          <div
-            class="MuiBox-root css-ece9u5"
-          >
-            <div
-              class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
-            >
-              <label
-                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
-                data-shrink="false"
-                id="SelectEndDay"
-              >
-                Select End Day
-              </label>
-              <div
-                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl  css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
-              >
-                <div
-                  aria-expanded="false"
-                  aria-haspopup="listbox"
-                  aria-labelledby="SelectEndDay"
-                  class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
-                  role="button"
-                  tabindex="0"
-                >
-                  <span
-                    class="notranslate"
-                  >
-                    ​
-                  </span>
-                </div>
-                <input
-                  aria-hidden="true"
-                  class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
-                  tabindex="-1"
-                  value=""
-                />
-                <svg
-                  aria-hidden="true"
-                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
-                  data-testid="ArrowDropDownIcon"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M7 10l5 5 5-5z"
-                  />
-                </svg>
-                <fieldset
-                  aria-hidden="true"
-                  class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                >
-                  <legend
-                    class="css-yjsfm1"
-                  >
-                    <span>
-                      Select End Day
-                    </span>
-                  </legend>
-                </fieldset>
-              </div>
-            </div>
-          </div>
-          <p
-            class="MuiTypography-root MuiTypography-body1 css-ix1f03-MuiTypography-root"
             id="modal-EndTime"
           />
           <div
@@ -350,8 +337,8 @@ exports[`Modal opens and closes 1`] = `
             <label
               class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
               data-shrink="false"
-              for=":r1:"
-              id=":r1:-label"
+              for=":r2:"
+              id=":r2:-label"
             >
               Select End Time
             </label>
@@ -361,7 +348,7 @@ exports[`Modal opens and closes 1`] = `
               <input
                 aria-invalid="false"
                 class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                id=":r1:"
+                id=":r2:"
                 placeholder="hh:mm (a|p)m"
                 type="tel"
                 value=""
@@ -412,16 +399,34 @@ exports[`Modal opens and closes 1`] = `
             class="MuiTypography-root MuiTypography-body1 css-ix1f03-MuiTypography-root"
             id="modal-submit"
           />
+        </div>
+        <div
+          class="MuiCardActions-root MuiCardActions-spacing css-1t6e9jv-MuiCardActions-root"
+        >
           <button
-            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textError MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textError MuiButton-sizeMedium MuiButton-textSizeMedium css-rpzv7-MuiButtonBase-root-MuiButton-root"
             tabindex="0"
             type="button"
           >
-            Submit
+            Close
             <span
               class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
             />
           </button>
+          <span
+            aria-label="Start Day not set, Start Time not set, End Time not set"
+            class=""
+            data-mui-internal-clone-element="true"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
+              disabled=""
+              tabindex="-1"
+              type="button"
+            >
+              Submit
+            </button>
+          </span>
         </div>
       </div>
       <div
