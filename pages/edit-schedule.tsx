@@ -35,9 +35,7 @@ export default function EditSchedule(): JSX.Element {
           }
         });
       } else {
-        const newUrl = window.location;
-        newUrl.hash = `#${schedule.name}`;
-        window.location.replace(newUrl.href);
+        window.history.replaceState(schedule, "", `#${schedule.name}`);
       }
       setScheduleLoaded(true);
     }
