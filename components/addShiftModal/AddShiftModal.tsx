@@ -6,7 +6,8 @@ import {
   Card,
   CardContent,
   CardActions,
-  Tooltip
+  Tooltip,
+  Chip
 } from "@mui/material";
 import modalStyle from "../../styles/modalStyle";
 import Box from "@mui/material/Box";
@@ -49,6 +50,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
   const [startTime, setStartTime] = React.useState<Dayjs | null>(null);
   const [endTime, setEndTime] = React.useState<Dayjs | null>(null);
 
+  const [overnight, setOvernight] = React.useState<boolean>(false);
   const [validErrors, setValidErrors] = React.useState<string[]>([]);
 
   // Event Handler
@@ -76,9 +78,19 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
     if (startTime === null) {
       errors.push("Start Time not set");
     }
+
     if (endTime === null) {
       errors.push("End Time not set");
     }
+
+    if (errors.length === 0 && startTime === endTime) {
+      errors.push("Start and End time cannot be equal");
+    }
+
+    if (errors.length === 0) {
+      setOvernight((endTime as Dayjs).isBefore(startTime));
+    }
+
     setCanSubmit(errors.length === 0);
     setValidErrors(errors);
   }, [startTime, endTime, startDay]);
@@ -107,6 +119,12 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
           <CardContent>
             <Typography id="shift-modal-title" variant="h6" component="h2">
               Add a Shift
+              {overnight && (
+                <Chip
+                  sx={{ ml: 2, color: "white", backgroundColor: "#191170" }}
+                  label="Overnight"
+                />
+              )}
             </Typography>
             <Typography id="modal-StartTime" sx={{ mt: 2 }}>
               {" "}
