@@ -409,8 +409,15 @@ exports[`EditSchedule Renders 1`] = `
           <div
             class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded css-j46zze-MuiPaper-root"
           >
-            Total hours: 
-            0.00
+            <div
+              class="css-163ljxj-MuiStack-root"
+            >
+              <p>
+                Total hours: 
+                0.00
+              </p>
+              <p />
+            </div>
           </div>
         </div>
       </div>

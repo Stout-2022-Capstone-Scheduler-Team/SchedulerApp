@@ -10,7 +10,6 @@ import { Dayjs } from "dayjs";
 interface CalendarProps {
   schedule: Schedule;
   exportRef?: RefObject<any>;
-  loading: boolean;
 }
 
 function format(weekDate: Dayjs, day: DayOftheWeek): string {
@@ -20,8 +19,7 @@ function format(weekDate: Dayjs, day: DayOftheWeek): string {
 
 export function Calendar({
   schedule,
-  exportRef,
-  loading
+  exportRef
 }: CalendarProps): JSX.Element {
   const dayOfWeekNumber = Time.getWeekDayNumbers();
   const weekDate = schedule.weekDate.startOf("week");
@@ -54,15 +52,6 @@ export function Calendar({
           </Grid>
         ))}
       </Grid>
-      <Fade
-        in={loading}
-        style={{
-          transitionDelay: loading ? "800ms" : "0ms"
-        }}
-        unmountOnExit
-      >
-        <CircularProgress />
-      </Fade>
     </>
   );
 }
