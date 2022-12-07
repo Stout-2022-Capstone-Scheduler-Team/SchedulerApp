@@ -45,6 +45,7 @@ test("Adding Shifts", async () => {
   await user.click(modal.getByText(/Add Shift/i));
 
   // Enter shift information
+  await user.click(modal.getByLabelText(/Job Title/i));
   await user.click(modal.getByLabelText(/Select Start Day/i));
   await user.click(modal.getByText(/Sunday/i));
   await user.type(modal.getByLabelText(/Select Start Time/i), "10:10 PM");
