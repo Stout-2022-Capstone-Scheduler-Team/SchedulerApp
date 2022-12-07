@@ -20,6 +20,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { ScheduleAction, Dispatch } from "../../services/scheduleState";
 import { DayOftheWeek, Shift, Time } from "../../entities";
+import react, { useState } from "react";
 
 function daySelector(
   handleChange: (e: SelectChangeEvent<DayOftheWeek>) => void,
@@ -50,7 +51,6 @@ interface ShiftModalProps {
 export function AddShiftModal(props: ShiftModalProps): JSX.Element {
   // Props
   const { dispatch } = props;
-
   const [open, setOpen] = React.useState(false);
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
@@ -64,6 +64,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
   const [valueStartTime, setValueStartTime] = React.useState<Dayjs | null>(
     null
   );
+  const [JobTitle, setJobTitle] = useState("");
 
   // end time variables
   const [valueEndTime, setValueEndTime] = React.useState<Dayjs | null>(null);
@@ -94,14 +95,14 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
       const newShift = new Shift(
         "",
         Time.fromDayjs(valueStartTime, StartDayVal),
-        Time.fromDayjs(valueEndTime, EndDayVal)
+        Time.fromDayjs(valueEndTime, EndDayVal),
+        JobTitle
       );
       void dispatch({ add: newShift });
       setOpen(false);
       clearInputs();
     }
   };
-
   /**
    * Clear the modal's inputs (resets the state)
    */
@@ -133,6 +134,10 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
               label="Job Title"
               variant="outlined"
               margin="dense"
+              value={JobTitle}
+              onChange={(e) => {
+                setJobTitle(e.target.value);
+              }}
             />
             <Typography id="Select Start Day" sx={{ mt: 2 }}></Typography>
             <Box sx={{ minWidth: 120 }}>
