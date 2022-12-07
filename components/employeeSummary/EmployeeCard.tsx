@@ -37,9 +37,7 @@ export function EmployeeCard(props: EmployeeCardProps): JSX.Element {
           setCurrentEmployee(employee);
         }}
       >
-        {/* Causes error for where button cannot be nested by other button */}
-        {/* printed to console */}
-        <CardActionArea>
+        <CardActionArea component="span">
           <CardContent sx={{ p: 0.25, "&:last-child": { p: 0.25 } }}>
             <Stack alignItems="center" direction="row" spacing={1}>
               <Typography sx={{ fontWeight: "bold", ml: 2 }}>
