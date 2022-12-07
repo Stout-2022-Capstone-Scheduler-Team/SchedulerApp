@@ -122,7 +122,7 @@ export async function updateSchedule(
       scheduleCopy.shifts,
       scheduleCopy.employees
     );
-    if (!schedulePromise) {
+    if (schedulePromise !== undefined) {
       // If the scheduler failed, error out
       console.error("Unable to build schedule completely");
     }
