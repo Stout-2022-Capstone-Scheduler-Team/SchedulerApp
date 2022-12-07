@@ -32,7 +32,10 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
   const { dispatch } = props;
 
   const [open, setOpen] = React.useState(false);
-  const handleOpen = (): void => setOpen(true);
+  const handleOpen = (): void => {
+    console.log("Open modal clicked");
+    setOpen(true);
+  };
   const handleClose = (): void => setOpen(false);
 
   const [canSubmit, setCanSubmit] = React.useState(false);

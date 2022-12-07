@@ -27,8 +27,8 @@ export class Schedule {
     this.shifts = shifts;
     this.minHoursWorked = minHours;
     this.maxHoursWorked = maxHours;
-    this.name = new Date().toLocaleString();
     this.weekDate = dayjs().startOf("week");
+    this.name = this.weekDate.toDate().toLocaleString();
   }
 
   /**
