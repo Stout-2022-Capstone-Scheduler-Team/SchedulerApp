@@ -14,42 +14,52 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { ScheduleAction, Dispatch } from "../../services/scheduleState";
 import { DayOftheWeek, Shift, Time } from "../../entities";
 
-function daySelector(handleChange: (e: SelectChangeEvent<DayOftheWeek>) => void, label: string): JSX.Element {
+function daySelector(
+  handleChange: (e: SelectChangeEvent<DayOftheWeek>) => void,
+  label: string
+): JSX.Element {
   const labelId = label.replaceAll(" ", "");
-  return <FormControl fullWidth>
-  <InputLabel id={labelId}>{label}</InputLabel>
-  <Select
-    labelId={labelId}
-    label={label}
-    onChange={handleChange}
-  >
-    <MenuItem value={DayOftheWeek.Sunday}>Sunday</MenuItem>
-    <MenuItem value={DayOftheWeek.Monday}>Monday</MenuItem>
-    <MenuItem value={DayOftheWeek.Tuesday}>Tuesday</MenuItem>
-    <MenuItem value={DayOftheWeek.Wednesday}>Wednesday</MenuItem>
-    <MenuItem value={DayOftheWeek.Thursday}>Thursday</MenuItem>
-    <MenuItem value={DayOftheWeek.Friday}>Friday</MenuItem>
-    <MenuItem value={DayOftheWeek.Saturday}>Saturday</MenuItem>
-  </Select>
-</FormControl>;
+  return (
+    <FormControl fullWidth>
+      <InputLabel id={labelId}>{label}</InputLabel>
+      <Select labelId={labelId} label={label} onChange={handleChange}>
+        <MenuItem value={DayOftheWeek.Sunday}>Sunday</MenuItem>
+        <MenuItem value={DayOftheWeek.Monday}>Monday</MenuItem>
+        <MenuItem value={DayOftheWeek.Tuesday}>Tuesday</MenuItem>
+        <MenuItem value={DayOftheWeek.Wednesday}>Wednesday</MenuItem>
+        <MenuItem value={DayOftheWeek.Thursday}>Thursday</MenuItem>
+        <MenuItem value={DayOftheWeek.Friday}>Friday</MenuItem>
+        <MenuItem value={DayOftheWeek.Saturday}>Saturday</MenuItem>
+      </Select>
+    </FormControl>
+  );
 }
 
 interface ShiftModalProps {
   existingShifts: Shift[];
   dispatch: Dispatch<ScheduleAction>;
+  addShiftModalOpen: boolean;
+  setShiftModalOpen: (addShiftModalOpen: boolean) => void;
 }
 
 export function AddShiftModal(props: ShiftModalProps): JSX.Element {
   // Props
-  const { dispatch } = props;
+  const { dispatch, setShiftModalOpen, addShiftModalOpen } = props;
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = (): void => setOpen(true);
-  const handleClose = (): void => setOpen(false);
-  const [StartDayVal, setStartDay] = React.useState<DayOftheWeek | undefined>(undefined);
-  const [EndDayVal, setEndDay] = React.useState<DayOftheWeek | undefined>(undefined);
+  // const [setShiftModalOpen, setOpen] = React.useState(false);
+  const handleOpen = (): void => setShiftModalOpen(true);
+  const handleClose = (): void => setShiftModalOpen(false);
+
+  const [StartDayVal, setStartDay] = React.useState<DayOftheWeek | undefined>(
+    undefined
+  );
+  const [EndDayVal, setEndDay] = React.useState<DayOftheWeek | undefined>(
+    undefined
+  );
   // start time variables
-  const [valueStartTime, setValueStartTime] = React.useState<Dayjs | null>(null);
+  const [valueStartTime, setValueStartTime] = React.useState<Dayjs | null>(
+    null
+  );
 
   // end time variables
   const [valueEndTime, setValueEndTime] = React.useState<Dayjs | null>(null);
@@ -71,10 +81,19 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
 
   // Event Handler
   const handleSubmit = (): void => {
-    if (StartDayVal !== undefined && EndDayVal !== undefined && valueStartTime !== null && valueEndTime !== null) {
-      const newShift = new Shift("", Time.fromDayjs(valueStartTime, StartDayVal), Time.fromDayjs(valueEndTime, EndDayVal));
+    if (
+      StartDayVal !== undefined &&
+      EndDayVal !== undefined &&
+      valueStartTime !== null &&
+      valueEndTime !== null
+    ) {
+      const newShift = new Shift(
+        "",
+        Time.fromDayjs(valueStartTime, StartDayVal),
+        Time.fromDayjs(valueEndTime, EndDayVal)
+      );
       void dispatch({ add: newShift });
-      setOpen(false);
+      setShiftModalOpen(false);
       clearInputs();
     }
   };
@@ -92,7 +111,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
     <>
       <Button onClick={handleOpen}>Add Shift</Button>
       <Modal
-        open={open}
+        open={addShiftModalOpen}
         onClose={handleClose}
         aria-labelledby="addShiftTitle"
         aria-describedby="addShiftDescription"
@@ -137,7 +156,9 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
               />
             </LocalizationProvider>
             <Typography id="modal-submit" sx={{ mt: 2 }}></Typography>
-            <Button variant="contained" onClick={handleSubmit}>Submit</Button>
+            <Button variant="contained" onClick={handleSubmit}>
+              Submit
+            </Button>
           </CardContent>
         </Card>
       </Modal>

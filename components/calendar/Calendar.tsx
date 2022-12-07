@@ -10,6 +10,7 @@ interface CalendarProps {
   shifts: Shift[];
   employees: Employee[];
   exportRef?: RefObject<any>;
+  openShiftModal: (shift: Shift) => void;
   loading: boolean;
 }
 
@@ -17,6 +18,7 @@ export function Calendar({
   shifts,
   employees,
   exportRef,
+  openShiftModal,
   loading
 }: CalendarProps): JSX.Element {
   const dayOfWeekNumber = Time.getWeekDayNumbers();
@@ -46,7 +48,11 @@ export function Calendar({
         ))}
         {dayOfWeekNumber.map((day: number) => (
           <Grid item xs={1} sx={{ px: 1.5 }} key={day}>
-            <DailyShifts allShifts={getDayShifts(day)} employees={employees} />
+            <DailyShifts
+              allShifts={getDayShifts(day)}
+              employees={employees}
+              openShiftModal={openShiftModal}
+            />
           </Grid>
         ))}
       </Grid>

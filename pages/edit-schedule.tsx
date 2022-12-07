@@ -8,6 +8,7 @@ import {
 import { Stack } from "@mui/material";
 import { Schedule } from "../entities/schedule";
 import { ScheduleAction, updateSchedule, useAsyncReducer } from "../services";
+import { Shift } from "../entities";
 
 export default function EditSchedule(): JSX.Element {
   const [buildingSchedule, setBuildingSchedule] = useState<boolean>(false);
@@ -18,6 +19,11 @@ export default function EditSchedule(): JSX.Element {
 
   // Reference to the calendar which enables exporting it
   const exportRef = useRef(null);
+  const [addShiftModalOpen, setShiftModalOpen] = useState<boolean>(false);
+
+  function editShift(shift: Shift): void {
+    setShiftModalOpen(true);
+  }
 
   return (
     <>
@@ -26,10 +32,16 @@ export default function EditSchedule(): JSX.Element {
         employees={schedule.employees}
         exportRef={exportRef}
         loading={buildingSchedule}
+        openShiftModal={editShift}
       />
       <Stack spacing={2} direction={"row"}>
         <ExportModal componentToExport={exportRef} />
-        <AddShiftModal existingShifts={schedule.shifts} dispatch={dispatch} />
+        <AddShiftModal
+          existingShifts={schedule.shifts}
+          dispatch={dispatch}
+          setShiftModalOpen={setShiftModalOpen}
+          addShiftModalOpen={addShiftModalOpen}
+        />
         <AddEmployeeModal
           existingEmployees={schedule.employees}
           dispatch={dispatch}
