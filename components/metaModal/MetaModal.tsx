@@ -58,7 +58,7 @@ export function MetaModal(props: MetaModalProps): JSX.Element {
           />
         </LocalizationProvider>
         <Paper variant="outlined" sx={{ p: 2 }}>
-          Total hours: {totalHours}
+          Total hours: {totalHours.toFixed(2)}
         </Paper>
       </Stack>
     </>
