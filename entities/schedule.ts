@@ -1,5 +1,6 @@
 import { Color } from "./color";
 import { Employee, Shift, Time } from "./types";
+import dayjs, { Dayjs } from "dayjs";
 
 export class Schedule {
   public readonly employees: Employee[] = [];
@@ -7,6 +8,7 @@ export class Schedule {
   public minHoursWorked: number;
   public maxHoursWorked: number;
   public name: string;
+  public weekDate: Dayjs;
 
   /**
    * Constructor
@@ -25,7 +27,8 @@ export class Schedule {
     this.shifts = shifts;
     this.minHoursWorked = minHours;
     this.maxHoursWorked = maxHours;
-    this.name = new Date().toLocaleString();
+    this.weekDate = dayjs().startOf("week");
+    this.name = this.weekDate.toDate().toLocaleString();
   }
 
   /**
