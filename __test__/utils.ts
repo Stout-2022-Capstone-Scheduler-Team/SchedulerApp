@@ -1,3 +1,4 @@
+import { RenderResult, screen, waitFor } from "@testing-library/react";
 import { NextRouter } from "next/router";
 import { Color } from "../entities";
 import { Time, Shift, DayOftheWeek, Employee } from "../entities/types";
@@ -48,6 +49,17 @@ export function person(
   const ret = new Employee(name, minHours, maxHours, color);
   available.forEach((shift) => ret.addAvailable(shift));
   return ret;
+}
+
+export async function RippleComplete(render: RenderResult): Promise<void> {
+  await waitFor(
+    () => {
+      expect(
+        render.baseElement.getElementsByClassName("MuiTouchRipple-child").length
+      ).toBe(0);
+    },
+    { timeout: 1000 }
+  );
 }
 
 export function createMockRouter(router: Partial<NextRouter>): NextRouter {

@@ -7,7 +7,10 @@ import { ImportModal } from "../../../components/import/ImportModal";
 import React from "react";
 import { Schedule } from "../../../entities";
 import localforage from "localforage";
-import { createMockRouter } from "../../utils";
+import {
+  createMockRouter,
+  RippleComplete as rippleComplete
+} from "../../utils";
 
 jest.mock("localforage");
 beforeEach(() => {
@@ -35,6 +38,7 @@ test("Import Modal", async () => {
   const user = userEvent.setup();
   const dom = render(<ImportModal />);
 
+  await rippleComplete(dom);
   expect(dom.baseElement).toMatchSnapshot();
   await waitFor(() =>
     expect(screen.getByText(/Import Schedule/i)).not.toBeDisabled()
@@ -47,17 +51,20 @@ test("Import Modal", async () => {
     expect(dropdown).toBeInTheDocument();
     await user.click(dropdown);
 
+    await rippleComplete(dom);
     expect(dom.baseElement).toMatchSnapshot();
 
     await user.click(screen.getByText(/item/i));
 
     expect(dropdown).toHaveTextContent(/item/i);
 
+    await rippleComplete(dom);
     expect(dom.baseElement).toMatchSnapshot();
   }
 
   await user.click(screen.getByText(/Cancel/i));
 
+  await rippleComplete(dom);
   expect(dom.baseElement).toMatchSnapshot();
 });
 
@@ -80,6 +87,7 @@ test("Import Modal Navigation", async () => {
     </RouterContext.Provider>
   );
 
+  await rippleComplete(dom);
   expect(dom.baseElement).toMatchSnapshot();
   await waitFor(() =>
     expect(screen.getByText(/Import Schedule/i)).not.toBeDisabled()
