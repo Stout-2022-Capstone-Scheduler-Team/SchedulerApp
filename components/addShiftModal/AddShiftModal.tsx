@@ -1,5 +1,14 @@
 import * as React from "react";
-import { Button, Modal, Typography, Card, CardContent } from "@mui/material";
+import {
+  Button,
+  Modal,
+  Typography,
+  Card,
+  CardContent,
+  CardActions,
+  Tooltip,
+  Chip
+} from "@mui/material";
 import modalStyle from "../../styles/modalStyle";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -14,27 +23,6 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { ScheduleAction, Dispatch } from "../../services/scheduleState";
 import { DayOftheWeek, Shift, Time } from "../../entities";
 
-function daySelector(
-  handleChange: (e: SelectChangeEvent<DayOftheWeek>) => void,
-  label: string
-): JSX.Element {
-  const labelId = label.replaceAll(" ", "");
-  return (
-    <FormControl fullWidth>
-      <InputLabel id={labelId}>{label}</InputLabel>
-      <Select labelId={labelId} label={label} onChange={handleChange}>
-        <MenuItem value={DayOftheWeek.Sunday}>Sunday</MenuItem>
-        <MenuItem value={DayOftheWeek.Monday}>Monday</MenuItem>
-        <MenuItem value={DayOftheWeek.Tuesday}>Tuesday</MenuItem>
-        <MenuItem value={DayOftheWeek.Wednesday}>Wednesday</MenuItem>
-        <MenuItem value={DayOftheWeek.Thursday}>Thursday</MenuItem>
-        <MenuItem value={DayOftheWeek.Friday}>Friday</MenuItem>
-        <MenuItem value={DayOftheWeek.Saturday}>Saturday</MenuItem>
-      </Select>
-    </FormControl>
-  );
-}
-
 interface ShiftModalProps {
   existingShifts: Shift[];
   dispatch: Dispatch<ScheduleAction>;
@@ -44,25 +32,14 @@ interface ShiftModalProps {
 
 export function AddShiftModal(props: ShiftModalProps): JSX.Element {
   // Props
-  const { dispatch, setShiftModalOpen, addShiftModalOpen } = props;
+  const { dispatch } = props;
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = (): void => setOpen(true);
+  const handleClose = (): void => setOpen(false);
 
-  // const [setShiftModalOpen, setOpen] = React.useState(false);
-  const handleOpen = (): void => setShiftModalOpen(true);
-  const handleClose = (): void => setShiftModalOpen(false);
-
-  const [StartDayVal, setStartDay] = React.useState<DayOftheWeek | undefined>(
-    undefined
-  );
-  const [EndDayVal, setEndDay] = React.useState<DayOftheWeek | undefined>(
-    undefined
-  );
-  // start time variables
-  const [valueStartTime, setValueStartTime] = React.useState<Dayjs | null>(
-    null
-  );
-
-  // end time variables
-  const [valueEndTime, setValueEndTime] = React.useState<Dayjs | null>(null);
+  const [canSubmit, setCanSubmit] = React.useState(false);
+  const [name, setName] = React.useState<string>("");
+  const [startDay, setStartDay] = React.useState<DayOftheWeek | null>(null);
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleStartChange = (event: SelectChangeEvent<DayOftheWeek>) => {
     if (typeof event.target.value !== "string") {
@@ -71,26 +48,22 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
       setStartDay(Time.getWeekDays().indexOf(event.target.value));
     }
   };
-  const handleEndChange = (event: SelectChangeEvent<DayOftheWeek>): void => {
-    if (typeof event.target.value !== "string") {
-      setEndDay(event.target.value);
-    } else {
-      setEndDay(Time.getWeekDays().indexOf(event.target.value));
-    }
-  };
+  const [startTime, setStartTime] = React.useState<Dayjs | null>(null);
+  const [endTime, setEndTime] = React.useState<Dayjs | null>(null);
+
+  const [overnight, setOvernight] = React.useState<boolean>(false);
+  const [validErrors, setValidErrors] = React.useState<string[]>([]);
 
   // Event Handler
   const handleSubmit = (): void => {
-    if (
-      StartDayVal !== undefined &&
-      EndDayVal !== undefined &&
-      valueStartTime !== null &&
-      valueEndTime !== null
-    ) {
+    if (startDay !== null && startTime !== null && endTime !== null) {
       const newShift = new Shift(
-        "",
-        Time.fromDayjs(valueStartTime, StartDayVal),
-        Time.fromDayjs(valueEndTime, EndDayVal)
+        name,
+        Time.fromDayjs(startTime, startDay),
+        Time.fromDayjs(
+          endTime,
+          startTime.isBefore(endTime) ? startDay : (startDay + 1) % 7
+        )
       );
       void dispatch({ add: newShift });
       setShiftModalOpen(false);
@@ -98,18 +71,45 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
     }
   };
 
+  React.useEffect(() => {
+    const errors = [];
+    if (startDay === null) {
+      errors.push("Start Day not set");
+    }
+    if (startTime === null) {
+      errors.push("Start Time not set");
+    }
+
+    if (endTime === null) {
+      errors.push("End Time not set");
+    }
+
+    if (errors.length === 0 && startTime === endTime) {
+      errors.push("Start and End time cannot be equal");
+    }
+
+    if (errors.length === 0) {
+      setOvernight((endTime as Dayjs).isBefore(startTime));
+    }
+
+    setCanSubmit(errors.length === 0);
+    setValidErrors(errors);
+  }, [startTime, endTime, startDay]);
+
   /**
    * Clear the modal's inputs (resets the state)
    */
   const clearInputs = (): void => {
-    setStartDay(undefined);
-    setEndDay(undefined);
-    setValueStartTime(null);
-    setValueEndTime(null);
+    setStartDay(null);
+    setStartTime(null);
+    setEndTime(null);
   };
+
   return (
     <>
-      <Button onClick={handleOpen}>Add Shift</Button>
+      <Button onClick={handleOpen} variant={"contained"} color={"secondary"}>
+        Add Shift
+      </Button>
       <Modal
         open={addShiftModalOpen}
         onClose={handleClose}
@@ -118,14 +118,48 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
       >
         <Card sx={modalStyle}>
           <CardContent>
-            <Typography
-              id="addShiftTitle"
-              variant="h6"
-              component="h2"
-            ></Typography>
-            <Typography id="Select Start Day" sx={{ mt: 2 }}></Typography>
+            <Typography id="shift-modal-title" variant="h6" component="h2">
+              Add a Shift
+              {overnight && (
+                <Chip
+                  sx={{ ml: 2, color: "white", backgroundColor: "#191170" }}
+                  label="Overnight"
+                />
+              )}
+            </Typography>
+            <Typography id="modal-StartTime" sx={{ mt: 2 }}>
+              {" "}
+            </Typography>
             <Box sx={{ minWidth: 120 }}>
-              {daySelector(handleStartChange, "Select Start Day")}
+              <FormControl fullWidth>
+                <TextField
+                  label="Shift Name"
+                  variant="outlined"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                />
+              </FormControl>
+            </Box>
+            <Typography id="modal-StartTime" sx={{ mt: 2 }}>
+              {" "}
+            </Typography>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="day-label">Select Start Day</InputLabel>
+                <Select
+                  labelId="day-label"
+                  label="Select Start Day"
+                  onChange={handleStartChange}
+                >
+                  <MenuItem value={DayOftheWeek.Sunday}>Sunday</MenuItem>
+                  <MenuItem value={DayOftheWeek.Monday}>Monday</MenuItem>
+                  <MenuItem value={DayOftheWeek.Tuesday}>Tuesday</MenuItem>
+                  <MenuItem value={DayOftheWeek.Wednesday}>Wednesday</MenuItem>
+                  <MenuItem value={DayOftheWeek.Thursday}>Thursday</MenuItem>
+                  <MenuItem value={DayOftheWeek.Friday}>Friday</MenuItem>
+                  <MenuItem value={DayOftheWeek.Saturday}>Saturday</MenuItem>
+                </Select>
+              </FormControl>
             </Box>
             <Typography id="modal-StartTime" sx={{ mt: 2 }}>
               {" "}
@@ -133,33 +167,44 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 label="Select Start Time"
-                value={valueStartTime}
+                value={startTime}
                 onChange={(newValueST) => {
-                  setValueStartTime(newValueST);
+                  setStartTime(newValueST);
                 }}
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
-            <Typography id="Select End Day" sx={{ mt: 2 }}></Typography>
-            <Box sx={{ minWidth: 120 }}>
-              {daySelector(handleEndChange, "Select End Day")}
-            </Box>
             <Typography id="modal-EndTime" sx={{ mt: 2 }}></Typography>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
                 label="Select End Time"
-                value={valueEndTime}
+                value={endTime}
                 onChange={(newValueET) => {
-                  setValueEndTime(newValueET);
+                  setEndTime(newValueET);
                 }}
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
             <Typography id="modal-submit" sx={{ mt: 2 }}></Typography>
-            <Button variant="contained" onClick={handleSubmit}>
-              Submit
-            </Button>
           </CardContent>
+          <CardActions>
+            <Button onClick={handleClose} color={"error"} sx={{ ml: "auto" }}>
+              Close
+            </Button>
+            <Tooltip title={validErrors.join(", ")} placement="top-end">
+              {/* The span is required for when the button is disabled */}
+              <span>
+                <Button
+                  onClick={handleSubmit}
+                  color={"primary"}
+                  variant={"contained"}
+                  disabled={!canSubmit}
+                >
+                  Submit
+                </Button>
+              </span>
+            </Tooltip>
+          </CardActions>
         </Card>
       </Modal>
     </>
