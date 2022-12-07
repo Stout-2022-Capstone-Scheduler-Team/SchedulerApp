@@ -51,9 +51,6 @@ test("Import Modal", async () => {
     expect(dropdown).toBeInTheDocument();
     await user.click(dropdown);
 
-    await rippleComplete(dom);
-    expect(dom.baseElement).toMatchSnapshot();
-
     await user.click(screen.getByText(/item/i));
 
     expect(dropdown).toHaveTextContent(/item/i);
