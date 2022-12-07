@@ -32,20 +32,17 @@ export function Calendar({
       <Grid
         container
         columns={7}
-        sx={{ p: 5, pt: 3 }}
+        spacing={3}
+        sx={{ pt: 3 }}
         ref={exportRef}
         className="printed"
       >
         {dayOfWeekNumber.map((day: number) => (
-          <Grid item xs={1} sx={{ px: 1.5 }} key={day}>
+          <Grid item xs={1} key={day}>
             <WeeklyDate
               dayOfWeek={dayName(day).substring(0, 3)}
               date="10.23 TODO"
             />
-          </Grid>
-        ))}
-        {dayOfWeekNumber.map((day: number) => (
-          <Grid item xs={1} sx={{ px: 1.5 }} key={day}>
             <DailyShifts allShifts={getDayShifts(day)} employees={employees} />
           </Grid>
         ))}

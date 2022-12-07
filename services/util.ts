@@ -13,6 +13,8 @@ export function or<T>(a: T | undefined, b: T): T {
 const DEBUG_LOG = false;
 
 export function log(message?: any, ...more: any[]): void {
+  // Ignore debug logging for code coverage
+  // istanbul ignore next
   if (DEBUG_LOG) {
     console.log(message, ...more);
   }
