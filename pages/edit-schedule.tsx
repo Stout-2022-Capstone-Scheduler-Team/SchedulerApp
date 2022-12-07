@@ -3,7 +3,8 @@ import {
   Calendar,
   ExportModal,
   AddShiftModal,
-  EmployeeSummary
+  EmployeeSummary,
+  MetaModal
 } from "../components";
 import { Box, Grid, Stack } from "@mui/material";
 import { Schedule } from "../entities/schedule";
@@ -33,7 +34,6 @@ export default function EditSchedule(): JSX.Element {
       if (name !== "") {
         const storage = new LocalStorage();
         void storage.read(name).then((schedule) => {
-          console.log(schedule);
           if (schedule !== null) {
             dispatch({ set: schedule });
           }
@@ -54,8 +54,7 @@ export default function EditSchedule(): JSX.Element {
     <Grid container spacing={3}>
       <Grid item xs={12}>
         <Calendar
-          shifts={schedule.shifts}
-          employees={schedule.employees}
+          schedule={schedule}
           exportRef={exportRef}
           loading={buildingSchedule}
         />
@@ -109,7 +108,7 @@ export default function EditSchedule(): JSX.Element {
       </Grid>
       <Grid item xs={3} />
       <Grid item xs={3}>
-        <div>Metadata Component Goes Here</div>
+        <MetaModal schedule={schedule} dispatch={dispatch} />
       </Grid>
     </Grid>
   );

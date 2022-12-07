@@ -37,7 +37,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
 
   const [canSubmit, setCanSubmit] = React.useState(false);
   const [name, setName] = React.useState<string>("");
-  const [startDay, setStartDay] = React.useState<DayOftheWeek | null>(null);
+  const [startDay, setStartDay] = React.useState<DayOftheWeek | "">("");
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleStartChange = (event: SelectChangeEvent<DayOftheWeek>) => {
     if (typeof event.target.value !== "string") {
@@ -54,7 +54,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
 
   // Event Handler
   const handleSubmit = (): void => {
-    if (startDay !== null && startTime !== null && endTime !== null) {
+    if (startDay !== "" && startTime !== null && endTime !== null) {
       const newShift = new Shift(
         name,
         Time.fromDayjs(startTime, startDay),
@@ -71,7 +71,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
 
   React.useEffect(() => {
     const errors = [];
-    if (startDay === null) {
+    if (startDay === "") {
       errors.push("Start Day not set");
     }
     if (startTime === null) {
@@ -98,7 +98,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
    * Clear the modal's inputs (resets the state)
    */
   const clearInputs = (): void => {
-    setStartDay(null);
+    setStartDay("");
     setStartTime(null);
     setEndTime(null);
   };
@@ -147,6 +147,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
                 <Select
                   labelId="day-label"
                   label="Select Start Day"
+                  value={startDay}
                   onChange={handleStartChange}
                 >
                   <MenuItem value={DayOftheWeek.Sunday}>Sunday</MenuItem>
