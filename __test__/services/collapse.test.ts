@@ -12,7 +12,6 @@ import {
   Sunday
 } from "../utils";
 import { Shift, Employee, Color } from "../../entities";
-import { log } from "console";
 const always = [
   allDay(Monday),
   allDay(Tuesday),
@@ -260,8 +259,5 @@ test("Absolutely Gigantic Test", async () => {
     person("olivia", 4, 40, always),
     person("peter", 4, 40, always)
   ];
-  console.log = log;
-  console.log("Shifts: ", shifts.length);
-  console.log("Staff: ", staff.length);
   expect(await generate(shifts, staff)).toBeUndefined();
 });
