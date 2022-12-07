@@ -89,8 +89,8 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
       availability.filter(
         (shift) =>
           !(
-            shift.start.totalHours <= oldAvailabilty.start.totalHours &&
-            shift.end.totalHours >= oldAvailabilty.end.totalHours
+            shift.start.totalHours >= oldAvailabilty.start.totalHours &&
+            shift.end.totalHours <= oldAvailabilty.end.totalHours
           )
       )
     );
