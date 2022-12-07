@@ -4,6 +4,7 @@ import { Time } from "./time";
  * A Shift that can be assigned to an Employee
  */
 export class Shift {
+  id: number;
   name: string;
   start: Time;
   end: Time;
@@ -13,7 +14,14 @@ export class Shift {
   option: number = 0;
   first_try: string | undefined;
 
-  constructor(name: string, start: Time, end: Time, owner?: string) {
+  constructor(
+    name: string,
+    start: Time,
+    end: Time,
+    id?: number,
+    owner?: string
+  ) {
+    this.id = id ?? -1;
     this.name = name;
     this.start = start;
     this.end = end;

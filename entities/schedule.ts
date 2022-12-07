@@ -92,6 +92,7 @@ export class Schedule {
                   shift.name,
                   new Time(shift.start.dayHours, shift.start.day),
                   new Time(shift.end.dayHours, shift.end.day),
+                  shift.id,
                   shift.owner
                 )
             )
@@ -104,6 +105,7 @@ export class Schedule {
             shift.name,
             new Time(shift.start.dayHours, shift.start.day),
             new Time(shift.end.dayHours, shift.end.day),
+            shift.id,
             shift.owner
           )
       ),
