@@ -93,10 +93,9 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
       valueEndTime !== null
     ) {
       const newShift = new Shift(
-        "",
+        JobTitle,
         Time.fromDayjs(valueStartTime, StartDayVal),
-        Time.fromDayjs(valueEndTime, EndDayVal),
-        JobTitle
+        Time.fromDayjs(valueEndTime, EndDayVal)
       );
       void dispatch({ add: newShift });
       setOpen(false);
@@ -107,6 +106,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
    * Clear the modal's inputs (resets the state)
    */
   const clearInputs = (): void => {
+    setJobTitle("");
     setStartDay(undefined);
     setEndDay(undefined);
     setValueStartTime(null);

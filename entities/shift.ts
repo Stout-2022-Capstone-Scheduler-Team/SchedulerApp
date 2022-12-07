@@ -12,7 +12,6 @@ export class Shift {
   assigned: number = 0;
   option: number = 0;
   first_try: string | undefined;
-  JobTitle: any;
 
   constructor(name: string, start: Time, end: Time, owner?: string) {
     this.name = name;
