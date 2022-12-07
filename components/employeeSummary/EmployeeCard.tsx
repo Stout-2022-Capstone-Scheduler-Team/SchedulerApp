@@ -12,21 +12,13 @@ import { ConfirmationModal } from "./ConfirmationModal";
 interface EmployeeCardProps {
   employee: Employee;
   dispatch: Dispatch<ScheduleAction>;
-  currentEmployee: Employee | null;
   setCurrentEmployee: (employee: Employee | null) => void;
-  addEmployeeModalOpen: boolean;
   setAddEmployeeModalOpen: (addEmployeeModalOpen: boolean) => void;
 }
 export function EmployeeCard(props: EmployeeCardProps): JSX.Element {
   // Props
-  const {
-    employee,
-    dispatch,
-    currentEmployee,
-    setCurrentEmployee,
-    addEmployeeModalOpen,
-    setAddEmployeeModalOpen
-  } = props;
+  const { employee, dispatch, setCurrentEmployee, setAddEmployeeModalOpen } =
+    props;
 
   return (
     <>

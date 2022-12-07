@@ -59,9 +59,7 @@ export function EmployeeSummary(props: EmployeeSummaryProps): JSX.Element {
               key={employee.name}
               employee={employee}
               dispatch={dispatch}
-              currentEmployee={currentEmployee}
               setCurrentEmployee={setCurrentEmployee}
-              addEmployeeModalOpen={addEmployeeModalOpen}
               setAddEmployeeModalOpen={setAddEmployeeModalOpen}
             />
           ))}

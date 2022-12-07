@@ -68,8 +68,7 @@ export class Schedule {
    * @returns the employee removed from the schedule
    */
   removeEmployee(empToRemove: Employee): Employee {
-    // todo is this the best way to remove
-    const index = this.employees.findIndex(employee => employee.name === empToRemove.name);
+    const index = this.employees.indexOf(empToRemove);
     return this.employees.splice(index, 1)[0];
   }
 
