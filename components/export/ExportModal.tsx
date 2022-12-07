@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import IosShareIcon from "@mui/icons-material/IosShare";
 
-import { Card, CardActions, CardContent } from "@mui/material";
+import { Card, CardActions, CardContent, SxProps, Theme } from "@mui/material";
 import { FormatSelect } from "./FormatSelect";
 
 export enum ExportType {
@@ -14,15 +14,17 @@ export enum ExportType {
 }
 
 interface ExportModalProps {
+  sx?: SxProps<Theme>;
   componentToExport: React.RefObject<React.ReactInstance>;
 }
 
 export function ExportModal({
+  sx,
   componentToExport
 }: ExportModalProps): JSX.Element {
   const [open, setOpen] = React.useState(false);
   // Default value
-  const [type, setType] = React.useState<ExportType>(ExportType.png);
+  const [type, setType] = React.useState<ExportType>(ExportType.pdf);
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
 
@@ -85,7 +87,12 @@ export function ExportModal({
 
   return (
     <div>
-      <Button onClick={handleOpen} variant={"contained"}>
+      <Button
+        onClick={handleOpen}
+        variant={"contained"}
+        color={"secondary"}
+        sx={sx}
+      >
         Export
       </Button>
       <Modal

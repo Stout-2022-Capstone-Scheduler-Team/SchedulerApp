@@ -1,3 +1,5 @@
+import { RenderResult, screen, waitFor } from "@testing-library/react";
+import { NextRouter } from "next/router";
 import { Color } from "../entities";
 import { Time, Shift, DayOftheWeek, Employee } from "../entities/types";
 
@@ -47,4 +49,43 @@ export function person(
   const ret = new Employee(name, minHours, maxHours, (color === undefined) ? new Color("Red") : color);
   available.forEach((shift) => ret.addAvailability(shift));
   return ret;
+}
+
+export async function RippleComplete(render: RenderResult): Promise<void> {
+  await waitFor(
+    () => {
+      expect(
+        render.baseElement.getElementsByClassName("MuiTouchRipple-child").length
+      ).toBe(0);
+    },
+    { timeout: 1000 }
+  );
+}
+
+export function createMockRouter(router: Partial<NextRouter>): NextRouter {
+  return {
+    basePath: "",
+    pathname: "/",
+    route: "/",
+    query: {},
+    asPath: "/",
+    back: jest.fn(),
+    beforePopState: jest.fn(),
+    prefetch: jest.fn(),
+    push: jest.fn(),
+    reload: jest.fn(),
+    replace: jest.fn(),
+    events: {
+      on: jest.fn(),
+      off: jest.fn(),
+      emit: jest.fn()
+    },
+    isFallback: false,
+    isLocaleDomain: false,
+    isReady: true,
+    defaultLocale: "en",
+    domainLocales: [],
+    isPreview: false,
+    ...router
+  };
 }

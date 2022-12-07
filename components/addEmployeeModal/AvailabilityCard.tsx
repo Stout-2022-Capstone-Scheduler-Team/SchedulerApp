@@ -17,7 +17,7 @@ interface AvailabilityCardProps {
 
 const boxStyle: SxProps<Theme> = {
   border: "lightgray solid 1px",
-  borderRadius: "8px",
+  borderRadius: 2,
   boxShadow: 1,
   p: 2
 };
