@@ -23,6 +23,13 @@ export default function EditSchedule(): JSX.Element {
     return await updateSchedule(a, b).finally(() => setBuildingSchedule(false));
   }, new Schedule([], []));
 
+  const [addShiftModalOpen, setShiftModalOpen] = useState<boolean>(false);
+  const [selectedShift, setSelectedShift] = useState<undefined | Shift>();
+  React.useEffect(() => {
+    if (!addShiftModalOpen) {
+      setSelectedShift();
+    }
+  });
   const [scheduleLoaded, setScheduleLoaded] = useState<boolean>(false);
   React.useEffect(() => {
     if (!scheduleLoaded) {
@@ -46,10 +53,10 @@ export default function EditSchedule(): JSX.Element {
 
   // Reference to the calendar which enables exporting it
   const exportRef = useRef(null);
-  const [addShiftModalOpen, setShiftModalOpen] = useState<boolean>(false);
 
   function editShift(shift: Shift): void {
     setShiftModalOpen(true);
+    setSelectedShift(shift);
   }
 
   return (
@@ -104,6 +111,7 @@ export default function EditSchedule(): JSX.Element {
               dispatch={dispatch}
               addShiftModalOpen={addShiftModalOpen}
               setShiftModalOpen={setShiftModalOpen}
+              shift={selectedShift}
             />
             <ExportModal componentToExport={exportRef} />
           </Stack>

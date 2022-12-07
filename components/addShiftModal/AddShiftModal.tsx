@@ -27,11 +27,12 @@ interface ShiftModalProps {
   dispatch: Dispatch<ScheduleAction>;
   addShiftModalOpen: boolean;
   setShiftModalOpen: (addShiftModalOpen: boolean) => void;
+  shift: Shift;
 }
 
 export function AddShiftModal(props: ShiftModalProps): JSX.Element {
   // Props
-  const { dispatch, addShiftModalOpen, setShiftModalOpen } = props;
+  const { dispatch, addShiftModalOpen, setShiftModalOpen, shift } = props;
   const handleOpen = (): void => setShiftModalOpen(true);
   const handleClose = (): void => setShiftModalOpen(false);
 
