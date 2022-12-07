@@ -1,3 +1,4 @@
+import "@testing-library/jest-dom";
 import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import { AddShiftModal } from "../../../components";
@@ -10,6 +11,7 @@ test("Add Shift Renders", () => {
   );
   expect(addShiftModal).toMatchSnapshot();
 });
+
 test("Modal opens and closes", async () => {
   const user = userEvent.setup();
   const dispatch = jest.fn();
@@ -31,7 +33,7 @@ test("Modal opens and closes", async () => {
   }
 
   // Click the submit button
-  await user.click(modal.getByText(/Submit/i));
+  await user.click(modal.getByText(/Close/i));
 });
 
 test("Adding Shifts", async () => {
