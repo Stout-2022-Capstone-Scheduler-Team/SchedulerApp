@@ -45,7 +45,6 @@ test("Export Modal", async () => {
   {
     const header = screen.queryByText(/Export Schedule/i);
     expect(header).toBe(null);
-    expect(dom.baseElement).toMatchSnapshot();
   }
 });
 
