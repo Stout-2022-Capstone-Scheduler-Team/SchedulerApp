@@ -14,6 +14,7 @@ import {
   useAsyncReducer
 } from "../services";
 import Typography from "@mui/material/Typography";
+import { Shift } from "../entities";
 
 export default function EditSchedule(): JSX.Element {
   const [buildingSchedule, setBuildingSchedule] = useState<boolean>(false);
@@ -59,6 +60,7 @@ export default function EditSchedule(): JSX.Element {
           employees={schedule.employees}
           exportRef={exportRef}
           loading={buildingSchedule}
+          openShiftModal={editShift}
         />
       </Grid>
       <Grid item xs={3}>
@@ -99,8 +101,9 @@ export default function EditSchedule(): JSX.Element {
             alignItems="center"
           >
             <AddShiftModal
-              existingShifts={schedule.shifts}
               dispatch={dispatch}
+              addShiftModalOpen={addShiftModalOpen}
+              setShiftModalOpen={setShiftModalOpen}
             />
             <ExportModal componentToExport={exportRef} />
           </Stack>

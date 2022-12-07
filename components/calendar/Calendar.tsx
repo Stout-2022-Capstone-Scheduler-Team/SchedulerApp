@@ -44,7 +44,11 @@ export function Calendar({
               dayOfWeek={dayName(day).substring(0, 3)}
               date="10.23 TODO"
             />
-            <DailyShifts allShifts={getDayShifts(day)} employees={employees} />
+            <DailyShifts
+              allShifts={getDayShifts(day)}
+              employees={employees}
+              openShiftModal={openShiftModal}
+            />
           </Grid>
         ))}
       </Grid>

@@ -24,7 +24,6 @@ import { ScheduleAction, Dispatch } from "../../services/scheduleState";
 import { DayOftheWeek, Shift, Time } from "../../entities";
 
 interface ShiftModalProps {
-  existingShifts: Shift[];
   dispatch: Dispatch<ScheduleAction>;
   addShiftModalOpen: boolean;
   setShiftModalOpen: (addShiftModalOpen: boolean) => void;
@@ -32,10 +31,9 @@ interface ShiftModalProps {
 
 export function AddShiftModal(props: ShiftModalProps): JSX.Element {
   // Props
-  const { dispatch } = props;
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = (): void => setOpen(true);
-  const handleClose = (): void => setOpen(false);
+  const { dispatch, addShiftModalOpen, setShiftModalOpen } = props;
+  const handleOpen = (): void => setShiftModalOpen(true);
+  const handleClose = (): void => setShiftModalOpen(false);
 
   const [canSubmit, setCanSubmit] = React.useState(false);
   const [name, setName] = React.useState<string>("");
