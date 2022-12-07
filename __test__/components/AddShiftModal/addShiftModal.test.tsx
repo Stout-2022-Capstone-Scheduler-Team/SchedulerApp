@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { AddShiftModal } from "../../../components";
 import userEvent from "@testing-library/user-event";
 import { DayOftheWeek, Shift, Time } from "../../../entities";
@@ -44,15 +44,16 @@ test("Adding Shifts", async () => {
   );
   await user.click(modal.getByText(/Add Shift/i));
 
+  expect(modal.getByText(/Submit/i)).toBeDisabled();
+
   // Enter shift information
   await user.click(modal.getByLabelText(/Select Start Day/i));
   await user.click(modal.getByText(/Sunday/i));
   await user.type(modal.getByLabelText(/Select Start Time/i), "10:10 PM");
-  await user.click(modal.getByLabelText(/Select End Day/i));
-  await user.click(modal.getByText(/Monday/i));
   await user.type(modal.getByLabelText(/Select End Time/i), "02:10 AM");
 
   // Clicking Submit button
+  await waitFor(() => expect(modal.getByText(/Submit/i)).not.toBeDisabled());
   await user.click(modal.getByText(/Submit/i));
 
   // Assert
