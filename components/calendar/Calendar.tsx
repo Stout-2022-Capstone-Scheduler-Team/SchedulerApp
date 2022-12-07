@@ -26,7 +26,6 @@ export function Calendar({
       .filter((shift) => shift.start.day === day)
       .sort((a, b) => (a.start.dayHours > b.start.dayHours ? 1 : -1));
   }
-
   return (
     <>
       <Grid
@@ -41,7 +40,7 @@ export function Calendar({
           <Grid item xs={1} key={day}>
             <WeeklyDate
               dayOfWeek={dayName(day).substring(0, 3)}
-              date="10.23(TODO)"
+              date="10.23 TODO"
             />
             <DailyShifts allShifts={getDayShifts(day)} employees={employees} />
           </Grid>
