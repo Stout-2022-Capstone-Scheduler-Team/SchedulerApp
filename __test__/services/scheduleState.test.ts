@@ -1,6 +1,6 @@
 import { Color, Employee, Schedule, Shift, Time } from "../../entities";
 import { updateSchedule, useAsyncReducer } from "../../services/scheduleState";
-import { Monday, Tuesday } from "../utils";
+import { Monday } from "../utils";
 import { generate } from "../../services/waveform_collapse";
 import { sleepTask } from "../../services";
 import React, { SetStateAction } from "react";
