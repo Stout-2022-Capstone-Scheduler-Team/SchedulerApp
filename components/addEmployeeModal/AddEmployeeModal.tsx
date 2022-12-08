@@ -227,7 +227,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
         color={"secondary"}
         sx={{ ml: "auto !important" }}
       >
-        Add
+        +
       </Button>
       <Modal
         open={addEmployeeModalOpen}
