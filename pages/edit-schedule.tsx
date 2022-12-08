@@ -27,7 +27,9 @@ export default function EditSchedule(): JSX.Element {
   const [selectedShift, setSelectedShift] = useState<undefined | Shift>();
   React.useEffect(() => {
     if (!addShiftModalOpen) {
-      setSelectedShift();
+      setSelectedShift(undefined);
+    } else {
+      setSelectedShift(selectedShift);
     }
   });
   const [scheduleLoaded, setScheduleLoaded] = useState<boolean>(false);
