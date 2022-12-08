@@ -53,7 +53,7 @@ export function EmployeeSummary(props: EmployeeSummaryProps): JSX.Element {
             setAddEmployeeModalOpen={setAddEmployeeModalOpen}
           />
         </Stack>
-        <Stack>
+        <Stack data-testid="EmployeesStack">
           {employees.map((employee: Employee) => (
             <EmployeeCard
               key={employee.name}

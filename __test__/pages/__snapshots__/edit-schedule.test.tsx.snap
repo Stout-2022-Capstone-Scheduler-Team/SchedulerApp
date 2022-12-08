@@ -272,6 +272,7 @@ exports[`EditSchedule Renders 1`] = `
           </div>
           <div
             class="css-nen11g-MuiStack-root"
+            data-testid="EmployeesStack"
           />
         </div>
       </div>
