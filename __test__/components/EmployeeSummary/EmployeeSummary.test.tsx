@@ -84,6 +84,6 @@ test("Employee Card opens sets addEmployeeModalOpen", async () => {
   expect(setAddEmployeeModalOpen).toBeCalled();
 });
 
-//add coverage for confirmation modal close and delete paths
+// add coverage for confirmation modal close and delete paths
 // modal opens and closes with buttons
 // modal opens and closes with employee card click
