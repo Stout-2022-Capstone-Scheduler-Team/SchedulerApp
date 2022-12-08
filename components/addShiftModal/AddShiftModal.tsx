@@ -22,12 +22,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { ScheduleAction, Dispatch } from "../../services/scheduleState";
 import { DayOftheWeek, Shift, Time } from "../../entities";
+import { idText } from "typescript";
 
 interface ShiftModalProps {
   dispatch: Dispatch<ScheduleAction>;
   addShiftModalOpen: boolean;
   setShiftModalOpen: (addShiftModalOpen: boolean) => void;
   shift: Shift;
+  tmpshift: Shift;
 }
 
 export function AddShiftModal(props: ShiftModalProps): JSX.Element {
