@@ -35,7 +35,6 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   } = props;
 
   // Employee State
-  // const [open, setOpen] = useState(false);
   const [name, setName] = useState<string>("");
   const [minHours, setMinHours] = useState(0);
   const [maxHours, setMaxHours] = useState(40);

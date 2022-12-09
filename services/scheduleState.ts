@@ -17,7 +17,6 @@ interface Set {
   set: Schedule;
 }
 
-// todo add test for shift
 interface UpdateEmployee {
   update: Employee;
   color?: Color;
