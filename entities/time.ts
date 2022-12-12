@@ -4,13 +4,15 @@ import { Dayjs } from "dayjs";
  * Represents a point in time
  */
 export class Time {
-  totalHours: number;
   dayHours: number;
   day: DayOftheWeek;
   constructor(hours: number, day: DayOftheWeek) {
-    this.totalHours = hours + 24 * day;
     this.dayHours = hours;
     this.day = day;
+  }
+
+  get totalHours(): number {
+    return this.dayHours + 24 * this.day;
   }
 
   /**
