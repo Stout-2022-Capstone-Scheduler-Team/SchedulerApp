@@ -11,8 +11,40 @@ export class Time {
     this.day = day;
   }
 
+  /**
+   * Computed property to get totalHours
+   */
   get totalHours(): number {
     return this.dayHours + 24 * this.day;
+  }
+
+  /**
+   * Convert Time to a string
+   */
+  toString(): string {
+    let minute = this.dayHours - Math.floor(this.dayHours);
+    let hour = this.dayHours - minute;
+    minute = Math.round(minute * 60);
+    let zone = "am";
+    // Set hours
+    if (hour >= 12) {
+      hour -= 12;
+      if (hour !== 12) {
+        zone = "pm";
+      }
+    }
+    if (hour === 0) {
+      hour = 12;
+    }
+    // Set minute
+    if (minute < 10) {
+      return String(hour) + ":0" + String(minute) + zone;
+    }
+    return String(hour) + ":" + String(minute) + zone;
+  }
+
+  hoursBetween(other: Time): number {
+    return Math.abs(other.totalHours - this.totalHours);
   }
 
   /**
@@ -49,35 +81,6 @@ export class Time {
     return Object.keys(DayOftheWeek)
       .filter((v) => !isNaN(Number(v)))
       .map((day) => Number(day));
-  }
-
-  /**
-   * Convert Time to a string
-   */
-  toString(): string {
-    let minute = this.dayHours - Math.floor(this.dayHours);
-    let hour = this.dayHours - minute;
-    minute = Math.round(minute * 60);
-    let zone = "am";
-    // Set hours
-    if (hour >= 12) {
-      hour -= 12;
-      if (hour !== 12) {
-        zone = "pm";
-      }
-    }
-    if (hour === 0) {
-      hour = 12;
-    }
-    // Set minute
-    if (minute < 10) {
-      return String(hour) + ":0" + String(minute) + zone;
-    }
-    return String(hour) + ":" + String(minute) + zone;
-  }
-
-  hoursBetween(other: Time): number {
-    return Math.abs(other.totalHours - this.totalHours);
   }
 
   static compare(a: Time, other: Time): number {

@@ -85,12 +85,17 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
     if (startDay === "") {
       errors.push("Start Day not set");
     }
+
     if (startTime === null) {
       errors.push("Start Time not set");
+    } else if (!dayjs(startTime).isValid()) {
+      errors.push("Start time is not a valid time");
     }
 
     if (endTime === null) {
       errors.push("End Time not set");
+    } else if (!dayjs(endTime).isValid()) {
+      errors.push("End time is not a valid time");
     }
 
     if (errors.length === 0 && startTime === endTime) {
