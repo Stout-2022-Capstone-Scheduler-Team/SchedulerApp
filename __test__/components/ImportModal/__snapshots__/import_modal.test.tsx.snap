@@ -18,23 +18,6 @@ exports[`Button is Disabled 1`] = `
 `;
 
 exports[`Import Modal 1`] = `
-<body>
-  <div>
-    <div>
-      <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
-        disabled=""
-        tabindex="-1"
-        type="button"
-      >
-        Import Schedule
-      </button>
-    </div>
-  </div>
-</body>
-`;
-
-exports[`Import Modal 2`] = `
 <body
   style="padding-right: 1024px; overflow: hidden;"
 >
@@ -194,7 +177,7 @@ exports[`Import Modal 2`] = `
 </body>
 `;
 
-exports[`Import Modal 3`] = `
+exports[`Import Modal 2`] = `
 <body
   style=""
 >
@@ -209,25 +192,6 @@ exports[`Import Modal 3`] = `
         <span
           class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
         />
-      </button>
-    </div>
-  </div>
-</body>
-`;
-
-exports[`Import Modal Navigation 1`] = `
-<body
-  style=""
->
-  <div>
-    <div>
-      <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
-        disabled=""
-        tabindex="-1"
-        type="button"
-      >
-        Import Schedule
       </button>
     </div>
   </div>

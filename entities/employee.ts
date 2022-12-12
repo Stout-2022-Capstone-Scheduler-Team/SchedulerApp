@@ -27,29 +27,6 @@ export class Employee {
   }
 
   /**
-   * Add an availability time block for this employee
-   * @param newAvailability Availability to add to this employee's availability list
-   * @throws If a duplicate availability shift exists already
-   */
-  addAvailability(newAvailability: Shift): void {
-    if (
-      // Make sure that there is not an availability already existing with the same start and end
-      this.available.some(
-        (avail) =>
-          avail.start.totalHours === newAvailability.start.totalHours &&
-          avail.end.totalHours === newAvailability.end.totalHours
-      )
-    ) {
-      // If there is a duplicate availability already, throw an error
-      throw new Error(
-        "Cannot add duplicate availability to employee availability list"
-      );
-    } else {
-      this.available.push(newAvailability);
-    }
-  }
-
-  /**
    * Removes an availability block from this employee's availability array
    * @param availabilityToRemove Availability block to remove
    * @returns The removed availability block
@@ -60,25 +37,25 @@ export class Employee {
   }
 
   isAvailable(inputShift: Shift): boolean {
-    return (
-      this.canTakeHours(inputShift.duration) &&
-      this.available.some((a) => a.contains(inputShift))
-    );
-  }
-
-  addAvailable(inputShift: Shift): void {
-    for (let z = 0; z < this.available.length; z++) {
-      if (inputShift.overlapsAvalible(this.available[z])) {
-        if (this.available[z].start.totalHours < inputShift.start.totalHours) {
-          inputShift.start = this.available[z].start;
+    if (!this.canTakeHours(inputShift.duration)) {
+      return false;
+    }
+    const ranges = [inputShift];
+    for (let i = 0; i < this.available.length; i++) {
+      for (let j = 0; j < ranges.length; j++) {
+        if (ranges[j].duration === 0) {
+          ranges.splice(j, 1);
+          j--;
+        } else if (this.available[i].overlaps(ranges[j])) {
+          ranges.splice(j, 1, ...this.available[i].splitOn(ranges[j]));
+          j--;
         }
-        if (this.available[z].end.totalHours > inputShift.end.totalHours) {
-          inputShift.end = this.available[z].end;
-        }
-        this.available.splice(z, 1);
-        z--;
       }
     }
+    return ranges.length === 0;
+  }
+
+  addAvailability(inputShift: Shift): void {
     this.available.push(inputShift);
   }
 
@@ -101,31 +78,33 @@ export class Employee {
     return Math.max(this.min_hours - this.current_hours, 0);
   }
 
-  splitAvailable(removeShift: Shift): void {
-    for (let i = 0; i < this.available.length; i++) {
-      assert(this.available.length < 10000);
-      if (removeShift.contains(this.available[i])) {
-        this.available.splice(i, 1);
-        i--;
-      } else if (this.available[i].containsRemove(removeShift)) {
-        this.available.unshift(
-          new Shift("", removeShift.end, this.available[i].end)
-        );
-        i++;
-        this.available[i].end = removeShift.start;
-      } else if (this.available[i].overlaps(removeShift)) {
-        if (this.available[i].start.totalHours > removeShift.start.totalHours) {
-          this.available[i].start = removeShift.end;
-        }
-        if (this.available[i].end.totalHours < removeShift.end.totalHours) {
-          this.available[i].end = removeShift.start;
-        }
-      }
-    }
+  get remainingMaxHours(): number {
+    return Math.max(this.max_hours - this.current_hours, 0);
   }
 
   get sortedAvailable(): Shift[] {
     this.available.sort((a, b) => a.start.totalHours - b.start.totalHours);
     return this.available;
+  }
+
+  combineAvailable(): Shift[] {
+    const available = this.available.map(
+      (s) => new Shift(s.name, s.start, s.end)
+    );
+    for (let i = 0; i < available.length; i++) {
+      for (let z = i + 1; z < available.length; z++) {
+        if (available[i].overlapsAvalible(available[z])) {
+          if (available[z].start.totalHours < available[i].start.totalHours) {
+            available[i].start = available[z].start;
+          }
+          if (available[z].end.totalHours > available[i].end.totalHours) {
+            available[i].end = available[z].end;
+          }
+          available.splice(z, 1);
+          z--;
+        }
+      }
+    }
+    return available;
   }
 }

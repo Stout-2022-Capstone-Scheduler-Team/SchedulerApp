@@ -25,6 +25,9 @@ export class Shift {
     this.name = name;
     this.start = start;
     this.end = end;
+    if (this.start.hoursBetween(this.end) < 0) {
+      throw new Error("Shift cannot end before it starts");
+    }
     if (owner !== undefined) {
       this.owner = owner;
     }
@@ -60,5 +63,16 @@ export class Shift {
 
   get duration(): number {
     return this.start.hoursBetween(this.end);
+  }
+
+  splitOn(other: Shift): Shift[] {
+    const ret = [];
+    if (other.start.totalHours < this.start.totalHours) {
+      ret.push(new Shift("", other.start, this.start));
+    }
+    if (other.end.totalHours > this.end.totalHours) {
+      ret.push(new Shift("", this.end, other.end));
+    }
+    return ret;
   }
 }

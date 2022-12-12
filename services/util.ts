@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 export async function sleepTask(ms: number): Promise<void> {
   await new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -18,4 +20,15 @@ export function log(message?: any, ...more: any[]): void {
   if (DEBUG_LOG) {
     console.log(message, ...more);
   }
+}
+
+export function useDidUpdateEffect(fn: () => any, inputs: any[]): void {
+  const didMountRef = useRef(false);
+
+  useEffect(() => {
+    if (didMountRef.current) {
+      return fn();
+    }
+    didMountRef.current = true;
+  }, inputs);
 }

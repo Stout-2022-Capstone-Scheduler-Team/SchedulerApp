@@ -2,8 +2,9 @@ import React, { useRef, useState } from "react";
 import {
   Calendar,
   ExportModal,
-  AddEmployeeModal,
-  AddShiftModal
+  AddShiftModal,
+  EmployeeSummary,
+  MetaModal
 } from "../components";
 import {
   LocalStorage,
@@ -14,13 +15,17 @@ import {
 import { Box, Grid, Stack } from "@mui/material";
 import { Schedule } from "../entities/schedule";
 import Typography from "@mui/material/Typography";
-import { Shift } from "../entities";
+import { Shift, Employee } from "../entities";
 
 export default function EditSchedule(): JSX.Element {
   const [schedule, dispatch] = useAsyncReducer(async (a, b: ScheduleAction) => {
     setBuildingSchedule(true);
     return await updateSchedule(a, b).finally(() => setBuildingSchedule(false));
   }, new Schedule([], []));
+
+  const [currentEmployee, setCurrentEmployee] = useState<Employee | null>(null);
+  const [addEmployeeModalOpen, setAddEmployeeModalOpen] =
+    useState<boolean>(false);
 
   const [buildingSchedule, setBuildingSchedule] = useState<boolean>(false);
   const [addShiftModalOpen, setShiftModalOpen] = useState<boolean>(false);
@@ -40,15 +45,12 @@ export default function EditSchedule(): JSX.Element {
       if (name !== "") {
         const storage = new LocalStorage();
         void storage.read(name).then((schedule) => {
-          console.log(schedule);
           if (schedule !== null) {
             dispatch({ set: schedule });
           }
         });
       } else {
-        const newUrl = window.location;
-        newUrl.hash = `#${schedule.name}`;
-        window.location.replace(newUrl.href);
+        window.history.replaceState(schedule, "", `#${schedule.name}`);
       }
       setScheduleLoaded(true);
     }
@@ -70,19 +72,20 @@ export default function EditSchedule(): JSX.Element {
     <Grid container spacing={3}>
       <Grid item xs={12}>
         <Calendar
-          shifts={schedule.shifts}
-          employees={schedule.employees}
+          schedule={schedule}
           exportRef={exportRef}
           loading={buildingSchedule}
           openShiftModal={editShift}
         />
       </Grid>
       <Grid item xs={3}>
-        <div>Employee Summary goes here</div>
-
-        <AddEmployeeModal
-          existingEmployees={schedule.employees}
+        <EmployeeSummary
+          employees={schedule.employees}
           dispatch={dispatch}
+          currentEmployee={currentEmployee}
+          setCurrentEmployee={setCurrentEmployee}
+          addEmployeeModalOpen={addEmployeeModalOpen}
+          setAddEmployeeModalOpen={setAddEmployeeModalOpen}
         />
       </Grid>
       <Grid item xs={3}>
@@ -126,7 +129,11 @@ export default function EditSchedule(): JSX.Element {
       </Grid>
       <Grid item xs={3} />
       <Grid item xs={3}>
-        <div>Metadata Component Goes Here</div>
+        <MetaModal
+          schedule={schedule}
+          dispatch={dispatch}
+          loading={buildingSchedule}
+        />
       </Grid>
     </Grid>
   );

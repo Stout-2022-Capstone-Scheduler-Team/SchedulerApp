@@ -6,8 +6,10 @@ import {
   CardContent,
   CardActions,
   Chip,
-  Tooltip
+  Tooltip,
+  IconButton
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import modalStyle from "../../styles/modalStyle";
 import { AvailabilityEditor, AvailabilityTabs, EditEmployeeInfo } from "../";
 import { Color, DayOftheWeek, Employee, Shift, Time } from "../../entities";
@@ -17,14 +19,24 @@ import { useEffect, useState } from "react";
 interface EmployeeModalProps {
   existingEmployees: Employee[];
   dispatch: Dispatch<ScheduleAction>;
+  currentEmployee: Employee | null;
+  setCurrentEmployee: (employee: Employee | null) => void;
+  addEmployeeModalOpen: boolean;
+  setAddEmployeeModalOpen: (addEmployeeModalOpen: boolean) => void;
 }
 
 export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   // Props
-  const { existingEmployees, dispatch } = props;
+  const {
+    existingEmployees,
+    dispatch,
+    currentEmployee,
+    setCurrentEmployee,
+    addEmployeeModalOpen,
+    setAddEmployeeModalOpen
+  } = props;
 
   // Employee State
-  const [open, setOpen] = useState(false);
   const [name, setName] = useState<string>("");
   const [minHours, setMinHours] = useState(0);
   const [maxHours, setMaxHours] = useState(40);
@@ -39,30 +51,55 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   const [validErrors, setValidErrors] = useState<string[]>([]);
 
   // Form Event Handlers
-  const handleOpen = (): void => setOpen(true);
-  const handleClose = (): void => setOpen(false);
+  const handleOpen = (): void => setAddEmployeeModalOpen(true);
+  const handleClose = (): void => {
+    setAddEmployeeModalOpen(false);
+    clearInputs();
+  };
   const handleSubmit = (): void => {
     if (canSubmit) {
-      const newEmployee = new Employee(name, minHours, maxHours, color);
-      availability.forEach((avail) =>
-        newEmployee.addAvailability(
-          new Shift(avail.name, avail.start, avail.end)
-        )
-      );
-      void dispatch({ add: newEmployee });
-      setOpen(false);
+      if (currentEmployee === null) {
+        const newEmployee = new Employee(name, minHours, maxHours, color);
+        availability.forEach((avail) =>
+          newEmployee.addAvailability(
+            new Shift(avail.name, avail.start, avail.end)
+          )
+        );
+        void dispatch({ add: newEmployee });
+      } else {
+        void dispatch({
+          update: currentEmployee,
+          name,
+          maxHours,
+          minHours,
+          color,
+          available: availability
+        });
+      }
+
+      setAddEmployeeModalOpen(false);
       clearInputs();
     }
   };
 
   // Logic
+  /** validate inputs reactively */
   useEffect(() => {
     setCanSubmit(validateInputs());
   }, [name, minHours, maxHours, availability]);
 
+  /** increment name update counter */
   useEffect(() => {
     setNameUpdateCount(nameUpdateCount + 1);
   }, [name]);
+
+  useEffect(() => {
+    setName(currentEmployee?.name ?? "");
+    setMinHours(currentEmployee?.min_hours ?? 0);
+    setMaxHours(currentEmployee?.max_hours ?? 40);
+    setColor(currentEmployee?.color ?? new Color());
+    setAvailability(currentEmployee?.available ?? []);
+  }, [currentEmployee]);
 
   /**
    * Add a block of availability to this employee's array
@@ -71,9 +108,9 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   const addAvailability = (newAvailability: Shift): void => {
     if (
       !availability.some(
-        (shift) =>
-          shift.start.totalHours >= newAvailability.start.totalHours &&
-          shift.end.totalHours <= newAvailability.end.totalHours
+        (avail) =>
+          avail.start.totalHours <= newAvailability.start.totalHours &&
+          avail.end.totalHours >= newAvailability.end.totalHours
       )
     ) {
       setAvailability([...availability, newAvailability]);
@@ -85,6 +122,10 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
    * @param oldAvailabilty Block of time to remove
    */
   const removeAvailability = (oldAvailabilty: Shift): void => {
+    if (typeof oldAvailabilty === "undefined") {
+      return;
+    }
+
     setAvailability(
       availability.filter(
         (shift) =>
@@ -95,6 +136,21 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
       )
     );
   };
+
+  /**
+   * Set a day's availability to a static set of availabilities (useful for clearing a day)
+   * @param day Day of the week to clear availabilities for
+   * @param newAvailabilities New availabilities to set the day's availabilities to
+   */
+  function setDayAvailability(
+    day: DayOftheWeek,
+    newAvailabilities: Shift[]
+  ): void {
+    setAvailability([
+      ...availability.filter((shift) => shift.start.day !== day),
+      ...newAvailabilities
+    ]);
+  }
 
   /**
    * Get a list of availabilities for this employee for a given day
@@ -116,7 +172,10 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
     if (name.length === 0) {
       setValidName(false);
       validationErrors.push("Employee name must be given");
-    } else if (existingEmployees.some((emp) => emp.name === name)) {
+    } else if (
+      existingEmployees.some((emp) => emp.name === name) &&
+      name !== currentEmployee?.name
+    ) {
       setValidName(false);
       validationErrors.push("Employee name must be unique");
     } else {
@@ -162,6 +221,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
     setMaxHours(40);
     setColor(new Color());
     setAvailability([]);
+    setCurrentEmployee(null);
   };
 
   /**
@@ -174,7 +234,8 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
       (emp) => emp.color.colorName
     );
     const freeColorNames = allColors.filter(
-      (colorName) => !existingColorNames.includes(colorName)
+      (colorName) =>
+        !existingColorNames.includes(colorName) || color.colorName === colorName
     );
 
     return freeColorNames.map((name) => new Color(name));
@@ -182,11 +243,17 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
 
   return (
     <>
-      <Button onClick={handleOpen} variant={"contained"} color={"secondary"}>
-        Add Employee
-      </Button>
+      <Tooltip title="Add new Employee">
+        <IconButton
+          color="secondary"
+          aria-label="Add Employee"
+          onClick={handleOpen}
+        >
+          <AddIcon />
+        </IconButton>
+      </Tooltip>
       <Modal
-        open={open}
+        open={addEmployeeModalOpen}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
       >
@@ -227,6 +294,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
                     currentAvailability={getAvailabilityFor(day)}
                     addAvailability={addAvailability}
                     removeAvailability={removeAvailability}
+                    setDayAvailability={setDayAvailability}
                   />
                 ))
               ]}

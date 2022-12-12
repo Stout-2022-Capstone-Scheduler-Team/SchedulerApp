@@ -22,7 +22,7 @@ export function DailyShifts({
         new Employee("DEFAULT", 0, 0, new Color("White"))
       }
       openShiftModal={openShiftModal}
-      key={shift.owner + shift.start.toString()}
+      key={shift.id}
     />
   ));
 

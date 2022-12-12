@@ -7,7 +7,8 @@ import {
   CardContent,
   CardActions,
   Tooltip,
-  Chip
+  Chip,
+  IconButton
 } from "@mui/material";
 import modalStyle from "../../styles/modalStyle";
 import Box from "@mui/material/Box";
@@ -22,12 +23,13 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { ScheduleAction, Dispatch } from "../../services/scheduleState";
 import { DayOftheWeek, Shift, Time } from "../../entities";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface ShiftModalProps {
   dispatch: Dispatch<ScheduleAction>;
   addShiftModalOpen: boolean;
   setShiftModalOpen: (addShiftModalOpen: boolean) => void;
-  shift: Shift | undefined;
+  shift?: Shift;
 }
 
 export function AddShiftModal(props: ShiftModalProps): JSX.Element {
@@ -58,7 +60,9 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
         Time.fromDayjs(
           endTime,
           startTime.isBefore(endTime) ? startDay : (startDay + 1) % 7
-        )
+        ),
+        shift?.id,
+        shift?.owner
       );
       console.log(newShift);
       void dispatch({ add: newShift });
@@ -66,20 +70,33 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
     }
   };
 
+  /** Handles the delete button being clicked */
+  function handleDelete(): void {
+    if (typeof shift !== "undefined") {
+      void dispatch({ remove: shift });
+      setShiftModalOpen(false);
+    }
+  }
+
   /**
    * Live input validation
    */
   React.useEffect(() => {
     const errors = [];
-    if (startDay === null) {
+    if (startDay === "") {
       errors.push("Start Day not set");
     }
+
     if (startTime === null) {
       errors.push("Start Time not set");
+    } else if (!dayjs(startTime).isValid()) {
+      errors.push("Start time is not a valid time");
     }
 
     if (endTime === null) {
       errors.push("End Time not set");
+    } else if (!dayjs(endTime).isValid()) {
+      errors.push("End time is not a valid time");
     }
 
     if (errors.length === 0 && startTime === endTime) {
@@ -87,7 +104,14 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
     }
 
     if (errors.length === 0) {
-      setOvernight((endTime as Dayjs).isBefore(startTime));
+      setOvernight(
+        (endTime as Dayjs).isBefore(startTime) ||
+          (endTime as Dayjs).isSame(startTime)
+      );
+    }
+
+    if (startTime !== null && endTime !== null && startTime.isBefore(endTime) && startDay === DayOftheWeek.Saturday) {
+      errors.push("Overnights from Saturday to Sunday are not supported");
     }
 
     setCanSubmit(errors.length === 0);
@@ -201,6 +225,17 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
             <Button onClick={handleClose} color={"error"} sx={{ ml: "auto" }}>
               Close
             </Button>
+            {typeof shift !== "undefined" && (
+              <Tooltip title="Delete this shift">
+                <IconButton
+                  color="error"
+                  aria-label="Remove shift"
+                  onClick={handleDelete}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
+            )}
             <Tooltip title={validErrors.join(", ")} placement="top-end">
               {/* The span is required for when the button is disabled */}
               <span>

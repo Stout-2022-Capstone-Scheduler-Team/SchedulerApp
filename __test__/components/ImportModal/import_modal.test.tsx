@@ -11,6 +11,7 @@ import {
   createMockRouter,
   RippleComplete as rippleComplete
 } from "../../utils";
+import { act } from "react-test-renderer";
 
 jest.mock("localforage");
 beforeEach(() => {
@@ -38,10 +39,12 @@ test("Import Modal", async () => {
   const user = userEvent.setup();
   const dom = render(<ImportModal />);
 
-  await rippleComplete(dom);
-  expect(dom.baseElement).toMatchSnapshot();
-  await waitFor(() =>
-    expect(screen.getByText(/Import Schedule/i)).not.toBeDisabled()
+  await act(async () => {
+    await rippleComplete(dom);
+  });
+  await waitFor(
+    () => expect(screen.getByText(/Import Schedule/i)).not.toBeDisabled(),
+    { timeout: 1500 } // 1.5x default, this occasionally takes longer than the default
   );
 
   await user.click(screen.getByText(/Import Schedule/i));
@@ -84,8 +87,9 @@ test("Import Modal Navigation", async () => {
     </RouterContext.Provider>
   );
 
-  await rippleComplete(dom);
-  expect(dom.baseElement).toMatchSnapshot();
+  await act(async () => {
+    await rippleComplete(dom);
+  });
   await waitFor(() =>
     expect(screen.getByText(/Import Schedule/i)).not.toBeDisabled()
   );
