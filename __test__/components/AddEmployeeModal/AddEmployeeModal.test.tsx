@@ -105,9 +105,7 @@ test("Disable Submit on Failed Validation", async () => {
 
   // Add availability, expect submit button to be valid
   await user.click(modal.getByText(/Monday/));
-  await user.click(modal.getByText(/Add Availability/));
   await user.click(modal.getByLabelText(/All Day/));
-  await user.click(modal.getByText(/^Add$/));
   expect(modal.getByText(/Submit/)).not.toBeDisabled();
 
   // Enter invalid hours, expect button to be disabled again
@@ -159,9 +157,7 @@ test("Close button clears inputs", async () => {
   // Open modal, add details, submit employee
   await user.type(modal.getAllByLabelText(/Employee Name/)[0], "Alice");
   await user.click(modal.getByText(/Monday/));
-  await user.click(modal.getByText(/Add Availability/));
   await user.click(modal.getByLabelText(/All Day/));
-  await user.click(modal.getByText(/^Add$/));
   await user.click(modal.getByText(/Close/));
 
   // Reopen modal, expect fields to be empty
@@ -202,9 +198,7 @@ test("Submit button clears inputs", async () => {
   // Open modal, add details, submit employee
   await user.type(modal.getAllByLabelText(/Employee Name/)[0], "Alice");
   await user.click(modal.getByText(/Monday/));
-  await user.click(modal.getByText(/Add Availability/));
   await user.click(modal.getByLabelText(/All Day/));
-  await user.click(modal.getByText(/^Add$/));
   await user.click(modal.getByText(/Submit/));
 
   // Reopen modal, expect fields to be empty

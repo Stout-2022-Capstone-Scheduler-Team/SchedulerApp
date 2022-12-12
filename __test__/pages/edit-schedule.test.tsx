@@ -2,6 +2,13 @@ import "@testing-library/jest-dom";
 import { render, waitFor, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import EditSchedule from "../../pages/edit-schedule";
+import { generate } from "../../services";
+
+jest.mock("../../services/waveform_collapse");
+
+beforeAll(() => {
+  jest.mocked(generate).mockResolvedValue(undefined);
+});
 
 const toLocaleString = Date.prototype.toLocaleString;
 function fixedLocale(

@@ -81,10 +81,12 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   };
 
   // Logic
+  /** validate inputs reactively */
   useEffect(() => {
     setCanSubmit(validateInputs());
   }, [name, minHours, maxHours, availability]);
 
+  /** increment name update counter */
   useEffect(() => {
     setNameUpdateCount(nameUpdateCount + 1);
   }, [name]);
@@ -104,9 +106,9 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   const addAvailability = (newAvailability: Shift): void => {
     if (
       !availability.some(
-        (shift) =>
-          shift.start.totalHours >= newAvailability.start.totalHours &&
-          shift.end.totalHours <= newAvailability.end.totalHours
+        (avail) =>
+          avail.start.totalHours <= newAvailability.start.totalHours &&
+          avail.end.totalHours >= newAvailability.end.totalHours
       )
     ) {
       setAvailability([...availability, newAvailability]);
@@ -118,6 +120,10 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
    * @param oldAvailabilty Block of time to remove
    */
   const removeAvailability = (oldAvailabilty: Shift): void => {
+    if (typeof oldAvailabilty === "undefined") {
+      return;
+    }
+
     setAvailability(
       availability.filter(
         (shift) =>
@@ -128,6 +134,21 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
       )
     );
   };
+
+  /**
+   * Set a day's availability to a static set of availabilities (useful for clearing a day)
+   * @param day Day of the week to clear availabilities for
+   * @param newAvailabilities New availabilities to set the day's availabilities to
+   */
+  function setDayAvailability(
+    day: DayOftheWeek,
+    newAvailabilities: Shift[]
+  ): void {
+    setAvailability([
+      ...availability.filter((shift) => shift.start.day !== day),
+      ...newAvailabilities
+    ]);
+  }
 
   /**
    * Get a list of availabilities for this employee for a given day
@@ -270,6 +291,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
                     currentAvailability={getAvailabilityFor(day)}
                     addAvailability={addAvailability}
                     removeAvailability={removeAvailability}
+                    setDayAvailability={setDayAvailability}
                   />
                 ))
               ]}
