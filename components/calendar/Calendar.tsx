@@ -5,6 +5,7 @@ import { WeeklyDate } from "./WeeklyDate";
 
 import { Grid } from "@mui/material";
 import { RefObject } from "react";
+import { Dayjs } from "dayjs";
 
 interface CalendarProps {
   schedule: Schedule;
@@ -13,11 +14,15 @@ interface CalendarProps {
   loading: boolean;
 }
 
+function format(weekDate: Dayjs, day: DayOftheWeek): string {
+  const date = weekDate.add(day, "day");
+  return `${date.month() + 1}.${date.date()}`;
+}
+
 export function Calendar({
   schedule,
   exportRef,
-  openShiftModal,
-  loading
+  openShiftModal
 }: CalendarProps): JSX.Element {
   const dayOfWeekNumber = Time.getWeekDayNumbers();
   const weekDate = schedule.weekDate.startOf("week");
@@ -27,6 +32,7 @@ export function Calendar({
       .filter((shift) => shift.start.day === day)
       .sort((a, b) => (a.start.dayHours > b.start.dayHours ? 1 : -1));
   }
+
   return (
     <>
       <Grid

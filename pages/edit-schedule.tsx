@@ -15,8 +15,7 @@ import {
 import { Box, Grid, Stack } from "@mui/material";
 import { Schedule } from "../entities/schedule";
 import Typography from "@mui/material/Typography";
-import { Shift } from "../entities";
-import { Employee } from "../entities";
+import { Shift, Employee } from "../entities";
 
 export default function EditSchedule(): JSX.Element {
   const [schedule, dispatch] = useAsyncReducer(async (a, b: ScheduleAction) => {
