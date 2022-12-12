@@ -2,8 +2,8 @@ import React, { useRef, useState } from "react";
 import {
   Calendar,
   ExportModal,
-  AddEmployeeModal,
   AddShiftModal,
+  EmployeeSummary,
   MetaModal
 } from "../components";
 import { Box, Grid, Stack } from "@mui/material";
@@ -15,6 +15,7 @@ import {
   useAsyncReducer
 } from "../services";
 import Typography from "@mui/material/Typography";
+import { Employee } from "../entities";
 
 export default function EditSchedule(): JSX.Element {
   const [buildingSchedule, setBuildingSchedule] = useState<boolean>(false);
@@ -22,6 +23,9 @@ export default function EditSchedule(): JSX.Element {
     setBuildingSchedule(true);
     return await updateSchedule(a, b).finally(() => setBuildingSchedule(false));
   }, new Schedule([], []));
+  const [currentEmployee, setCurrentEmployee] = useState<Employee | null>(null);
+  const [addEmployeeModalOpen, setAddEmployeeModalOpen] =
+    useState<boolean>(false);
 
   const [scheduleLoaded, setScheduleLoaded] = useState<boolean>(false);
   React.useEffect(() => {
@@ -50,11 +54,13 @@ export default function EditSchedule(): JSX.Element {
         <Calendar schedule={schedule} exportRef={exportRef} />
       </Grid>
       <Grid item xs={3}>
-        <div>Employee Summary goes here</div>
-
-        <AddEmployeeModal
-          existingEmployees={schedule.employees}
+        <EmployeeSummary
+          employees={schedule.employees}
           dispatch={dispatch}
+          currentEmployee={currentEmployee}
+          setCurrentEmployee={setCurrentEmployee}
+          addEmployeeModalOpen={addEmployeeModalOpen}
+          setAddEmployeeModalOpen={setAddEmployeeModalOpen}
         />
       </Grid>
       <Grid item xs={3}>

@@ -23,6 +23,7 @@ interface UpdateEmployee {
   name?: string;
   maxHours?: number;
   minHours?: number;
+  available?: Shift[];
 }
 
 interface UpdateShift {
@@ -99,6 +100,9 @@ export async function updateSchedule(
       );
     } else if (action.update instanceof Employee) {
       const a = action as UpdateEmployee;
+      const index = scheduleCopy.employees.findIndex(
+        (e) => e.name === a.update.name
+      );
       const e = scheduleCopy.removeEmployee(a.update);
       scheduleCopy.addEmployee(
         new Employee(
@@ -106,8 +110,9 @@ export async function updateSchedule(
           or(a.minHours, e.min_hours),
           or(a.maxHours, e.max_hours),
           or(a.color, e.color),
-          e.available
-        )
+          or(a.available, e.available)
+        ),
+        index
       );
     }
   }
