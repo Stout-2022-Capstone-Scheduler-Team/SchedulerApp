@@ -31,14 +31,13 @@ test("Can use Reducer", async () => {
   await user.type(screen.getByLabelText(/Select Start Time/i), "10:10 PM");
   await user.type(screen.getByLabelText(/Select End Time/i), "02:10 AM");
 
+  // Clicking Submit button
+  await user.click(screen.getByText(/Submit/i));
+
   await act(async () => {
-    // Clicking Submit button
-    await user.click(screen.getByText(/Submit/i));
+    await waitFor(() => screen.getByText(/10:10pm/));
   });
 
-  await waitFor(() => {
-    // Assert
-    expect(screen.getByText(/10:10pm/)).toBeInTheDocument();
-    expect(screen.getByText(/2:10am/)).toBeInTheDocument();
-  });
+  expect(screen.getByText(/10:10pm/)).toBeInTheDocument();
+  expect(screen.getByText(/2:10am/)).toBeInTheDocument();
 }, 10000);
