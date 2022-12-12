@@ -343,7 +343,7 @@ exports[`EditSchedule Renders 1`] = `
                 class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
                 id=":r0:"
                 type="text"
-                value="12/29/2019, 12:00:00 AM"
+                value="1/1/2020, 12:00:00 AM"
               />
               <fieldset
                 aria-hidden="true"
