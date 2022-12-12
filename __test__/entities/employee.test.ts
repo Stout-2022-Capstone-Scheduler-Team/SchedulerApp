@@ -13,7 +13,7 @@ import {
 } from "../utils";
 import { Shift, Employee, Color } from "../../entities";
 
-test("Schedule", () => {
+test("Test Combine", () => {
   expect(person("alice", 1, 4, [allDay(Monday), allDay(Tuesday)], new Color("Red")).isAvailable(shift("09:00", "12:00", Monday))).toBe(true);
   expect(person("alice", 1, 4, [shift("09:00", "13:00", Monday)], new Color("Red")).isAvailable(shift("09:00", "10:00", Monday))).toBe(true);
   expect(person("alice", 1, 4, [shift("09:00", "10:00", Monday), shift("09:30", "12:00", Monday)], new Color("Red")).isAvailable(shift("09:00", "11:00", Monday))).toBe(true);
