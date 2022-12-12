@@ -294,11 +294,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
             />
           </CardContent>
           <CardActions>
-            <Button
-              onClick={() => setAddEmployeeModalOpen(false)}
-              color={"error"}
-              sx={{ ml: "auto" }}
-            >
+            <Button onClick={handleClose} color={"error"} sx={{ ml: "auto" }}>
               Close
             </Button>
             <Tooltip title={validErrors.join(", ")} placement="top-end">
