@@ -92,7 +92,7 @@ test("Update default", async () => {
   expect(ret.maxHoursWorked).toBe(2);
 });
 
-test("Schedule Error reporting", async () => {
+test("default doesn't recompute schedule", async () => {
   const schedule = new Schedule([], []);
   console.error = jest.fn();
   const mocked = jest.mocked(console.error);
@@ -101,7 +101,7 @@ test("Schedule Error reporting", async () => {
     update: "default"
   });
 
-  expect(mocked).toBeCalled();
+  expect(mocked).not.toBeCalled();
 });
 
 function defined<T>(val: T | undefined): T {

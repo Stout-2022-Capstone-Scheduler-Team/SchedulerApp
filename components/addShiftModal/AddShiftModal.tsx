@@ -72,7 +72,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
    */
   React.useEffect(() => {
     const errors = [];
-    if (startDay === null) {
+    if (startDay === "") {
       errors.push("Start Day not set");
     }
     if (startTime === null) {
