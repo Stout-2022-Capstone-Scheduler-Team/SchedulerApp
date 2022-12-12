@@ -1,14 +1,21 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Calendar,
   ExportModal,
-  AddEmployeeModal,
-  AddShiftModal
+  AddShiftModal,
+  EmployeeSummary,
+  MetaModal
 } from "../components";
 import { Box, Grid, Stack } from "@mui/material";
 import { Schedule } from "../entities/schedule";
-import { ScheduleAction, updateSchedule, useAsyncReducer } from "../services";
+import {
+  LocalStorage,
+  ScheduleAction,
+  updateSchedule,
+  useAsyncReducer
+} from "../services";
 import Typography from "@mui/material/Typography";
+import { Employee } from "../entities";
 
 export default function EditSchedule(): JSX.Element {
   const [buildingSchedule, setBuildingSchedule] = useState<boolean>(false);
@@ -16,6 +23,27 @@ export default function EditSchedule(): JSX.Element {
     setBuildingSchedule(true);
     return await updateSchedule(a, b).finally(() => setBuildingSchedule(false));
   }, new Schedule([], []));
+  const [currentEmployee, setCurrentEmployee] = useState<Employee | null>(null);
+  const [addEmployeeModalOpen, setAddEmployeeModalOpen] =
+    useState<boolean>(false);
+
+  const [scheduleLoaded, setScheduleLoaded] = useState<boolean>(false);
+  React.useEffect(() => {
+    if (!scheduleLoaded) {
+      const name = decodeURIComponent(window.location.hash.slice(1));
+      if (name !== "") {
+        const storage = new LocalStorage();
+        void storage.read(name).then((schedule) => {
+          if (schedule !== null) {
+            dispatch({ set: schedule });
+          }
+        });
+      } else {
+        window.history.replaceState(schedule, "", `#${schedule.name}`);
+      }
+      setScheduleLoaded(true);
+    }
+  });
 
   // Reference to the calendar which enables exporting it
   const exportRef = useRef(null);
@@ -23,19 +51,16 @@ export default function EditSchedule(): JSX.Element {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <Calendar
-          shifts={schedule.shifts}
-          employees={schedule.employees}
-          exportRef={exportRef}
-          loading={buildingSchedule}
-        />
+        <Calendar schedule={schedule} exportRef={exportRef} />
       </Grid>
       <Grid item xs={3}>
-        <div>Employee Summary goes here</div>
-
-        <AddEmployeeModal
-          existingEmployees={schedule.employees}
+        <EmployeeSummary
+          employees={schedule.employees}
           dispatch={dispatch}
+          currentEmployee={currentEmployee}
+          setCurrentEmployee={setCurrentEmployee}
+          addEmployeeModalOpen={addEmployeeModalOpen}
+          setAddEmployeeModalOpen={setAddEmployeeModalOpen}
         />
       </Grid>
       <Grid item xs={3}>
@@ -77,7 +102,11 @@ export default function EditSchedule(): JSX.Element {
       </Grid>
       <Grid item xs={3} />
       <Grid item xs={3}>
-        <div>Metadata Component Goes Here</div>
+        <MetaModal
+          schedule={schedule}
+          dispatch={dispatch}
+          loading={buildingSchedule}
+        />
       </Grid>
     </Grid>
   );

@@ -13,34 +13,44 @@ export class Shift {
   option: number = 0;
   first_try: string | undefined;
 
-  constructor(
-    name: string,
-    start: Time,
-    end: Time,
-    owner?: string
-  ) {
+  constructor(name: string, start: Time, end: Time, owner?: string) {
     this.name = name;
     this.start = start;
     this.end = end;
+    if (this.start.hoursBetween(this.end) < 0) {
+      throw new Error("Shift cannot end before it starts");
+    }
     if (owner !== undefined) {
       this.owner = owner;
     }
   }
 
   overlaps(other: Shift): boolean {
-    return this.start.totalHours < other.end.totalHours && other.start.totalHours < this.end.totalHours;
+    return (
+      this.start.totalHours < other.end.totalHours &&
+      other.start.totalHours < this.end.totalHours
+    );
   }
 
   overlapsAvalible(other: Shift): boolean {
-    return this.start.totalHours <= other.end.totalHours && other.start.totalHours <= this.end.totalHours;
+    return (
+      this.start.totalHours <= other.end.totalHours &&
+      other.start.totalHours <= this.end.totalHours
+    );
   }
 
   contains(other: Shift): boolean {
-    return this.start.totalHours <= other.start.totalHours && other.end.totalHours <= this.end.totalHours;
+    return (
+      this.start.totalHours <= other.start.totalHours &&
+      other.end.totalHours <= this.end.totalHours
+    );
   }
 
   containsRemove(other: Shift): boolean {
-    return this.start.totalHours < other.start.totalHours && other.end.totalHours < this.end.totalHours;
+    return (
+      this.start.totalHours < other.start.totalHours &&
+      other.end.totalHours < this.end.totalHours
+    );
   }
 
   get duration(): number {

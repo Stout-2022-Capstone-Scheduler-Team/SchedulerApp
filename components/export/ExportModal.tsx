@@ -24,7 +24,7 @@ export function ExportModal({
 }: ExportModalProps): JSX.Element {
   const [open, setOpen] = React.useState(false);
   // Default value
-  const [type, setType] = React.useState<ExportType>(ExportType.png);
+  const [type, setType] = React.useState<ExportType>(ExportType.pdf);
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
 
@@ -87,7 +87,12 @@ export function ExportModal({
 
   return (
     <div>
-      <Button onClick={handleOpen} variant={"contained"} sx={sx}>
+      <Button
+        onClick={handleOpen}
+        variant={"contained"}
+        color={"secondary"}
+        sx={sx}
+      >
         Export
       </Button>
       <Modal

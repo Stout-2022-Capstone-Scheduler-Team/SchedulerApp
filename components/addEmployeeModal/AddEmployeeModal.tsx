@@ -17,14 +17,24 @@ import { useEffect, useState } from "react";
 interface EmployeeModalProps {
   existingEmployees: Employee[];
   dispatch: Dispatch<ScheduleAction>;
+  currentEmployee: Employee | null;
+  setCurrentEmployee: (employee: Employee | null) => void;
+  addEmployeeModalOpen: boolean;
+  setAddEmployeeModalOpen: (addEmployeeModalOpen: boolean) => void;
 }
 
 export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   // Props
-  const { existingEmployees, dispatch } = props;
+  const {
+    existingEmployees,
+    dispatch,
+    currentEmployee,
+    setCurrentEmployee,
+    addEmployeeModalOpen,
+    setAddEmployeeModalOpen
+  } = props;
 
   // Employee State
-  const [open, setOpen] = useState(false);
   const [name, setName] = useState<string>("");
   const [minHours, setMinHours] = useState(0);
   const [maxHours, setMaxHours] = useState(40);
@@ -39,16 +49,33 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   const [validErrors, setValidErrors] = useState<string[]>([]);
 
   // Form Event Handlers
+  const handleOpen = (): void => setAddEmployeeModalOpen(true);
+  const handleClose = (): void => {
+    setAddEmployeeModalOpen(false);
+    clearInputs();
+  };
   const handleSubmit = (): void => {
     if (canSubmit) {
-      const newEmployee = new Employee(name, minHours, maxHours, color);
-      availability.forEach((avail) =>
-        newEmployee.addAvailability(
-          new Shift(avail.name, avail.start, avail.end)
-        )
-      );
-      void dispatch({ add: newEmployee });
-      setOpen(false);
+      if (currentEmployee === null) {
+        const newEmployee = new Employee(name, minHours, maxHours, color);
+        availability.forEach((avail) =>
+          newEmployee.addAvailability(
+            new Shift(avail.name, avail.start, avail.end)
+          )
+        );
+        void dispatch({ add: newEmployee });
+      } else {
+        void dispatch({
+          update: currentEmployee,
+          name,
+          maxHours,
+          minHours,
+          color,
+          available: availability
+        });
+      }
+
+      setAddEmployeeModalOpen(false);
       clearInputs();
     }
   };
@@ -63,6 +90,14 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   useEffect(() => {
     setNameUpdateCount(nameUpdateCount + 1);
   }, [name]);
+
+  useEffect(() => {
+    setName(currentEmployee?.name ?? "");
+    setMinHours(currentEmployee?.min_hours ?? 0);
+    setMaxHours(currentEmployee?.max_hours ?? 40);
+    setColor(currentEmployee?.color ?? new Color());
+    setAvailability(currentEmployee?.available ?? []);
+  }, [currentEmployee]);
 
   /**
    * Add a block of availability to this employee's array
@@ -131,7 +166,10 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
     if (name.length === 0) {
       setValidName(false);
       validationErrors.push("Employee name must be given");
-    } else if (existingEmployees.some((emp) => emp.name === name)) {
+    } else if (
+      existingEmployees.some((emp) => emp.name === name) &&
+      name !== currentEmployee?.name
+    ) {
       setValidName(false);
       validationErrors.push("Employee name must be unique");
     } else {
@@ -177,6 +215,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
     setMaxHours(40);
     setColor(new Color());
     setAvailability([]);
+    setCurrentEmployee(null);
   };
 
   /**
@@ -189,7 +228,8 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
       (emp) => emp.color.colorName
     );
     const freeColorNames = allColors.filter(
-      (colorName) => !existingColorNames.includes(colorName)
+      (colorName) =>
+        !existingColorNames.includes(colorName) || color.colorName === colorName
     );
 
     return freeColorNames.map((name) => new Color(name));
@@ -198,15 +238,16 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
   return (
     <>
       <Button
-        onClick={() => setOpen(true)}
+        onClick={handleOpen}
         variant={"contained"}
         color={"secondary"}
+        sx={{ ml: "auto !important" }}
       >
-        Add Employee
+        +
       </Button>
       <Modal
-        open={open}
-        onClose={() => setOpen(false)}
+        open={addEmployeeModalOpen}
+        onClose={handleClose}
         aria-labelledby="modal-modal-title"
       >
         <Card sx={{ ...modalStyle, width: "70%" }}>
@@ -254,7 +295,7 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
           </CardContent>
           <CardActions>
             <Button
-              onClick={() => setOpen(false)}
+              onClick={() => setAddEmployeeModalOpen(false)}
               color={"error"}
               sx={{ ml: "auto" }}
             >

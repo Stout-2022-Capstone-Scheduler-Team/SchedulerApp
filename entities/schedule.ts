@@ -1,11 +1,15 @@
 import { Color } from "./color";
 import { Employee, Shift, Time } from "./types";
+import dayjs, { Dayjs } from "dayjs";
 
 export class Schedule {
   public readonly employees: Employee[] = [];
   public readonly shifts: Shift[] = [];
   public minHoursWorked: number;
   public maxHoursWorked: number;
+  public name: string;
+  public weekDate: Dayjs;
+  public errors?: string;
 
   /**
    * Constructor
@@ -24,6 +28,8 @@ export class Schedule {
     this.shifts = shifts;
     this.minHoursWorked = minHours;
     this.maxHoursWorked = maxHours;
+    this.weekDate = dayjs().startOf("week");
+    this.name = this.weekDate.toDate().toLocaleString();
   }
 
   /**
@@ -47,12 +53,16 @@ export class Schedule {
   /**
    * Add an employee to the schedule
    * @param newEmp Employee to add to the schedule
+   * @param index Index to add employee at
+
    */
-  addEmployee(newEmp: Employee): void {
+  addEmployee(newEmp: Employee, index?: number): void {
     if (this.employees.some((emp) => emp.name === newEmp.name)) {
       throw new Error(
         `Unable to add employee with duplicate name ${newEmp.name}`
       );
+    } else if (index !== undefined) {
+      this.employees.splice(index, 0, newEmp);
     } else {
       this.employees.push(newEmp);
     }
@@ -64,7 +74,7 @@ export class Schedule {
    * @returns the employee removed from the schedule
    */
   removeEmployee(empToRemove: Employee): Employee {
-    const index = this.employees.indexOf(empToRemove);
+    const index = this.employees.findIndex((e) => e.name === empToRemove.name);
     return this.employees.splice(index, 1)[0];
   }
 
@@ -108,6 +118,7 @@ export class Schedule {
       scheduleCopyBase.minHoursWorked,
       scheduleCopyBase.maxHoursWorked
     );
+    scheduleCopy.name = baseSchedule.name;
 
     return scheduleCopy;
   }

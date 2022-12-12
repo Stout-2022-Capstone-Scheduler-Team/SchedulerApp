@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Color, Employee, Schedule, Shift, Time } from "../entities";
 import { generate } from "./waveform_collapse";
 import { or, log } from "./util";
+import { LocalStorage } from "./storageService";
+import { Dayjs } from "dayjs";
 
 interface Add {
   add: Employee | Shift;
@@ -11,12 +13,17 @@ interface Remove {
   remove: Employee | Shift;
 }
 
+interface Set {
+  set: Schedule;
+}
+
 interface UpdateEmployee {
   update: Employee;
   color?: Color;
   name?: string;
   maxHours?: number;
   minHours?: number;
+  available?: Shift[];
 }
 
 interface UpdateShift {
@@ -30,11 +37,14 @@ interface UpdateBase {
   update: "default";
   maxHours?: number;
   minHours?: number;
+  name?: string;
+  weekDate?: Dayjs;
 }
 
 export type ScheduleAction =
   | Add
   | Remove
+  | Set
   | UpdateEmployee
   | UpdateShift
   | UpdateBase;
@@ -43,9 +53,15 @@ export async function updateSchedule(
   state: Schedule,
   action: ScheduleAction
 ): Promise<Schedule> {
+  const storage = new LocalStorage();
   // Create a deep copy so the generate schedule is allowed to mutate it
-  const scheduleCopy = Schedule.createDeepCopy(state);
-  if ("add" in action) {
+  let scheduleCopy = Schedule.createDeepCopy(state);
+
+  let needToRecompute = true;
+
+  if ("set" in action) {
+    scheduleCopy = Schedule.createDeepCopy(action.set);
+  } else if ("add" in action) {
     if (action.add instanceof Employee) {
       scheduleCopy.addEmployee(action.add);
     } else if (action.add instanceof Shift) {
@@ -59,11 +75,22 @@ export async function updateSchedule(
     }
   } else if ("update" in action) {
     if (action.update === "default") {
+      needToRecompute = false;
       if (action.maxHours !== undefined) {
         scheduleCopy.maxHoursWorked = action.maxHours;
       }
       if (action.minHours !== undefined) {
         scheduleCopy.minHoursWorked = action.minHours;
+      }
+      if (action.name !== undefined) {
+        // Delete old name
+        await storage.delete(scheduleCopy.name);
+        scheduleCopy.name = action.name;
+        window.history.replaceState(scheduleCopy, "", `#${scheduleCopy.name}`);
+      }
+      if (action.weekDate !== undefined) {
+        // Delete old name
+        scheduleCopy.weekDate = action.weekDate;
       }
     } else if (action.update instanceof Shift) {
       const a = action as UpdateShift;
@@ -73,6 +100,9 @@ export async function updateSchedule(
       );
     } else if (action.update instanceof Employee) {
       const a = action as UpdateEmployee;
+      const index = scheduleCopy.employees.findIndex(
+        (e) => e.name === a.update.name
+      );
       const e = scheduleCopy.removeEmployee(a.update);
       scheduleCopy.addEmployee(
         new Employee(
@@ -80,22 +110,23 @@ export async function updateSchedule(
           or(a.minHours, e.min_hours),
           or(a.maxHours, e.max_hours),
           or(a.color, e.color),
-          e.available
-        )
+          or(a.available, e.available)
+        ),
+        index
       );
     }
   }
 
+  await storage.update(scheduleCopy.name, scheduleCopy);
+
   // Generate the schedule
-  const schedulePromise = await generate(
-    scheduleCopy.shifts,
-    scheduleCopy.employees
-  );
-  if (!schedulePromise) {
-    // If the scheduler failed, error out
-    console.error("Unable to build schedule completely");
+  if (needToRecompute) {
+    scheduleCopy.errors = await generate(
+      scheduleCopy.shifts,
+      scheduleCopy.employees
+    );
+    log(scheduleCopy);
   }
-  log(scheduleCopy);
   return scheduleCopy;
 }
 

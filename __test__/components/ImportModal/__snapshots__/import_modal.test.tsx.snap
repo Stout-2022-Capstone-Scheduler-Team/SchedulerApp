@@ -1,25 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Export Modal 1`] = `
+exports[`Button is Disabled 1`] = `
 <body>
   <div>
     <div>
       <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium css-zcbmsk-MuiButtonBase-root-MuiButton-root"
-        tabindex="0"
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
+        disabled=""
+        tabindex="-1"
         type="button"
       >
-        Export
-        <span
-          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-        />
+        Import Schedule
       </button>
     </div>
   </div>
 </body>
 `;
 
-exports[`Export Modal 2`] = `
+exports[`Import Modal 1`] = `
 <body
   style="padding-right: 1024px; overflow: hidden;"
 >
@@ -28,23 +26,14 @@ exports[`Export Modal 2`] = `
   >
     <div>
       <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium css-zcbmsk-MuiButtonBase-root-MuiButton-root"
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
         tabindex="0"
         type="button"
       >
-        Export
+        Import Schedule
         <span
           class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-        >
-          <span
-            class="css-y4cjyz-MuiTouchRipple-ripple MuiTouchRipple-ripple MuiTouchRipple-rippleVisible"
-            style="width: 2.8284271247461903px; height: 2.8284271247461903px; top: -1.4142135623730951px; left: -1.4142135623730951px;"
-          >
-            <span
-              class="MuiTouchRipple-child MuiTouchRipple-childLeaving"
-            />
-          </span>
-        </span>
+        />
       </button>
     </div>
   </div>
@@ -74,26 +63,26 @@ exports[`Export Modal 2`] = `
           class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
           id="modal-modal-title"
         >
-          Export Schedule
+          Import Schedule
         </h2>
         <p
           class="MuiTypography-root MuiTypography-body1 css-izaxaw-MuiTypography-root"
           id="modal-modal-description"
         >
-          Select an export type from the drop down list.
+          Select a schedule to import from the drop down list.
         </p>
         <div
           class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
         >
           <label
-            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined css-1sumxir-MuiFormLabel-root-MuiInputLabel-root"
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled Mui-focused MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined css-1sumxir-MuiFormLabel-root-MuiInputLabel-root"
             data-shrink="true"
             id="demo-simple-select-label"
           >
-            File Type
+            Schedules
           </label>
           <div
-            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl  css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-focused MuiInputBase-formControl  css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
             data-testid="file-type-select"
           >
             <div
@@ -105,13 +94,13 @@ exports[`Export Modal 2`] = `
               role="button"
               tabindex="0"
             >
-              pdf
+              item
             </div>
             <input
               aria-hidden="true"
               class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
               tabindex="-1"
-              value="pdf"
+              value="item"
             />
             <svg
               aria-hidden="true"
@@ -132,7 +121,7 @@ exports[`Export Modal 2`] = `
                 class="css-14lo706"
               >
                 <span>
-                  File Type
+                  Schedules
                 </span>
               </legend>
             </fieldset>
@@ -158,19 +147,19 @@ exports[`Export Modal 2`] = `
           tabindex="0"
           type="button"
         >
-          Export
+          Import
           <span
             class="MuiButton-endIcon MuiButton-iconSizeMedium css-9tj150-MuiButton-endIcon"
           >
             <svg
               aria-hidden="true"
               class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-              data-testid="IosShareIcon"
+              data-testid="FileDownloadIcon"
               focusable="false"
               viewBox="0 0 24 24"
             >
               <path
-                d="m16 5-1.42 1.42-1.59-1.59V16h-1.98V4.83L9.42 6.42 8 5l4-4 4 4zm4 5v11c0 1.1-.9 2-2 2H6c-1.11 0-2-.9-2-2V10c0-1.11.89-2 2-2h3v2H6v11h12V10h-3V8h3c1.1 0 2 .89 2 2z"
+                d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"
               />
             </svg>
           </span>
@@ -184,6 +173,27 @@ exports[`Export Modal 2`] = `
       data-testid="sentinelEnd"
       tabindex="0"
     />
+  </div>
+</body>
+`;
+
+exports[`Import Modal 2`] = `
+<body
+  style=""
+>
+  <div>
+    <div>
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
+        tabindex="0"
+        type="button"
+      >
+        Import Schedule
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </button>
+    </div>
   </div>
 </body>
 `;
