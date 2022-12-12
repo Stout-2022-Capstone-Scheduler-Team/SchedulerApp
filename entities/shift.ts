@@ -56,4 +56,15 @@ export class Shift {
   get duration(): number {
     return this.start.hoursBetween(this.end);
   }
+
+  splitOn(other: Shift): Shift[] {
+    const ret = [];
+    if (other.start.totalHours < this.start.totalHours) {
+      ret.push(new Shift("", other.start, this.start));
+    }
+    if (other.end.totalHours > this.end.totalHours) {
+      ret.push(new Shift("", this.end, other.end));
+    }
+    return ret;
+  }
 }
