@@ -68,7 +68,9 @@ export class Schedule {
    * @returns shift that was removed
    */
   removeShift(shiftToRemove: Shift): Shift {
-    const index = this.shifts.indexOf(shiftToRemove);
+    const index = this.shifts.findIndex(
+      (shift) => shift.id === shiftToRemove.id
+    );
     return this.shifts.splice(index, 1)[0];
   }
 
