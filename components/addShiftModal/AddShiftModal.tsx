@@ -90,6 +90,10 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
       setOvernight((endTime as Dayjs).isBefore(startTime));
     }
 
+    if (startTime !== null && endTime !== null && startTime.isBefore(endTime) && startDay === DayOftheWeek.Saturday) {
+      errors.push("Overnights from Saturday to Sunday are not supported");
+    }
+
     setCanSubmit(errors.length === 0);
     setValidErrors(errors);
   }, [startTime, endTime, startDay]);
