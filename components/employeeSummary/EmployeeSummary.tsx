@@ -33,13 +33,14 @@ export function EmployeeSummary(props: EmployeeSummaryProps): JSX.Element {
           py: 1
         }}
       >
-        <Stack spacing={2} direction={"row"}>
+        <Stack spacing={2} direction={"row"} sx={{ mb: 1 }}>
           <Typography
             variant="h6"
             sx={{
               fontFamily: "monospace",
               fontWeight: 600,
-              letterSpacing: ".2rem"
+              letterSpacing: ".2rem",
+              mr: "auto"
             }}
           >
             Employees
