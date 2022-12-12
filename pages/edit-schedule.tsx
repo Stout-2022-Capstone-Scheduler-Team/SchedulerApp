@@ -22,6 +22,7 @@ export default function EditSchedule(): JSX.Element {
     setBuildingSchedule(true);
     return await updateSchedule(a, b).finally(() => setBuildingSchedule(false));
   }, new Schedule([], []));
+
   const [currentEmployee, setCurrentEmployee] = useState<Employee | null>(null);
   const [addEmployeeModalOpen, setAddEmployeeModalOpen] =
     useState<boolean>(false);

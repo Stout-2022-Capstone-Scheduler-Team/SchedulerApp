@@ -7,7 +7,8 @@ import {
   CardContent,
   CardActions,
   Tooltip,
-  Chip
+  Chip,
+  IconButton
 } from "@mui/material";
 import modalStyle from "../../styles/modalStyle";
 import Box from "@mui/material/Box";
@@ -22,6 +23,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { ScheduleAction, Dispatch } from "../../services/scheduleState";
 import { DayOftheWeek, Shift, Time } from "../../entities";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface ShiftModalProps {
   dispatch: Dispatch<ScheduleAction>;
@@ -66,6 +68,14 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
       setShiftModalOpen(false);
     }
   };
+
+  /** Handles the delete button being clicked */
+  function handleDelete(): void {
+    if (typeof shift !== "undefined") {
+      void dispatch({ remove: shift });
+      setShiftModalOpen(false);
+    }
+  }
 
   /**
    * Live input validation
@@ -205,6 +215,17 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
             <Button onClick={handleClose} color={"error"} sx={{ ml: "auto" }}>
               Close
             </Button>
+            {typeof shift !== "undefined" && (
+              <Tooltip title="Delete this shift">
+                <IconButton
+                  color="error"
+                  aria-label="Remove shift"
+                  onClick={handleDelete}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
+            )}
             <Tooltip title={validErrors.join(", ")} placement="top-end">
               {/* The span is required for when the button is disabled */}
               <span>
