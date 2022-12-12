@@ -60,6 +60,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
           startTime.isBefore(endTime) ? startDay : (startDay + 1) % 7
         )
       );
+      console.log(newShift);
       void dispatch({ add: newShift });
       setShiftModalOpen(false);
     }
