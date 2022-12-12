@@ -42,9 +42,9 @@ test("Can use Reducer", async () => {
   await user.click(screen.getByText(/Submit/i));
 
   await act(async () => {
-    await waitFor(() => screen.getByText(/10:10pm/));
+    await waitFor(() => screen.getByText(/10:10pm/), { timeout: 10000 });
   });
 
   expect(screen.getByText(/10:10pm/)).toBeInTheDocument();
   expect(screen.getByText(/2:10am/)).toBeInTheDocument();
-}, 10000);
+}, 100000);

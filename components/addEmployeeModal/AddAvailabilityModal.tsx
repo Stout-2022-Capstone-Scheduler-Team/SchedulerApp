@@ -9,7 +9,7 @@ import {
   Typography
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import { useState } from "react";
 import modalStyle from "../../styles/modalStyle";
 import { dayName, DayOftheWeek, Shift, Time } from "../../entities";
@@ -58,7 +58,7 @@ export function AddAvailabilityModal(
     return (
       valueStartTime !== null &&
       valueEndTime !== null &&
-      ((valueStartTime as Dayjs).isBefore(valueEndTime) ||
+      (valueStartTime.isBefore(valueEndTime) ||
         (valueEndTime.hour() === 0 && valueEndTime.minute() === 0))
     );
   };
