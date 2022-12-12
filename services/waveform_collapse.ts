@@ -61,7 +61,7 @@ export async function generate(
   while (assigned < shifts.length) {
     // console.log(`Starting iteration ${iterations}`);
     iterations += 1;
-    if (iterations > 10_000) {
+    if (iterations > 500) {
       return "Max iterations reached";
     }
     log(matrix);
