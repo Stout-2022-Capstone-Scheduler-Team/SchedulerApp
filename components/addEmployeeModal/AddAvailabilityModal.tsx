@@ -54,12 +54,13 @@ export function AddAvailabilityModal(
    */
   const validateInputs = (): boolean => {
     // Start and End time are defined
-    if (valueStartTime !== null && valueEndTime !== null) return false;
-
     // Start time is before (not equal) end time
-    if (!(valueStartTime as Dayjs).isBefore(valueEndTime)) return false;
-
-    return true;
+    return (
+      valueStartTime !== null &&
+      valueEndTime !== null &&
+      ((valueStartTime as Dayjs).isBefore(valueEndTime) ||
+        (valueEndTime.hour() === 0 && valueEndTime.minute() === 0))
+    );
   };
 
   /**
@@ -82,7 +83,12 @@ export function AddAvailabilityModal(
       <Modal open={open}>
         <Card sx={modalStyle}>
           <CardContent sx={{ p: 0, "&:last-child": { p: 0.25 } }}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              sx={{ mb: 3 }}
+            >
               {dayName(day)} Availability
             </Typography>
             <FormControl sx={{ mr: 2 }}>
