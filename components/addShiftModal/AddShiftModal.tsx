@@ -22,42 +22,36 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { ScheduleAction, Dispatch } from "../../services/scheduleState";
 import { DayOftheWeek, Shift, Time } from "../../entities";
-import { idText } from "typescript";
 
 interface ShiftModalProps {
   dispatch: Dispatch<ScheduleAction>;
   addShiftModalOpen: boolean;
   setShiftModalOpen: (addShiftModalOpen: boolean) => void;
-  shift: Shift;
-  tmpshift: Shift;
+  shift: Shift | undefined;
 }
 
 export function AddShiftModal(props: ShiftModalProps): JSX.Element {
   // Props
   const { dispatch, addShiftModalOpen, setShiftModalOpen, shift } = props;
-  const handleOpen = (): void => setShiftModalOpen(true);
-  const handleClose = (): void => setShiftModalOpen(false);
 
+  // State
   const [canSubmit, setCanSubmit] = React.useState(false);
   const [name, setName] = React.useState<string>("");
-  const [startDay, setStartDay] = React.useState<DayOftheWeek | null>(null);
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  const handleStartChange = (event: SelectChangeEvent<DayOftheWeek>) => {
-    if (typeof event.target.value !== "string") {
-      setStartDay(event.target.value);
-    } else {
-      setStartDay(Time.getWeekDays().indexOf(event.target.value));
-    }
-  };
+  const [startDay, setStartDay] = React.useState<DayOftheWeek | "">("");
   const [startTime, setStartTime] = React.useState<Dayjs | null>(null);
   const [endTime, setEndTime] = React.useState<Dayjs | null>(null);
-
   const [overnight, setOvernight] = React.useState<boolean>(false);
   const [validErrors, setValidErrors] = React.useState<string[]>([]);
 
-  // Event Handler
+  const handleOpen = (): void => setShiftModalOpen(true);
+  const handleClose = (): void => setShiftModalOpen(false);
+  const handleStartChange = (event: SelectChangeEvent<DayOftheWeek>): void => {
+    setStartDay(event.target.value as DayOftheWeek | "");
+  };
+
+  /** Handle submit event */
   const handleSubmit = (): void => {
-    if (startDay !== null && startTime !== null && endTime !== null) {
+    if (startDay !== "" && startTime !== null && endTime !== null) {
       const newShift = new Shift(
         name,
         Time.fromDayjs(startTime, startDay),
@@ -68,10 +62,12 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
       );
       void dispatch({ add: newShift });
       setShiftModalOpen(false);
-      clearInputs();
     }
   };
 
+  /**
+   * Live input validation
+   */
   React.useEffect(() => {
     const errors = [];
     if (startDay === null) {
@@ -98,14 +94,21 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
   }, [startTime, endTime, startDay]);
 
   /**
-   * Clear the modal's inputs (resets the state)
+   * Populate the fields related to the shift being edited, otherwise clear the fields
    */
-  const clearInputs = (): void => {
-    setName("");
-    setStartDay(null);
-    setStartTime(null);
-    setEndTime(null);
-  };
+  React.useEffect(() => {
+    if (typeof shift !== "undefined" && addShiftModalOpen) {
+      setName(shift.name);
+      setStartDay(shift.start.day);
+      setStartTime(null);
+      setEndTime(null);
+    } else {
+      setName("");
+      setStartDay("");
+      setStartTime(null);
+      setStartTime(null);
+    }
+  }, [addShiftModalOpen]);
 
   return (
     <>
@@ -121,7 +124,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
         <Card sx={modalStyle}>
           <CardContent>
             <Typography id="shift-modal-title" variant="h6" component="h2">
-              Add a Shift
+              {typeof shift === "undefined" ? "Add a " : "Edit "}Shift
               {overnight && (
                 <Chip
                   sx={{ ml: 2, color: "white", backgroundColor: "#191170" }}
@@ -151,8 +154,12 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
                 <Select
                   labelId="day-label"
                   label="Select Start Day"
+                  value={startDay}
                   onChange={handleStartChange}
                 >
+                  <MenuItem value={""} disabled>
+                    Select a Day
+                  </MenuItem>
                   <MenuItem value={DayOftheWeek.Sunday}>Sunday</MenuItem>
                   <MenuItem value={DayOftheWeek.Monday}>Monday</MenuItem>
                   <MenuItem value={DayOftheWeek.Tuesday}>Tuesday</MenuItem>

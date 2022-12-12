@@ -5,26 +5,28 @@ import {
   AddEmployeeModal,
   AddShiftModal
 } from "../components";
-import { Box, Grid, Stack } from "@mui/material";
-import { Schedule } from "../entities/schedule";
 import {
   LocalStorage,
   ScheduleAction,
   updateSchedule,
   useAsyncReducer
 } from "../services";
+import { Box, Grid, Stack } from "@mui/material";
+import { Schedule } from "../entities/schedule";
 import Typography from "@mui/material/Typography";
 import { Shift } from "../entities";
 
 export default function EditSchedule(): JSX.Element {
-  const [buildingSchedule, setBuildingSchedule] = useState<boolean>(false);
   const [schedule, dispatch] = useAsyncReducer(async (a, b: ScheduleAction) => {
     setBuildingSchedule(true);
     return await updateSchedule(a, b).finally(() => setBuildingSchedule(false));
   }, new Schedule([], []));
 
+  const [buildingSchedule, setBuildingSchedule] = useState<boolean>(false);
   const [addShiftModalOpen, setShiftModalOpen] = useState<boolean>(false);
   const [selectedShift, setSelectedShift] = useState<undefined | Shift>();
+  const [scheduleLoaded, setScheduleLoaded] = useState<boolean>(false);
+
   React.useEffect(() => {
     if (!addShiftModalOpen) {
       setSelectedShift(undefined);
@@ -32,7 +34,6 @@ export default function EditSchedule(): JSX.Element {
       setSelectedShift(selectedShift);
     }
   });
-  const [scheduleLoaded, setScheduleLoaded] = useState<boolean>(false);
   React.useEffect(() => {
     if (!scheduleLoaded) {
       const name = decodeURIComponent(window.location.hash.slice(1));
@@ -56,6 +57,10 @@ export default function EditSchedule(): JSX.Element {
   // Reference to the calendar which enables exporting it
   const exportRef = useRef(null);
 
+  /**
+   * set shift edit
+   * @param shift shift to edit
+   */
   function editShift(shift: Shift): void {
     setShiftModalOpen(true);
     setSelectedShift(shift);

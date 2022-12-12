@@ -21,6 +21,12 @@ export class Time {
     return new Time(Number(hours) + Number(minutes) / 60, day);
   }
 
+  /**
+   * Convert to Time object from Dayjs object
+   * @param time Time to convert from
+   * @param day day of the time
+   * @returns a Time object from Dayjs object
+   */
   static fromDayjs(time: Dayjs, day: DayOftheWeek): Time {
     return new Time(time.hour() + time.minute() / 60, day);
   }
@@ -44,8 +50,8 @@ export class Time {
   }
 
   /**
-   * Time.toString(5.25) -> "5:15"
-   * */
+   * Convert Time to a string
+   */
   toString(): string {
     let minute = this.dayHours - Math.floor(this.dayHours);
     let hour = this.dayHours - minute;
