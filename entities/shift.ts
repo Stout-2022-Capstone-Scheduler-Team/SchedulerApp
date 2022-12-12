@@ -63,7 +63,7 @@ export class Shift {
       ret.push(new Shift("", other.start, this.start));
     }
     if (other.end.totalHours > this.end.totalHours) {
-      ret.push(new Shift("", this.end, other.start));
+      ret.push(new Shift("", this.end, other.end));
     }
     return ret;
   }
