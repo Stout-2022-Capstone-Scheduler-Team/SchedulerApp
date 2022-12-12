@@ -101,6 +101,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
    * Clear the modal's inputs (resets the state)
    */
   const clearInputs = (): void => {
+    setName("");
     setStartDay(null);
     setStartTime(null);
     setEndTime(null);
