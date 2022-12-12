@@ -58,7 +58,9 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
         Time.fromDayjs(
           endTime,
           startTime.isBefore(endTime) ? startDay : (startDay + 1) % 7
-        )
+        ),
+        shift?.id,
+        shift?.owner
       );
       void dispatch({ add: newShift });
       setShiftModalOpen(false);
@@ -86,7 +88,10 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
     }
 
     if (errors.length === 0) {
-      setOvernight((endTime as Dayjs).isBefore(startTime));
+      setOvernight(
+        (endTime as Dayjs).isBefore(startTime) ||
+          (endTime as Dayjs).isSame(startTime)
+      );
     }
 
     setCanSubmit(errors.length === 0);
