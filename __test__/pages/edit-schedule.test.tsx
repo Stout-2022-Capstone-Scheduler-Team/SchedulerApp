@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom";
-import { render, waitFor, screen, act } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import EditSchedule from "../../pages/edit-schedule";
-import { generate } from "../../services";
+import { generate, sleepTask } from "../../services";
 
 jest.mock("../../services/waveform_collapse");
 
@@ -43,7 +43,7 @@ test("EditSchedule Renders", () => {
 
 test("Can use Reducer", async () => {
   const user = userEvent.setup();
-  render(<EditSchedule />);
+  const page = render(<EditSchedule />);
 
   // Add a shift
   await user.click(screen.getByText(/Add Shift/i));
@@ -55,12 +55,12 @@ test("Can use Reducer", async () => {
   await user.type(screen.getByLabelText(/Select End Time/i), "02:10 AM");
 
   // Clicking Submit button
+  expect(page.getByText(/Submit/)).not.toBeDisabled();
   await user.click(screen.getByText(/Submit/i));
+  expect(page.queryByText(/add a shift/i)).toBe(null);
 
-  await act(async () => {
-    await waitFor(() => screen.getByText(/10:10pm/), { timeout: 10000 });
-  });
+  await sleepTask(500);
 
-  expect(screen.getByText(/10:10pm/)).toBeInTheDocument();
-  expect(screen.getByText(/2:10am/)).toBeInTheDocument();
+  expect(screen.getByText(/10:10PM/i)).toBeInTheDocument();
+  expect(screen.getByText(/2:10AM/i)).toBeInTheDocument();
 }, 100000);
