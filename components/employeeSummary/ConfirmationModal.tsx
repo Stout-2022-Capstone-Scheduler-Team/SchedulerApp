@@ -41,7 +41,13 @@ export function ConfirmationModal(props: ConfirmationModalProps): JSX.Element {
       >
         <DeleteIcon />
       </IconButton>
-      <Modal open={open}>
+      <Modal
+        open={open}
+        onClose={(event: Event) => {
+          handleClose();
+          event.stopPropagation();
+        }}
+      >
         <Card sx={modalStyle}>
           <CardContent sx={{ p: 0, "&:last-child": { p: 0.25 } }}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
