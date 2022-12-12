@@ -60,12 +60,12 @@ test("Can use Reducer", async () => {
   expect(screen.queryByText(/add a shift/i)).toBe(null);
 
   // await act(async () => {
-  await waitFor(() => screen.getByText(/10:10pm/), {
+  await waitFor(() => screen.getByText(/10:10pm/i), {
     interval: 500,
     timeout: 10000
   });
   // });
 
-  expect(screen.getByText(/10:10PM/i)).toBeInTheDocument();
-  expect(screen.getByText(/2:10AM/i)).toBeInTheDocument();
+  expect(screen.getByText(/10:10pm/i)).toBeInTheDocument();
+  expect(screen.getByText(/2:10am/i)).toBeInTheDocument();
 }, 100000);
