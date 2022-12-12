@@ -120,6 +120,10 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
    * @param oldAvailabilty Block of time to remove
    */
   const removeAvailability = (oldAvailabilty: Shift): void => {
+    if (typeof oldAvailabilty === "undefined") {
+      return;
+    }
+
     setAvailability(
       availability.filter(
         (shift) =>

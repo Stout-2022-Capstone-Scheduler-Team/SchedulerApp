@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { AvailabilityCard } from "..";
 import { Shift, DayOftheWeek, Employee, Time } from "../../entities";
+import { useDidUpdateEffect } from "../../services";
 import { AddAvailabilityModal } from "./AddAvailabilityModal";
 
 interface TabPanelProps {
@@ -49,7 +50,11 @@ export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
     setDayAvailability
   } = props;
 
-  const [allDay, setAllDay] = useState(false);
+  const [allDay, setAllDay] = useState(
+    currentAvailability.length === 1 &&
+      currentAvailability[0].start.dayHours === 0 &&
+      currentAvailability[0].end.dayHours === 24
+  );
 
   /** Add watcher for the allDay checkbox */
   useEffect(() => {
@@ -58,7 +63,11 @@ export function AvailabilityEditor(props: TabPanelProps): JSX.Element {
       setDayAvailability(day, [
         new Shift("", new Time(0, day), new Time(24, day))
       ]);
-    } else {
+    } else if (
+      currentAvailability.length === 1 &&
+      currentAvailability[0].start.dayHours === 0 &&
+      currentAvailability[0].end.dayHours === 24
+    ) {
       // If the allday box was just unchecked, remove the full day spanning availability (saves user a click)
       removeAvailability(currentAvailability[0]); // Remove first (and only) availability
     }

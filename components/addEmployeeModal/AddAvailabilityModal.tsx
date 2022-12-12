@@ -9,7 +9,7 @@ import {
   Typography
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import modalStyle from "../../styles/modalStyle";
 import { dayName, DayOftheWeek, Shift, Time } from "../../entities";
@@ -53,8 +53,13 @@ export function AddAvailabilityModal(
    * @returns A boolean representing a pass or fail of validation
    */
   const validateInputs = (): boolean => {
-    const nonNull = valueStartTime !== null && valueEndTime !== null;
-    return nonNull && valueStartTime.isBefore(valueEndTime);
+    // Start and End time are defined
+    if (valueStartTime !== null && valueEndTime !== null) return false;
+
+    // Start time is before (not equal) end time
+    if (!(valueStartTime as Dayjs).isBefore(valueEndTime)) return false;
+
+    return true;
   };
 
   /**
