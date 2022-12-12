@@ -15,7 +15,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -100,13 +100,13 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
     if (typeof shift !== "undefined" && addShiftModalOpen) {
       setName(shift.name);
       setStartDay(shift.start.day);
-      setStartTime(null);
-      setEndTime(null);
+      setStartTime(dayjs(shift.start.toString(), "hh:mma"));
+      setEndTime(dayjs(shift.end.toString(), "hh:mma"));
     } else {
       setName("");
       setStartDay("");
       setStartTime(null);
-      setStartTime(null);
+      setEndTime(null);
     }
   }, [addShiftModalOpen]);
 
@@ -208,6 +208,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
                   color={"primary"}
                   variant={"contained"}
                   disabled={!canSubmit}
+                  sx={{ ml: 1 }}
                 >
                   Submit
                 </Button>
