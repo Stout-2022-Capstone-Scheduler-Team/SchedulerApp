@@ -6,9 +6,14 @@ import ShiftCard from "./ShiftCard";
 interface Props {
   allShifts: Shift[];
   employees: Employee[];
+  openShiftModal: (shift: Shift) => void;
 }
 
-export function DailyShifts({ allShifts, employees }: Props): JSX.Element {
+export function DailyShifts({
+  allShifts,
+  employees,
+  openShiftModal
+}: Props): JSX.Element {
   const shifts = allShifts.map((shift) => (
     <ShiftCard
       shift={shift}
@@ -16,15 +21,18 @@ export function DailyShifts({ allShifts, employees }: Props): JSX.Element {
         employees.find((emp) => emp.name === shift.owner) ??
         new Employee("DEFAULT", 0, 0, new Color("White"))
       }
-      key={shift.owner + shift.start.toString()}
+      openShiftModal={openShiftModal}
+      key={shift.id}
     />
   ));
 
   return (
-    <Grid container spacing={2} columns={1}>
-      <Grid item xs={1}>
-        {shifts}
+    <div>
+      <Grid container spacing={2} columns={1}>
+        <Grid item xs={1}>
+          {shifts}
+        </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 }

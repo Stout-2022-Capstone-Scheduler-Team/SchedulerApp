@@ -3,13 +3,15 @@ import { Schedule, Shift, Time } from "../../entities";
 import { DailyShifts } from "./DailyShifts";
 import { WeeklyDate } from "./WeeklyDate";
 
-import { CircularProgress, Fade, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { RefObject } from "react";
 import { Dayjs } from "dayjs";
 
 interface CalendarProps {
   schedule: Schedule;
   exportRef?: RefObject<any>;
+  openShiftModal: (shift: Shift) => void;
+  loading: boolean;
 }
 
 function format(weekDate: Dayjs, day: DayOftheWeek): string {
@@ -19,7 +21,8 @@ function format(weekDate: Dayjs, day: DayOftheWeek): string {
 
 export function Calendar({
   schedule,
-  exportRef
+  exportRef,
+  openShiftModal
 }: CalendarProps): JSX.Element {
   const dayOfWeekNumber = Time.getWeekDayNumbers();
   const weekDate = schedule.weekDate.startOf("week");
@@ -29,6 +32,7 @@ export function Calendar({
       .filter((shift) => shift.start.day === day)
       .sort((a, b) => (a.start.dayHours > b.start.dayHours ? 1 : -1));
   }
+
   return (
     <>
       <Grid
@@ -48,6 +52,7 @@ export function Calendar({
             <DailyShifts
               allShifts={getDayShifts(day)}
               employees={schedule.employees}
+              openShiftModal={openShiftModal}
             />
           </Grid>
         ))}

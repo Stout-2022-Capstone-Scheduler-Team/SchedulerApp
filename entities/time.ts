@@ -4,48 +4,23 @@ import { Dayjs } from "dayjs";
  * Represents a point in time
  */
 export class Time {
-  totalHours: number;
   dayHours: number;
   day: DayOftheWeek;
   constructor(hours: number, day: DayOftheWeek) {
-    this.totalHours = hours + 24 * day;
     this.dayHours = hours;
     this.day = day;
   }
 
   /**
-   * Time.fromString("05:15") -> 5.25
-   * */
-  static fromString(s: string, day: DayOftheWeek): Time {
-    const [hours, minutes] = s.split(":");
-    return new Time(Number(hours) + Number(minutes) / 60, day);
-  }
-
-  static fromDayjs(time: Dayjs, day: DayOftheWeek): Time {
-    return new Time(time.hour() + time.minute() / 60, day);
-  }
-
-  /**
-   * Get the week day names as an array
-   * @returns array of week day names
+   * Computed property to get totalHours
    */
-  static getWeekDays(): string[] {
-    return Object.keys(DayOftheWeek).filter((v) => isNaN(Number(v)));
+  get totalHours(): number {
+    return this.dayHours + 24 * this.day;
   }
 
   /**
-   * Get the week days as an array of numbers
-   * @returns array of week day numbers (start with sunday)
+   * Convert Time to a string
    */
-  static getWeekDayNumbers(): number[] {
-    return Object.keys(DayOftheWeek)
-      .filter((v) => !isNaN(Number(v)))
-      .map((day) => Number(day));
-  }
-
-  /**
-   * Time.toString(5.25) -> "5:15"
-   * */
   toString(): string {
     let minute = this.dayHours - Math.floor(this.dayHours);
     let hour = this.dayHours - minute;
@@ -70,6 +45,42 @@ export class Time {
 
   hoursBetween(other: Time): number {
     return Math.abs(other.totalHours - this.totalHours);
+  }
+
+  /**
+   * Time.fromString("05:15") -> 5.25
+   * */
+  static fromString(s: string, day: DayOftheWeek): Time {
+    const [hours, minutes] = s.split(":");
+    return new Time(Number(hours) + Number(minutes) / 60, day);
+  }
+
+  /**
+   * Convert to Time object from Dayjs object
+   * @param time Time to convert from
+   * @param day day of the time
+   * @returns a Time object from Dayjs object
+   */
+  static fromDayjs(time: Dayjs, day: DayOftheWeek): Time {
+    return new Time(time.hour() + time.minute() / 60, day);
+  }
+
+  /**
+   * Get the week day names as an array
+   * @returns array of week day names
+   */
+  static getWeekDays(): string[] {
+    return Object.keys(DayOftheWeek).filter((v) => isNaN(Number(v)));
+  }
+
+  /**
+   * Get the week days as an array of numbers
+   * @returns array of week day numbers (start with sunday)
+   */
+  static getWeekDayNumbers(): number[] {
+    return Object.keys(DayOftheWeek)
+      .filter((v) => !isNaN(Number(v)))
+      .map((day) => Number(day));
   }
 
   static compare(a: Time, other: Time): number {

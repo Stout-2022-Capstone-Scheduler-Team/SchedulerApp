@@ -92,12 +92,6 @@ export async function updateSchedule(
         // Delete old name
         scheduleCopy.weekDate = action.weekDate;
       }
-    } else if (action.update instanceof Shift) {
-      const a = action as UpdateShift;
-      const e = scheduleCopy.removeShift(a.update);
-      scheduleCopy.addShift(
-        new Shift(or(a.name, e.name), or(a.start, e.start), or(a.end, e.end))
-      );
     } else if (action.update instanceof Employee) {
       const a = action as UpdateEmployee;
       const index = scheduleCopy.employees.findIndex(

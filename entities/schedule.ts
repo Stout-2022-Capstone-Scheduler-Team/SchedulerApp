@@ -37,6 +37,32 @@ export class Schedule {
    * @param newShift New shift to add
    */
   addShift(newShift: Shift): void {
+    // Check the id of the new shift against the existing ones
+    if (
+      newShift.id === undefined ||
+      newShift.id === -1 ||
+      !this.shifts.some((shift) => shift.id === newShift.id)
+    ) {
+      // If the newShift's id does not match an existing id, assign it one and add the shift to the existing shifts
+      let newId = 0;
+
+      // Find a new valid ID, cap at 10,000 iterations
+      while (this.shifts.some((shift) => shift.id === newId)) {
+        newId++;
+        if (newId >= 10000) break;
+      }
+
+      // Set the new Id and add shift
+      newShift.id = newId;
+    } else {
+      // Find the shift that matches the id and remove it
+      const shiftIndex = this.shifts.findIndex(
+        (shift) => shift.id === newShift.id
+      );
+      this.shifts.splice(shiftIndex, 1);
+    }
+
+    // Add the new shift
     this.shifts.push(newShift);
   }
 
@@ -46,7 +72,9 @@ export class Schedule {
    * @returns shift that was removed
    */
   removeShift(shiftToRemove: Shift): Shift {
-    const index = this.shifts.indexOf(shiftToRemove);
+    const index = this.shifts.findIndex(
+      (shift) => shift.id === shiftToRemove.id
+    );
     return this.shifts.splice(index, 1)[0];
   }
 
@@ -100,6 +128,7 @@ export class Schedule {
                   shift.name,
                   new Time(shift.start.dayHours, shift.start.day),
                   new Time(shift.end.dayHours, shift.end.day),
+                  shift.id,
                   shift.owner
                 )
             )
@@ -112,6 +141,7 @@ export class Schedule {
             shift.name,
             new Time(shift.start.dayHours, shift.start.day),
             new Time(shift.end.dayHours, shift.end.day),
+            shift.id,
             shift.owner
           )
       ),

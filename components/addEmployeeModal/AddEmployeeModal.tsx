@@ -6,8 +6,10 @@ import {
   CardContent,
   CardActions,
   Chip,
-  Tooltip
+  Tooltip,
+  IconButton
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import modalStyle from "../../styles/modalStyle";
 import { AvailabilityEditor, AvailabilityTabs, EditEmployeeInfo } from "../";
 import { Color, DayOftheWeek, Employee, Shift, Time } from "../../entities";
@@ -241,14 +243,15 @@ export function AddEmployeeModal(props: EmployeeModalProps): JSX.Element {
 
   return (
     <>
-      <Button
-        onClick={handleOpen}
-        variant={"contained"}
-        color={"secondary"}
-        sx={{ ml: "auto !important" }}
-      >
-        +
-      </Button>
+      <Tooltip title="Add new Employee">
+        <IconButton
+          color="secondary"
+          aria-label="Add Employee"
+          onClick={handleOpen}
+        >
+          <AddIcon />
+        </IconButton>
+      </Tooltip>
       <Modal
         open={addEmployeeModalOpen}
         onClose={handleClose}

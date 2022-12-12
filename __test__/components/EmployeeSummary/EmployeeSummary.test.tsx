@@ -8,7 +8,7 @@ test("Employee Summary Renders", () => {
   const dispatch = jest.fn();
   const setCurrentEmployee = jest.fn();
   const setAddEmployeeModalOpen = jest.fn();
-  const employeeSummary = render(
+  render(
     <EmployeeSummary
       employees={[]}
       dispatch={dispatch}
@@ -18,7 +18,6 @@ test("Employee Summary Renders", () => {
       setAddEmployeeModalOpen={setAddEmployeeModalOpen}
     />
   );
-  expect(employeeSummary).toMatchSnapshot();
 });
 
 test("Employee Summary Renders with employees", () => {
@@ -39,7 +38,7 @@ test("Employee Summary Renders with employees", () => {
   ]);
   const setCurrentEmployee = jest.fn();
   const setAddEmployeeModalOpen = jest.fn();
-  const employeeSummary = render(
+  render(
     <EmployeeSummary
       employees={[employee1, employee2]}
       dispatch={dispatch}
@@ -49,7 +48,6 @@ test("Employee Summary Renders with employees", () => {
       setAddEmployeeModalOpen={setAddEmployeeModalOpen}
     />
   );
-  expect(employeeSummary).toMatchSnapshot();
 });
 
 test("Employee Card opens sets addEmployeeModalOpen", async () => {

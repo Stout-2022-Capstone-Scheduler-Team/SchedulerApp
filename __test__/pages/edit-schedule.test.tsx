@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { render, waitFor, screen, act } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import EditSchedule from "../../pages/edit-schedule";
 import { generate } from "../../services";
@@ -38,8 +38,7 @@ test("verify date", () => {
 });
 
 test("EditSchedule Renders", () => {
-  const page = render(<EditSchedule />);
-  expect(page.baseElement).toMatchSnapshot();
+  render(<EditSchedule />);
 });
 
 test("Can use Reducer", async () => {
@@ -56,12 +55,17 @@ test("Can use Reducer", async () => {
   await user.type(screen.getByLabelText(/Select End Time/i), "02:10 AM");
 
   // Clicking Submit button
+  expect(screen.getByText(/Submit/)).not.toBeDisabled();
   await user.click(screen.getByText(/Submit/i));
+  expect(screen.queryByText(/add a shift/i)).toBe(null);
 
-  await act(async () => {
-    await waitFor(() => screen.getByText(/10:10pm/), { timeout: 10000 });
+  // await act(async () => {
+  await waitFor(() => screen.getByText(/10:10pm/i), {
+    interval: 500,
+    timeout: 10000
   });
+  // });
 
-  expect(screen.getByText(/10:10pm/)).toBeInTheDocument();
-  expect(screen.getByText(/2:10am/)).toBeInTheDocument();
+  expect(screen.getByText(/10:10pm/i)).toBeInTheDocument();
+  expect(screen.getByText(/2:10am/i)).toBeInTheDocument();
 }, 100000);

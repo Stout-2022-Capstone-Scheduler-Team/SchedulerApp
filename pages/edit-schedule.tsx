@@ -6,28 +6,39 @@ import {
   EmployeeSummary,
   MetaModal
 } from "../components";
-import { Box, Grid, Stack } from "@mui/material";
-import { Schedule } from "../entities/schedule";
 import {
   LocalStorage,
   ScheduleAction,
   updateSchedule,
   useAsyncReducer
 } from "../services";
+import { Box, Grid, Stack } from "@mui/material";
+import { Schedule } from "../entities/schedule";
 import Typography from "@mui/material/Typography";
-import { Employee } from "../entities";
+import { Shift, Employee } from "../entities";
 
 export default function EditSchedule(): JSX.Element {
-  const [buildingSchedule, setBuildingSchedule] = useState<boolean>(false);
   const [schedule, dispatch] = useAsyncReducer(async (a, b: ScheduleAction) => {
     setBuildingSchedule(true);
     return await updateSchedule(a, b).finally(() => setBuildingSchedule(false));
   }, new Schedule([], []));
+
   const [currentEmployee, setCurrentEmployee] = useState<Employee | null>(null);
   const [addEmployeeModalOpen, setAddEmployeeModalOpen] =
     useState<boolean>(false);
 
+  const [buildingSchedule, setBuildingSchedule] = useState<boolean>(false);
+  const [addShiftModalOpen, setShiftModalOpen] = useState<boolean>(false);
+  const [selectedShift, setSelectedShift] = useState<undefined | Shift>();
   const [scheduleLoaded, setScheduleLoaded] = useState<boolean>(false);
+
+  React.useEffect(() => {
+    if (!addShiftModalOpen) {
+      setSelectedShift(undefined);
+    } else {
+      setSelectedShift(selectedShift);
+    }
+  });
   React.useEffect(() => {
     if (!scheduleLoaded) {
       const name = decodeURIComponent(window.location.hash.slice(1));
@@ -48,10 +59,24 @@ export default function EditSchedule(): JSX.Element {
   // Reference to the calendar which enables exporting it
   const exportRef = useRef(null);
 
+  /**
+   * set shift edit
+   * @param shift shift to edit
+   */
+  function editShift(shift: Shift): void {
+    setShiftModalOpen(true);
+    setSelectedShift(shift);
+  }
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <Calendar schedule={schedule} exportRef={exportRef} />
+        <Calendar
+          schedule={schedule}
+          exportRef={exportRef}
+          loading={buildingSchedule}
+          openShiftModal={editShift}
+        />
       </Grid>
       <Grid item xs={3}>
         <EmployeeSummary
@@ -93,8 +118,10 @@ export default function EditSchedule(): JSX.Element {
             alignItems="center"
           >
             <AddShiftModal
-              existingShifts={schedule.shifts}
               dispatch={dispatch}
+              addShiftModalOpen={addShiftModalOpen}
+              setShiftModalOpen={setShiftModalOpen}
+              shift={selectedShift}
             />
             <ExportModal componentToExport={exportRef} />
           </Stack>

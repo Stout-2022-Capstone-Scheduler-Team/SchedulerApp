@@ -7,32 +7,44 @@ import { DayOftheWeek, Shift, Time } from "../../../entities";
 
 test("Add Shift Renders", () => {
   const addShiftModal = render(
-    <AddShiftModal existingShifts={[]} dispatch={jest.fn()} />
+    <AddShiftModal
+      dispatch={jest.fn()}
+      addShiftModalOpen={false}
+      setShiftModalOpen={jest.fn()}
+    />
   );
+
   expect(addShiftModal).toMatchSnapshot();
 });
 
 test("Modal opens and closes", async () => {
   const user = userEvent.setup();
   const dispatch = jest.fn();
+  const openModal = jest.fn();
   dispatch.mockResolvedValue(undefined);
   const modal = render(
-    <AddShiftModal existingShifts={[]} dispatch={dispatch} />
+    <AddShiftModal
+      dispatch={dispatch}
+      addShiftModalOpen={false}
+      setShiftModalOpen={openModal}
+    />
   );
 
-  // Click the modal button
-  const openButton = modal.getByText(/ADD SHIFT/i);
-  await user.click(openButton);
+  expect(modal.queryByText(/add a shift/i)).toBe(null);
+
+  // Rerender modal with open prop
+  modal.rerender(
+    <AddShiftModal
+      dispatch={dispatch}
+      addShiftModalOpen={true}
+      setShiftModalOpen={openModal}
+    />
+  );
 
   // Make sure the modal exists
-  {
-    const header = modal.queryByText(/ADD SHIFT/i);
-    expect(header).not.toBe(null);
+  expect(modal.queryByText(/add shift/i)).not.toBe(null);
 
-    expect(modal).toMatchSnapshot();
-  }
-
-  // Click the submit button
+  // Click the close button
   await user.click(modal.getByText(/Close/i));
 });
 
@@ -40,12 +52,15 @@ test("Adding Shifts", async () => {
   // Setup modal, open it
   const user = userEvent.setup();
   const dispatch = jest.fn();
+  const openModal = jest.fn();
   dispatch.mockResolvedValue(undefined);
   const modal = render(
-    <AddShiftModal existingShifts={[]} dispatch={dispatch} />
+    <AddShiftModal
+      dispatch={dispatch}
+      addShiftModalOpen={true}
+      setShiftModalOpen={openModal}
+    />
   );
-  await user.click(modal.getByText(/Add Shift/i));
-
   expect(modal.getByText(/Submit/i)).toBeDisabled();
 
   // Enter shift information

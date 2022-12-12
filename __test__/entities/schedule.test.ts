@@ -16,13 +16,28 @@ test("Adding and removing Shifts", () => {
   const s = new Schedule();
   const shifts = [
     shift("01:00", "02:00", Monday),
-    shift("02:00", "03:00", Monday)
+    shift("02:00", "03:00", Monday, 1, "Bart")
   ];
   s.addShift(shifts[0]);
   s.addShift(shifts[1]);
   expect(s.shifts).toStrictEqual(shifts);
   s.removeShift(shifts[0]);
   expect(s.shifts).toStrictEqual([shifts[1]]);
+});
+
+test("Can update shift", () => {
+  const s = new Schedule();
+
+  // Add shift
+  const testShift = shift("06:00", "07:00", Monday, 1, "Bart");
+  s.addShift(testShift);
+  expect(s.shifts).toStrictEqual([testShift]);
+
+  // Update shift
+  testShift.name = "Not Bart";
+  s.addShift(testShift);
+  expect(s.shifts.length).toBe(1);
+  expect(s.shifts[0].name).toBe("Not Bart");
 });
 
 test("Adding and removing Employees", () => {
