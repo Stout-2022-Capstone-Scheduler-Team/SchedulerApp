@@ -8,7 +8,7 @@ import React, { SetStateAction } from "react";
 jest.mock("../../services/waveform_collapse");
 
 beforeAll(() => {
-  jest.mocked(generate).mockResolvedValue(true);
+  jest.mocked(generate).mockResolvedValue(undefined);
 });
 
 test("Insert Employee", async () => {
@@ -118,7 +118,7 @@ test("default doesn't recompute schedule", async () => {
   const schedule = new Schedule([], []);
   console.error = jest.fn();
   const mocked = jest.mocked(console.error);
-  jest.mocked(generate).mockResolvedValueOnce(false);
+  jest.mocked(generate).mockResolvedValueOnce("");
   await updateSchedule(schedule, {
     update: "default"
   });
