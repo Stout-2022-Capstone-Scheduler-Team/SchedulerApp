@@ -64,6 +64,7 @@ export function AddShiftModal(props: ShiftModalProps): JSX.Element {
         shift?.id,
         shift?.owner
       );
+      console.log(newShift);
       void dispatch({ add: newShift });
       setShiftModalOpen(false);
     }
