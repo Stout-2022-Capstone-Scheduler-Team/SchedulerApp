@@ -79,29 +79,3 @@ test("Full Add Availability", async () => {
   // Assert
   expect(addavailability.mock.calls).toEqual([[newShift]]);
 });
-
-test("Full Add Availability Checked", async () => {
-  // Setup modal, open it
-  const user = userEvent.setup();
-  const addavailability = jest.fn();
-  addavailability.mockResolvedValue(undefined);
-  const modal = render(
-    <AddAvailabilityModal
-      day={DayOftheWeek.Monday}
-      addAvailability={addavailability}
-    />
-  );
-  await user.click(modal.getByText(/Add Availability/i));
-  await user.click(modal.getByText(/All Day/i));
-
-  // Submit
-  await user.click(modal.getByText(/^Add$/i));
-
-  const newShift = new Shift(
-    "",
-    new Time(0, DayOftheWeek.Monday),
-    new Time(24, DayOftheWeek.Monday)
-  );
-  // Assert
-  expect(addavailability.mock.calls).toEqual([[newShift]]);
-});
