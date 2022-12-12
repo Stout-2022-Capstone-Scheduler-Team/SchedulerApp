@@ -14,8 +14,7 @@ test("verify date", () => {
 });
 
 test("EditSchedule Renders", () => {
-  const page = render(<EditSchedule />);
-  expect(page.baseElement).toMatchSnapshot();
+  render(<EditSchedule />);
 });
 
 test("Can use Reducer", async () => {

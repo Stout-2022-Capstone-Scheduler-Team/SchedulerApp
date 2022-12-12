@@ -8,7 +8,7 @@ test("Add Employee Renders", () => {
   const dispatch = jest.fn();
   const setCurrentEmployee = jest.fn();
   const setAddEmployeeModalOpen = jest.fn();
-  const employeeModal = render(
+  render(
     <AddEmployeeModal
       existingEmployees={[]}
       dispatch={dispatch}
@@ -18,7 +18,6 @@ test("Add Employee Renders", () => {
       setAddEmployeeModalOpen={setAddEmployeeModalOpen}
     />
   );
-  expect(employeeModal).toMatchSnapshot();
 });
 
 test("Modal has 8 tabs", async () => {

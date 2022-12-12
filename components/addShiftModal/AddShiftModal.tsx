@@ -29,7 +29,7 @@ interface ShiftModalProps {
   dispatch: Dispatch<ScheduleAction>;
   addShiftModalOpen: boolean;
   setShiftModalOpen: (addShiftModalOpen: boolean) => void;
-  shift: Shift | undefined;
+  shift?: Shift;
 }
 
 export function AddShiftModal(props: ShiftModalProps): JSX.Element {
