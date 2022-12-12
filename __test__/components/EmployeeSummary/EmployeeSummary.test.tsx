@@ -80,8 +80,8 @@ test("Employee Card opens sets addEmployeeModalOpen", async () => {
   ).not.toBeEmptyDOMElement();
 
   await user.click(employeeSummary.getByText(/Alice/));
-  expect(setCurrentEmployee).toBeCalled();
-  expect(setAddEmployeeModalOpen).toBeCalled();
+  expect(setCurrentEmployee).toBeCalledWith(employee1);
+  expect(setAddEmployeeModalOpen).toBeCalledWith(true);
 });
 
 test("Confirmation modal opens and closes", async () => {
@@ -175,11 +175,5 @@ test("Confirmation modal deletes employee", async () => {
   // Click the delete button
   await user.click(employeeSummary.getByText(/^Delete$/i));
 
-  expect(dispatch.mock.calls).toEqual([
-    [
-      {
-        remove: employee1
-      }
-    ]
-  ]);
+  expect(dispatch).toHaveBeenCalledWith({ remove: employee1 });
 });

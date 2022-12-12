@@ -102,7 +102,9 @@ export async function updateSchedule(
       );
     } else if (action.update instanceof Employee) {
       const a = action as UpdateEmployee;
-      const index = scheduleCopy.employees.indexOf(a.update);
+      const index = scheduleCopy.employees.findIndex(
+        (e) => e.name === a.update.name
+      );
       const e = scheduleCopy.removeEmployee(a.update);
       scheduleCopy.addEmployee(
         new Employee(
