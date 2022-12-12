@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Stack, Paper } from "@mui/material";
+import { Stack, Paper, CircularProgress, Fade } from "@mui/material";
 import { Dayjs } from "dayjs";
 import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -11,11 +11,12 @@ import { Schedule } from "../../entities";
 interface MetaModalProps {
   schedule: Schedule;
   dispatch: Dispatch<ScheduleAction>;
+  loading: boolean;
 }
 
 export function MetaModal(props: MetaModalProps): JSX.Element {
   // Props
-  const { dispatch, schedule } = props;
+  const { dispatch, schedule, loading } = props;
   const [name, setName] = React.useState("");
   const [updated, setUpdated] = React.useState(false);
   const [totalHours, setTotalHours] = React.useState(0);
@@ -58,7 +59,10 @@ export function MetaModal(props: MetaModalProps): JSX.Element {
           />
         </LocalizationProvider>
         <Paper variant="outlined" sx={{ p: 2 }}>
-          Total hours: {totalHours.toFixed(2)}
+          <Stack direction="column" alignItems="center">
+            <p>Total hours: {totalHours.toFixed(2)}</p>
+            {loading ? <CircularProgress /> : <p>{schedule.errors}</p>}
+          </Stack>
         </Paper>
       </Stack>
     </>

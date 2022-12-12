@@ -47,11 +47,7 @@ export default function EditSchedule(): JSX.Element {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <Calendar
-          schedule={schedule}
-          exportRef={exportRef}
-          loading={buildingSchedule}
-        />
+        <Calendar schedule={schedule} exportRef={exportRef} />
       </Grid>
       <Grid item xs={3}>
         <div>Employee Summary goes here</div>
@@ -100,7 +96,11 @@ export default function EditSchedule(): JSX.Element {
       </Grid>
       <Grid item xs={3} />
       <Grid item xs={3}>
-        <MetaModal schedule={schedule} dispatch={dispatch} />
+        <MetaModal
+          schedule={schedule}
+          dispatch={dispatch}
+          loading={buildingSchedule}
+        />
       </Grid>
     </Grid>
   );

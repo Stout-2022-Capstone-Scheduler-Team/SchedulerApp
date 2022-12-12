@@ -9,6 +9,7 @@ export class Schedule {
   public maxHoursWorked: number;
   public name: string;
   public weekDate: Dayjs;
+  public errors?: string;
 
   /**
    * Constructor

@@ -116,14 +116,10 @@ export async function updateSchedule(
 
   // Generate the schedule
   if (needToRecompute) {
-    const schedulePromise = await generate(
+    scheduleCopy.errors = await generate(
       scheduleCopy.shifts,
       scheduleCopy.employees
     );
-    if (schedulePromise !== undefined) {
-      // If the scheduler failed, error out
-      console.error("Unable to build schedule completely");
-    }
     log(scheduleCopy);
   }
   return scheduleCopy;
