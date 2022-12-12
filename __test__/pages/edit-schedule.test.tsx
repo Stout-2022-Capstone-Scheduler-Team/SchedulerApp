@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import { render, waitFor, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import EditSchedule from "../../pages/edit-schedule";
-import { generate } from "../../services";
+import { generate, sleepTask } from "../../services";
 
 jest.mock("../../services/waveform_collapse");
 
@@ -43,7 +43,7 @@ test("EditSchedule Renders", () => {
 
 test("Can use Reducer", async () => {
   const user = userEvent.setup();
-  render(<EditSchedule />);
+  const r = render(<EditSchedule />);
 
   // Add a shift
   await user.click(screen.getByText(/Add Shift/i));
@@ -57,9 +57,12 @@ test("Can use Reducer", async () => {
   // Clicking Submit button
   await user.click(screen.getByText(/Submit/i));
 
-  await act(async () => {
-    await waitFor(() => screen.getByText(/10:10pm/), { timeout: 10000 });
+  // await act(async () => {
+  await waitFor(() => screen.getByText(/10:10pm/), {
+    interval: 500,
+    timeout: 10000
   });
+  // });
 
   expect(screen.getByText(/10:10pm/)).toBeInTheDocument();
   expect(screen.getByText(/2:10am/)).toBeInTheDocument();
